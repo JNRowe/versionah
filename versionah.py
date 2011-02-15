@@ -46,6 +46,22 @@ import sys
 
 import jinja2
 
+try:
+    from termcolor import colored
+except ImportError:  # pragma: no cover
+    colored = None  # pylint: disable-msg=C0103
+
+# Select colours if terminal is a tty
+# pylint: disable-msg=C0103
+if colored and sys.stdout.isatty():
+    success = lambda s: colored(s, "green")
+    fail = lambda s: colored(s, "red")
+    warn = lambda s: colored(s, "yellow")
+else:  # pragma: no cover
+    success = fail = warn = str
+# pylint: enable-msg=C0103
+
+
 # Pull the first paragraph from the docstring
 USAGE = __doc__[:__doc__.find('\n\n', 100)].splitlines()[2:]
 # Replace script name with optparse's substitution var, and rebuild string
@@ -196,7 +212,7 @@ def main():
     except IOError:
         version = "0.1.0"
     except ValueError:
-        print(sys.exc_info()[1].args[0])
+        print(fail(sys.exc_info()[1].args[0]))
         return errno.EEXIST
 
     if options.bump:
@@ -206,7 +222,7 @@ def main():
         version = options.set
         write(file, version, options.ftype)
 
-    print(display(version, options.format))
+    print(success(display(version, options.format)))
 
 if __name__ == '__main__':
     sys.exit(main())

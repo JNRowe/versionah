@@ -15,6 +15,9 @@ Requirements
 with the version of Python you have installed, file an issue_ and I'll endeavour
 to fix it.
 
+If you would like coloured terminal output for debugging information, then you
+will need termcolor_.
+
 Example
 -------
 
@@ -48,5 +51,6 @@ reproduce the problem, or even better a patch!
 .. _GPL v3: http://www.gnu.org/licenses/
 .. _Python: http://www.python.org/
 .. _jinja: http://jinja.pocoo.org/
+.. _termcolor: http://pypi.python.org/pypi/termcolor/
 .. _mail: jnrowe@gmail.com
 .. _issue: http://github.com/JNRowe/versionah/issues
