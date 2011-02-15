@@ -34,6 +34,8 @@ for use in project management.
 .. moduleauthor:: `%s <mailto:%s>`__
 """ % parseaddr(__author__)
 
+import optparse
+
 # Pull the first paragraph from the docstring
 USAGE = __doc__[:__doc__.find('\n\n', 100)].splitlines()[2:]
 # Replace script name with optparse's substitution var, and rebuild string
@@ -105,3 +107,44 @@ def write(file, version):
     :return: ``True`` on write success
     """
     open(file, "w").write(version)
+
+
+def process_command_line():
+    """Main command line interface
+
+    :rtype: ``tuple`` of ``optparse`` and ``string``
+    :return: Parsed options and version file
+    """
+
+    parser = optparse.OptionParser(usage="%prog [options...]",
+                                   version="%prog v" + __version__,
+                                   description=USAGE)
+
+    parser.set_defaults(ftype="text", bump=None, format="triple")
+
+    parser.add_option("-t", "--type", action="store",
+                      choices=("python", "text"),
+                      dest="ftype",
+                      metavar="text",
+                      help="define the file type used for version file")
+    parser.add_option("-s", "--set", action="store",
+                      metavar="0.1.0",
+                      help="set to a specific version")
+    parser.add_option("-b", "--bump", action="store",
+                      choices=("major", "minor", "micro"),
+                      metavar="micro",
+                      help="bump type by one")
+    parser.add_option("-d", "--display", action="store",
+                      choices=("triple", "hex", "libtool"),
+                      dest="format",
+                      metavar="triple",
+                      help="display output in format")
+
+    options, args = parser.parse_args()
+
+    if not args:
+        parser.error("One version file must be specified")
+    elif not len(args) == 1:
+        parser.error("Only one version file must be specified")
+
+    return options, args[0]
