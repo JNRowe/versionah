@@ -36,6 +36,7 @@ for use in project management.
 
 import errno
 import optparse
+import re
 import sys
 
 # Pull the first paragraph from the docstring
@@ -94,8 +95,13 @@ def read(file):
     :rtype: ``file``
     :return: Version string
     :raise OSError: When ``file`` doesn't exist
+    :raise ValueError: Unparsable version data
     """
-    return open(file).read().strip()
+    data = open(file).read().strip()
+    match = re.search(r"Version (\d+\.\d+\.\d+)", data)
+    if not match:
+        raise ValueError("No valid version identifier in %r" % file)
+    return match.groups()[0]
 
 
 def write(file, version):
@@ -108,7 +114,7 @@ def write(file, version):
     :rtype: ``bool``
     :return: ``True`` on write success
     """
-    open(file, "w").write(version)
+    open(file, "w").write("Version %s" % version)
 
 
 def process_command_line():
@@ -168,6 +174,9 @@ def main():
         version = read(file)
     except IOError:
         version = "0.1.0"
+    except ValueError, e:
+        print e.message
+        return errno.EEXIST
 
     if options.bump:
         version = bump(version, options.bump)
