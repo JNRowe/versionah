@@ -158,7 +158,7 @@ class Version(object):
         match = re.search("Version (%s)" % VALID_VERSION, data)
         if not match:
             raise ValueError("No valid version identifier in %r" % file)
-        major, minor, micro = map(int, match.groups()[0].split("."))
+        major, minor, micro = split_version(match.groups()[0])
         return Version(major, minor, micro)
 
     def write(self, file, ftype):
@@ -179,6 +179,17 @@ class Version(object):
         env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
         template = env.get_template("%s.jinja" % ftype)
         open(file, "w").write(template.render(data))
+
+
+def split_version(version):
+    """Split version string to components
+
+    :type version: ``str``
+    :param version: Version string
+    :rtype: ``list``` of ``int``
+    :return: Components of version string
+    """
+    return map(int, version.split("."))
 
 
 def process_command_line():
@@ -249,7 +260,7 @@ def main():
         version.bump(options.bump)
         version.write(file, options.ftype)
     elif options.set:
-        major, minor, micro = map(int, options.set.split("."))
+        major, minor, micro = split_version(options.set)
         version = Version(major, minor, micro)
         version.write(file, options.ftype)
 

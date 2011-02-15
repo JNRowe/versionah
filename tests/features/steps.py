@@ -2,12 +2,12 @@ import os
 
 from lettuce import (step, world)
 
-from versionah import Version
+from versionah import (Version, split_version)
 
 
 @step(u'I have the version (\d+\.\d+\.\d+)')
 def have_the_version(step, version):
-    world.version = Version(*map(int, version.split(".")))
+    world.version = Version(*split_version(version))
 
 @step(u'I bump its major version')
 def bump_major_version(step):
