@@ -70,85 +70,106 @@ USAGE = "\n".join(USAGE).replace("versionah", "%prog")
 VALID_VERSION = r"\d+\.\d+\.\d+"
 
 
-def bump(version, bump_type):
-    """Bump a version string
+class Version(object):
+    def __init__(self, major=0, minor=1, micro=0):
+        """Initialise a new ``Version`` object
 
-    :type version: ``str``
-    :param version: Version string to bump
-    :type bump_type: ``str``
-    :param bump_type: Component to bump
-    :rtype: ``str``
-    :return: Bumped version string
-    """
-    major, minor, micro = map(int, version.split("."))
-    if bump_type == "major":
-        major = major + 1
-        minor = 0
-        micro = 0
-    elif bump_type == "minor":
-        minor = minor + 1
-        micro = 0
-    elif bump_type == "micro":
-        micro = micro + 1
-    return ".".join(map(str, (major, minor, micro)))
+        :type major: ``int``
+        :param major: Major version component
+        :type minor: ``int``
+        :param minor: Minor version component
+        :type micro: ``int``
+        :param micro: Micro version component
+        """
+        self.major = major
+        self.minor = minor
+        self.micro = micro
 
+    def bump(self, bump_type):
+        """Bump a version string
 
-def display(version, format):
-    """Display a version string
+        :type bump_type: ``str``
+        :param bump_type: Component to bump
+        """
+        if bump_type == "major":
+            self.major = self.major + 1
+            self.minor = 0
+            self.micro = 0
+        elif bump_type == "minor":
+            self.minor = self.minor + 1
+            self.micro = 0
+        elif bump_type == "micro":
+            self.micro = self.micro + 1
 
-    :type version: ``str``
-    :param version: Version string to display
-    :type format: ``str``
-    :param format: Format to display version string in
-    :rtype: ``str``
-    :return: Formatted version string
-    """
-    major, minor, micro = map(int, version.split("."))
-    if format == "triple":
-        return ".".join(map(str, (major, minor, micro)))
-    elif format == "hex":
-        return "0x%02x%02x%02x" % (major, minor, micro)
-    elif format == "libtool":
-        return "%i:%i" % (major * 10 + minor, 20 + micro)
+    def as_triple(self):
+        """Generate a version triple
 
+        :rtype: ``str``
+        :return: Version triple
+        """
+        return ".".join(map(str, (self.major, self.minor, self.micro)))
 
-def read(file):
-    """Read a version file
+    def as_hex(self):
+        """Generate a hex version string
 
-    :type file: ``str``
-    :param file: Version file to read
-    :rtype: ``file``
-    :return: Version string
-    :raise OSError: When ``file`` doesn't exist
-    :raise ValueError: Unparsable version data
-    """
-    data = open(file).read().strip()
-    match = re.search("Version (%s)" % VALID_VERSION, data)
-    if not match:
-        raise ValueError("No valid version identifier in %r" % file)
-    return match.groups()[0]
+        :rtype: ``str``
+        :return: Version as hex string
+        """
+        return "0x%02x%02x%02x" % (self.major, self.minor, self.micro)
 
+    def as_libtool(self):
+        """Generate a libtool version string
 
-def write(file, version, ftype):
-    """Write a version file
+        :rtype: ``str``
+        :return: Version as libtool string"""
+        return "%i:%i" % (self.major * 10 + self.minor, 20 + self.micro)
 
-    :type file: ``str``
-    :param file: Version file to write
-    :type version: ``str``
-    :param version: Version string to write
-    :type ftype: ``str``
-    :param ftype: File type to write
-    :rtype: ``bool``
-    :return: ``True`` on write success
-    """
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
-    template = env.get_template("%s.jinja" % ftype)
-    open(file, "w").write(template.render({
-        "file": file,
-        "triple": display(version, "triple"),
-        "hex": display(version, "hex"),
-        "libtool": display(version, "libtool"),
-    }))
+    def display(self, format):
+        """Display a version string
+
+        :type format: ``str``
+        :param format: Format to display version string in
+        :rtype: ``str``
+        :return: Formatted version string
+        """
+        return getattr(self, "as_%s" % format)()
+
+    @staticmethod
+    def read(file):
+        """Read a version file
+
+        :type file: ``str``
+        :param file: Version file to read
+        :rtype: ``Version``
+        :return: New ``Version```` object representing file
+        :raise OSError: When ``file`` doesn't exist
+        :raise ValueError: Unparsable version data
+        """
+        data = open(file).read().strip()
+        match = re.search("Version (%s)" % VALID_VERSION, data)
+        if not match:
+            raise ValueError("No valid version identifier in %r" % file)
+        major, minor, micro = map(int, match.groups()[0].split("."))
+        return Version(major, minor, micro)
+
+    def write(self, file, ftype):
+        """Write a version file
+
+        :type file: ``str``
+        :param file: Version file to write
+        :type ftype: ``str``
+        :param ftype: File type to write
+        :rtype: ``bool``
+        :return: ``True`` on write success
+        """
+        data = self.__dict__
+        data["file"] = file
+        data.update(dict([(k[3:], getattr(self, k)())
+                          for k in dir(self) if k.startswith("as_")]))
+
+        env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
+        template = env.get_template("%s.jinja" % ftype)
+        open(file, "w").write(template.render(data))
 
 
 def process_command_line():
@@ -208,21 +229,22 @@ def main():
         return errno.EPERM
 
     try:
-        version = read(file)
+        version = Version.read(file)
     except IOError:
-        version = "0.1.0"
+        version = Version()
     except ValueError:
         print(fail(sys.exc_info()[1].args[0]))
         return errno.EEXIST
 
     if options.bump:
-        version = bump(version, options.bump)
-        write(file, version, options.ftype)
+        version.bump(options.bump)
+        version.write(file, options.ftype)
     elif options.set:
-        version = options.set
-        write(file, version, options.ftype)
+        major, minor, micro = map(int, options.set.split("."))
+        version = Version(major, minor, micro)
+        version.write(file, options.ftype)
 
-    print(success(display(version, options.format)))
+    print(success(version.display(options.format)))
 
 if __name__ == '__main__':
     sys.exit(main())
