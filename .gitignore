@@ -1,0 +1,6 @@
+build/
+dist/
+
+.coverage
+*.py[co]
+MANIFEST
