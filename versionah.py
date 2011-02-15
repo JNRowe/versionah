@@ -124,6 +124,15 @@ class Version(object):
         :return: Version as libtool string"""
         return "%i:%i" % (self.major * 10 + self.minor, 20 + self.micro)
 
+    @staticmethod
+    def display_types():
+        """Supported representation types
+
+        :rtype: ``list``
+        :return: Method names for representation types
+        """
+        return [s[3:] for s in dir(Version) if s.startswith("as_")]
+
     def display(self, format):
         """Display a version string
 
@@ -198,7 +207,7 @@ def process_command_line():
                       metavar="micro",
                       help="bump type by one")
     parser.add_option("-d", "--display", action="store",
-                      choices=("triple", "hex", "libtool"),
+                      choices=Version.display_types(),
                       dest="format",
                       metavar="triple",
                       help="display output in format")
