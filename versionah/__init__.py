@@ -18,7 +18,7 @@
 
 from __future__ import print_function
 
-import _version
+from . import _version
 
 
 __version__ = _version.triple
