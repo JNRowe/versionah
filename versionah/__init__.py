@@ -193,7 +193,8 @@ class Version(object):
         data.update(dict([(k[3:], getattr(self, k)())
                           for k in dir(self) if k.startswith("as_")]))
 
-        env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
+        env = jinja2.Environment(loader=jinja2.PackageLoader("versionah",
+                                                             "templates"))
         template = env.get_template("%s.jinja" % ftype)
         open(file, "w").write(template.render(data))
 
