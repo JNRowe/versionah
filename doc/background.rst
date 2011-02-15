@@ -15,6 +15,23 @@ in emacs_.
 
 And now :mod:`versionah` is born, I should be able to realise those dreams!
 
+Version numbers
+===============
+
+This, for some, is a very complicated topic but not for me.  Versions numbers
+are made of three components; major, minor and micro.  All three components are
+natural numbers, there are no exceptions.
+
+If you find version numbers like 0.6c11 acceptable then :mod:`versionah` is not
+for you.
+
+.. note::
+
+   If you like version numbers with two or four integer components then
+   :mod:`versionah` can be for you too.  If I start maintaining a project that
+   uses such a scheme support will be added, or if you supply a patch it will
+   likely be accepted.
+
 .. _GitHub: https://github.com/JNRowe/
 .. _vim: http://www.vim.org/
 .. _emacs: http://www.gnu.org/software/emacs/
