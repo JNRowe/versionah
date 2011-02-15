@@ -1,6 +1,8 @@
+import os
+
 from lettuce import (step, world)
 
-from versionah import (bump, display, read)
+from versionah import (bump, display, read, write)
 
 
 @step(u'I have the version (\d+\.\d+\.\d+)')
@@ -46,3 +48,11 @@ def have_the_file(step, name):
 @step(u'I read its content')
 def read_content(step):
     world.version = read("tests/data/%s" % world.name)
+
+@step(u'I write its value to (.*)')
+def when_i_write_its_value_to_file(step, name):
+    world.write = write("tests/data/%s" % name, world.version)
+    world.version = None
+    step.given('I have the file %s' % name)
+    step.given("I read its content")
+    os.unlink("tests/data/%s" % name)
