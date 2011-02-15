@@ -39,6 +39,8 @@ import optparse
 import re
 import sys
 
+import jinja2
+
 # Pull the first paragraph from the docstring
 USAGE = __doc__[:__doc__.find('\n\n', 100)].splitlines()[2:]
 # Replace script name with optparse's substitution var, and rebuild string
@@ -104,17 +106,25 @@ def read(file):
     return match.groups()[0]
 
 
-def write(file, version):
+def write(file, version, ftype):
     """Write a version file
 
     :type file: ``str``
     :param file: Version file to write
     :type version: ``str``
     :param version: Version string to write
+    :type ftype: ``str``
+    :param ftype: File type to write
     :rtype: ``bool``
     :return: ``True`` on write success
     """
-    open(file, "w").write("Version %s" % version)
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
+    template = env.get_template("%s.jinja" % ftype)
+    open(file, "w").write(template.render({
+        "triple": display(version, "triple"),
+        "hex": display(version, "hex"),
+        "libtool": display(version, "libtool"),
+    }))
 
 
 def process_command_line():
@@ -180,10 +190,10 @@ def main():
 
     if options.bump:
         version = bump(version, options.bump)
-        write(file, version)
+        write(file, version, options.ftype)
     elif options.set:
         version = options.set
-        write(file, version)
+        write(file, version, options.ftype)
 
     print display(version, options.format)
 

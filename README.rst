@@ -10,10 +10,10 @@ files for use in project management.
 Requirements
 ------------
 
-``versionah`` does not depend on any modules that aren't included in Python_'s
-standard library, and as such should run with Python 2.5 or newer.  If
-``versionah`` doesn't work with the version of Python you have installed, file
-an issue_ and I'll endeavour to fix it.
+``versionah`` should run on Python_ v2.5 or newer.  The only external library
+``versionah`` currently depends on is jinja_.  If ``versionah`` doesn't work
+with the version of Python you have installed, file an issue_ and I'll endeavour
+to fix it.
 
 Example
 -------
@@ -47,5 +47,6 @@ reproduce the problem, or even better a patch!
 
 .. _GPL v3: http://www.gnu.org/licenses/
 .. _Python: http://www.python.org/
+.. _jinja: http://jinja.pocoo.org/
 .. _mail: jnrowe@gmail.com
 .. _issue: http://github.com/JNRowe/versionah/issues

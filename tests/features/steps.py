@@ -51,7 +51,7 @@ def read_content(step):
 
 @step(u'I write its value to (.*)')
 def when_i_write_its_value_to_file(step, name):
-    world.write = write("tests/data/%s" % name, world.version)
+    world.write = write("tests/data/%s" % name, world.version, "text")
     world.version = None
     step.given('I have the file %s' % name)
     step.given("I read its content")
