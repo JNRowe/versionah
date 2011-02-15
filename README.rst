@@ -20,11 +20,11 @@ Example
 
 The simplest way to show how ``versionah`` works is by example::
 
-    $ versionah.py _version.py
+    ▶ versionah.py _version.py
     2.4.3
-    $ versionah.py -b minor _version.py
+    ▶ versionah.py -b minor _version.py
     2.5.0
-    $ versionah.py -b major _version.py
+    ▶ versionah.py -b major _version.py
     3.0.0
 
 API Stability
