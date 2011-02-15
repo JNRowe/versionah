@@ -49,6 +49,8 @@ USAGE = __doc__[:__doc__.find('\n\n', 100)].splitlines()[2:]
 # Replace script name with optparse's substitution var, and rebuild string
 USAGE = "\n".join(USAGE).replace("versionah", "%prog")
 
+VALID_VERSION = r"\d+\.\d+\.\d+"
+
 
 def bump(version, bump_type):
     """Bump a version string
@@ -103,7 +105,7 @@ def read(file):
     :raise ValueError: Unparsable version data
     """
     data = open(file).read().strip()
-    match = re.search(r"Version (\d+\.\d+\.\d+)", data)
+    match = re.search("Version (%s)" % VALID_VERSION, data)
     if not match:
         raise ValueError("No valid version identifier in %r" % file)
     return match.groups()[0]
@@ -162,6 +164,9 @@ def process_command_line():
                       help="display output in format")
 
     options, args = parser.parse_args()
+
+    if options.set and not re.match("%s$" % VALID_VERSION, options.set):
+        parser.error("Invalid version string for set %r" % options.set)
 
     if not args:
         parser.error("One version file must be specified")
