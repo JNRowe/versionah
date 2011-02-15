@@ -33,7 +33,7 @@ OPTIONS
 
 -t <mode>, --type=<mode>
     Define the file type used for version file.  Default is guessed based on file
-    extension.
+    extension.  Supported types are C, Python and text
 
 -s <version>, --set=<version>
     Set to a specific version

@@ -126,6 +126,7 @@ def write(file, version, ftype):
     env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
     template = env.get_template("%s.jinja" % ftype)
     open(file, "w").write(template.render({
+        "file": file,
         "triple": display(version, "triple"),
         "hex": display(version, "hex"),
         "libtool": display(version, "libtool"),
@@ -146,7 +147,7 @@ def process_command_line():
     parser.set_defaults(ftype="text", bump=None, format="triple")
 
     parser.add_option("-t", "--type", action="store",
-                      choices=("python", "text"),
+                      choices=("c", "python", "text"),
                       dest="ftype",
                       metavar="text",
                       help="define the file type used for version file")
