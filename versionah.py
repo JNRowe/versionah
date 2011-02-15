@@ -21,3 +21,22 @@ def bump(version, bump_type):
     elif bump_type == "micro":
         micro = micro + 1
     return ".".join(map(str, (major, minor, micro)))
+
+
+def display(version, format):
+    """Display a version string
+
+    :type version: ``str``
+    :param version: Version string to display
+    :type format: ``str``
+    :param format: Format to display version string in
+    :rtype: ``str``
+    :return: Formatted version string
+    """
+    major, minor, micro = map(int, version.split("."))
+    if format == "triple":
+        return ".".join(map(str, (major, minor, micro)))
+    elif format == "hex":
+        return "0x%02x%02x%02x" % (major, minor, micro)
+    elif format == "libtool":
+        return "%i:%i" % (major * 10 + minor, 20 + micro)
