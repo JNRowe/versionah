@@ -52,3 +52,16 @@ def read(file):
     :raise OSError: When ``file`` doesn't exist
     """
     return open(file).read().strip()
+
+
+def write(file, version):
+    """Write a version file
+
+    :type file: ``str``
+    :param file: Version file to write
+    :type version: ``str``
+    :param version: Version string to write
+    :rtype: ``bool``
+    :return: ``True`` on write success
+    """
+    open(file, "w").write(version)
