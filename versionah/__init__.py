@@ -85,6 +85,23 @@ class Version(object):
         self.minor = minor
         self.micro = micro
 
+    def __repr__(self):
+        """Self-documenting string representation
+
+        :rtype: ``str``
+        :return: String representation of object"""
+        return "%s(%r, %r, %r)" % (self.__class__.__name__, self.major,
+                                   self.minor, self.micro)
+
+    def __str__(self):
+        """Return default string representation
+
+        We return a triple, as that is the most common format.
+
+        :rtype: ``str``
+        :return: Default strings representation of object"""
+        return self.as_triple()
+
     def bump(self, bump_type):
         """Bump a version string
 
