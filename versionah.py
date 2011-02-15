@@ -40,3 +40,15 @@ def display(version, format):
         return "0x%02x%02x%02x" % (major, minor, micro)
     elif format == "libtool":
         return "%i:%i" % (major * 10 + minor, 20 + micro)
+
+
+def read(file):
+    """Read a version file
+
+    :type file: ``str``
+    :param file: Version file to read
+    :rtype: ``file``
+    :return: Version string
+    :raise OSError: When ``file`` doesn't exist
+    """
+    return open(file).read().strip()
