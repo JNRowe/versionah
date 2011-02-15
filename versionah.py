@@ -16,7 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-__version__ = "0.1.0"
+import _version
+
+
+__version__ = _version.triple
 __date__ = "2011-02-15"
 __author__ = "James Rowe <jnrowe@gmail.com>"
 __copyright__ = "Copyright (C) 2011  James Rowe <jnrowe@gmail.com>"
