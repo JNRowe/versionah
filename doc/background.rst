@@ -32,6 +32,27 @@ for you.
    uses such a scheme support will be added, or if you supply a patch it will
    likely be accepted.
 
+Versioning policy
+-----------------
+
+Beyond the simple rule above you're free to do as you wish, but consider this a
+plea for a sane versioning policy.
+
+Major component
+~~~~~~~~~~~~~~~
+
+Increment the major component for all backwards incompatible changes.
+
+Minor component
+~~~~~~~~~~~~~~~
+
+Increment the minor component for all backward compatible additions.
+
+Micro component
+~~~~~~~~~~~~~~~
+
+Increment the micro component for all bug-fix releases.
+
 .. _GitHub: https://github.com/JNRowe/
 .. _vim: http://www.vim.org/
 .. _emacs: http://www.gnu.org/software/emacs/
