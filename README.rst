@@ -1,5 +1,5 @@
-``versionah``` - Simple version specification management
-========================================================
+``versionah`` - Simple version specification management
+=======================================================
 
 Introduction
 ------------
