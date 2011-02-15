@@ -23,6 +23,7 @@ Contents:
 
    background
    usage
+   templates
    versionah manpage <versionah.1>
 
 Indices and tables
