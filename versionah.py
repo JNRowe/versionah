@@ -107,7 +107,7 @@ class Version(object):
         :rtype: ``str``
         :return: Version triple
         """
-        return ".".join(map(str, (self.major, self.minor, self.micro)))
+        return "%s.%s.%s" % (self.major, self.minor, self.micro)
 
     def as_hex(self):
         """Generate a hex version string
