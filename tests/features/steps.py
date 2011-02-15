@@ -1,6 +1,6 @@
 from lettuce import (step, world)
 
-from versionah import bump
+from versionah import (bump, display)
 
 
 @step(u'I have the version (\d+\.\d+\.\d+)')
@@ -22,3 +22,19 @@ def bump_micro_version(step):
 @step(u'I see the version (\d+\.\d+\.\d+)')
 def see_the_version(step, expected):
     assert world.version == expected, "Got %r" % world.version
+
+@step(u'I display its triple representation')
+def display_triple_representation(step):
+    world.string = display(world.version, "triple")
+
+@step(u'I display its hex representation')
+def display_hex_representation(step):
+    world.string = display(world.version, "hex")
+
+@step(u'I display its libtool representation')
+def display_libtool_representation(step):
+    world.string = display(world.version, "libtool")
+
+@step(u'I see the string (.*)')
+def see_the_string(step, expected):
+    assert world.string == expected, "Got %r" % world.string
