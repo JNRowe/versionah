@@ -1,6 +1,6 @@
 from lettuce import (step, world)
 
-from versionah import (bump, display)
+from versionah import (bump, display, read)
 
 
 @step(u'I have the version (\d+\.\d+\.\d+)')
@@ -38,3 +38,11 @@ def display_libtool_representation(step):
 @step(u'I see the string (.*)')
 def see_the_string(step, expected):
     assert world.string == expected, "Got %r" % world.string
+
+@step(u'I have the file (.*)')
+def have_the_file(step, name):
+    world.name = name
+
+@step(u'I read its content')
+def read_content(step):
+    world.version = read("tests/data/%s" % world.name)
