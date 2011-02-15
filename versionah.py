@@ -34,7 +34,9 @@ for use in project management.
 .. moduleauthor:: `%s <mailto:%s>`__
 """ % parseaddr(__author__)
 
+import errno
 import optparse
+import sys
 
 # Pull the first paragraph from the docstring
 USAGE = __doc__[:__doc__.find('\n\n', 100)].splitlines()[2:]
@@ -148,3 +150,33 @@ def process_command_line():
         parser.error("Only one version file must be specified")
 
     return options, args[0]
+
+
+def main():
+    """Main script
+
+    :rtype: ``int``
+    :return: Exit code
+    """
+
+    try:
+        options, file = process_command_line()  # pylint: disable-msg=W0612
+    except SyntaxError:
+        return errno.EPERM
+
+    try:
+        version = read(file)
+    except IOError:
+        version = "0.1.0"
+
+    if options.bump:
+        version = bump(version, options.bump)
+        write(file, version)
+    elif options.set:
+        version = options.set
+        write(file, version)
+
+    print display(version, options.format)
+
+if __name__ == '__main__':
+    sys.exit(main())
