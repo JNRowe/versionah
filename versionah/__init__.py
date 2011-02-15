@@ -71,6 +71,10 @@ VALID_VERSION = r"\d+\.\d+\.\d+"
 
 
 class Version(object):
+    env = jinja2.Environment(loader=jinja2.PackageLoader("versionah",
+                                                         "templates"))
+    filetypes = [s.split(".")[0] for s in env.list_templates()]
+
     def __init__(self, major=0, minor=1, micro=0):
         """Initialise a new ``Version`` object
 
@@ -193,9 +197,7 @@ class Version(object):
         data.update(dict([(k[3:], getattr(self, k)())
                           for k in dir(self) if k.startswith("as_")]))
 
-        env = jinja2.Environment(loader=jinja2.PackageLoader("versionah",
-                                                             "templates"))
-        template = env.get_template("%s.jinja" % ftype)
+        template = self.env.get_template("%s.jinja" % ftype)
         open(file, "w").write(template.render(data))
 
 
@@ -224,7 +226,7 @@ def process_command_line():
     parser.set_defaults(ftype="text", bump=None, format="triple")
 
     parser.add_option("-t", "--type", action="store",
-                      choices=("c", "python", "text"),
+                      choices=Version.filetypes,
                       dest="ftype",
                       metavar="text",
                       help="define the file type used for version file")
