@@ -1,4 +1,4 @@
-# Version 0.1.1
-triple = "0.1.1"
-libtool = "1:21"
-hex = 0x000101
+# Version 0.2.0
+triple = "0.2.0"
+libtool = "2:20"
+hex = 0x000200

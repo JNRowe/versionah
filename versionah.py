@@ -16,6 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from __future__ import print_function
+
 import _version
 
 
@@ -193,8 +195,8 @@ def main():
         version = read(file)
     except IOError:
         version = "0.1.0"
-    except ValueError, e:
-        print e.message
+    except ValueError:
+        print(sys.exc_info()[1].args[0])
         return errno.EEXIST
 
     if options.bump:
@@ -204,7 +206,7 @@ def main():
         version = options.set
         write(file, version, options.ftype)
 
-    print display(version, options.format)
+    print(display(version, options.format))
 
 if __name__ == '__main__':
     sys.exit(main())
