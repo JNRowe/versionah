@@ -1,5 +1,6 @@
 build/
 dist/
+doc/.build/
 
 .coverage
 *.py[co]
