@@ -41,6 +41,7 @@ for use in project management.
 
 import errno
 import optparse
+import os
 import re
 import sys
 
@@ -71,8 +72,15 @@ VALID_VERSION = r"\d+\.\d+\.\d+"
 
 
 class Version(object):
-    env = jinja2.Environment(loader=jinja2.PackageLoader("versionah",
-                                                         "templates"))
+    data_dir = os.environ.get("XDG_DATA_HOME",
+                              os.path.join(os.environ.get("HOME", "/"),
+                                           ".local"))
+    pkg_data_dir = os.path.join(data_dir, "versionah", "templates")
+
+    env = jinja2.Environment(loader=jinja2.ChoiceLoader([
+        jinja2.PackageLoader("versionah", "templates"),
+        jinja2.FileSystemLoader(pkg_data_dir),
+    ]))
     filetypes = [s.split(".")[0] for s in env.list_templates()]
 
     def __init__(self, major=0, minor=1, micro=0):
