@@ -57,7 +57,7 @@ def when_i_write_its_value_to_file(step, name):
     step.given("I read its content")
     os.unlink("tests/data/%s" % name)
 
-@step(u'I have the package ([a-z]+) version (\d+\.\d+\.\d+)')
+@step(u'I have the package (.*) version (\d+\.\d+\.\d+)')
 def have_named_version(step, name, version):
     major, minor, micro = split_version(version)
     world.version = Version(major, minor, micro, name)
