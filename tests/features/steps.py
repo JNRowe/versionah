@@ -2,12 +2,12 @@ import os
 
 from lettuce import (step, world)
 
-from versionah import (Version, split_version)
+import versionah
 
 
 @step(u'I have the version (\d+\.\d+\.\d+)')
 def have_the_version(step, version):
-    world.version = Version(*split_version(version))
+    world.version = versionah.Version(*versionah.split_version(version))
 
 @step(u'I bump its major version')
 def bump_major_version(step):
@@ -47,7 +47,7 @@ def have_the_file(step, name):
 
 @step(u'I read its content')
 def read_content(step):
-    world.version = Version.read("tests/data/%s" % world.name)
+    world.version = versionah.Version.read("tests/data/%s" % world.name)
 
 @step(u'I write its value to (.*)')
 def when_i_write_its_value_to_file(step, name):
@@ -59,8 +59,8 @@ def when_i_write_its_value_to_file(step, name):
 
 @step(u'I have the package (.*) version (\d+\.\d+\.\d+)')
 def have_named_version(step, name, version):
-    major, minor, micro = split_version(version)
-    world.version = Version(major, minor, micro, name)
+    major, minor, micro = versionah.split_version(version)
+    world.version = versionah.Version(major, minor, micro, name)
 
 @step(u'When I display its string representation')
 def display_string_representation(step):
