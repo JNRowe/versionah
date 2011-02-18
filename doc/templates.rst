@@ -14,6 +14,7 @@ Data
 Each template is provided with the following data for use in templates:
 
 * ``major``, ``minor`` and ``micro`` for the version components
+* ``name`` for the package name
 * The output file's name as ``file``
 * All display methods [#]_, for example ``triple`` and ``libtool``
 
@@ -21,7 +22,7 @@ The ``text`` display's template is simply:
 
 .. code-block:: jinja
 
-    Version {{ triple }}
+    This is {{ name }} version {{ triple }}
 
 If you're authoring your own templates and you find you need extra data for
 their generation drop me a mail_.

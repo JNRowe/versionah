@@ -68,6 +68,7 @@ USAGE = __doc__[:__doc__.find('\n\n', 100)].splitlines()[2:]
 # Replace script name with optparse's substitution var, and rebuild string
 USAGE = "\n".join(USAGE).replace("versionah", "%prog")
 
+VALID_PACKAGE = r"[A-Za-z]+"
 VALID_VERSION = r"\d+\.\d+\.\d+"
 
 
@@ -83,7 +84,7 @@ class Version(object):
     ]))
     filetypes = [s.split(".")[0] for s in env.list_templates()]
 
-    def __init__(self, major=0, minor=1, micro=0):
+    def __init__(self, major=0, minor=1, micro=0, name="unknown"):
         """Initialise a new ``Version`` object
 
         :type major: ``int``
@@ -92,27 +93,31 @@ class Version(object):
         :param minor: Minor version component
         :type micro: ``int``
         :param micro: Micro version component
+        :type name: ``str``
+        :param name: Package's name
         """
         self.major = major
         self.minor = minor
         self.micro = micro
+        self.name = name
 
     def __repr__(self):
         """Self-documenting string representation
 
         :rtype: ``str``
         :return: String representation of object"""
-        return "%s(%r, %r, %r)" % (self.__class__.__name__, self.major,
-                                   self.minor, self.micro)
+        return "%s(%r, %r, %r, %r)" % (self.__class__.__name__, self.major,
+                                       self.minor, self.micro, self.name)
 
     def __str__(self):
         """Return default string representation
 
-        We return a triple, as that is the most common format.
+        We return a triple-formatted version string, as that is the most common
+        format.
 
         :rtype: ``str``
         :return: Default strings representation of object"""
-        return self.as_triple()
+        return "%s v%s" % (self.name, self.as_triple())
 
     def bump(self, bump_type):
         """Bump a version string
@@ -184,11 +189,14 @@ class Version(object):
         :raise ValueError: Unparsable version data
         """
         data = open(file).read().strip()
-        match = re.search("Version (%s)" % VALID_VERSION, data)
+        match = re.search("This is (%s) version (%s)" % (VALID_PACKAGE,
+                                                         VALID_VERSION),
+                          data)
         if not match:
             raise ValueError("No valid version identifier in %r" % file)
-        major, minor, micro = split_version(match.groups()[0])
-        return Version(major, minor, micro)
+        name, version_str = match.groups()
+        major, minor, micro = split_version(version_str)
+        return Version(major, minor, micro, name)
 
     def write(self, file, ftype):
         """Write a version file
@@ -238,6 +246,9 @@ def process_command_line():
                       dest="ftype",
                       metavar="text",
                       help="define the file type used for version file")
+    parser.add_option("-n", "--name", action="store",
+                      metavar="name",
+                      help="package name for version")
     parser.add_option("-s", "--set", action="store",
                       metavar="0.1.0",
                       help="set to a specific version")
@@ -252,6 +263,9 @@ def process_command_line():
                       help="display output in format")
 
     options, args = parser.parse_args()
+
+    if options.name and not re.match("%s$" % VALID_PACKAGE, options.name):
+        parser.error("Invalid package name string %r" % options.set)
 
     if options.set and not re.match("%s$" % VALID_VERSION, options.set):
         parser.error("Invalid version string for set %r" % options.set)
@@ -284,6 +298,8 @@ def main():
         print(fail(sys.exc_info()[1].args[0]))
         return errno.EEXIST
 
+    if options.name:
+        version.name = options.name
     if options.bump:
         version.bump(options.bump)
         version.write(file, options.ftype)
