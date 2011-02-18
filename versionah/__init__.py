@@ -210,6 +210,7 @@ class Version(object):
         """
         data = self.__dict__
         data["file"] = file
+        data["magic"] = "This is %s version %s" % (self.name, self.as_triple())
         data.update(dict([(k[3:], getattr(self, k)())
                           for k in dir(self) if k.startswith("as_")]))
 

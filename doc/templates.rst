@@ -13,6 +13,7 @@ Data
 
 Each template is provided with the following data for use in templates:
 
+* ``magic`` for the magic string to support reading :mod:`versionah` files
 * ``major``, ``minor`` and ``micro`` for the version components
 * ``name`` for the package name
 * The output file's name as ``file``
@@ -22,7 +23,11 @@ The ``text`` display's template is simply:
 
 .. code-block:: jinja
 
-    This is {{ name }} version {{ triple }}
+    {{ magic }}
+
+which would result in output such as::
+
+    This is mypkg version 2.2.4
 
 If you're authoring your own templates and you find you need extra data for
 their generation drop me a mail_.
