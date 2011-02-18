@@ -68,7 +68,7 @@ USAGE = __doc__[:__doc__.find('\n\n', 100)].splitlines()[2:]
 # Replace script name with optparse's substitution var, and rebuild string
 USAGE = "\n".join(USAGE).replace("versionah", "%prog")
 
-VALID_PACKAGE = r"[A-Za-z]+"
+VALID_PACKAGE = "[A-Za-z]+(?:[_-][A-Za-z]+)*"
 VALID_VERSION = r"\d+\.\d+\.\d+"
 
 
