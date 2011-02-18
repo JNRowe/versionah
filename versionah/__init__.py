@@ -306,7 +306,9 @@ def main():
         version.write(file, options.ftype)
     elif options.set:
         major, minor, micro = split_version(options.set)
-        version = Version(major, minor, micro)
+        version.major = major
+        version.minor = minor
+        version.micro = micro
         version.write(file, options.ftype)
 
     print(success(version.display(options.format)))
