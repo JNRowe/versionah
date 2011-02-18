@@ -5,7 +5,7 @@ from lettuce import (step, world)
 import versionah
 
 
-@step(u'I have the version (\d+\.\d+\.\d+)')
+@step(u'I have the version (%s)' % versionah.VALID_VERSION)
 def have_the_version(step, version):
     world.version = versionah.Version(*versionah.split_version(version))
 
@@ -21,7 +21,7 @@ def bump_minor_version(step):
 def bump_micro_version(step):
     world.version.bump("micro")
 
-@step(u'I see the version (\d+\.\d+\.\d+)')
+@step(u'I see the version (%s)' % versionah.VALID_VERSION)
 def see_the_version(step, expected):
     assert world.version.as_triple() == expected, "Got %r" % world.version
 
@@ -57,7 +57,8 @@ def when_i_write_its_value_to_file(step, name):
     step.given("I read its content")
     os.unlink("tests/data/%s" % name)
 
-@step(u'I have the package (.*) version (\d+\.\d+\.\d+)')
+@step(u'I have the package (%s) version (%s)' % (versionah.VALID_PACKAGE,
+                                                 versionah.VALID_VERSION))
 def have_named_version(step, name, version):
     major, minor, micro = versionah.split_version(version)
     world.version = versionah.Version(major, minor, micro, name)
