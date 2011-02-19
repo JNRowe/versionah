@@ -70,7 +70,7 @@ USAGE = __doc__[:__doc__.find('\n\n', 100)].splitlines()[2:]
 USAGE = "\n".join(USAGE).replace("versionah", "%prog")
 
 VALID_PACKAGE = "[A-Za-z]+(?:[_-][A-Za-z]+)*"
-VALID_VERSION = r"\d+\.\d+\.\d+"
+VALID_VERSION = r"\d+\.\d+(?:\.\d+){,2}"
 VALID_DATE = r"\d{4}-\d{2}-\d{2}"
 
 
@@ -89,24 +89,17 @@ class Version(object):
     env.filters["regexp"] = lambda s, pat, rep, count=0: re.sub(pat, rep, s, count)
     filetypes = [s.split(".")[0] for s in env.list_templates()]
 
-    def __init__(self, major=0, minor=1, micro=0, name="unknown",
+    def __init__(self, components=(0, 1, 0), name="unknown",
                  date=datetime.date.today()):
         """Initialise a new ``Version`` object
 
-        :type major: ``int``
-        :param major: Major version component
-        :type minor: ``int``
-        :param minor: Minor version component
-        :type micro: ``int``
-        :param micro: Micro version component
-        :type name: ``str``
+        :type components: ``tuple`` of ``int``
+        :param major: Version components
         :param name: Package's name
         :type date: ``datetime.date``
         :param date: Date associated with version
         """
-        self.major = major
-        self.minor = minor
-        self.micro = micro
+        self.components = components
         self.name = name
         self.date = date
 
@@ -115,9 +108,8 @@ class Version(object):
 
         :rtype: ``str``
         :return: String representation of object"""
-        return "%s(%r, %r, %r, %r, %r)" % (self.__class__.__name__, self.major,
-                                           self.minor, self.micro, self.name,
-                                           self.date)
+        return "%s(%r, %r, %r)" % (self.__class__.__name__, self.components,
+                                   self.name, self.date)
 
     def __str__(self):
         """Return default string representation
@@ -135,15 +127,23 @@ class Version(object):
         :type bump_type: ``str``
         :param bump_type: Component to bump
         """
+        if bump_type == "micro" and len(self.components) < 3 \
+           or bump_type == "patch" and len(self.components) < 4:
+            raise ValueError("Invalid bump_type %r for version %r" % (bump_type,
+                                                                      self))
+        major, minor, micro, patch = (tuple(self.components) + (0, 0))[:4]
         if bump_type == "major":
-            self.major = self.major + 1
-            self.minor = 0
-            self.micro = 0
+            major = major + 1
+            micro = minor = patch = 0
         elif bump_type == "minor":
-            self.minor = self.minor + 1
-            self.micro = 0
+            minor = minor + 1
+            micro = patch = 0
         elif bump_type == "micro":
-            self.micro = self.micro + 1
+            micro = micro + 1
+            patch = 0
+        elif bump_type == "patch":
+            patch = patch + 1
+        self.components = (major, minor, micro, patch)[:len(self.components)]
 
     def as_triple(self):
         """Generate a version triple
@@ -151,7 +151,7 @@ class Version(object):
         :rtype: ``str``
         :return: Version triple
         """
-        return "%s.%s.%s" % (self.major, self.minor, self.micro)
+        return ".".join(map(str, self.components))
 
     def as_hex(self):
         """Generate a hex version string
@@ -159,14 +159,15 @@ class Version(object):
         :rtype: ``str``
         :return: Version as hex string
         """
-        return "0x%02x%02x%02x" % (self.major, self.minor, self.micro)
+        return "0x" + "".join(map(lambda n: "%02x" % n, self.components))
 
     def as_libtool(self):
         """Generate a libtool version string
 
         :rtype: ``str``
         :return: Version as libtool string"""
-        return "%i:%i" % (self.major * 10 + self.minor, 20 + self.micro)
+        major, minor, micro = (tuple(self.components) + (0, ))[:3]
+        return "%i:%i" % (major * 10 + minor, 20 + micro)
 
     @staticmethod
     def display_types():
@@ -205,9 +206,9 @@ class Version(object):
         if not match:
             raise ValueError("No valid version identifier in %r" % filename)
         name, version_str, date_str = match.groups()
-        major, minor, micro = split_version(version_str)
+        components = split_version(version_str)
         date = datetime.date(*map(int, date_str.split("-")))
-        return Version(major, minor, micro, name, date)
+        return Version(components, name, date)
 
     def write(self, filename, file_type):
         """Write a version file
@@ -267,7 +268,7 @@ def process_command_line():
                       metavar="0.1.0",
                       help="set to a specific version")
     parser.add_option("-b", "--bump", action="store",
-                      choices=("major", "minor", "micro"),
+                      choices=("major", "minor", "micro", "patch"),
                       metavar="micro",
                       help="bump type by one")
     parser.add_option("-d", "--display", action="store",
@@ -318,10 +319,7 @@ def main():
         version.bump(options.bump)
         version.write(filename, options.file_type)
     elif options.set:
-        major, minor, micro = split_version(options.set)
-        version.major = major
-        version.minor = minor
-        version.micro = micro
+        version.components = split_version(options.set)
         version.write(filename, options.file_type)
 
     print(success(version.display(options.display_format)))

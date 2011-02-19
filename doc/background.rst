@@ -28,9 +28,8 @@ for you.
 .. note::
 
    If you like version numbers with two or four integer components then
-   :mod:`versionah` can be for you too.  If I start maintaining a project that
-   uses such a scheme support will be added, or if you supply a patch it will
-   likely be accepted.
+   :mod:`versionah` can be for you too.  Support for two and four components was
+   added in 0.6.0, but that doesn't mean you have to use it!
 
 Versioning policy
 -----------------

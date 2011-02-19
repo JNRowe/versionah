@@ -8,7 +8,7 @@ import versionah
 
 @step(u'I have the version (%s)' % versionah.VALID_VERSION)
 def have_the_version(step, version):
-    world.version = versionah.Version(*versionah.split_version(version))
+    world.version = versionah.Version(versionah.split_version(version))
 
 @step(u'I bump its major version')
 def bump_major_version(step):
@@ -61,8 +61,7 @@ def when_i_write_its_value_to_file(step, name):
 @step(u'I have the package (%s) version (%s)' % (versionah.VALID_PACKAGE,
                                                  versionah.VALID_VERSION))
 def have_named_version(step, name, version):
-    major, minor, micro = versionah.split_version(version)
-    world.version = versionah.Version(major, minor, micro, name)
+    world.version = versionah.Version(versionah.split_version(version), name)
 
 @step(u'I display its string representation')
 def display_string_representation(step):
