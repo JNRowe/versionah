@@ -1,4 +1,4 @@
-# This is versionah version 0.5.0 (2011-02-19)
-triple = "0.5.0"
-libtool = "5:20"
-hex = 0x000500
+# This is versionah version 0.5.1 (2011-02-19)
+triple = "0.5.1"
+libtool = "5:21"
+hex = 0x000501

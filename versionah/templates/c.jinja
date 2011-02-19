@@ -1,6 +1,6 @@
 /* {{ magic }} */
 
-#ifndef _{{ filename|upper }}_INCLUDE_
+#ifndef _{{ filename|upper|regexp("[^A-Z]", "_") }}_INCLUDE_
 #define _{{ filename|upper }}_INCLUDE_
 
 #define VERSION "{{ triple }}"
