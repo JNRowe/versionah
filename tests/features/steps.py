@@ -94,3 +94,14 @@ def see_comparison_result(step, expected):
 @step(u'I search for the greatest')
 def find_max(step):
     world.version = max((world.version1, world.version2))
+
+@step(u'I have the invalid version (.*)')
+def have_invalid_version(step, string):
+    try:
+        world.version = versionah.Version(versionah.split_version(string))
+    except Exception as e:
+        world.exception = e
+
+@step(u'I receive (.*)')
+def receive_exception(step, expected):
+    assert_equal(unicode(world.exception.__class__.__name__), expected)
