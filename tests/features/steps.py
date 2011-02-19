@@ -26,11 +26,11 @@ def bump_micro_version(step):
 
 @step(u'I see the version (%s)' % versionah.VALID_VERSION)
 def see_the_version(step, expected):
-    assert_equal(world.version.as_triple(), expected)
+    assert_equal(world.version.as_dotted(), expected)
 
-@step(u'I display its triple representation')
-def display_triple_representation(step):
-    world.string = world.version.as_triple()
+@step(u'I display its dotted representation')
+def display_dotted_representation(step):
+    world.string = world.version.as_dotted()
 
 @step(u'I display its hex representation')
 def display_hex_representation(step):

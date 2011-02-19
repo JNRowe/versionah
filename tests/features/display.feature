@@ -3,9 +3,9 @@ Feature: Display version
   As a user
   We'll implement displaying
 
-  Scenario Outline: Triples
+  Scenario Outline: Dotted
     Given I have the version <version>
-    When I display its triple representation
+    When I display its dotted representation
     Then I see the string <result>
 
   Examples:

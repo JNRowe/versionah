@@ -18,7 +18,7 @@ Each template is provided with the following data for use in templates:
 * ``name`` for the package name
 * ``date`` for release date as a :py:func:`datetime.date` object
 * The output file's name as ``filename``
-* All display methods [#]_, for example ``triple`` and ``libtool``
+* All display methods [#]_, for example ``dotted`` and ``libtool``
 
 The ``text`` display's template is simply:
 

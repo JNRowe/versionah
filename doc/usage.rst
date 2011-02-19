@@ -45,4 +45,4 @@ Options
 
 .. cmdoption:: -d <format>, --display=<format>
 
-   Display output in ``format``, where ``format`` is one of {triple,hex,libtool}
+   Display output in ``format``, where ``format`` is one of {dotted,hex,libtool}

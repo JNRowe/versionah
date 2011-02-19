@@ -21,7 +21,7 @@ from __future__ import print_function
 from . import _version
 
 
-__version__ = _version.triple
+__version__ = _version.dotted
 __date__ = "2011-02-15"
 __author__ = "James Rowe <jnrowe@gmail.com>"
 __copyright__ = "Copyright (C) 2011  James Rowe <jnrowe@gmail.com>"
@@ -118,12 +118,11 @@ class Version(object):
     def __str__(self):
         """Return default string representation
 
-        We return a triple-formatted version string, as that is the most common
-        format.
+        We return a dotted version string, as that is the most common format.
 
         :rtype: ``str``
         :return: Default strings representation of object"""
-        return "%s v%s" % (self.name, self.as_triple())
+        return "%s v%s" % (self.name, self.as_dotted())
 
     def __eq__(self, other):
         self_padded = (tuple(self.components) + (0, 0))[:4]
@@ -167,11 +166,11 @@ class Version(object):
             patch = patch + 1
         self.components = (major, minor, micro, patch)[:len(self.components)]
 
-    def as_triple(self):
-        """Generate a version triple
+    def as_dotted(self):
+        """Generate a dotted version
 
         :rtype: ``str``
-        :return: Version triple
+        :return: Standard dotted version string
         """
         return ".".join(map(str, self.components))
 
@@ -245,7 +244,7 @@ class Version(object):
         data = self.__dict__
         data["filename"] = filename
         data["magic"] = "This is %s version %s (%s)" % (self.name,
-                                                        self.as_triple(),
+                                                        self.as_dotted(),
                                                         self.date)
         data.update(dict([(k[3:], getattr(self, k)())
                           for k in dir(self) if k.startswith("as_")]))
@@ -276,7 +275,7 @@ def process_command_line():
                                    version="%prog v" + __version__,
                                    description=USAGE)
 
-    parser.set_defaults(file_type="text", bump=None, display_format="triple")
+    parser.set_defaults(file_type="text", bump=None, display_format="dotted")
 
     parser.add_option("-t", "--type", action="store",
                       choices=Version.filetypes,
@@ -296,7 +295,7 @@ def process_command_line():
     parser.add_option("-d", "--display", action="store",
                       choices=Version.display_types(),
                       dest="display_format",
-                      metavar="triple",
+                      metavar="dotted",
                       help="display output in format")
 
     options, args = parser.parse_args()

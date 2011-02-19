@@ -42,7 +42,7 @@ OPTIONS
     Bump ``type`` by one, where ``type`` is one {major,minor,micro}
 
 -d <format>, --display=<format>
-    Display output in ``format``, where ``format`` is one of {triple,hex,libtool}
+    Display output in ``format``, where ``format`` is one of {dotted,hex,libtool}
 
 BUGS
 ----
