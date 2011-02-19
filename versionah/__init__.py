@@ -83,8 +83,8 @@ class Version(object):
     pkg_data_dir = os.path.join(data_dir, "versionah", "templates")
 
     env = jinja2.Environment(loader=jinja2.ChoiceLoader([
-        jinja2.PackageLoader("versionah", "templates"),
         jinja2.FileSystemLoader(pkg_data_dir),
+        jinja2.PackageLoader("versionah", "templates"),
     ]))
     env.filters["regexp"] = lambda s, pat, rep, count=0: re.sub(pat, rep, s, count)
     filetypes = [s.split(".")[0] for s in env.list_templates()]
