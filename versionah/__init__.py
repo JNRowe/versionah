@@ -176,6 +176,22 @@ class Version(object):
             patch = patch + 1
         self.components = (major, minor, micro, patch)
 
+    def bump_major(self):
+        """Bump major version component"""
+        self.bump("major")
+
+    def bump_minor(self):
+        """Bump minor version component"""
+        self.bump("minor")
+
+    def bump_micro(self):
+        """Bump micro version component"""
+        self.bump("micro")
+
+    def bump_patch(self):
+        """Bump patch version component"""
+        self.bump("patch")
+
     def as_dotted(self):
         """Generate a dotted version
 
