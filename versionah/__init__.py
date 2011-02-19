@@ -37,7 +37,7 @@ versionah is a GPL v3 licensed module for maintaining version information files
 for use in project management.
 
 .. moduleauthor:: `%s <mailto:%s>`__
-""" % parseaddr(__author__)
+""" % parseaddr(__author__)  # pylint: disable-msg=W0622
 
 import datetime
 import errno
@@ -75,6 +75,8 @@ VALID_DATE = r"\d{4}-\d{2}-\d{2}"
 
 
 class Version(object):
+    """Main version identifier representation"""
+
     data_dir = os.environ.get("XDG_DATA_HOME",
                               os.path.join(os.environ.get("HOME", "/"),
                                            ".local"))
@@ -173,58 +175,58 @@ class Version(object):
         """
         return [s[3:] for s in dir(Version) if s.startswith("as_")]
 
-    def display(self, format):
+    def display(self, display_format):
         """Display a version string
 
-        :type format: ``str``
-        :param format: Format to display version string in
+        :type display_format: ``str``
+        :param display_format: Format to display version string in
         :rtype: ``str``
         :return: Formatted version string
         """
-        return getattr(self, "as_%s" % format)()
+        return getattr(self, "as_%s" % display_format)()
 
     @staticmethod
-    def read(file):
+    def read(filename):
         """Read a version file
 
-        :type file: ``str``
-        :param file: Version file to read
+        :type filename: ``str``
+        :param filename: Version file to read
         :rtype: ``Version``
         :return: New ``Version```` object representing file
-        :raise OSError: When ``file`` doesn't exist
+        :raise OSError: When ``filename`` doesn't exist
         :raise ValueError: Unparsable version data
         """
-        data = open(file).read().strip()
+        data = open(filename).read().strip()
         match = re.search(r"This is (%s) version (%s) \((%s)\)"
                           % (VALID_PACKAGE, VALID_VERSION, VALID_DATE),
                           data)
         if not match:
-            raise ValueError("No valid version identifier in %r" % file)
+            raise ValueError("No valid version identifier in %r" % filename)
         name, version_str, date_str = match.groups()
         major, minor, micro = split_version(version_str)
         date = datetime.date(*map(int, date_str.split("-")))
         return Version(major, minor, micro, name, date)
 
-    def write(self, file, ftype):
+    def write(self, filename, file_type):
         """Write a version file
 
-        :type file: ``str``
-        :param file: Version file to write
-        :type ftype: ``str``
-        :param ftype: File type to write
+        :type filename: ``str``
+        :param filename: Version file to write
+        :type file_type: ``str``
+        :param file_type: File type to write
         :rtype: ``bool``
         :return: ``True`` on write success
         """
         data = self.__dict__
-        data["file"] = file
+        data["filename"] = filename
         data["magic"] = "This is %s version %s (%s)" % (self.name,
                                                         self.as_triple(),
                                                         self.date)
         data.update(dict([(k[3:], getattr(self, k)())
                           for k in dir(self) if k.startswith("as_")]))
 
-        template = self.env.get_template("%s.jinja" % ftype)
-        open(file, "w").write(template.render(data))
+        template = self.env.get_template("%s.jinja" % file_type)
+        open(filename, "w").write(template.render(data))
 
 
 def split_version(version):
@@ -249,11 +251,11 @@ def process_command_line():
                                    version="%prog v" + __version__,
                                    description=USAGE)
 
-    parser.set_defaults(ftype="text", bump=None, format="triple")
+    parser.set_defaults(file_type="text", bump=None, display_format="triple")
 
     parser.add_option("-t", "--type", action="store",
                       choices=Version.filetypes,
-                      dest="ftype",
+                      dest="file_type",
                       metavar="text",
                       help="define the file type used for version file")
     parser.add_option("-n", "--name", action="store",
@@ -268,7 +270,7 @@ def process_command_line():
                       help="bump type by one")
     parser.add_option("-d", "--display", action="store",
                       choices=Version.display_types(),
-                      dest="format",
+                      dest="display_format",
                       metavar="triple",
                       help="display output in format")
 
@@ -296,12 +298,12 @@ def main():
     """
 
     try:
-        options, file = process_command_line()  # pylint: disable-msg=W0612
+        options, filename = process_command_line()
     except SyntaxError:
         return errno.EPERM
 
     try:
-        version = Version.read(file)
+        version = Version.read(filename)
     except IOError:
         version = Version()
     except ValueError:
@@ -312,15 +314,15 @@ def main():
         version.name = options.name
     if options.bump:
         version.bump(options.bump)
-        version.write(file, options.ftype)
+        version.write(filename, options.file_type)
     elif options.set:
         major, minor, micro = split_version(options.set)
         version.major = major
         version.minor = minor
         version.micro = micro
-        version.write(file, options.ftype)
+        version.write(filename, options.file_type)
 
-    print(success(version.display(options.format)))
+    print(success(version.display(options.display_format)))
 
 if __name__ == '__main__':
     sys.exit(main())
