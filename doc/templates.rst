@@ -35,7 +35,20 @@ their generation drop me a mail_.
 .. [#] Technically the result of any ``Version`` method beginning with ``as_``
        is included.
 
+Filters
+-------
+
+:mod:`versionah` defines the following filters beyond the `built-in filters` of
+Jinja_:
+
+``regexp``
+----------
+
+This filter applies a regular expression to a value, it is a thin wrapper around
+:py:func:`re.sub` and takes the same arguments.
+
 .. _Jinja: http://jinja.pocoo.org/
 .. _issue: http://github.com/JNRowe/versionah/issues
 .. _GitHub: http://github.com/JNRowe/versionah/
 .. _mail: jnrowe@gmail.com
+.. _built-in filters: http://jinja.pocoo.org/docs/templates/#list-of-builtin-filters
