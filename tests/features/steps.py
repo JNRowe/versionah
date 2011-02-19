@@ -1,6 +1,8 @@
 import datetime
 import os
 
+from nose.tools import assert_equal
+
 from lettuce import (step, world)
 
 import versionah
@@ -24,7 +26,7 @@ def bump_micro_version(step):
 
 @step(u'I see the version (%s)' % versionah.VALID_VERSION)
 def see_the_version(step, expected):
-    assert world.version.as_triple() == expected, "Got %r" % world.version
+    assert_equal(world.version.as_triple(), expected)
 
 @step(u'I display its triple representation')
 def display_triple_representation(step):
@@ -40,7 +42,7 @@ def display_libtool_representation(step):
 
 @step(u'I see the string (.*)')
 def see_the_string(step, expected):
-    assert world.string == expected, "Got %r" % world.string
+    assert_equal(world.string, expected)
 
 @step(u'I have the file (.*)')
 def have_the_file(step, name):
@@ -69,8 +71,7 @@ def display_string_representation(step):
 
 @step(u"I find today's date")
 def find_todays_date(step):
-    assert datetime.date.today() == world.version.date, \
-           "Got %r" % world.version.date
+    assert_equal(world.version.date, datetime.date.today())
 
 @step(u'I bump its patch version')
 def bump_patch_version(step):
