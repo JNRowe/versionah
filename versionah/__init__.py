@@ -104,6 +104,8 @@ class Version(object):
         if filter(lambda n: not isinstance(n, int) and n > 0, components):
             raise ValueError("Invalid component values %r" % (components, ))
         self.components = components
+        self._resolution = len(components)
+        self._padded = self._pad_components(components)
         self.name = name
         self.date = date
 
@@ -125,9 +127,7 @@ class Version(object):
         return "%s v%s" % (self.name, self.as_dotted())
 
     def __eq__(self, other):
-        self_padded = (tuple(self.components) + (0, 0))[:4]
-        other_padded = (tuple(other.components) + (0, 0))[:4]
-        return self_padded == other_padded
+        return self._padded == other._padded
     __ne__ = lambda self, other: not self == (other)
 
     def __lt__(self, other):
@@ -142,6 +142,16 @@ class Version(object):
     def __ge__(self, other):
         return self > other or self == other
 
+    @staticmethod
+    def _pad_components(components):
+        """Make tuple four components long
+
+        :type components: ``tuple``
+        :param components: Version components to pad
+        :rtype: ``tuple``
+        :return: Padded version components"""
+        return (tuple(components) + (0, 0))[:4]
+
     def bump(self, bump_type):
         """Bump a version string
 
@@ -152,7 +162,7 @@ class Version(object):
            or bump_type == "patch" and len(self.components) < 4:
             raise ValueError("Invalid bump_type %r for version %r" % (bump_type,
                                                                       self))
-        major, minor, micro, patch = (tuple(self.components) + (0, 0))[:4]
+        major, minor, micro, patch = self._padded
         if bump_type == "major":
             major = major + 1
             micro = minor = patch = 0
@@ -164,7 +174,7 @@ class Version(object):
             patch = 0
         elif bump_type == "patch":
             patch = patch + 1
-        self.components = (major, minor, micro, patch)[:len(self.components)]
+        self.components = (major, minor, micro, patch)
 
     def as_dotted(self):
         """Generate a dotted version
@@ -172,7 +182,7 @@ class Version(object):
         :rtype: ``str``
         :return: Standard dotted version string
         """
-        return ".".join(map(str, self.components))
+        return ".".join(map(str, self.components)[:self._resolution])
 
     def as_hex(self):
         """Generate a hex version string
@@ -180,14 +190,15 @@ class Version(object):
         :rtype: ``str``
         :return: Version as hex string
         """
-        return "0x" + "".join(map(lambda n: "%02x" % n, self.components))
+        return "0x" + "".join(map(lambda n: "%02x" % n,
+                                  self.components)[:self._resolution])
 
     def as_libtool(self):
         """Generate a libtool version string
 
         :rtype: ``str``
         :return: Version as libtool string"""
-        major, minor, micro = (tuple(self.components) + (0, ))[:3]
+        major, minor, micro = self._padded[:3]
         return "%i:%i" % (major * 10 + minor, 20 + micro)
 
     @staticmethod
