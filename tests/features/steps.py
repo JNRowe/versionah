@@ -76,3 +76,21 @@ def find_todays_date(step):
 @step(u'I bump its patch version')
 def bump_patch_version(step):
     world.version.bump("patch")
+
+@step(u'I have the versions (%s) and (%s)' % (versionah.VALID_VERSION,
+                                              versionah.VALID_VERSION))
+def have_versions(step, version1, version2):
+    world.version1 = versionah.Version(versionah.split_version(version1))
+    world.version2 = versionah.Version(versionah.split_version(version2))
+
+@step(u'I compare them for equality')
+def compare_equality(step):
+    world.result = unicode(world.version1 == world.version2)
+
+@step(u'I see the comparison (.*)')
+def see_comparison_result(step, expected):
+    assert_equal(world.result, expected)
+
+@step(u'I search for the greatest')
+def find_max(step):
+    world.version = max((world.version1, world.version2))
