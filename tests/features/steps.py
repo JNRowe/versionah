@@ -1,3 +1,4 @@
+import datetime
 import os
 
 from lettuce import (step, world)
@@ -66,3 +67,8 @@ def have_named_version(step, name, version):
 @step(u'When I display its string representation')
 def display_string_representation(step):
     world.string = str(world.version)
+
+@step(u"I find today's date")
+def find_todays_date(step):
+    assert datetime.date.today() == world.version.date, \
+           "Got %r" % world.version.date

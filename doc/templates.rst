@@ -27,7 +27,7 @@ The ``text`` display's template is simply:
 
 which would result in output such as::
 
-    This is mypkg version 2.2.4
+    This is mypkg version 2.2.4 (2011-02-19)
 
 If you're authoring your own templates and you find you need extra data for
 their generation drop me a mail_.

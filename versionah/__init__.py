@@ -39,6 +39,7 @@ for use in project management.
 .. moduleauthor:: `%s <mailto:%s>`__
 """ % parseaddr(__author__)
 
+import datetime
 import errno
 import optparse
 import os
@@ -70,6 +71,7 @@ USAGE = "\n".join(USAGE).replace("versionah", "%prog")
 
 VALID_PACKAGE = "[A-Za-z]+(?:[_-][A-Za-z]+)*"
 VALID_VERSION = r"\d+\.\d+\.\d+"
+VALID_DATE = r"\d{4}-\d{2}-\d{2}"
 
 
 class Version(object):
@@ -84,7 +86,8 @@ class Version(object):
     ]))
     filetypes = [s.split(".")[0] for s in env.list_templates()]
 
-    def __init__(self, major=0, minor=1, micro=0, name="unknown"):
+    def __init__(self, major=0, minor=1, micro=0, name="unknown",
+                 date=datetime.date.today()):
         """Initialise a new ``Version`` object
 
         :type major: ``int``
@@ -95,11 +98,14 @@ class Version(object):
         :param micro: Micro version component
         :type name: ``str``
         :param name: Package's name
+        :type date: ``datetime.date``
+        :param date: Date associated with version
         """
         self.major = major
         self.minor = minor
         self.micro = micro
         self.name = name
+        self.date = date
 
     def __repr__(self):
         """Self-documenting string representation
@@ -189,14 +195,15 @@ class Version(object):
         :raise ValueError: Unparsable version data
         """
         data = open(file).read().strip()
-        match = re.search("This is (%s) version (%s)" % (VALID_PACKAGE,
-                                                         VALID_VERSION),
+        match = re.search(r"This is (%s) version (%s) \((%s)\)"
+                          % (VALID_PACKAGE, VALID_VERSION, VALID_DATE),
                           data)
         if not match:
             raise ValueError("No valid version identifier in %r" % file)
-        name, version_str = match.groups()
+        name, version_str, date_str = match.groups()
         major, minor, micro = split_version(version_str)
-        return Version(major, minor, micro, name)
+        date = datetime.date(*map(int, date_str.split("-")))
+        return Version(major, minor, micro, name, date)
 
     def write(self, file, ftype):
         """Write a version file
@@ -210,7 +217,9 @@ class Version(object):
         """
         data = self.__dict__
         data["file"] = file
-        data["magic"] = "This is %s version %s" % (self.name, self.as_triple())
+        data["magic"] = "This is %s version %s (%s)" % (self.name,
+                                                        self.as_triple(),
+                                                        self.date)
         data.update(dict([(k[3:], getattr(self, k)())
                           for k in dir(self) if k.startswith("as_")]))
 
