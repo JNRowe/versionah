@@ -269,10 +269,10 @@ def split_version(version):
 
     :type version: ``str``
     :param version: Version string
-    :rtype: ``list``` of ``int``
+    :rtype: ``tuple`` of ``int``
     :return: Components of version string
     """
-    return map(int, version.split("."))
+    return tuple(map(int, version.split(".")))
 
 
 def process_command_line():
