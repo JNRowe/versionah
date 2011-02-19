@@ -126,7 +126,9 @@ class Version(object):
         return "%s v%s" % (self.name, self.as_triple())
 
     def __eq__(self, other):
-        return self.components == other.components
+        self_padded = (tuple(self.components) + (0, 0))[:4]
+        other_padded = (tuple(other.components) + (0, 0))[:4]
+        return self_padded == other_padded
     __ne__ = lambda self, other: not self == (other)
 
     def __lt__(self, other):
