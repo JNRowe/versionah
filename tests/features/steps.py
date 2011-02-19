@@ -64,7 +64,7 @@ def have_named_version(step, name, version):
     major, minor, micro = versionah.split_version(version)
     world.version = versionah.Version(major, minor, micro, name)
 
-@step(u'When I display its string representation')
+@step(u'I display its string representation')
 def display_string_representation(step):
     world.string = str(world.version)
 
