@@ -115,8 +115,9 @@ class Version(object):
 
         :rtype: ``str``
         :return: String representation of object"""
-        return "%s(%r, %r, %r, %r)" % (self.__class__.__name__, self.major,
-                                       self.minor, self.micro, self.name)
+        return "%s(%r, %r, %r, %r, %r)" % (self.__class__.__name__, self.major,
+                                           self.minor, self.micro, self.name,
+                                           self.date)
 
     def __str__(self):
         """Return default string representation
