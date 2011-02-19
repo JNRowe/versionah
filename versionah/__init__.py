@@ -99,6 +99,10 @@ class Version(object):
         :type date: ``datetime.date``
         :param date: Date associated with version
         """
+        if not 2 <= len(components) <= 4:
+            raise ValueError("Invalid number of components %r" % (components, ))
+        if filter(lambda n: not isinstance(n, int) and n > 0, components):
+            raise ValueError("Invalid component values %r" % (components, ))
         self.components = components
         self.name = name
         self.date = date
