@@ -125,6 +125,22 @@ class Version(object):
         :return: Default strings representation of object"""
         return "%s v%s" % (self.name, self.as_triple())
 
+    def __eq__(self, other):
+        return self.components == other.components
+    __ne__ = lambda self, other: not self == (other)
+
+    def __lt__(self, other):
+        return self.components < other.components
+
+    def __gt__(self, other):
+        return self.components > other.components
+
+    def __le__(self, other):
+        return self < other or self == other
+
+    def __ge__(self, other):
+        return self > other or self == other
+
     def bump(self, bump_type):
         """Bump a version string
 
