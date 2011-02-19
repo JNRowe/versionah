@@ -72,3 +72,7 @@ def display_string_representation(step):
 def find_todays_date(step):
     assert datetime.date.today() == world.version.date, \
            "Got %r" % world.version.date
+
+@step(u'I bump its patch version')
+def bump_patch_version(step):
+    world.version.bump("patch")
