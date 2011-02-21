@@ -25,6 +25,7 @@ Contents:
    usage
    templates
    versionah manpage <versionah.1>
+   alternatives
 
 Indices and tables
 ==================
