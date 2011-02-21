@@ -31,6 +31,14 @@ for you.
    :mod:`versionah` can be for you too.  Support for two and four components was
    added in 0.6.0, but that doesn't mean you have to use it!
 
+PEP 386
+~~~~~~~
+
+The version numbering scheme supported by :mod:`versionah` is a very small
+subset of ``LooseVersion`` defined in :pep:`386`.  It isn't compliant with
+``StrictVersion`` due to the 4 version component support, but support for
+packages in the wild is much more important to me.
+
 Versioning policy
 -----------------
 
