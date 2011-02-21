@@ -19,8 +19,15 @@ Precedence
 ----------
 
 The first name match in the order specified above selects the template, so a
-:file:`python.jinja` in :file:`${XDG_DATA_HOME:~/.local}/versionah/templates`
-overrides :file:`python.jinja` provided by :mod:`versionah`.
+:file:`py.jinja` in :file:`${XDG_DATA_HOME:~/.local}/versionah/templates`
+overrides :file:`py.jinja` provided by :mod:`versionah`.
+
+Naming
+------
+
+Templates should be named after the common type suffix if possible, doing so
+allows :mod:`versionah` to guess an appropriate template from a supplied file.
+For example, ``py.jinja`` will apply by default to all files ending in ``.py``.
 
 Data
 ----

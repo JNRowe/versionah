@@ -295,9 +295,11 @@ def split_version(version):
     return tuple(map(int, version.split(".")))
 
 
-def process_command_line():
+def process_command_line(argv=sys.argv[1:]):
     """Main command line interface
 
+    :type argv: ``list``
+    :param argv: Command line arguments to process
     :rtype: ``tuple`` of ``optparse`` and ``string``
     :return: Parsed options and version file
     """
@@ -306,7 +308,7 @@ def process_command_line():
                                    version="%prog v" + __version__,
                                    description=USAGE)
 
-    parser.set_defaults(file_type="text", bump=None, display_format="dotted")
+    parser.set_defaults(file_type=None, bump=None, display_format="dotted")
 
     parser.add_option("-t", "--type", action="store",
                       choices=Version.filetypes,
@@ -329,7 +331,7 @@ def process_command_line():
                       metavar="dotted",
                       help="display output in format")
 
-    options, args = parser.parse_args()
+    options, args = parser.parse_args(argv)
 
     if options.name and not re.match("%s$" % VALID_PACKAGE, options.name):
         parser.error("Invalid package name string %r" % options.set)
@@ -341,8 +343,13 @@ def process_command_line():
         parser.error("One version file must be specified")
     elif not len(args) == 1:
         parser.error("Only one version file must be specified")
+    file_name = args[0]
 
-    return options, args[0]
+    if not options.file_type:
+        suffix = os.path.splitext(file_name)[1][1:]
+        options.file_type = suffix if suffix in Version.filetypes else "text"
+
+    return options, file_name
 
 
 def main():
