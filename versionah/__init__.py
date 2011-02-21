@@ -277,6 +277,8 @@ class Version(object):
         data["magic"] = "This is %s version %s (%s)" % (self.name,
                                                         self.as_dotted(),
                                                         self.date)
+        data.update(dict(zip(["major", "minor", "micro", "patch"],
+                             self._padded)))
         data.update(dict([(k[3:], getattr(self, k)())
                           for k in dir(self) if k.startswith("as_")]))
 

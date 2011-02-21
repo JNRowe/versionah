@@ -35,7 +35,7 @@ Data
 Each template is provided with the following data for use in templates:
 
 * ``magic`` for the magic string to support reading :mod:`versionah` files
-* ``major``, ``minor`` and ``micro`` for the version components
+* ``major``, ``minor``, ``micro`` and ``patch`` for the version components
 * ``name`` for the package name
 * ``date`` for release date as a :py:func:`datetime.date` object
 * The output file's name as ``filename``
