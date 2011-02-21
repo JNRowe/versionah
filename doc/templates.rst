@@ -15,6 +15,13 @@ For information on the usage of :envvar:`XDG_DATA_HOME` and
 If you create some cool templates of your own please consider posting them in an
 issue_ or pushing them to a fork on GitHub_, so that others can benefit.
 
+Precedence
+----------
+
+The first name match in the order specified above selects the template, so a
+:file:`python.jinja` in :file:`${XDG_DATA_HOME:~/.local}/versionah/templates`
+overrides :file:`python.jinja` provided by :mod:`versionah`.
+
 Data
 ----
 
