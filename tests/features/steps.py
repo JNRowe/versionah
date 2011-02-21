@@ -105,3 +105,15 @@ def have_invalid_version(step, string):
 @step(u'I receive (.*)')
 def receive_exception(step, expected):
     assert_equal(unicode(world.exception.__class__.__name__), expected)
+
+@step(u'I pass it to (.*)')
+def pass_to_function(step, function):
+    world.result = getattr(versionah, function)([world.name, ])
+
+@step(u'I pass (.*) argument ([^ ]+) to (.*)')
+def pass_args_to_function(step, arg, value, function):
+    world.result = getattr(versionah, function)(["--%s" % arg, value, world.name])
+
+@step(u'I see the file type (.*)')
+def see_file_type(step, file_type):
+    assert_equal(world.result[0].file_type, file_type)
