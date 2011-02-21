@@ -1,9 +1,16 @@
 Version templates
 =================
 
-Version files are created from templates using Jinja_.  Templates are loaded
-from the package's ``templates`` directory, and if it exists also from
-``${XDG_DATA_HOME:~/.local}/versionah/templates``.
+Version files are created from templates using Jinja_.  Templates are loaded in
+the following order:
+
+* If it exists, :file:`${XDG_DATA_HOME:~/.local}/versionah/templates`
+* Any :file:`versionah/templates` directory in the directories specified by
+  :envvar:`XDG_DATA_DIRS`
+* The package's ``templates`` directory
+
+For information on the usage of :envvar:`XDG_DATA_HOME` and
+:envvar:`XDG_DATA_DIRS` read `XDG Base Directory Specification`_
 
 If you create some cool templates of your own please consider posting them in an
 issue_ or pushing them to a fork on GitHub_, so that others can benefit.
@@ -49,6 +56,7 @@ This filter applies a regular expression to a value, it is a thin wrapper around
 :py:func:`re.sub` and takes the same arguments.
 
 .. _Jinja: http://jinja.pocoo.org/
+.. _XDG Base Directory Specification: http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 .. _issue: http://github.com/JNRowe/versionah/issues
 .. _GitHub: http://github.com/JNRowe/versionah/
 .. _mail: jnrowe@gmail.com

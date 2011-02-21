@@ -77,15 +77,19 @@ VALID_DATE = r"\d{4}-\d{2}-\d{2}"
 class Version(object):
     """Main version identifier representation"""
 
-    data_dir = os.environ.get("XDG_DATA_HOME",
+    user_dir = os.environ.get("XDG_DATA_HOME",
                               os.path.join(os.environ.get("HOME", "/"),
                                            ".local"))
-    pkg_data_dir = os.path.join(data_dir, "versionah", "templates")
+    system_dirs = os.environ.get("XDG_DATA_DIRS",
+                                 "/usr/local/share/:/usr/share/").split(":")
+    mk_data_dir = lambda s: os.path.join(s, "versionah", "templates")
+    pkg_data_dirs = [mk_data_dir(user_dir), ]
+    for directory in system_dirs:
+        pkg_data_dirs.append(mk_data_dir(directory))
 
-    env = jinja2.Environment(loader=jinja2.ChoiceLoader([
-        jinja2.FileSystemLoader(pkg_data_dir),
-        jinja2.PackageLoader("versionah", "templates"),
-    ]))
+    env = jinja2.Environment(loader=jinja2.ChoiceLoader(
+        map(lambda s: jinja2.FileSystemLoader(s), pkg_data_dirs)))
+    env.loader.loaders.append(jinja2.PackageLoader("versionah", "templates"))
     env.filters["regexp"] = lambda s, pat, rep, count=0: re.sub(pat, rep, s, count)
     filetypes = [s.split(".")[0] for s in env.list_templates()]
 
