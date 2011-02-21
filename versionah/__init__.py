@@ -372,6 +372,10 @@ def main():
         print(fail(sys.exc_info()[1].args[0]))
         return errno.EEXIST
 
+    if not options.set and not os.path.exists(filename):
+        print(fail("File not found"))
+        return errno.ENOENT
+
     if options.name:
         version.name = options.name
     if options.bump:
