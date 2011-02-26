@@ -107,9 +107,8 @@ class Version(object):
             raise ValueError("Invalid number of components %r" % (components, ))
         if filter(lambda n: not isinstance(n, int) and n > 0, components):
             raise ValueError("Invalid component values %r" % (components, ))
-        self.components = components
+        self.major, self.minor, self.micro, self.patch = self._pad(components)
         self._resolution = len(components)
-        self._padded = self._pad_components(components)
         self.name = name
         self.date = date
 
@@ -131,7 +130,7 @@ class Version(object):
         return "%s v%s" % (self.name, self.as_dotted())
 
     def __eq__(self, other):
-        return self._padded == other._padded
+        return self.components_full == other.components_full
     __ne__ = lambda self, other: not self == (other)
 
     def __lt__(self, other):
@@ -146,8 +145,19 @@ class Version(object):
     def __ge__(self, other):
         return self > other or self == other
 
+    @property
+    def components_full(self):
+        """Generate full length component tuple for version"""
+        return self.major, self.minor, self.micro, self.patch
+
+    @property
+    def components(self):
+        """Generate component tuple to initial resolution"""
+
+        return self.components_full[:self._resolution]
+
     @staticmethod
-    def _pad_components(components):
+    def _pad(components):
         """Make tuple four components long
 
         :type components: ``tuple``
@@ -162,23 +172,23 @@ class Version(object):
         :type bump_type: ``str``
         :param bump_type: Component to bump
         """
-        if bump_type == "micro" and len(self.components) < 3 \
-           or bump_type == "patch" and len(self.components) < 4:
+        if bump_type == "micro" and self._resolution < 3 \
+            or bump_type == "patch" and self._resolution < 4:
             raise ValueError("Invalid bump_type %r for version %r" % (bump_type,
                                                                       self))
         major, minor, micro, patch = self._padded
         if bump_type == "major":
-            major = major + 1
-            micro = minor = patch = 0
+            self.major += 1
+            self.micro = self.minor = self.patch = 0
         elif bump_type == "minor":
-            minor = minor + 1
-            micro = patch = 0
+            self.minor += 1
+            self.micro = self.patch = 0
         elif bump_type == "micro":
-            micro = micro + 1
-            patch = 0
+            self.micro += 1
+            self.patch = 0
         elif bump_type == "patch":
-            patch = patch + 1
-        self.components = (major, minor, micro, patch)
+            self.patch += 1
+        self.date = datetime.date.today()
 
     def bump_major(self):
         """Bump major version component"""
@@ -202,7 +212,7 @@ class Version(object):
         :rtype: ``str``
         :return: Standard dotted version string
         """
-        return ".".join(map(str, self.components)[:self._resolution])
+        return ".".join(map(str, self.components))
 
     def as_hex(self):
         """Generate a hex version string
@@ -210,16 +220,14 @@ class Version(object):
         :rtype: ``str``
         :return: Version as hex string
         """
-        return "0x" + "".join(map(lambda n: "%02x" % n,
-                                  self.components)[:self._resolution])
+        return "0x" + "".join(map(lambda n: "%02x" % n, self.components))
 
     def as_libtool(self):
         """Generate a libtool version string
 
         :rtype: ``str``
         :return: Version as libtool string"""
-        major, minor, micro = self._padded[:3]
-        return "%i:%i" % (major * 10 + minor, 20 + micro)
+        return "%i:%i" % (self.major * 10 + self.minor, 20 + self.micro)
 
     @staticmethod
     def display_types():
@@ -278,7 +286,7 @@ class Version(object):
                                                         self.as_dotted(),
                                                         self.date)
         data.update(dict(zip(["major", "minor", "micro", "patch"],
-                             self._padded)))
+                             self.components)))
         data.update(dict([(k[3:], getattr(self, k)())
                           for k in dir(self) if k.startswith("as_")]))
 
