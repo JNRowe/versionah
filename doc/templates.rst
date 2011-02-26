@@ -41,6 +41,11 @@ Each template is provided with the following data for use in templates:
 * The output file's name as ``filename``
 * All display methods [#]_, for example ``dotted`` and ``libtool``
 
+Jinja templates support object attribute and method access, so the ``date``
+object can be called with a ``strftime`` method for custom date output.  For
+example, ``{{ date.strftime("%a, %e %b %Y %H:%M:%S %z") }}`` can be used to
+output an :rfc:`2822` date stamp.
+
 The ``text`` display's template is simply:
 
 .. code-block:: jinja
