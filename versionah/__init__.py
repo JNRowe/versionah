@@ -104,7 +104,8 @@ class Version(object):
         :param date: Date associated with version
         """
         if not 2 <= len(components) <= 4:
-            raise ValueError("Invalid number of components %r" % (components, ))
+            raise ValueError("Invalid number of components %r"
+                             % (components, ))
         if filter(lambda n: not isinstance(n, int) and n > 0, components):
             raise ValueError("Invalid component values %r" % (components, ))
         self.major, self.minor, self.micro, self.patch = self._pad(components)
@@ -130,6 +131,11 @@ class Version(object):
         return "%s v%s" % (self.name, self.as_dotted())
 
     def __eq__(self, other):
+        """Test ``Version`` objects for equality
+
+        Importantly, padded version components are checked so that 0.1 is
+        considered equal to 0.1.0.0.
+        """
         return self.components_full == other.components_full
     __ne__ = lambda self, other: not self == (other)
 
@@ -174,9 +180,8 @@ class Version(object):
         """
         if bump_type == "micro" and self._resolution < 3 \
             or bump_type == "patch" and self._resolution < 4:
-            raise ValueError("Invalid bump_type %r for version %r" % (bump_type,
-                                                                      self))
-        major, minor, micro, patch = self._padded
+            raise ValueError("Invalid bump_type %r for version %r"
+                             % (bump_type, self))
         if bump_type == "major":
             self.major += 1
             self.micro = self.minor = self.patch = 0
