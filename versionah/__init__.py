@@ -109,8 +109,7 @@ class Version(object):
                              % (components, ))
         if filter(lambda n: not isinstance(n, int) and n > 0, components):
             raise ValueError("Invalid component values %r" % (components, ))
-        self.major, self.minor, self.micro, self.patch = self._pad(components)
-        self._resolution = len(components)
+        self.set(components)
         self.name = name
         self.date = date
 
@@ -151,6 +150,16 @@ class Version(object):
 
     def __ge__(self, other):
         return self > other or self == other
+
+    def set(self, components):
+        """Set version components
+
+        :type components: ``tuple`` of ``int``
+        :param components: Version components
+        """
+        self.major, self.minor, self.micro, self.patch = self._pad(components)
+        if not "_resolution" in self.__dict__:
+            self._resolution = len(components)
 
     @property
     def components_full(self):
@@ -401,7 +410,7 @@ def main():
         version.bump(options.bump)
         version.write(filename, options.file_type)
     elif options.set:
-        version.components = split_version(options.set)
+        version.set(split_version(options.set))
         version.write(filename, options.file_type)
 
     print(success(version.display(options.display_format)))
