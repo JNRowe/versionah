@@ -157,7 +157,8 @@ class Version(object):
         :type components: ``tuple`` of ``int``
         :param components: Version components
         """
-        self.major, self.minor, self.micro, self.patch = self._pad(components)
+        padded = (components + (0, 0, 0))[:4]
+        self.major, self.minor, self.micro, self.patch = padded
         if not "_resolution" in self.__dict__:
             self._resolution = len(components)
 
@@ -171,16 +172,6 @@ class Version(object):
         """Generate component tuple to initial resolution"""
 
         return self.components_full[:self._resolution]
-
-    @staticmethod
-    def _pad(components):
-        """Make tuple four components long
-
-        :type components: ``tuple``
-        :param components: Version components to pad
-        :rtype: ``tuple``
-        :return: Padded version components"""
-        return (tuple(components) + (0, 0))[:4]
 
     def bump(self, bump_type):
         """Bump a version string
