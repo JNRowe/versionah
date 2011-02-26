@@ -23,6 +23,9 @@ functionality ``shtool`` provides useful then I'd strongly recommend using
 .. [#] According to the `shtool ChangeLog` I used it at least as far back as
    2004 when I contributed M4_ support.
 
+Since version 0.8.0 it has been possible to parse ``shtool`` generated files,
+but writing ``shtool``-compatible files is not supported.
+
 .. _mail: jnrowe@gmail.com
 .. _shtool: http://www.gnu.org/software/shtool/shtool.html
 .. _shtool ChangeLog: http://www.gnu.org/software/shtool/ChangeLog.txt

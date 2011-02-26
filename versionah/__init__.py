@@ -71,7 +71,8 @@ USAGE = "\n".join(USAGE).replace("versionah", "%prog")
 
 VALID_PACKAGE = "[A-Za-z]+(?:[_-][A-Za-z]+)*"
 VALID_VERSION = r"\d+\.\d+(?:\.\d+){,2}"
-VALID_DATE = r"\d{4}-\d{2}-\d{2}"
+# ISO-8601, and %d-%b-%Y formatting for shtool compatibility
+VALID_DATE = r"(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:[A-Z][a-z]{2})-\d{4})"
 
 
 class Version(object):
@@ -265,15 +266,18 @@ class Version(object):
         :raise ValueError: Unparsable version data
         """
         data = open(filename).read().strip()
-        match = re.search(r"This is (%s) version (%s) \((%s)\)"
+        match = re.search(r"This is (%s),? [vV]ersion (%s) \((%s)\)"
                           % (VALID_PACKAGE, VALID_VERSION, VALID_DATE),
                           data)
         if not match:
             raise ValueError("No valid version identifier in %r" % filename)
         name, version_str, date_str = match.groups()
         components = split_version(version_str)
-        date = datetime.date(*map(int, date_str.split("-")))
-        return Version(components, name, date)
+        try:
+            parsed = datetime.datetime.strptime(date_str, "%Y-%m-%d")
+        except ValueError:
+            parsed = datetime.datetime.strptime(date_str, "%d-%b-%Y")
+        return Version(components, name, parsed.date())
 
     def write(self, filename, file_type):
         """Write a version file
