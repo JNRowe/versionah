@@ -3,6 +3,17 @@
 
 .. contents::
 
+0.8.0 - 2011-02-26
+------------------
+
+    * Support for reading shtool_ generated files
+    * ``major``, ``minor``, ``micro`` and ``patch`` are exported to templates
+    * Added an M4_ template, useful for working with autoconf_
+
+..  _shtool: http://www.gnu.org/software/shtool/shtool.html
+.. _M4: http://www.gnu.org/software/m4/m4.html
+.. _autoconf: http://www.gnu.org/software/autoconf/autoconf.html
+
 0.7.0 - 2011-02-21
 ------------------
 
