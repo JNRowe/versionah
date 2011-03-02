@@ -1,12 +1,12 @@
 /* {{ magic }} */
-
-#ifndef _{{ filename|upper|regexp("[^A-Z]", "_") }}_INCLUDE_
-#define _{{ filename|upper|regexp("[^A-Z]", "_") }}_INCLUDE_
+{% set escaped_name = filename|upper|regexp("[^A-Z]", "_") %}
+#ifndef _{{ escaped_name }}_INCLUDE_
+#define _{{ escaped_name }}_INCLUDE_
 
 #define VERSION "{{ dotted }}"
 #define VERSION_HEX {{ hex }}
 #define VERSION_LIBTOOL "{{ libtool }}"
 #define VERSION_DATE "{{ date }}"
 
-#endif
+#endif /* {{ escaped_name }} */
 
