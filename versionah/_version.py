@@ -1,5 +1,5 @@
-# This is versionah version 0.8.1 (2011-02-26)
-dotted = "0.8.1"
-libtool = "8:21"
-hex = 0x000801
-date = "2011-02-26"
+# This is versionah version 0.8.2 (2011-03-02)
+dotted = "0.8.2"
+libtool = "8:22"
+hex = 0x000802
+date = "2011-03-02"

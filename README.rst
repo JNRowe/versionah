@@ -46,6 +46,19 @@ be made.
 When ``versionah`` 1.0.0 is released the API will be frozen, and any changes
 which aren't backwards compatible will force a major version bump.
 
+Contributors
+------------
+
+I'd like to thank the following people who have contributed to ``versionah``.
+
+Bug reports
+'''''''''''
+
+* Matt Leighy
+
+If I've forgotten to include your name I wholeheartedly apologise.  Just drop me
+a mail_ and I'll update the list!
+
 Bugs
 ----
 
