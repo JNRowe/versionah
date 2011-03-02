@@ -123,7 +123,9 @@ def see_file_type(step, file_type):
 def process_with_linter(step, name, linter):
     file_type = versionah.process_command_line([name, ])[0].file_type
     world.version.write("tests/data/%s" % name, file_type)
-    world.retval = subprocess.call(linter.split() + ["tests/data/%s" %name, ])
+    world.retval = subprocess.call(linter.split() + ["tests/data/%s" %name, ],
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
     os.unlink("tests/data/%s" % name)
 
 @step(u'linter returns 0')
