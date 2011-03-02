@@ -1,0 +1,6 @@
+
+  test.txt -- Version Information for shtool_output_test (syntax: Text)
+  [automatically generated and maintained by GNU shtool]
+
+  This is shtool_output_test, Version 1.2.3 (02-Mar-2011)
+

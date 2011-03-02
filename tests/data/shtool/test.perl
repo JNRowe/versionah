@@ -1,0 +1,18 @@
+##
+##  test.perl -- Version Information for shtool_output_test (syntax: Perl)
+##  [automatically generated and maintained by GNU shtool]
+##
+
+our $version = {
+    'v_hex'   => 0x102203,
+    'v_short' => "1.2.3",
+    'v_long'  => "1.2.3 (02-Mar-2011)",
+    'v_tex'   => "This is shtool_output_test, Version 1.2.3 (02-Mar-2011)",
+    'v_gnu'   => "shtool_output_test 1.2.3 (02-Mar-2011)",
+    'v_web'   => "shtool_output_test/1.2.3",
+    'v_sccs'  => "@(#)shtool_output_test 1.2.3 (02-Mar-2011)",
+    'v_rcs'   => "\$Id: shtool_output_test 1.2.3 (02-Mar-2011) $/"
+};
+
+1;
+
