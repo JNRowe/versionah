@@ -1,5 +1,6 @@
 import datetime
 import os
+import subprocess
 
 from nose.tools import assert_equal
 
@@ -53,7 +54,7 @@ def read_content(step):
     world.version = versionah.Version.read("tests/data/%s" % world.name)
 
 @step(u'I write its value to (.*)')
-def when_i_write_its_value_to_file(step, name):
+def write_value_to_file(step, name):
     world.version.write("tests/data/%s" % name, "text")
     world.version = None
     step.given('I have the file %s' % name)
@@ -117,3 +118,14 @@ def pass_args_to_function(step, arg, value, function):
 @step(u'I see the file type (.*)')
 def see_file_type(step, file_type):
     assert_equal(world.result[0].file_type, file_type)
+
+@step(u'I process (.*) with (.*)')
+def process_with_linter(step, name, linter):
+    file_type = versionah.process_command_line([name, ])[0].file_type
+    world.version.write("tests/data/%s" % name, file_type)
+    world.retval = subprocess.call(linter.split() + ["tests/data/%s" %name, ])
+    os.unlink("tests/data/%s" % name)
+
+@step(u'linter returns 0')
+def checker_returns_zero(step):
+    assert_equal(world.retval, 0)
