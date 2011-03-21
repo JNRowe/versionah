@@ -104,6 +104,7 @@ html_theme = 'default'
 html_theme_options = {
     "rightsidebar": True,
     "stickysidebar": True,
+    "externalrefs": True,
 
     "footerbgcolor": "rgb(37, 64, 92)",
     "footertextcolor": "rgb(239, 239, 239)",
