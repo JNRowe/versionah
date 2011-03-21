@@ -4,5 +4,6 @@ dist/
 doc/.build/
 
 .coverage
+.noseids
 *.py[co]
 MANIFEST
