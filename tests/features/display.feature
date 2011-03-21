@@ -35,3 +35,14 @@ Feature: Display version
     |   0.1.0 |   1:20 |
     |   1.0.0 |  10:20 |
     |   2.1.3 |  21:23 |
+
+  Scenario Outline: Date
+    Given I have the version <version> created on <date>
+    When I display its date representation
+    Then I see the date string <date>
+
+  Examples:
+    | version |       date |
+    |   0.1.0 | 2011-03-21 |
+    |   1.0.0 | 2000-01-01 |
+    |   2.1.3 | 1970-01-01 |

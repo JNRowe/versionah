@@ -131,3 +131,18 @@ def process_with_linter(step, name, linter):
 @step(u'linter returns 0')
 def checker_returns_zero(step):
     assert_equal(world.retval, 0)
+
+@step(u'I have the version (%s) created on (%s)' % (versionah.VALID_VERSION,
+                                                    versionah.VALID_DATE))
+def have_the_version_with_date(step, version, date):
+    y, m, d = map(int, date.split("-"))
+    world.version = versionah.Version(versionah.split_version(version),
+                                      date=datetime.date(y, m, d))
+
+@step(u'I display its date representation')
+def display_date_representation(step):
+    world.string = world.version.as_date()
+
+@step(u'I see the date string (.*)')
+def see_the_date(step, expected):
+    assert_equal(world.string, expected)
