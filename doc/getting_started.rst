@@ -55,7 +55,7 @@ be:
 
   man.1: man.pod
   	pod2man --section=1 --release="`versionah -d dotted src/version.h`" \
-  	    --date="`date -I`" $< $@
+  	    --date="`versionah -d date src/version.h`" $< $@
 
 .. _make: http://www.gnu.org/software/make/make.html
 .. _automake: http://sources.redhat.com/automake/
