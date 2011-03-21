@@ -235,6 +235,14 @@ class Version(object):
         :return: Version as libtool string"""
         return "%i:%i" % (self.major * 10 + self.minor, 20 + self.micro)
 
+    def as_date(self):
+        """Generate a ISO-8601 date string for release
+
+        :rtype: ``str``
+        :return: Version's release date as ISO-8601 date stamp
+        """
+        return self.date.isoformat()
+
     @staticmethod
     def display_types():
         """Supported representation types
@@ -293,7 +301,7 @@ class Version(object):
         data["filename"] = filename
         data["magic"] = "This is %s version %s (%s)" % (self.name,
                                                         self.as_dotted(),
-                                                        self.date)
+                                                        self.as_date())
         data.update(dict(zip(["major", "minor", "micro", "patch"],
                              self.components)))
         data.update(dict([(k[3:], getattr(self, k)())
