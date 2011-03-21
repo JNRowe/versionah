@@ -89,7 +89,7 @@ class Version(object):
         pkg_data_dirs.append(mk_data_dir(directory))
 
     env = jinja2.Environment(loader=jinja2.ChoiceLoader(
-        map(lambda s: jinja2.FileSystemLoader(s), pkg_data_dirs)))
+        list(map(lambda s: jinja2.FileSystemLoader(s), pkg_data_dirs))))
     env.loader.loaders.append(jinja2.PackageLoader("versionah", "templates"))
     env.filters["regexp"] = lambda s, pat, rep, count=0: re.sub(pat, rep, s, count)
     filetypes = [s.split(".")[0] for s in env.list_templates()]
@@ -107,7 +107,7 @@ class Version(object):
         if not 2 <= len(components) <= 4:
             raise ValueError("Invalid number of components %r"
                              % (components, ))
-        if filter(lambda n: not isinstance(n, int) and n > 0, components):
+        if not all(filter(lambda n: not isinstance(n, int) and n > 0, components)):
             raise ValueError("Invalid component values %r" % (components, ))
         self.set(components)
         self.name = name
