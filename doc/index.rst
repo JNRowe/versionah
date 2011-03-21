@@ -23,6 +23,7 @@ Contents:
 
    background
    usage
+   getting_started
    templates
    versionah manpage <versionah.1>
    alternatives
