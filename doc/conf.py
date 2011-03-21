@@ -126,6 +126,9 @@ html_theme_options = {
 
     "codebgcolor": "rgb(248, 248, 248)",
     "codetextcolor": "rgb(107, 91, 75)",
+
+    "bodyfont": "'Verdana', 'Arial', sans-serif",
+    "headfont": "'Georgia', 'Times New Roman', serif",
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
