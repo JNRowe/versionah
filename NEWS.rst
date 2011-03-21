@@ -3,6 +3,14 @@
 
 .. contents::
 
+0.9.0 - 2011-03-21
+------------------
+
+    * Installable with setuptools_
+    * Release date output with ``--display date`` option
+
+.. _setuptools: http://pypi.python.org/pypi/distribute
+
 0.8.0 - 2011-02-26
 ------------------
 
