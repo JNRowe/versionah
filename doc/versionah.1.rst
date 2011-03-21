@@ -42,7 +42,7 @@ OPTIONS
     Bump ``type`` by one, where ``type`` is one {major,minor,micro,patch}
 
 -d <format>, --display=<format>
-    Display output in ``format``, where ``format`` is one of {dotted,hex,libtool}
+    Display output in ``format``, where ``format`` is one of {date,dotted,hex,libtool}
 
 BUGS
 ----
