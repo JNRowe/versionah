@@ -12,6 +12,7 @@ setup(
     author_email="jnrowe@gmail.com",
     classifiers=[
         'Programming Language :: Python',
+        'Programming Language :: Python :: 3'
     ],
     packages=['versionah', ],
     include_package_data=True,
