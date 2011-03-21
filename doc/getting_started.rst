@@ -20,8 +20,8 @@ rules:
 
 .. sourcecode:: make
 
-  $(addprefix version-, major minor micro):
-  	versionah -b $(subst version-,, $@) src/version.h
+    $(addprefix version-, major minor micro):
+        versionah -b $(subst version-,, $@) src/version.h
 
 The above example makes it possible to call :makevar:`version-minor` to bump the
 minor version in :file:`src/version.h`.
@@ -39,10 +39,10 @@ make_ files:
 
 .. sourcecode:: make
 
-  $(LIBRARY_NAME): $(LIBRARY_OBJS)
-  	$(LIBTOOL) --mode=link $(CC) -o $(LIBRARY_NAME) $(LIBRARY_OBJS) \
-  	    -rpath $(libdir) \
-  	    -version-info `versionah -d libtool src/version.h`
+    $(LIBRARY_NAME): $(LIBRARY_OBJS)
+        $(LIBTOOL) --mode=link $(CC) -o $(LIBRARY_NAME) $(LIBRARY_OBJS) \
+            -rpath $(libdir) \
+            -version-info `versionah -d libtool src/version.h`
 
 :command:`pod2man` example
 --------------------------
@@ -53,9 +53,9 @@ be:
 
 .. sourcecode:: make
 
-  man.1: man.pod
-  	pod2man --section=1 --release="`versionah -d dotted src/version.h`" \
-  	    --date="`versionah -d date src/version.h`" $< $@
+    man.1: man.pod
+        pod2man --section=1 --release="`versionah -d dotted src/version.h`" \
+            --date="`versionah -d date src/version.h`" $< $@
 
 .. _make: http://www.gnu.org/software/make/make.html
 .. _automake: http://sources.redhat.com/automake/
