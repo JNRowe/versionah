@@ -104,6 +104,27 @@ html_theme = 'default'
 html_theme_options = {
     "rightsidebar": True,
     "stickysidebar": True,
+
+    "footerbgcolor": "rgb(37, 64, 92)",
+    "footertextcolor": "rgb(239, 239, 239)",
+
+    "sidebarbgcolor": "rgb(57, 84, 112)",
+    "sidebartextcolor": "rgb(255, 255, 255)",
+    "sidebarlinkcolor": "rgb(239, 239, 239)",
+
+    "relbarbgcolor": "rgb(57, 84, 112)",
+    "relbartextcolor": "rgb(223, 223, 223)",
+    "relbarlinkcolor": "rgb(207, 207, 207)",
+
+    "bgcolor": "rgb(255, 255, 255)",
+    "textcolor": "rgb(0, 0, 0)",
+
+    "headbgcolor": "rgb(77, 104, 132)",
+    "headtextcolor": "rgb(239, 239, 239)",
+    "headlinkcolor": "rgb(207, 207, 207)",
+
+    "codebgcolor": "rgb(248, 248, 248)",
+    "codetextcolor": "rgb(107, 91, 75)",
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
