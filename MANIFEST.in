@@ -1,0 +1,7 @@
+include doc/*.rst
+include doc/Makefile
+include doc/conf.py
+include tests/data/shtool/test.*
+include tests/data/test_[a-z]
+include tests/features/*.feature
+include tests/features/steps.py
