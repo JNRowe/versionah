@@ -20,6 +20,19 @@ minor version in :file:`src/version.h`.
    If you use automake_ then you can use the :token:`PACKAGE_NAME` variable to
    set the :option:`--name` value too.
 
+``libtool`` example
+-------------------
+
+It is quite easy to use the versioning information for libtool_ build rules in
+make_ files:
+
+.. sourcecode:: make
+
+  $(LIBRARY_NAME): $(LIBRARY_OBJS)
+  	$(LIBTOOL) --mode=link $(CC) -o $(LIBRARY_NAME) $(LIBRARY_OBJS) \
+  	    -rpath $(libdir) \
+  	    -version-info `versionah -d libtool src/version.h`
+
 :command:`pod2man` example
 --------------------------
 
@@ -35,4 +48,5 @@ be:
 
 .. _make: http://www.gnu.org/software/make/make.html
 .. _automake: http://sources.redhat.com/automake/
+.. _libtool: http://www.gnu.org/software/libtool/
 .. _perl: http://www.perl.org/
