@@ -13,7 +13,7 @@ of displaying or bumping a project's version number a thoughtless task.
 All repetitive tasks should be easily automated, and :mod:`versionah` is just a
 little step in the right direction!
 
-It is written in Python_, and requires v2.5 or later.  :mod:`versionah` is
+It is written in Python_, and requires v2.6 or later.  :mod:`versionah` is
 released under the `GPL v3`_
 
 Contents:
