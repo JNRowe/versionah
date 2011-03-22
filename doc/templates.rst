@@ -76,7 +76,7 @@ This filter applies a regular expression to a value, it is a thin wrapper around
 
 .. _Jinja: http://jinja.pocoo.org/
 .. _XDG Base Directory Specification: http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
-.. _issue: http://github.com/JNRowe/versionah/issues
-.. _GitHub: http://github.com/JNRowe/versionah/
+.. _issue: https://github.com/JNRowe/versionah/issues
+.. _GitHub: https://github.com/JNRowe/versionah/
 .. _mail: jnrowe@gmail.com
 .. _built-in filters: http://jinja.pocoo.org/docs/templates/#list-of-builtin-filters
