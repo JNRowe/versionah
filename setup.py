@@ -7,7 +7,7 @@ from versionah import __version__
 setup(
     name='versionah',
     version=__version__,
-    url="https://github.com/JNRowe/versionah",
+    url="http://jnrowe.github.com/versionah/",
     author="James Rowe",
     author_email="jnrowe@gmail.com",
     classifiers=[

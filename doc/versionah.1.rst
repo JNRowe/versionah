@@ -57,7 +57,7 @@ Written by `James Rowe <mailto:jnrowe@gmail.com>`__
 RESOURCES
 ---------
 
-Home page: https://github.com/JNRowe/versionah
+Home page: http://jnrowe.github.com/versionah/
 
 COPYING
 -------
