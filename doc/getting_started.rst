@@ -7,9 +7,9 @@ Initial setup
 The first time we run :command:`versionah` we must supply an version string, and
 optionally a name for the package::
 
-    ▶ versionah.py -t c -s0.2.0 src/version.h
+    ▶ versionah -t c -s0.2.0 src/version.h
     0.2.0
-    ▶ versionah.py -t c -s0.2.0 -n my_app src/version.h
+    ▶ versionah -t c -s0.2.0 -n my_app src/version.h
     0.2.0
 
 :file:`Makefile` usage

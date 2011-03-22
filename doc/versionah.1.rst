@@ -1,5 +1,5 @@
-versionah.py
-============
+versionah
+=========
 
 Version management made easy
 ----------------------------
@@ -13,7 +13,7 @@ Version management made easy
 SYNOPSIS
 --------
 
-    versionah.py [option]... <file>
+    versionah [option]... <file>
 
 DESCRIPTION
 -----------
