@@ -89,7 +89,7 @@ class Version(object):
         pkg_data_dirs.append(mk_data_dir(directory))
 
     env = jinja2.Environment(loader=jinja2.ChoiceLoader(
-        list(map(lambda s: jinja2.FileSystemLoader(s), pkg_data_dirs))))
+        list(jinja2.FileSystemLoader(s) for s in pkg_data_dirs)))
     env.loader.loaders.append(jinja2.PackageLoader("versionah", "templates"))
     env.filters["regexp"] = lambda s, pat, rep, count=0: re.sub(pat, rep, s, count)
     filetypes = [s.split(".")[0] for s in env.list_templates()]
@@ -107,7 +107,7 @@ class Version(object):
         if not 2 <= len(components) <= 4:
             raise ValueError("Invalid number of components %r"
                              % (components, ))
-        if not all(filter(lambda n: not isinstance(n, int) and n > 0, components)):
+        if not all((isinstance(n, int) and n >= 0) for n in components):
             raise ValueError("Invalid component values %r" % (components, ))
         self.set(components)
         self.name = name
@@ -218,7 +218,7 @@ class Version(object):
         :rtype: ``str``
         :return: Standard dotted version string
         """
-        return ".".join(map(str, self.components))
+        return ".".join(str(s) for s in self.components)
 
     def as_hex(self):
         """Generate a hex version string
@@ -226,7 +226,7 @@ class Version(object):
         :rtype: ``str``
         :return: Version as hex string
         """
-        return "0x" + "".join(map(lambda n: "%02x" % n, self.components))
+        return "0x" + "".join("%02x" % n for n in self.components)
 
     def as_libtool(self):
         """Generate a libtool version string
@@ -319,7 +319,7 @@ def split_version(version):
     :rtype: ``tuple`` of ``int``
     :return: Components of version string
     """
-    return tuple(map(int, version.split(".")))
+    return tuple(int(s) for s in version.split("."))
 
 
 def process_command_line(argv=sys.argv[1:]):
