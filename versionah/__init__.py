@@ -299,6 +299,7 @@ class Version(object):
         """
         data = self.__dict__
         data["filename"] = filename
+        data["dateobj"] = self.date
         data["magic"] = "This is %s version %s (%s)" % (self.name,
                                                         self.as_dotted(),
                                                         self.as_date())
