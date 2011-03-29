@@ -28,6 +28,7 @@ Contents:
    getting_started
    templates
    versionah manpage <versionah.1>
+   faq
    alternatives
 
 Indices and tables
