@@ -17,8 +17,10 @@ Templates are loaded from directories in the following order:
 For information on the usage of :envvar:`XDG_DATA_HOME` and
 :envvar:`XDG_DATA_DIRS` read `XDG Base Directory Specification`_
 
-If you create some cool templates of your own please consider posting them in an
-issue_ or pushing them to a fork on GitHub_, so that others can benefit.
+.. note::
+
+   If you create some cool templates of your own please consider posting them in
+   an issue_ or pushing them to a fork on GitHub_, so that others can benefit.
 
 Precedence
 ----------
