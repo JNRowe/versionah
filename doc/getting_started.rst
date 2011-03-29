@@ -46,6 +46,11 @@ make_ files:
             -rpath $(libdir) \
             -version-info `versionah -d libtool src/version.h`
 
+Using the version information as the ``libtool`` interface age requires strict
+practise in maintaining the semantics of your version data, but doing so
+provides significant value to your users even if they aren't using the library
+interface.
+
 :command:`pod2man` example
 --------------------------
 
