@@ -17,7 +17,8 @@ seen as a homage to the version applet from ``shtool``.
 
 If you don't need the template support of :mod:`versionah` and find the other
 functionality ``shtool`` provides useful then I'd strongly recommend using
-``shtool``.
+``shtool``.  There is little point depending on two external projects when one
+can suffice.
 
 .. [#] According to the `shtool ChangeLog` I used it at least as far back as
    2004 when I contributed M4_ support.
