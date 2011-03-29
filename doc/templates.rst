@@ -50,7 +50,7 @@ Each template is provided with the following variables for use in the output:
 
 Jinja templates support object attribute and method access, so the ``date``
 object can be called with a ``strftime`` method for custom date output.  For
-example, ``{{ date.strftime("%a, %e %b %Y %H:%M:%S %z") }}`` can be used to
+example, ``{{ dateobj.strftime("%a, %e %b %Y %H:%M:%S %z") }}`` can be used to
 output an :rfc:`2822` date stamp.
 
 The ``text`` display's template is simply:
