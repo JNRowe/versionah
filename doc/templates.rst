@@ -36,6 +36,11 @@ Templates should be named after the common type suffix if possible, doing so
 allows :mod:`versionah` to guess an appropriate template from a supplied file.
 For example, ``py.jinja`` will apply by default to all files ending in ``.py``.
 
+However, templates *can* be given any name you wish.  This makes it simple to
+have project specific templates, should the need arise.  This functionality is
+especially useful if you have shared data as you can use Jinja's ``extends`` tag
+to reduce the duplication needed in each template.
+
 Data
 ----
 
