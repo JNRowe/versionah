@@ -15,6 +15,14 @@ information in your editor or using a simpler approach such as shtool_'s
 Do you accept template contributions?
 '''''''''''''''''''''''''''''''''''''
 
+Yes, if they are somewhat general.  And, it is a great way to have me maintain
+template compatibility for you in case something changes in a future version.
+
+Either open an issue_ or push them to a fork on GitHub_.
+
+.. _issue: https://github.com/JNRowe/versionah/issues
+.. _GitHub: https://github.com/JNRowe/versionah/
+
 I don't like your choice of template language
 '''''''''''''''''''''''''''''''''''''''''''''
 
