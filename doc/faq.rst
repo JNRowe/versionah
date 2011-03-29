@@ -52,3 +52,15 @@ and it makes perfect sense.
 
 Will you support other version formats?
 '''''''''''''''''''''''''''''''''''''''
+
+If the patches you submit for other version formats aren't too invasive then
+they'll probably be accepted.  If you're going to propose such a patch drop me a
+mail_ or open an issue_ first, so it can be discussed.
+
+If the format you're going to implement looks like the ``LooseVersion`` format
+defined in :pep:`386` with support for random words or odd characters then the
+answer is likely to be a resounding "no".  Direct support for the full
+``StrictVersion`` format defined in that PEP will, however, likely be accepted
+with open arms.
+
+.. _mail: jnrowe@gmail.com
