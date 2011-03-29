@@ -72,8 +72,14 @@ their generation drop me a mail_.
 Filters
 -------
 
-:mod:`versionah` defines the following filters beyond the `built-in filters` of
-Jinja_:
+:mod:`versionah` defines the following filters beyond the huge range `built-in
+filters` of Jinja_:
+
+.. note::
+
+   If you write extra filters that you believe could be of use to other
+   :mod:`versionah` users please consider posting them in an issue_ or pushing
+   them to a fork on GitHub_, so that others can benefit from your work.
 
 ``regexp``
 ''''''''''
