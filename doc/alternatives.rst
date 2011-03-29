@@ -20,11 +20,11 @@ functionality ``shtool`` provides useful then I'd strongly recommend using
 ``shtool``.  There is little point depending on two external projects when one
 can suffice.
 
-.. [#] According to the `shtool ChangeLog` I used it at least as far back as
-   2004 when I contributed M4_ support.
-
 Since version 0.8.0 it has been possible to parse ``shtool`` generated files,
 but writing ``shtool``-compatible files is not supported.
+
+.. [#] According to the `shtool ChangeLog`_ I used it at least as far back as
+   2004 when I contributed M4_ support.
 
 .. _mail: jnrowe@gmail.com
 .. _shtool: http://www.gnu.org/software/shtool/shtool.html
