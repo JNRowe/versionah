@@ -5,3 +5,4 @@ include tests/data/shtool/test.*
 include tests/data/test_[a-z]
 include tests/features/*.feature
 include tests/features/steps.py
+include versionah/templates/*.jinja
