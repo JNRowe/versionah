@@ -1,8 +1,13 @@
 Version templates
 =================
 
-Version files are created from templates using Jinja_.  Templates are loaded in
-the following order:
+Version files are created from templates using Jinja_.  Before writing your own
+templates you should read the awesome `Jinja template designer`_ documentation.
+
+Template locations
+------------------
+
+Templates are loaded from directories in the following order:
 
 * If it exists, :file:`${XDG_DATA_HOME:~/.local}/versionah/templates`
 * Any :file:`versionah/templates` directory in the directories specified by
@@ -75,6 +80,7 @@ This filter applies a regular expression to a value, it is a thin wrapper around
 :py:func:`re.sub` and takes the same arguments.
 
 .. _Jinja: http://jinja.pocoo.org/
+.. _Jinja template designer: http://jinja.pocoo.org/templates.html
 .. _XDG Base Directory Specification: http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 .. _issue: https://github.com/JNRowe/versionah/issues
 .. _GitHub: https://github.com/JNRowe/versionah/
