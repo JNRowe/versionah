@@ -5,16 +5,18 @@ The :program:`versionah` script is the main workhorse of :mod:`versionah`.
 
 Let's start with some basic examples:
 
-    ▶ versionah _version.py
+.. code-block:: sh
+
+    ▶ versionah _version.py  # Read the version data from _version.py
     2.4.3
-    ▶ versionah -b minor _version.py
+    ▶ versionah -b minor _version.py  # Bump the minor component
     2.5.0
-    ▶ versionah -b major _version.py
+    ▶ versionah -b major _version.py  # Bump the major component
     3.0.0
 
-    ▶ versionah -s0.2.0 _version.rb
+    ▶ versionah -s0.2.0 _version.rb  # Set the version in _version.rb to 0.2.0
     0.2.0
-    ▶ versionah -b minor _version.h
+    ▶ versionah -b minor _version.h  # Bump the minor component in _version.h
     0.4.0
 
 Options
