@@ -72,7 +72,7 @@ If you're authoring your own templates and you find you need extra data for
 their generation drop me a mail_.
 
 .. [#] Technically the result of any ``Version`` method beginning with ``as_``
-       is included.
+       is passed along to the template, with the ``as_`` prefixes removed.
 
 Filters
 -------
