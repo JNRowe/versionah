@@ -29,5 +29,14 @@ I don't like your choice of template language
 How do I add version data to my project's :file:`README`?
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+The way I manage it, using :mod:`versionah`, is by having a custom template for
+such a project.
+
+The only requirement :mod:`versionah` has is that ``{{ magic }}`` is included in
+the template, so you can use a project specific template that includes your full
+:file:`README` data and generate the distributed :file:`README` from that.
+Consider it the ``README.in`` approach you've probably used with GNU autotools
+and it makes perfect sense.
+
 Will you support other version formats?
 '''''''''''''''''''''''''''''''''''''''
