@@ -20,7 +20,7 @@ number, and optionally a name for the package:
 If your project currently uses make_ it is a simple task to add version bumping
 rules:
 
-.. sourcecode:: make
+.. code-block:: make
 
     $(addprefix version-, major minor micro):
         versionah -b $(subst version-,, $@) src/version.h
@@ -39,7 +39,7 @@ minor component in :file:`src/version.h`.
 It is quite easy to use the versioning information for libtool_ build rules in
 make_ files:
 
-.. sourcecode:: make
+.. code-block:: make
 
     $(LIBRARY_NAME): $(LIBRARY_OBJS)
         $(LIBTOOL) --mode=link $(CC) -o $(LIBRARY_NAME) $(LIBRARY_OBJS) \
