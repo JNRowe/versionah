@@ -76,7 +76,7 @@ Filters
 Jinja_:
 
 ``regexp``
-----------
+''''''''''
 
 This filter applies a regular expression to a value, it is a thin wrapper around
 :py:func:`re.sub` and takes the same arguments.
