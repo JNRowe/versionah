@@ -1,9 +1,9 @@
 Usage
 =====
 
-:program:`versionah` is the main workhorse of :mod:`versionah`.
+The :program:`versionah` script is the main workhorse of :mod:`versionah`.
 
-Let's start with some examples::
+Let's start with some basic examples:
 
     ▶ versionah _version.py
     2.4.3

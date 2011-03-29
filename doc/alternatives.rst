@@ -9,12 +9,11 @@ shtool
 
 shtool_ provides a great version management applet, one which I used for a
 number of years in certain projects [#]_ .  Unfortunately, the output formats
-are hard-coded in to the script making it very difficult to use in most of the
+are hard-coded in the script making it very difficult to use in most of the
 projects I work on.
 
 A few ideas have been borrowed from ``shtool``, and :mod:`versionah` should be
-seen as a homage to the version applet from ``shtool``.  It is, however, not
-compatible with ``shtool`` managed files.
+seen as a homage to the version applet from ``shtool``.
 
 If you don't need the template support of :mod:`versionah` and find the other
 functionality ``shtool`` provides useful then I'd strongly recommend using

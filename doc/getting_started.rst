@@ -4,8 +4,10 @@ Getting started
 Initial setup
 -------------
 
-The first time we run :command:`versionah` we must supply an version string, and
-optionally a name for the package::
+The first time we run :command:`versionah` we must supply the initial version
+number, and optionally a name for the package:
+
+.. code-block:: sh
 
     ▶ versionah -t c -s0.2.0 src/version.h
     0.2.0
@@ -24,12 +26,12 @@ rules:
         versionah -b $(subst version-,, $@) src/version.h
 
 The above example makes it possible to call :makevar:`version-minor` to bump the
-minor version in :file:`src/version.h`.
+minor component in :file:`src/version.h`.
 
 .. note::
 
-   If you use automake_ then you can use the :token:`PACKAGE_NAME` variable to
-   set the :option:`--name` value too.
+   If you use automake_ then you can use the :makevar:`PACKAGE_NAME` variable to
+   set the :option:`--name` value.
 
 ``libtool`` example
 -------------------

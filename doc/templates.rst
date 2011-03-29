@@ -32,7 +32,7 @@ For example, ``py.jinja`` will apply by default to all files ending in ``.py``.
 Data
 ----
 
-Each template is provided with the following data for use in templates:
+Each template is provided with the following variables for use in the output:
 
 * ``magic`` for the magic string to support reading :mod:`versionah` files
 * ``major``, ``minor``, ``micro`` and ``patch`` for the version components
@@ -52,7 +52,7 @@ The ``text`` display's template is simply:
 
     {{ magic }}
 
-which would result in output such as::
+which results in output such as::
 
     This is mypkg version 2.2.4 (2011-02-19)
 
