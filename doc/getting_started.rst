@@ -84,7 +84,7 @@ Another option is to call :command:`versionah` inside your :file:`conf.py`::
 
     import subprocess
     # The full version
-    release = subprocess.check_output(["versionah", "../versionah/_version.py"])
+    release = subprocess.check_output(["versionah", "versionah/_version.py"])
     # The short X.Y version.
     version = ".".join(release.split(".")[:2])
 
