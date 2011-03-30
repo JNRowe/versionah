@@ -159,8 +159,7 @@ class Version(object):
         """
         padded = (components + (0, 0, 0))[:4]
         self.major, self.minor, self.micro, self.patch = padded
-        if not "_resolution" in self.__dict__:
-            self._resolution = len(components)
+        self._resolution = len(components)
 
     @property
     def components_full(self):
