@@ -3,6 +3,17 @@ User-visible changes
 
 .. contents::
 
+0.10.0 - 2011-03-30
+-------------------
+
+* Added a ``h`` template, for writing C header files
+* ``dateobj`` exported to templates for full access to `datetime.date`_ methods
+* Man page available by calling ``make man`` in doc directory
+* Sphinx_ examples in Getting Started document
+
+.. _Sphinx: http://sphinx.pocoo.org/
+.. _datetime.date: http://docs.python.org/library/datetime.html#date-objects
+
 0.9.0 - 2011-03-21
 ------------------
 
