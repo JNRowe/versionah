@@ -3,4 +3,7 @@ dotted = "{{ dotted }}"
 libtool = "{{ libtool }}"
 hex = {{ hex }}
 date = "{{ date }}"
+tuple = ({{ major }}, {{ minor -}}
+  {% if resolution > 2 %}, {{ micro }}{% endif -%}
+  {% if resolution > 3 %}, {{ patch }}{% endif %})
 
