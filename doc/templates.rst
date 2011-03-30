@@ -48,6 +48,7 @@ Each template is provided with the following variables for use in the output:
 
 * ``magic`` for the magic string to support reading :mod:`versionah` files
 * ``major``, ``minor``, ``micro`` and ``patch`` for the version components
+* ``tuple`` all version components as a tuple
 * ``resolution`` number of components used by version
 * ``name`` for the package name
 * ``dateobj`` for release date as a :py:func:`datetime.date` object

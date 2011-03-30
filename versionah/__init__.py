@@ -243,6 +243,14 @@ class Version(object):
         """
         return self.date.isoformat()
 
+    def as_tuple(self):
+        """Generate a tuple of version components
+
+        :rtype: ``str``
+        :return: Version components as tuple
+        """
+        return self.components
+
     @staticmethod
     def display_types():
         """Supported representation types
