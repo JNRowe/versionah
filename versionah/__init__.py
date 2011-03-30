@@ -74,6 +74,18 @@ VALID_VERSION = r"\d+\.\d+(?:\.\d+){,2}"
 # ISO-8601, and %d-%b-%Y formatting for shtool compatibility
 VALID_DATE = r"(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:[A-Z][a-z]{2})-\d{4})"
 
+# Custom filters for Jinja
+FILTERS = {}
+
+
+def filter_regexp(string, pattern, repl, count=0, flags=0):
+    """Jinja filter for regexp replacements
+
+    See ``re.sub`` for documentation
+    """
+    return re.sub(pattern, repl, string, count, flags)
+FILTERS["regexp"] = filter_regexp
+
 
 class Version(object):
     """Main version identifier representation"""
@@ -91,7 +103,7 @@ class Version(object):
     env = jinja2.Environment(loader=jinja2.ChoiceLoader(
         list(jinja2.FileSystemLoader(s) for s in pkg_data_dirs)))
     env.loader.loaders.append(jinja2.PackageLoader("versionah", "templates"))
-    env.filters["regexp"] = lambda s, pat, rep, count=0: re.sub(pat, rep, s, count)
+    env.filters.update(FILTERS)
     filetypes = [s.split(".")[0] for s in env.list_templates()]
 
     def __init__(self, components=(0, 1, 0), name="unknown",
