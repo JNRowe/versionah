@@ -152,3 +152,9 @@ def see_the_date(step, expected):
 def have_version_object_and_tuple(step, version1, version2):
     world.version1 = versionah.Version(versionah.split_version(version1))
     world.version2 = versionah.split_version(version2)
+
+@step(u'I have the Version object for (%s) and list (%s)'
+       % (versionah.VALID_VERSION, versionah.VALID_VERSION))
+def have_version_object_and_list(step, version1, version2):
+    world.version1 = versionah.Version(versionah.split_version(version1))
+    world.version2 = list(versionah.split_version(version2))
