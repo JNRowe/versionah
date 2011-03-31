@@ -142,29 +142,38 @@ class Version(object):
         :return: Default strings representation of object"""
         return "%s v%s" % (self.name, self.as_dotted())
 
+    @staticmethod
+    def __prepare_cmp_object(other):
+        """Prepare object for comparison with Version
+
+        This presents a tuple for comparison with Version.components_full.
+
+        :type other: ``Version``, ``tuple`` or ``str``
+        :param other: Object to munge
+        :rtype: ``tuple``
+        :return: Full version component tuple for object
+        """
+        if isinstance(other, Version):
+            return other.components_full
+        elif isinstance(other, tuple):
+            return (tuple(other) + (0, 0, 0))[:4]
+        elif isinstance(other, str):
+            return (split_version(other) + (0, 0, 0))[:4]
+
     def __eq__(self, other):
         """Test ``Version`` objects for equality
 
         Importantly, padded version components are checked so that 0.1 is
         considered equal to 0.1.0.0.
         """
-        if type(other) == tuple:
-            return self.components_full == other
-        else:
-            return self.components_full == other.components_full
+        return self.components_full == self.__prepare_cmp_object(other)
     __ne__ = lambda self, other: not self == (other)
 
     def __lt__(self, other):
-        if type(other) == tuple:
-            return self.components < other
-        else:
-            return self.components < other.components
+        return self.components < self.__prepare_cmp_object(other)
 
     def __gt__(self, other):
-        if type(other) == tuple:
-            return self.components > other
-        else:
-            return self.components > other.components
+        return self.components_full > self.__prepare_cmp_object(other)
 
     def __le__(self, other):
         return self < other or self == other
