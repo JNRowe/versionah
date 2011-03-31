@@ -46,3 +46,14 @@ Feature: Display version
     |   0.1.0 | 2011-03-21 |
     |   1.0.0 | 2000-01-01 |
     |   2.1.3 | 1970-01-01 |
+
+  Scenario Outline: Web
+    Given I have the package <pkg> version <version>
+    When I display its web representation
+    Then I see the string <result>
+
+  Examples:
+    | pkg     | version | result        |
+    | unknown |   0.1.0 | unknown/0.1.0 |
+    | test    |   1.0.0 | test/1.0.0    |
+    | cat     |   2.1.3 | cat/2.1.3     |
