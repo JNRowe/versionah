@@ -1,4 +1,5 @@
 /* {{ magic }} */
+
 {% set escaped_name = filename|upper|regexp("[^A-Z]", "_") %}
 #ifndef _{{ escaped_name }}_INCLUDE_
 #define _{{ escaped_name }}_INCLUDE_
