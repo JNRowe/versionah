@@ -24,7 +24,7 @@ def step(match):
 
 @step(u'I have the version (%(VERSION)s)')
 def have_the_version(step, version):
-    world.version = versionah.Version(versionah.split_version(version))
+    world.version = versionah.Version(version)
 
 
 @step(u'I bump its major version')
@@ -88,7 +88,7 @@ def write_value_to_file(step, name):
 
 @step(u'I have the package (%(PACKAGE)s) version (%(VERSION)s)')
 def have_named_version(step, name, version):
-    world.version = versionah.Version(versionah.split_version(version), name)
+    world.version = versionah.Version(version, name)
 
 
 @step(u'I display its string representation')
@@ -108,8 +108,8 @@ def bump_patch_version(step):
 
 @step(u'I have the versions (%(VERSION)s) and (%(VERSION)s)')
 def have_versions(step, version1, version2):
-    world.version1 = versionah.Version(versionah.split_version(version1))
-    world.version2 = versionah.Version(versionah.split_version(version2))
+    world.version1 = versionah.Version(version1)
+    world.version2 = versionah.Version(version2)
 
 
 @step(u'I compare them for equality')
@@ -133,7 +133,7 @@ def find_max(step):
 @step(u'I have the invalid version (.*)')
 def have_invalid_version(step, string):
     try:
-        world.version = versionah.Version(versionah.split_version(string))
+        world.version = versionah.Version(string)
     except Exception as e:
         world.exception = e
 
@@ -179,8 +179,7 @@ def checker_returns_zero(step):
 @step(u'I have the version (%(VERSION)s) created on (%(DATE)s)')
 def have_the_version_with_date(step, version, date):
     y, m, d = map(int, date.split("-"))
-    world.version = versionah.Version(versionah.split_version(version),
-                                      date=datetime.date(y, m, d))
+    world.version = versionah.Version(version, date=datetime.date(y, m, d))
 
 
 @step(u'I display its date representation')
@@ -196,13 +195,13 @@ def see_the_date(step, expected):
 @step(u'I have the Version object for (%(VERSION)s) and (?:tuple|string) ' \
       '(%(VERSION)s)')
 def have_version_object_and_tuple(step, version1, version2):
-    world.version1 = versionah.Version(versionah.split_version(version1))
+    world.version1 = versionah.Version(version1)
     world.version2 = versionah.split_version(version2)
 
 
 @step(u'I have the Version object for (%(VERSION)s) and list (%(VERSION)s)')
 def have_version_object_and_list(step, version1, version2):
-    world.version1 = versionah.Version(versionah.split_version(version1))
+    world.version1 = versionah.Version(version1)
     world.version2 = list(versionah.split_version(version2))
 
 
@@ -210,5 +209,5 @@ def have_version_object_and_list(step, version1, version2):
       '(%(VERSION)s)')
 def have_version_object_and_re_obj(step, version1, version2):
     import re
-    world.version1 = versionah.Version(versionah.split_version(version1))
+    world.version1 = versionah.Version(version1)
     world.version2 = re.compile(version2)

@@ -63,6 +63,10 @@ else:  # pragma: no cover
     success = fail = warn = str
 # pylint: enable-msg=C0103
 
+if sys.version_info.major == 3:
+    STR_TYPE = str
+else:
+    STR_TYPE = basestring
 
 # Pull the first paragraph from the docstring
 USAGE = __doc__[:__doc__.find('\n\n', 100)].splitlines()[2:]
@@ -110,12 +114,14 @@ class Version(object):
                  date=datetime.date.today()):
         """Initialise a new ``Version`` object
 
-        :type components: ``tuple`` of ``int``
+        :type components: ``str`` or ``tuple`` of ``int``
         :param major: Version components
         :param name: Package's name
         :type date: ``datetime.date``
         :param date: Date associated with version
         """
+        if isinstance(components, STR_TYPE):
+            components = split_version(components)
         if not 2 <= len(components) <= 4:
             raise ValueError("Invalid number of components %r"
                              % (components, ))
@@ -191,6 +197,8 @@ class Version(object):
         :type components: ``tuple`` of ``int``
         :param components: Version components
         """
+        if isinstance(components, STR_TYPE):
+            components = split_version(components)
         padded = (components + (0, 0, 0))[:4]
         self.major, self.minor, self.micro, self.patch = padded
         self._resolution = len(components)
@@ -452,7 +460,7 @@ def main():
         version.bump(options.bump)
         version.write(filename, options.file_type)
     elif options.set:
-        version.set(split_version(options.set))
+        version.set(options.set)
         version.write(filename, options.file_type)
 
     print(success(version.display(options.display_format)))
