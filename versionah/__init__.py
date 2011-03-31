@@ -292,6 +292,14 @@ class Version(object):
         """
         return self.components
 
+    def as_web(self):
+        """Generate a web UA-style string for release
+
+        :rtype: ``str``
+        :return: Version's string in web UA-style
+        """
+        return "%s/%s" % (self.name, self.as_dotted())
+
     @staticmethod
     def display_types():
         """Supported representation types

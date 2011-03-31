@@ -47,4 +47,5 @@ Options
 
 .. cmdoption:: -d <format>, --display=<format>
 
-   Display output in ``format``, where ``format`` is one of {date,dotted,hex,libtool}
+   Display output in ``format``, where ``format`` is one of
+   {date,dotted,hex,libtool,web}
