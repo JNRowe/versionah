@@ -152,6 +152,7 @@ class Version(object):
         :param other: Object to munge
         :rtype: ``tuple``
         :return: Full version component tuple for object
+        :raise NotImplementedError: Incomparable other
         """
         if isinstance(other, Version):
             return other.components_full
@@ -159,6 +160,9 @@ class Version(object):
             return (tuple(other) + (0, 0, 0))[:4]
         elif isinstance(other, str):
             return (split_version(other) + (0, 0, 0))[:4]
+        else:
+            raise NotImplementedError("Unable to compare Version and %r"
+                                      % type(other))
 
     def __eq__(self, other):
         """Test ``Version`` objects for equality
