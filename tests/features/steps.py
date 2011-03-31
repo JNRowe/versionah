@@ -147,7 +147,7 @@ def display_date_representation(step):
 def see_the_date(step, expected):
     assert_equal(world.string, expected)
 
-@step(u'I have the Version object for (%s) and tuple (%s)'
+@step(u'I have the Version object for (%s) and (?:tuple|string) (%s)'
        % (versionah.VALID_VERSION, versionah.VALID_VERSION))
 def have_version_object_and_tuple(step, version1, version2):
     world.version1 = versionah.Version(versionah.split_version(version1))
