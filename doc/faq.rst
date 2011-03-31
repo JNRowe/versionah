@@ -12,6 +12,12 @@ information in your editor or using a simpler approach such as shtool_'s
 
 .. _shtool: http://www.gnu.org/software/shtool/shtool.html
 
+I give ``perl`` scripts the suffix ``.perl``, can I make type guessing work?
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+Yes.  The simple way is to just create a symlink from ``pl.jinja`` to
+``perl.jinja``.
+
 Do you accept template contributions?
 '''''''''''''''''''''''''''''''''''''
 
