@@ -38,3 +38,8 @@ Feature: Compare versions with foreign objects
     |    1.0.0 |    1.0.0 | True   |
     |    1.0.0 |    2.0.0 | False  |
     |    2.1.3 |    3.0.0 | False  |
+
+  Scenario: Unsupported object comparison
+    Given I have the Version object for 0.2.0 and RegExp matcher for 0.2.0
+    When I compare them for equality
+    Then I receive NotImplementedError

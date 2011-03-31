@@ -86,7 +86,10 @@ def have_versions(step, version1, version2):
 
 @step(u'I compare them for equality')
 def compare_equality(step):
-    world.result = unicode(world.version1 == world.version2)
+    try:
+        world.result = unicode(world.version1 == world.version2)
+    except Exception as e:
+        world.exception = e
 
 @step(u'I see the comparison (.*)')
 def see_comparison_result(step, expected):
@@ -158,3 +161,10 @@ def have_version_object_and_tuple(step, version1, version2):
 def have_version_object_and_list(step, version1, version2):
     world.version1 = versionah.Version(versionah.split_version(version1))
     world.version2 = list(versionah.split_version(version2))
+
+@step(u'I have the Version object for (%s) and RegExp matcher for (%s)'
+       % (versionah.VALID_VERSION, versionah.VALID_VERSION))
+def have_version_object_and_re_obj(step, version1, version2):
+    import re
+    world.version1 = versionah.Version(versionah.split_version(version1))
+    world.version2 = re.compile(version2)
