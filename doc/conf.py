@@ -52,7 +52,7 @@ root_dir = os.path.sep.join(os.path.realpath(__file__).split(os.path.sep)[:-2])
 sys.path.insert(0, root_dir)
 from versionah import _version
 # The short X.Y version.
-version = ".".join(_version__.tuple[:2])
+version = ".".join(map(str, _version.tuple[:2]))
 # The full version, including alpha/beta/rc tags.
 release = _version.dotted
 
