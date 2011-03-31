@@ -148,14 +148,23 @@ class Version(object):
         Importantly, padded version components are checked so that 0.1 is
         considered equal to 0.1.0.0.
         """
-        return self.components_full == other.components_full
+        if type(other) == tuple:
+            return self.components_full == other
+        else:
+            return self.components_full == other.components_full
     __ne__ = lambda self, other: not self == (other)
 
     def __lt__(self, other):
-        return self.components < other.components
+        if type(other) == tuple:
+            return self.components < other
+        else:
+            return self.components < other.components
 
     def __gt__(self, other):
-        return self.components > other.components
+        if type(other) == tuple:
+            return self.components > other
+        else:
+            return self.components > other.components
 
     def __le__(self, other):
         return self < other or self == other
