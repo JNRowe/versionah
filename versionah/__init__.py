@@ -369,7 +369,11 @@ def split_version(version):
     :param version: Version string
     :rtype: ``tuple`` of ``int``
     :return: Components of version string
+    :raise ValueError: Invalid version string
     """
+    if not re.match("%s$" % VALID_VERSION, version):
+        raise ValueError("Invalid version string %r" % version)
+
     return tuple(int(s) for s in version.split("."))
 
 
