@@ -148,14 +148,14 @@ class Version(object):
 
         This presents a tuple for comparison with Version.components_full.
 
-        :type other: ``Version``, ``tuple`` or ``str``
+        :type other: ``Version``, ``list``, ``tuple`` or ``str``
         :param other: Object to munge
         :rtype: ``tuple``
         :return: Full version component tuple for object
         """
         if isinstance(other, Version):
             return other.components_full
-        elif isinstance(other, tuple):
+        elif isinstance(other, (tuple, list)):
             return (tuple(other) + (0, 0, 0))[:4]
         elif isinstance(other, str):
             return (split_version(other) + (0, 0, 0))[:4]
