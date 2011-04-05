@@ -87,7 +87,10 @@ def filter_regexp(string, pattern, repl, count=0, flags=0):
 
     See ``re.sub`` for documentation
     """
-    return re.sub(pattern, repl, string, count, flags)
+    if sys.version_info[:2] > (2, 6):
+        return re.sub(pattern, repl, string, count, flags)
+    else:
+        return re.sub(pattern, repl, string, count)
 FILTERS["regexp"] = filter_regexp
 
 
