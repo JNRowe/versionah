@@ -1,7 +1,9 @@
 .ropeproject/
+.tox
 build/
 dist/
 doc/.build/
+
 
 .coverage
 .noseids
