@@ -63,7 +63,7 @@ else:  # pragma: no cover
     success = fail = warn = str
 # pylint: enable-msg=C0103
 
-if sys.version_info.major == 3:
+if sys.version_info[0] == 3:
     STR_TYPE = str
 else:
     STR_TYPE = basestring
