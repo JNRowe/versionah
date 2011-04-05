@@ -102,7 +102,7 @@ For example, it is used in the C template to make valid identifiers from
     {% set escaped_name = filename|upper|regexp("[^A-Z]", "_") %}
 
 .. _Jinja: http://jinja.pocoo.org/
-.. _Jinja template designer: http://jinja.pocoo.org/templates.html
+.. _Jinja template designer: http://jinja.pocoo.org/docs/templates/
 .. _XDG Base Directory Specification: http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 .. _issue: https://github.com/JNRowe/versionah/issues
 .. _GitHub: https://github.com/JNRowe/versionah/
