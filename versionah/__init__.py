@@ -118,10 +118,9 @@ class Version(object):
         """Initialise a new ``Version`` object
 
         :type components: ``str`` or ``tuple`` of ``int``
-        :param major: Version components
-        :param name: Package's name
-        :type date: ``datetime.date``
-        :param date: Date associated with version
+        :param components: Version components
+        :param str name: Package's name
+        :param datetime.date date: Date associated with version
         """
         if isinstance(components, STR_TYPE):
             components = split_version(components)
@@ -220,8 +219,7 @@ class Version(object):
     def bump(self, bump_type):
         """Bump a version string
 
-        :type bump_type: ``str``
-        :param bump_type: Component to bump
+        :param str bump_type: Component to bump
         """
         if bump_type == "micro" and self._resolution < 3 \
             or bump_type == "patch" and self._resolution < 4:
@@ -315,8 +313,7 @@ class Version(object):
     def display(self, display_format):
         """Display a version string
 
-        :type display_format: ``str``
-        :param display_format: Format to display version string in
+        :param str display_format: Format to display version string in
         :rtype: ``str``
         :return: Formatted version string
         """
@@ -326,8 +323,7 @@ class Version(object):
     def read(filename):
         """Read a version file
 
-        :type filename: ``str``
-        :param filename: Version file to read
+        :param str filename: Version file to read
         :rtype: ``Version``
         :return: New ``Version```` object representing file
         :raise OSError: When ``filename`` doesn't exist
@@ -350,10 +346,8 @@ class Version(object):
     def write(self, filename, file_type):
         """Write a version file
 
-        :type filename: ``str``
-        :param filename: Version file to write
-        :type file_type: ``str``
-        :param file_type: File type to write
+        :param str filename: Version file to write
+        :param str file_type: File type to write
         :rtype: ``bool``
         :return: ``True`` on write success
         """
@@ -376,8 +370,7 @@ class Version(object):
 def split_version(version):
     """Split version string to components
 
-    :type version: ``str``
-    :param version: Version string
+    :param str version: Version string
     :rtype: ``tuple`` of ``int``
     :return: Components of version string
     :raise ValueError: Invalid version string
@@ -391,8 +384,7 @@ def split_version(version):
 def process_command_line(argv=sys.argv[1:]):
     """Main command line interface
 
-    :type argv: ``list``
-    :param argv: Command line arguments to process
+    :param list argv: Command line arguments to process
     :rtype: ``tuple`` of ``optparse`` and ``string``
     :return: Parsed options and version file
     """
