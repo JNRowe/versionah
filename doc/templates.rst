@@ -25,9 +25,9 @@ For information on the usage of :envvar:`XDG_DATA_HOME` and
 Precedence
 ----------
 
-The first name match in the order specified above selects the template, so a
-:file:`py.jinja` in :file:`${XDG_DATA_HOME:~/.local}/versionah/templates`
-overrides :file:`py.jinja` provided by :mod:`versionah`.
+The first name match in the order specified above selects the template, so
+a :file:`py.jinja` in :file:`${XDG_DATA_HOME}/versionah/templates` overrides
+:file:`py.jinja` provided by :mod:`versionah`.
 
 Naming
 ------
