@@ -9,7 +9,7 @@ Template locations
 
 Templates are loaded from directories in the following order:
 
-* If it exists, :file:`${XDG_DATA_HOME:~/.local}/versionah/templates`
+* If it exists, ``${XDG_DATA_HOME:~/.local}/versionah/templates``
 * Any :file:`versionah/templates` directory in the directories specified by
   :envvar:`XDG_DATA_DIRS`
 * The package's ``templates`` directory
