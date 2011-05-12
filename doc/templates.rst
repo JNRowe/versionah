@@ -79,8 +79,8 @@ their generation drop me a mail_.
 Filters
 -------
 
-:mod:`versionah` defines the following filters beyond the huge range `built-in
-filters` of Jinja_:
+:mod:`versionah` defines the following filters beyond the huge range of
+`built-in filters`_ in Jinja_:
 
 .. note::
 
