@@ -453,8 +453,8 @@ def main():
         version = Version.read(filename)
     except IOError:
         version = Version()
-    except ValueError:
-        print(fail(sys.exc_info()[1].args[0]))
+    except ValueError as e:
+        print(fail(e.args[0]))
         return errno.EEXIST
 
     if not options.set and not os.path.exists(filename):
