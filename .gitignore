@@ -3,7 +3,7 @@
 build/
 dist/
 doc/.build/
-
+versionah.egg-info/
 
 .coverage
 .noseids
