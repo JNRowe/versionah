@@ -9,17 +9,17 @@ manually.
 Bumping or querying version numbers should be a zero thought process.  I
 shouldn't need to remember the :abbr:`RegExp (Regular Expression)` needed to
 make my editor jump to the version identifier in a particular file type.  I
-shouldn't need to resort to various :kbd:`C-a` and :kbd:`C-x` in contortions in
+shouldn't need to resort to various :kbd:`C-a` and :kbd:`C-x` contortions in
 vim_ or formulating complicated lisp functions with ``number-to-string`` and
 ``string-to-number`` in emacs_.
 
-And now :mod:`versionah` is born, I should be able to realise those dreams!
+Now :mod:`versionah` is born, and I should be able to realise those dreams!
 
 Version numbers
 ===============
 
-This, for some, is a very complicated topic but not for me.  Version numbers are
-made of three components; major, minor and micro.  All three components are
+This - for some - is a very complicated topic, but not for me.  Version numbers
+are made of three components; major, minor and micro.  All three components are
 natural numbers, there are no exceptions.
 
 If you find version numbers like 0.6c11 acceptable then :mod:`versionah` is not
@@ -28,8 +28,8 @@ for you.
 .. note::
 
    If you like version numbers with two or four integer components then
-   :mod:`versionah` can be for you too.  Support for two and four components was
-   added in 0.6.0, but that doesn't mean you have to use it!
+   :mod:`versionah` can be for you too.  Support was added in 0.6.0, but that
+   doesn't mean you have to use it!
 
 PEP 386
 ~~~~~~~
