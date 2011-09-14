@@ -16,9 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import datetime
 import os
-import subprocess
 
 from nose.tools import assert_equal
 
