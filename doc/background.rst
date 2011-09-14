@@ -54,7 +54,7 @@ plea for a sane versioning policy.
     }
     group B {
       "0.2.0" -> "0.2.1" -> "0.2.2";
-      "0.2.0" [label = "0.2.0\nCompatible"]
+      "0.2.0" [label = "0.2.0\nNew features"]
     }
     group C {
       "1.0.0" [label = "1.0.0\nFirst stable", color = "green"];
