@@ -121,7 +121,7 @@ class Version(object):
 
         :type components: `str` or `tuple` of `int`
         :param components: Version components
-        :param str name: Package's name
+        :param str name: Package name
         :param datetime.date date: Date associated with version
         """
         if isinstance(components, STR_TYPE):
@@ -257,7 +257,7 @@ class Version(object):
         self.bump("patch")
 
     def as_dotted(self):
-        """Generate a dotted version
+        """Generate a dotted version string
 
         :rtype: `str`
         :return: Standard dotted version string
@@ -384,11 +384,11 @@ def split_version(version):
 
 
 def process_command_line(argv=sys.argv[1:]):
-    """Main command line interface
+    """Option processing and validation
 
     :param list argv: Command line arguments to process
     :rtype: `tuple` of `optparse.Values` and `string`
-    :return: Parsed options and version file
+    :return: Parsed options and version file to process
     """
 
     parser = optparse.OptionParser(usage="%prog [options...]",
@@ -440,7 +440,7 @@ def process_command_line(argv=sys.argv[1:]):
 
 
 def main():
-    """Main script
+    """Main script entry point
 
     :rtype: `int`
     :return: Exit code
