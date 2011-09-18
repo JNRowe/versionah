@@ -471,6 +471,3 @@ def main():
         version.write(filename, options.file_type)
 
     print(success(version.display(options.display_format)))
-
-if __name__ == '__main__':
-    sys.exit(main())
