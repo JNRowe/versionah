@@ -12,3 +12,13 @@ Jinja filters
 .. autofunction:: filter_regexp
 
 .. _custom filter: http://jinja.pocoo.org/docs/api.html#custom-filters
+
+Examples
+--------
+
+.. doctest::
+
+    >>> filter_regexp('valid keyword',  '[^A-Z]', '_', flags=re.IGNORECASE)
+    'valid_keyword'
+    >>> filter_regexp('De-voweled',  '[aeiou]', '')
+    'D-vwld'
