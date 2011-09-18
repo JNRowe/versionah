@@ -30,6 +30,7 @@ Contents:
    versionah manpage <versionah.1>
    faq
    alternatives
+   api/index
 
 Indices and tables
 ==================
