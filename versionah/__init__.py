@@ -63,22 +63,24 @@ else:  # pragma: no cover
     success = fail = warn = str
 # pylint: enable-msg=C0103
 
-if sys.version_info[0] == 3:
-    STR_TYPE = str
-else:
-    STR_TYPE = basestring
+#: Base string type, used for compatibility with Python 2 and 3
+STR_TYPE = str if sys.version_info[0] == 3 else basestring
 
+#: Command line help string, for use with :mod:`optparse`
 # Pull the first paragraph from the docstring
 USAGE = __doc__[:__doc__.find('\n\n', 100)].splitlines()[2:]
 # Replace script name with optparse's substitution var, and rebuild string
 USAGE = "\n".join(USAGE).replace("versionah", "%prog")
 
+#: Regular expression to match a valid package name
 VALID_PACKAGE = "[A-Za-z]+(?:[_-][A-Za-z]+)*"
+#: Regular expression to match a valid package version
 VALID_VERSION = r"\d+\.\d+(?:\.\d+){,2}"
-# ISO-8601, and %d-%b-%Y formatting for shtool compatibility
+#: Regular expression to match a package date.  ISO-8601, and %d-%b-%Y
+#: formatting for shtool compatibility
 VALID_DATE = r"(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:[A-Z][a-z]{2})-\d{4})"
 
-# Custom filters for Jinja
+#: Custom filters for Jinja
 FILTERS = {}
 
 
