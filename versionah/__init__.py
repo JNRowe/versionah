@@ -437,7 +437,7 @@ def process_command_line(argv=sys.argv[1:]):
     return options, file_name
 
 
-def main():
+def main(argv=sys.argv[:]):
     """Main script
 
     :rtype: ``int``
@@ -445,7 +445,7 @@ def main():
     """
 
     try:
-        options, filename = process_command_line()
+        options, filename = process_command_line(argv[1:])
     except SyntaxError:
         return errno.EPERM
 
