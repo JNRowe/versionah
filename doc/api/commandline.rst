@@ -11,6 +11,10 @@ Command line
 Examples
 --------
 
+.. testsetup::
+
+    from versionah import process_command_line
+
 Parsing command line options
 ''''''''''''''''''''''''''''
 

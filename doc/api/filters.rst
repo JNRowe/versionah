@@ -16,6 +16,12 @@ Jinja filters
 Examples
 --------
 
+.. testsetup::
+
+    import re
+
+    from versionah import filter_regexp
+
 .. doctest::
 
     >>> filter_regexp('valid keyword',  '[^A-Z]', '_', flags=re.IGNORECASE)

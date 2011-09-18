@@ -28,6 +28,10 @@ make the calling points easier to read.
 Examples
 --------
 
+.. testsetup::
+
+    from versionah import (fail, success, split_version)
+
 Output formatting
 '''''''''''''''''
 

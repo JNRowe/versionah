@@ -12,6 +12,12 @@
 Examples
 --------
 
+.. testsetup::
+
+    import datetime
+
+    from versionah import Version
+
 Reading version data from a file
 ''''''''''''''''''''''''''''''''
 
