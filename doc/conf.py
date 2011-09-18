@@ -29,8 +29,8 @@ import cloud_sptheme as csp
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ["sphinx.ext.%s" % ext for ext in []] + \
-    ["sphinxcontrib.%s" % ext for ext in ["blockdiag", ]]
+extensions = ["sphinx.ext.%s" % ext for ext in ["autodoc", ]] + \
+    ["sphinxcontrib.%s" % ext for ext in ["blockdiag", "cheeseshop"]]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['.templates']
@@ -226,3 +226,7 @@ man_pages = [
     ('versionah.1', 'versionah', u'versionah Documentation',
      [u'James Rowe'], 1)
 ]
+
+# Autodoc extension settings
+autoclass_content = "init"
+autodoc_default_flags = ['members', ]
