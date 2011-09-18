@@ -87,7 +87,7 @@ FILTERS = {}
 def filter_regexp(string, pattern, repl, count=0, flags=0):
     """Jinja filter for regexp replacements
 
-    See ``re.sub`` for documentation
+    See :func:`re.sub` for documentation
     """
     if sys.version_info[:2] > (2, 6):
         return re.sub(pattern, repl, string, count, flags)
@@ -117,9 +117,9 @@ class Version(object):
 
     def __init__(self, components=(0, 1, 0), name="unknown",
                  date=datetime.date.today()):
-        """Initialise a new ``Version`` object
+        """Initialise a new `Version` object
 
-        :type components: ``str`` or ``tuple`` of ``int``
+        :type components: `str` or `tuple` of `int`
         :param components: Version components
         :param str name: Package's name
         :param datetime.date date: Date associated with version
@@ -198,7 +198,7 @@ class Version(object):
     def set(self, components):
         """Set version components
 
-        :type components: ``tuple`` of ``int``
+        :type components: `tuple` of `int`
         :param components: Version components
         """
         if isinstance(components, STR_TYPE):
@@ -259,7 +259,7 @@ class Version(object):
     def as_dotted(self):
         """Generate a dotted version
 
-        :rtype: ``str``
+        :rtype: `str`
         :return: Standard dotted version string
         """
         return ".".join(str(s) for s in self.components)
@@ -267,7 +267,7 @@ class Version(object):
     def as_hex(self):
         """Generate a hex version string
 
-        :rtype: ``str``
+        :rtype: `str`
         :return: Version as hex string
         """
         return "0x" + "".join("%02x" % n for n in self.components)
@@ -275,14 +275,14 @@ class Version(object):
     def as_libtool(self):
         """Generate a libtool version string
 
-        :rtype: ``str``
+        :rtype: `str`
         :return: Version as libtool string"""
         return "%i:%i" % (self.major * 10 + self.minor, 20 + self.micro)
 
     def as_date(self):
         """Generate a ISO-8601 date string for release
 
-        :rtype: ``str``
+        :rtype: `str`
         :return: Version's release date as ISO-8601 date stamp
         """
         return self.date.isoformat()
@@ -290,7 +290,7 @@ class Version(object):
     def as_tuple(self):
         """Generate a tuple of version components
 
-        :rtype: ``str``
+        :rtype: `str`
         :return: Version components as tuple
         """
         return self.components
@@ -298,7 +298,7 @@ class Version(object):
     def as_web(self):
         """Generate a web UA-style string for release
 
-        :rtype: ``str``
+        :rtype: `str`
         :return: Version's string in web UA-style
         """
         return "%s/%s" % (self.name, self.as_dotted())
@@ -307,7 +307,7 @@ class Version(object):
     def display_types():
         """Supported representation types
 
-        :rtype: ``list``
+        :rtype: `list`
         :return: Method names for representation types
         """
         return [s[3:] for s in dir(Version) if s.startswith("as_")]
@@ -316,7 +316,7 @@ class Version(object):
         """Display a version string
 
         :param str display_format: Format to display version string in
-        :rtype: ``str``
+        :rtype: `str`
         :return: Formatted version string
         """
         return getattr(self, "as_%s" % display_format)()
@@ -326,8 +326,8 @@ class Version(object):
         """Read a version file
 
         :param str filename: Version file to read
-        :rtype: ``Version``
-        :return: New ``Version```` object representing file
+        :rtype: `Version`
+        :return: New `Version` object representing file
         :raise OSError: When ``filename`` doesn't exist
         :raise ValueError: Unparsable version data
         """
@@ -350,8 +350,8 @@ class Version(object):
 
         :param str filename: Version file to write
         :param str file_type: File type to write
-        :rtype: ``bool``
-        :return: ``True`` on write success
+        :rtype: `bool`
+        :return: `True` on write success
         """
         data = self.__dict__
         data["filename"] = filename
@@ -373,7 +373,7 @@ def split_version(version):
     """Split version string to components
 
     :param str version: Version string
-    :rtype: ``tuple`` of ``int``
+    :rtype: `tuple` of `int`
     :return: Components of version string
     :raise ValueError: Invalid version string
     """
@@ -387,7 +387,7 @@ def process_command_line(argv=sys.argv[1:]):
     """Main command line interface
 
     :param list argv: Command line arguments to process
-    :rtype: ``tuple`` of ``optparse`` and ``string``
+    :rtype: `tuple` of `optparse.Values` and `string`
     :return: Parsed options and version file
     """
 
@@ -442,7 +442,7 @@ def process_command_line(argv=sys.argv[1:]):
 def main():
     """Main script
 
-    :rtype: ``int``
+    :rtype: `int`
     :return: Exit code
     """
 

@@ -29,7 +29,7 @@ import cloud_sptheme as csp
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ["sphinx.ext.%s" % ext for ext in ["autodoc", ]] + \
+extensions = ["sphinx.ext.%s" % ext for ext in ["autodoc", "intersphinx"]] + \
     ["sphinxcontrib.%s" % ext for ext in ["blockdiag", "cheeseshop"]]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -76,7 +76,7 @@ exclude_patterns = ['.build']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
-#default_role = None
+default_role = 'py:obj'
 
 # If true, '()' will be appended to :func: etc. cross-reference text.
 #add_function_parentheses = True
@@ -230,3 +230,7 @@ man_pages = [
 # Autodoc extension settings
 autoclass_content = "init"
 autodoc_default_flags = ['members', ]
+
+intersphinx_mapping = {
+    'python': ('http://docs.python.org/', os.getenv('SPHINX_PYTHON_OBJECTS'))
+}
