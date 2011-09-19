@@ -127,10 +127,10 @@ class Version(object):
         if isinstance(components, STR_TYPE):
             components = split_version(components)
         if not 2 <= len(components) <= 4:
-            raise ValueError("Invalid number of components %r"
+            raise ValueError("Invalid number of components in %r"
                              % (components, ))
         if not all((isinstance(n, int) and n >= 0) for n in components):
-            raise ValueError("Invalid component values %r" % (components, ))
+            raise ValueError("Invalid component values in %r" % (components, ))
         self.set(components)
         self.name = name
         self.date = date
