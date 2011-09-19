@@ -450,10 +450,7 @@ def main(argv=sys.argv[:]):
     :return: Exit code
     """
 
-    try:
-        options, filename = process_command_line(argv[1:])
-    except SyntaxError:
-        return errno.EPERM
+    options, filename = process_command_line(argv[1:])
 
     try:
         version = Version.read(filename)
