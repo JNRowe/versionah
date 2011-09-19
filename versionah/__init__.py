@@ -425,7 +425,7 @@ def process_command_line(argv=sys.argv[1:]):
     options, args = parser.parse_args(argv)
 
     if options.name and not re.match("%s$" % VALID_PACKAGE, options.name):
-        parser.error("Invalid package name string %r" % options.set)
+        parser.error("Invalid package name string %r" % options.name)
 
     if options.set and not re.match("%s$" % VALID_VERSION, options.set):
         parser.error("Invalid version string for set %r" % options.set)
