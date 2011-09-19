@@ -228,7 +228,7 @@ class Version(object):
         if bump_type == "micro" and self._resolution < 3 \
             or bump_type == "patch" and self._resolution < 4:
             raise ValueError("Invalid bump_type %r for version %r"
-                             % (bump_type, self))
+                             % (bump_type, self.components))
         if bump_type == "major":
             self.major += 1
             self.micro = self.minor = self.patch = 0
@@ -240,6 +240,8 @@ class Version(object):
             self.patch = 0
         elif bump_type == "patch":
             self.patch += 1
+        else:
+            raise ValueError("Unknown bump_type %r" % bump_type)
         self.date = datetime.date.today()
 
     def bump_major(self):
