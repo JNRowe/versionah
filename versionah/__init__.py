@@ -203,6 +203,8 @@ class Version(object):
         """
         if isinstance(components, STR_TYPE):
             components = split_version(components)
+        elif isinstance(components, list):
+            components = tuple(components)
         padded = (components + (0, 0, 0))[:4]
         self.major, self.minor, self.micro, self.patch = padded
         self._resolution = len(components)
