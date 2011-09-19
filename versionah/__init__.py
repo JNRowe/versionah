@@ -55,7 +55,7 @@ except ImportError:  # pragma: no cover
 
 # Select colours if terminal is a tty
 # pylint: disable-msg=C0103
-if colored and sys.stdout.isatty():
+if colored and hasattr(sys.stdout, 'isatty') and sys.stdout.isatty():
     success = lambda s: colored(s, "green")
     fail = lambda s: colored(s, "red")
     warn = lambda s: colored(s, "yellow")
