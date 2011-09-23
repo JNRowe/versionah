@@ -31,13 +31,15 @@ __history__ = "See git repository"
 
 from email.utils import parseaddr
 
+# pylint: disable-msg=W0622
 __doc__ += """.
 
 versionah is a GPL v3 licensed module for maintaining version information files
 for use in project management.
 
 .. moduleauthor:: `%s <mailto:%s>`__
-""" % parseaddr(__author__)  # pylint: disable-msg=W0622
+""" % parseaddr(__author__)
+# pylint: enable-msg=W0622
 
 import datetime
 import errno
@@ -131,7 +133,12 @@ class Version(object):
                              % (components, ))
         if not all((isinstance(n, int) and n >= 0) for n in components):
             raise ValueError("Invalid component values in %r" % (components, ))
+
+        # Stub attributes set via Version.set method
+        self.major = self.minor = self.micro = self.patch = 0
+        self._resolution = 0
         self.set(components)
+
         self.name = name
         self.date = date
 
@@ -456,8 +463,8 @@ def main(argv=sys.argv[:]):
         version = Version.read(filename)
     except IOError:
         version = Version()
-    except ValueError as e:
-        print(fail(e.args[0]))
+    except ValueError as error:
+        print(fail(error.args[0]))
         return errno.EEXIST
 
     if not options.set and not os.path.exists(filename):
