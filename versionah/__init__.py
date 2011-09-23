@@ -191,15 +191,43 @@ class Version(object):
     __ne__ = lambda self, other: not self == (other)
 
     def __lt__(self, other):
+        """Strict less-than test against comparable object
+
+        See `~Version.__prepare_cmp_object`.
+
+        :rtype: bool
+        :return: True if ``self`` is strictly less-than ``other``
+        """
         return self.components < self.__prepare_cmp_object(other)
 
     def __gt__(self, other):
+        """Strict greater-than test against comparable object
+
+        See `~Version.__prepare_cmp_object`.
+
+        :rtype: bool
+        :return: True if ``self`` is strictly greater-than ``other``
+        """
         return self.components_full > self.__prepare_cmp_object(other)
 
     def __le__(self, other):
+        """Less-than or equal to test against comparable object
+
+        See `~Version.__prepare_cmp_object`.
+
+        :rtype: bool
+        :return: True if ``self`` is less-than or equal to ``other``
+        """
         return self < other or self == other
 
     def __ge__(self, other):
+        """Greater-than or equal to test against comparable object
+
+        See `~Version.__prepare_cmp_object`.
+
+        :rtype: bool
+        :return: True if ``self`` is greater-than or equal to ``other``
+        """
         return self > other or self == other
 
     def set(self, components):
