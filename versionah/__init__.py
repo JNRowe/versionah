@@ -230,6 +230,14 @@ class Version(object):
         """
         return self > other or self == other
 
+    def __hash__(self):
+        """Create object-unique hash value
+
+        :rtype: int
+        :return: Object-unique hash value
+        """
+        return hash(repr(self))
+
     def set(self, components):
         """Set version components
 
