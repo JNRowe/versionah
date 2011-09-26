@@ -22,7 +22,8 @@ released under the `GPL v3`_
 :Issue tracker:  https://github.com/JNRowe/versionah/issues/
 :Contributors:  https://github.com/JNRowe/versionah/contributors/
 
-Contents:
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2
@@ -37,7 +38,7 @@ Contents:
    api/index
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
