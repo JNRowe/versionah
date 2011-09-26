@@ -18,6 +18,10 @@ little step in the right direction!
 It is written in Python_, and requires v2.6 or later.  :mod:`versionah` is
 released under the `GPL v3`_
 
+:Git repository:  https://github.com/JNRowe/versionah/
+:Issue tracker:  https://github.com/JNRowe/versionah/issues/
+:Contributors:  https://github.com/JNRowe/versionah/contributors/
+
 Contents:
 
 .. toctree::
