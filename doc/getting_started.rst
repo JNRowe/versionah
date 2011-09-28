@@ -69,10 +69,9 @@ the file, and access the data directly in your :file:`conf.py`::
     # The full version
     release = _version.dotted
 
-You may need to mangle :py:data:`sys.path` if you can't import the version file
-from your :file:`conf.py`.  For example, in :mod:`versionah`'s :file:`conf.py`
-we add the project root directory to :py:data:`sys.path` with the following
-snippet::
+You may need to mangle :data:`sys.path` if you can't import the version file from
+your :file:`conf.py`.  For example, in :mod:`versionah`'s :file:`conf.py` we add
+the project root directory to :data:`sys.path` with the following snippet::
 
     root_dir = os.path.sep.join(os.path.realpath(__file__).split(os.path.sep)[:-2])
     sys.path.insert(0, root_dir)

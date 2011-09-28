@@ -96,7 +96,7 @@ Filters
 ''''''''''
 
 This filter applies a regular expression to a value, it is a thin wrapper around
-:py:func:`re.sub` and takes the same arguments.
+:func:`re.sub` and takes the same arguments.
 
 For example, it is used in the C template to make valid identifiers from
 ``filename`` by replacing invalid characters with underscores:
