@@ -401,12 +401,16 @@ class Version(object):
         :return: `True` on write success
         """
         data = self.__dict__
-        data["filename"] = filename
-        data["dateobj"] = self.date
-        data["resolution"] = self._resolution
-        data["magic"] = "This is %s version %s (%s)" % (self.name,
-                                                        self.as_dotted(),
-                                                        self.as_date())
+        data.update({
+            'now': datetime.datetime.now(),
+            'utcnow': datetime.datetime.utcnow(),
+            'filename': filename,
+            'dateobj': self.date,
+            'resolution': self._resolution,
+            'magic': 'This is %s version %s (%s)' % (self.name,
+                                                     self.as_dotted(),
+                                                     self.as_date()),
+        })
         data.update(dict(zip(["major", "minor", "micro", "patch"],
                              self.components)))
         data.update(dict([(k[3:], getattr(self, k)())

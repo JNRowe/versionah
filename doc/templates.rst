@@ -56,13 +56,16 @@ Each template is provided with the following variables for use in the output:
 * ``resolution`` number of components used by version
 * ``name`` for the package name
 * ``dateobj`` for release date as a `datetime.date` object
+* ``now`` and ``utcnow`` for template creation timestamps, refer to the
+  `datetime` documentation for information on :meth:`~datetime.datetime.now` and
+  :meth:`~datetime.datetime.utcnow`
 * The output file's name as ``filename``
 * All supported display methods [#]_, for example ``dotted`` and ``libtool``
 
-Jinja templates support object attribute and method access, so the ``date``
-object can be called with a ``strftime`` method for custom date output.  For
-example, ``{{ dateobj.strftime("%a, %e %b %Y %H:%M:%S %z") }}`` can be used to
-output an :rfc:`2822` date stamp.
+Jinja templates support object attribute and method access, so the ``utcnow``
+object can be called with the :meth:`~datetime.datetime.strftime` method for
+custom timestamp output.  For example, ``{{ utcnow.strftime("%a, %e %b %Y
+%H:%M:%S %z") }}`` can be used to output an :rfc:`2822` date stamp.
 
 The ``text`` display's template is simply:
 

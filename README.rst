@@ -57,6 +57,11 @@ Bug reports
 * Leal Hétu
 * Matt Leighy
 
+Ideas
+'''''
+
+* Ryan Lewis
+
 If I've forgotten to include your name I wholeheartedly apologise.  Just drop me
 a mail_ and I'll update the list!
 
