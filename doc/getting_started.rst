@@ -100,9 +100,18 @@ be:
         pod2man --section=1 --release="`versionah -d dotted src/version.h`" \
             --date="`versionah -d date src/version.h`" $< $@
 
+More examples
+-------------
+
+If you're using :mod:`versionah` with another common tool, then new examples for
+this section are most welcome.  Please consider posting them in an issue_ or
+pushing them to a fork on GitHub_, so that others can benefit.
+
 .. _make: http://www.gnu.org/software/make/make.html
 .. _automake: http://sources.redhat.com/automake/
 .. _libtool: http://www.gnu.org/software/libtool/
 .. _Sphinx: http://sphinx.pocoo.org/
 .. _Python: http://www.python.org/
 .. _perl: http://www.perl.org/
+.. _issue: https://github.com/JNRowe/versionah/issues
+.. _GitHub: https://github.com/JNRowe/versionah/
