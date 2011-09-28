@@ -38,7 +38,7 @@ The use of Jinja_ should only be an issue if you wish to author your own
 templates, if you're using the built-in templates you shouldn't notice Jinja_ at
 all.  That said...
 
-The use of Jinja_ seems to be an entry barrier to a couple of people, but it
+The use of Jinja_ seems to be a barrier to entry for a couple of people, but it
 isn't going to change.  For the same -- invariably pointless and religious --
 reasons people prefer other templating engines *I* prefer Jinja_.
 
@@ -47,8 +47,8 @@ reasons people prefer other templating engines *I* prefer Jinja_.
 How do I add version data to my project's :file:`README`?
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-The way I manage it, using :mod:`versionah`, is by having a custom template for
-such a project.
+The way I manage it, using :mod:`versionah`, is by having a :doc:`custom
+template <templates>` for such a project.
 
 The only requirement :mod:`versionah` has is that ``{{ magic }}`` is included in
 the template, so you can use a project specific template that includes your full
@@ -60,8 +60,8 @@ Will you support other version formats?
 '''''''''''''''''''''''''''''''''''''''
 
 If the patches you submit for other version formats aren't too invasive then
-they'll probably be accepted.  If you're going to propose such a patch drop me a
-mail_ or open an issue_ first, so it can be discussed.
+they'll probably be accepted.  If you're going to propose such a patch open an
+issue_ or drop me a mail_ first, so it can be discussed.
 
 If the format you're going to implement looks like the ``LooseVersion`` format
 defined in :pep:`386` with support for random words or odd characters then the
