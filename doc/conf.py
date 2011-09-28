@@ -233,5 +233,7 @@ autoclass_content = "init"
 autodoc_default_flags = ['members', ]
 
 intersphinx_mapping = {
-    'python': ('http://docs.python.org/', os.getenv('SPHINX_PYTHON_OBJECTS'))
+    'jinja': ('http://jinja.pocoo.org/docs/',
+              os.getenv('SPHINX_JINJA_OBJECTS')),
+    'python': ('http://docs.python.org/', os.getenv('SPHINX_PYTHON_OBJECTS')),
 }

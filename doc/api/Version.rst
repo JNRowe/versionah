@@ -3,6 +3,12 @@
 ``Version``
 ===========
 
+.. note::
+
+  The documentation in this section is aimed at people wishing to contribute to
+  `versionah`, and can be skipped if you are simply using the tool from the
+  command line.
+
 .. autodata:: VALID_PACKAGE
 .. autodata:: VALID_VERSION
 .. autodata:: VALID_DATE

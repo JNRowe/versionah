@@ -3,6 +3,12 @@
 Jinja filters
 =============
 
+.. note::
+
+  The documentation in this section is aimed at people wishing to contribute to
+  `versionah`, and can be skipped if you are simply using the tool from the
+  command line.
+
 .. autodata:: FILTERS
 
    A `dict` mapping custom filter names to their functions.  For help with
