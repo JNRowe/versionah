@@ -61,7 +61,9 @@ Written by `James Rowe <mailto:jnrowe@gmail.com>`__
 RESOURCES
 ---------
 
-Home page: http://jnrowe.github.com/versionah/
+:Git repository:  https://github.com/JNRowe/versionah/
+:Issue tracker:  https://github.com/JNRowe/versionah/issues/
+:Contributors:  https://github.com/JNRowe/versionah/contributors/
 
 COPYING
 -------
