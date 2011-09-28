@@ -74,4 +74,4 @@ reproduce the problem, or even better a patch!
 .. _jinja: http://jinja.pocoo.org/
 .. _termcolor: http://pypi.python.org/pypi/termcolor/
 .. _mail: jnrowe@gmail.com
-.. _issue: http://github.com/JNRowe/versionah/issues
+.. _issue: https://github.com/JNRowe/versionah/issues/
