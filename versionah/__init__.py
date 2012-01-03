@@ -75,7 +75,7 @@ USAGE = "\n".join(__doc__[:__doc__.find('\n\n', 100)].splitlines()[2:])
 USAGE = USAGE.replace("versionah", "%prog")
 
 #: Regular expression to match a valid package name
-VALID_PACKAGE = "[A-Za-z]+(?:[_-][A-Za-z]+)*"
+VALID_PACKAGE = "[A-Za-z][A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*"
 #: Regular expression to match a valid package version
 VALID_VERSION = r"\d+\.\d+(?:\.\d+){,2}"
 #: Regular expression to match a package date.  ISO-8601, and %d-%b-%Y
