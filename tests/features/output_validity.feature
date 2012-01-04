@@ -1,3 +1,4 @@
+@execute
 Feature: Output validity
     In order to catch template errors
     As a developer

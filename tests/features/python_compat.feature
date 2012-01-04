@@ -1,3 +1,4 @@
+@execute
 Feature: Python version compatibility
   In order to maintain Python version files
   As a user
