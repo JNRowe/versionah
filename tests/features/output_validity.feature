@@ -4,7 +4,7 @@ Feature: Output validity
     As a developer
     We'll implement output validity checks
 
-    Scenario: Output validity
+    Scenario Outline: Output validity
         Given I have the version <version>
         When I process <file> with <linter>
         Then linter returns 0
