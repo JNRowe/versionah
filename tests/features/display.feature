@@ -37,7 +37,7 @@ Feature: Display version
             |   2.1.3 |  21:23 |
 
     Scenario Outline: Date
-        Given I have the version <version> created on <date>
+        Given I have version <version> created on <date>
         When I display its date representation
         Then I see the date string <date>
 

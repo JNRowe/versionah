@@ -1,5 +1,5 @@
 #
-"""bump - Lettuce step definitions"""
+"""name - Behave step definitions"""
 # Copyright (C) 2011  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -16,25 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from lettuce import step
-from lettuce import world
+from behave import when
 
 
-@step(u'I bump its major version')
-def bump_major_version(step):
-    world.version.bump("major")
-
-
-@step(u'I bump its minor version')
-def bump_minor_version(step):
-    world.version.bump("minor")
-
-
-@step(u'I bump its micro version')
-def bump_micro_version(step):
-    world.version.bump("micro")
-
-
-@step(u'I bump its patch version')
-def bump_patch_version(step):
-    world.version.bump("patch")
+@when('I display its string representation')
+def w_display_string(context):
+    context.string = str(context.version)

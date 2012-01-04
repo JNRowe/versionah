@@ -1,5 +1,5 @@
 #
-"""python_compat - Lettuce step definitions"""
+"""output_validity - Behave step definitions"""
 # Copyright (C) 2011  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -19,26 +19,25 @@
 import os
 import subprocess
 
-from lettuce import step
-from lettuce import world
+from behave import (then, when)
 
 from nose.tools import assert_equal
 
 import versionah
 
 
-@step(u'process (.*) with (.*)')
-def process_with_interpreter(step, name, interpreter):
+@when('I process {name} with {linter}')
+def w_process_with_linter(context, name, linter):
     file_type = versionah.process_command_line([name, ])[0].file_type
-    world.version.write("tests/data/%s" % name, file_type)
-    world.retval = subprocess.call(
-        interpreter.split() + ["tests/data/%s" % name, ],
+    context.version.write("tests/data/%s" % name, file_type)
+    context.retval = subprocess.call(
+        linter.split() + ["tests/data/%s" % name, ],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )
     os.unlink("tests/data/%s" % name)
 
 
-@step(u'interpreter returns 0')
-def checker_returns_zero(step):
-    assert_equal(world.retval, 0)
+@then('linter returns 0')
+def t_linter_returns_0(context):
+    assert_equal(context.retval, 0)

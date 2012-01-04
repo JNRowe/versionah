@@ -1,5 +1,5 @@
 #
-"""date - Lettuce step definitions"""
+"""display - Behave step definitions"""
 # Copyright (C) 2011  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,12 +18,24 @@
 
 import datetime
 
-from lettuce import step
-from lettuce import world
+from behave import (given, then, when)
 
 from nose.tools import assert_equal
 
+import versionah
 
-@step(u"I find today's date")
-def find_todays_date(step):
-    assert_equal(world.version.date, datetime.date.today())
+
+@when('I display its {dtype} representation')
+def w_display_type(context, dtype):
+    context.string = getattr(context.version, 'as_%s' % dtype)()
+
+
+@then('I see the date string {date}')
+def t_see_date(context, date):
+    assert_equal(context.string, date)
+
+
+@given('I have version {version} created on {date}')
+def g_have_version_date(context, version, date):
+    y, m, d = map(int, date.split("-"))
+    context.version = versionah.Version(version, date=datetime.date(y, m, d))

@@ -1,5 +1,5 @@
 #
-"""output_validity - Lettuce step definitions"""
+"""type_guessing - Behave step definitions"""
 # Copyright (C) 2011  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -16,29 +16,24 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
-import subprocess
-
-from lettuce import step
-from lettuce import world
+from behave import (then, when)
 
 from nose.tools import assert_equal
 
 import versionah
 
 
-@step(u'I process (.*) with (.*)')
-def process_with_linter(step, name, linter):
-    file_type = versionah.process_command_line([name, ])[0].file_type
-    world.version.write("tests/data/%s" % name, file_type)
-    world.retval = subprocess.call(
-        linter.split() + ["tests/data/%s" % name, ],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE
-    )
-    os.unlink("tests/data/%s" % name)
+@when('I pass it to {function}')
+def w_pass_to_function(context, function):
+    context.result = getattr(versionah, function)([context.name, ])
 
 
-@step(u'linter returns 0')
-def checker_returns_zero(step):
-    assert_equal(world.retval, 0)
+@when('I pass {arg} argument {value} to {function}')
+def w_pass_to_function_with_args(context, arg, value, function):
+    context.result = getattr(versionah, function)(["--%s" % arg, value,
+                                                  context.name])
+
+
+@then('I see the file type {file_type}')
+def t_see_file_type(context, file_type):
+    assert_equal(context.result[0].file_type, file_type)

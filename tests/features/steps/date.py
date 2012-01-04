@@ -1,5 +1,5 @@
 #
-"""util - Lettuce step definition helpers"""
+"""date - Behave step definitions"""
 # Copyright (C) 2011  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -16,18 +16,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from lettuce import step as lettuce_step
+import datetime
 
-import versionah
+from behave import then
+
+from nose.tools import assert_equal
 
 
-def step(match):
-    """Replace values in match strings with data from versionah module
-
-    The purpose is entirely to improve the look and readability of the steps
-    defined below, it provides nothing over hard coding the values in step
-    definitions.
-    """
-    valid_dict = dict([(s[6:], getattr(versionah, s)) for s in dir(versionah)
-                       if s.startswith("VALID_")])
-    return lettuce_step(match % valid_dict)
+@then(u"I find today's date")
+def t_find_today(context):
+    assert_equal(context.version.date, datetime.date.today())
