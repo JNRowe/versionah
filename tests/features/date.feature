@@ -1,3 +1,4 @@
+@write
 Feature: Version date
     In order to judge package freshness
     As a user

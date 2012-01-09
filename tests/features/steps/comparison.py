@@ -1,5 +1,5 @@
 #
-"""validity - Lettuce step definitions"""
+"""comparison - Behave step definitions"""
 # Copyright (C) 2011  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -16,15 +16,32 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from lettuce import step
-from lettuce import world
+from behave import (given, then, when)
+
+from nose.tools import assert_equal
 
 import versionah
 
 
-@step(u'I have the invalid version (.*)')
-def have_invalid_version(step, string):
+@given('I have the versions {version1} and {version2}')
+def g_have_versions(context, version1, version2):
+    context.version1 = versionah.Version(version1)
+    context.version2 = versionah.Version(version2)
+
+
+@when('I compare them for equality')
+def w_comare_eq(context):
     try:
-        world.version = versionah.Version(string)
+        context.result = context.version1 == context.version2
     except Exception as e:
-        world.exception = e
+        context.exception = e
+
+
+@then('I see the comparison {result}')
+def t_see_result(context, result):
+    assert_equal(str(context.result), result)
+
+
+@when('I search for the greatest')
+def w_search_max(context):
+    context.version = max((context.version1, context.version2))

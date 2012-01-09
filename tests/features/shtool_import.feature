@@ -1,3 +1,4 @@
+@read
 Feature: Shtool import
     In order to import from shtool
     As a user

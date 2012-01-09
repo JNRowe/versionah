@@ -1,3 +1,4 @@
+@write
 Feature: Write version
     In order to maintain a version file
     As a user
