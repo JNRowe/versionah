@@ -400,7 +400,7 @@ class Version(object):
         :rtype: `bool`
         :return: `True` on write success
         """
-        data = self.__dict__
+        data = vars(self)
         data.update({
             'now': datetime.datetime.now(),
             'utcnow': datetime.datetime.utcnow(),
