@@ -3,6 +3,18 @@ User-visible changes
 
 .. contents::
 
+0.11.0 - 2012-01-30
+-------------------
+
+* Added a basic JSON_ template, useful for handling version data for ``nodejs``
+  packages
+* Improved developer documentation
+* attest_ and  behave_ are now required to run the testsuite
+
+.. _JSON: www.json.org/
+.. _attest: http://pypi.python.org/pypi/Attest/
+.. _behave: http://pypi.python.org/pypi/behave/
+
 0.10.0 - 2011-03-30
 -------------------
 
