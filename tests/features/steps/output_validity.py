@@ -38,6 +38,6 @@ def w_process_with_linter(context, name, linter):
     os.unlink("tests/data/%s" % name)
 
 
-@then('linter returns 0')
+@then('the linter returns 0')
 def t_linter_returns_0(context):
     assert_equal(context.retval, 0)

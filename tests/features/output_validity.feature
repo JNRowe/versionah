@@ -7,7 +7,7 @@ Feature: Output validity
     Scenario Outline: Output validity
         Given I have the version <version>
         When I process <file> with <linter>
-        Then linter returns 0
+        Then the linter returns 0
 
         Examples:
             | version | file       | linter        |
