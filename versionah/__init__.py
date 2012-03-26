@@ -48,22 +48,12 @@ import os
 import re
 import sys
 
+import blessings
 import jinja2
 
-try:
-    from termcolor import colored
-except ImportError:  # pragma: no cover
-    colored = None  # pylint: disable-msg=C0103
 
-# Select colours if terminal is a tty
-# pylint: disable-msg=C0103
-if colored and hasattr(sys.stdout, 'isatty') and sys.stdout.isatty():
-    success = lambda s: colored(s, "green")
-    fail = lambda s: colored(s, "red")
-    warn = lambda s: colored(s, "yellow")
-else:  # pragma: no cover
-    success = fail = warn = str
-# pylint: enable-msg=C0103
+T = blessings.Terminal()
+
 
 #: Base string type, used for compatibility with Python 2 and 3
 STR_TYPE = str if sys.version_info[0] == 3 else basestring
@@ -81,6 +71,19 @@ VALID_VERSION = r"\d+\.\d+(?:\.\d+){,2}"
 #: Regular expression to match a package date.  ISO-8601, and %d-%b-%Y
 #: formatting for shtool compatibility
 VALID_DATE = r"(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:[A-Z][a-z]{2})-\d{4})"
+
+
+def success(text):
+    return T.bright_green(text)
+
+
+def fail(text):
+    return T.bright_red(text)
+
+
+def warn(text):
+    return T.bright_yellow(text)
+
 
 #: Custom filters for Jinja
 FILTERS = {}
