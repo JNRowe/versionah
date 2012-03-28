@@ -50,5 +50,9 @@ setup(
     package_data={'': ['templates/*.jinja', ], },
     entry_points={'console_scripts': ['versionah = versionah:main', ]},
     zip_safe=False,
-    install_requires=['blessings', 'Jinja2>=2', ],
+    install_requires=['Jinja2>=2', ],
+    extras_require={
+        'colour': ['blessings', ],
+        'color': ['blessings', ],
+    },
 )

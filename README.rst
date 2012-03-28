@@ -11,9 +11,11 @@ Requirements
 ------------
 
 ``versionah`` should run on Python_ v2.6 or newer [#]_, including Python v3.
-The only external libraries ``versionah`` currently depends on are jinja_ and
-blessings_.  If ``versionah`` doesn't work with the version of Python you have
-installed, file an issue_ and I'll endeavour to fix it.
+The only external library ``versionah`` currently depends on is jinja_.  If
+``versionah`` doesn't work with the version of Python you have installed, file
+an issue_ and I'll endeavour to fix it.
+
+If you would like coloured terminal output, then you will need blessings_.
 
 .. [#] If you still run older Python versions only small changes are required,
        for to support Python 2.5 only the print syntax and ``from __future__

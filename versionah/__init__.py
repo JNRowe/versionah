@@ -48,11 +48,15 @@ import os
 import re
 import sys
 
-import blessings
 import jinja2
 
-
-T = blessings.Terminal()
+try:
+    from blessings import Terminal
+except ImportError:
+    class Terminal:  # NOQA
+        def __getattr__(self, attr):
+            return lambda x: x
+T = Terminal()
 
 
 #: Base string type, used for compatibility with Python 2 and 3
