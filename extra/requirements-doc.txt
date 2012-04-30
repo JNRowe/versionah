@@ -1,0 +1,3 @@
+sphinx
+sphinxcontrib-blockdiag
+sphinxcontrib-cheeseshop
