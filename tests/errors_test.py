@@ -69,7 +69,8 @@ def test_version_read_no_identifier():
 
 
 @patch('versionah.optparse.OptionParser.exit')
-def test_process_command_line_invalid_package_name(exit_):
+@patch('versionah.optparse.OptionParser.print_usage')
+def test_process_command_line_invalid_package_name(print_usage, exit_):
     exit_.side_effect = exit_wrapper
     with assert_raises(ValueError) as error:
         process_command_line(['--name=__', 'test'])
@@ -78,7 +79,8 @@ def test_process_command_line_invalid_package_name(exit_):
 
 
 @patch('versionah.optparse.OptionParser.exit')
-def test_process_command_line_invalid_package_version(exit_):
+@patch('versionah.optparse.OptionParser.print_usage')
+def test_process_command_line_invalid_package_version(print_usage, exit_):
     exit_.side_effect = exit_wrapper
     with assert_raises(ValueError) as error:
         process_command_line(['--set=__', 'test'])
@@ -87,7 +89,8 @@ def test_process_command_line_invalid_package_version(exit_):
 
 
 @patch('versionah.optparse.OptionParser.exit')
-def test_process_command_line_no_file(exit_):
+@patch('versionah.optparse.OptionParser.print_usage')
+def test_process_command_line_no_file(print_usage, exit_):
     exit_.side_effect = exit_wrapper
     with assert_raises(ValueError) as error:
         process_command_line([])
@@ -96,7 +99,8 @@ def test_process_command_line_no_file(exit_):
 
 
 @patch('versionah.optparse.OptionParser.exit')
-def test_process_command_line_multiple_file(exit_):
+@patch('versionah.optparse.OptionParser.print_usage')
+def test_process_command_line_multiple_file(print_usage, exit_):
     exit_.side_effect = exit_wrapper
     with assert_raises(ValueError) as error:
         process_command_line(['test1', 'test2'])
