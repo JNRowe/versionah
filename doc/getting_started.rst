@@ -87,6 +87,10 @@ Another option is to call :command:`versionah` inside your :file:`conf.py`::
     # The short X.Y version.
     version = ".".join(release.split(".")[:2])
 
+The obvious drawback to this method is that it requires *all* users who wish to
+build the documentation to have :command:`versionah` installed, and is therefore
+not recommended.
+
 :command:`pod2man` example
 --------------------------
 
