@@ -45,7 +45,7 @@ def g_have_file(context, name):
     context.name = name
 
 
-@when(u'I read its content')
+@when('I read its content')
 def w_read_content(context):
     context.version = versionah.Version.read("tests/data/%s" % context.name)
 

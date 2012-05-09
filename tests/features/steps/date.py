@@ -23,6 +23,6 @@ from behave import then
 from nose.tools import assert_equal
 
 
-@then(u"I find today's date")
+@then("I find today's date")
 def t_find_today(context):
     assert_equal(context.version.date, datetime.date.today())

@@ -21,7 +21,7 @@ from behave import given
 import versionah
 
 
-@given(u'I have the invalid version {string}')
+@given('I have the invalid version {string}')
 def g_invalid_version(context, string):
     try:
         context.response = versionah.Version(string)
