@@ -51,4 +51,8 @@ setup(
     entry_points={'console_scripts': ['versionah = versionah:main', ]},
     zip_safe=False,
     install_requires=['Jinja2>=2', ],
+    extras_require={
+        'colour': ['blessings', ],
+        'color': ['blessings', ],
+    },
 )
