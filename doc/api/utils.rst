@@ -19,15 +19,9 @@ make the calling points easier to read.
 
 .. autofunction:: success
 
-   Produce green text, if possible(see :data:`colored`).
-
 .. autofunction:: fail
 
-   Produce red text, if possible(see :data:`colored`).
-
 .. autofunction:: warn
-
-   Produce yellow text, if possible(see :data:`colored`).
 
 .. autofunction:: split_version
 
