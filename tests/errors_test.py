@@ -1,7 +1,7 @@
 from sys import version_info
 
 from mock import patch
-from nose.tools import (assert_raises, eq_)
+from nose.tools import (assert_raises, eq_, ok_)
 
 from versionah import (Version, process_command_line)
 
@@ -74,8 +74,9 @@ def test_process_command_line_invalid_package_name(print_usage, exit_):
     exit_.side_effect = exit_wrapper
     with assert_raises(ValueError) as error:
         process_command_line(['--name=__', 'test'])
-    eq_(error.exception.args,
-        (2, "nosetests: error: Invalid package name string '__'"))
+    code, message = error.exception.args
+    eq_(code, 2)
+    ok_(message.endswith("error: Invalid package name string '__'"))
 
 
 @patch('versionah.optparse.OptionParser.exit')
@@ -84,8 +85,9 @@ def test_process_command_line_invalid_package_version(print_usage, exit_):
     exit_.side_effect = exit_wrapper
     with assert_raises(ValueError) as error:
         process_command_line(['--set=__', 'test'])
-    eq_(error.exception.args,
-        (2, "nosetests: error: Invalid version string for set '__'"))
+    code, message = error.exception.args
+    eq_(code, 2)
+    ok_(message.endswith("error: Invalid version string for set '__'"))
 
 
 @patch('versionah.optparse.OptionParser.exit')
@@ -94,8 +96,9 @@ def test_process_command_line_no_file(print_usage, exit_):
     exit_.side_effect = exit_wrapper
     with assert_raises(ValueError) as error:
         process_command_line([])
-    eq_(error.exception.args,
-        (2, 'nosetests: error: One version file must be specified'))
+    code, message = error.exception.args
+    eq_(code, 2)
+    ok_(message.endswith('error: One version file must be specified'))
 
 
 @patch('versionah.optparse.OptionParser.exit')
@@ -104,5 +107,6 @@ def test_process_command_line_multiple_file(print_usage, exit_):
     exit_.side_effect = exit_wrapper
     with assert_raises(ValueError) as error:
         process_command_line(['test1', 'test2'])
-    eq_(error.exception.args,
-        (2, 'nosetests: error: Only one version file must be specified'))
+    code, message = error.exception.args
+    eq_(code, 2)
+    ok_(message.endswith('error: Only one version file must be specified'))
