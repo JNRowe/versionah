@@ -1,6 +1,9 @@
 ``versionah`` - Simple version specification management
 =======================================================
 
+.. image:: https://secure.travis-ci.org/JNRowe/versionah.png?branch=master
+   :target: http://travis-ci.org/JNRowe/versionah
+
 Introduction
 ------------
 
