@@ -95,10 +95,13 @@ def filter_regexp(string, pattern, repl, count=0, flags=0):
     :return: Text with substitutions applied
 
     """
-    if sys.version_info[:2] > (2, 6):
+    if sys.version_info[:2] >= (2, 7):
         return re.sub(pattern, repl, string, count, flags)
     else:
-        return re.sub(pattern, repl, string, count)
+        # regexps are cached, so this uglier path is no better than the 2.7
+        # one.  Once 2.6 support disappears, so can this
+        match = re.compile(pattern, flags=flags)
+        return match.sub(repl, string, count)
 FILTERS["regexp"] = filter_regexp
 
 
