@@ -8,7 +8,7 @@ from versionah import (Version, process_command_line)
 
 def exit_wrapper(status, message):
     """Stub for OptionParser.exit() calls"""
-    raise ValueError(status, message.strip())
+    raise OSError(status, message.strip())
 
 
 def test_version_init_too_few():
@@ -72,7 +72,7 @@ def test_version_read_no_identifier():
 @patch('versionah.optparse.OptionParser.print_usage')
 def test_process_command_line_invalid_package_name(print_usage, exit_):
     exit_.side_effect = exit_wrapper
-    with assert_raises(ValueError) as error:
+    with assert_raises(OSError) as error:
         process_command_line(['--name=__', 'test'])
     code, message = error.exception.args
     eq_(code, 2)
@@ -83,7 +83,7 @@ def test_process_command_line_invalid_package_name(print_usage, exit_):
 @patch('versionah.optparse.OptionParser.print_usage')
 def test_process_command_line_invalid_package_version(print_usage, exit_):
     exit_.side_effect = exit_wrapper
-    with assert_raises(ValueError) as error:
+    with assert_raises(OSError) as error:
         process_command_line(['--set=__', 'test'])
     code, message = error.exception.args
     eq_(code, 2)
@@ -94,7 +94,7 @@ def test_process_command_line_invalid_package_version(print_usage, exit_):
 @patch('versionah.optparse.OptionParser.print_usage')
 def test_process_command_line_no_file(print_usage, exit_):
     exit_.side_effect = exit_wrapper
-    with assert_raises(ValueError) as error:
+    with assert_raises(OSError) as error:
         process_command_line([])
     code, message = error.exception.args
     eq_(code, 2)
@@ -105,7 +105,7 @@ def test_process_command_line_no_file(print_usage, exit_):
 @patch('versionah.optparse.OptionParser.print_usage')
 def test_process_command_line_multiple_file(print_usage, exit_):
     exit_.side_effect = exit_wrapper
-    with assert_raises(ValueError) as error:
+    with assert_raises(OSError) as error:
         process_command_line(['test1', 'test2'])
     code, message = error.exception.args
     eq_(code, 2)
