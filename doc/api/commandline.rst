@@ -24,7 +24,13 @@ Examples
 Parsing command line options
 ''''''''''''''''''''''''''''
 
-    >>> process_command_line(['test.py', ])
-    (<Values at ...: {'file_type': 'py', 'bump': None, 'display_format': 'dotted', 'set': None, 'name': None}>, 'test.py')
-    >>> process_command_line(['-t', 'h', 'test', ])
-    (<Values at ...: {'file_type': 'h', 'bump': None, 'display_format': 'dotted', 'set': None, 'name': None}>, 'test')
+    >>> args, filename = process_command_line(['test.py', ])
+    >>> filename
+    'test.py'
+    >>> args.file_type
+    'py'
+    >>> args, filename = process_command_line(['-t', 'h', 'test', ])
+    >>> filename
+    'test'
+    >>> args.file_type
+    'h'
