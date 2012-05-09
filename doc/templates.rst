@@ -65,7 +65,7 @@ Each template is provided with the following variables for use in the output:
 Jinja templates support object attribute and method access, so the ``utcnow``
 object can be called with the :meth:`~datetime.datetime.strftime` method for
 custom timestamp output.  For example, ``{{ utcnow.strftime("%a, %e %b %Y
-%H:%M:%S %z") }}`` can be used to output an :rfc:`2822` date stamp.
+%H:%M:%S %z") }}`` could be used to output an :rfc:`2822` date stamp [#]_.
 
 The ``text`` display's template is simply:
 
@@ -82,6 +82,9 @@ use in their generation open an issue_.
 
 .. [#] Technically the result of any ``Version`` method beginning with ``as_``
        is passed along to the template, with the ``as_`` prefixes removed.
+
+.. [#] But don't do that, as :meth:`~datetime.datetime.strftime` is locale
+       dependent ;)
 
 Filters
 -------

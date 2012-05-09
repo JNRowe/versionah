@@ -25,8 +25,8 @@ rules:
     $(addprefix version-, major minor micro):
         versionah -b $(subst version-,, $@) src/version.h
 
-The above example makes it possible to call :makevar:`version-minor` to bump the
-minor component in :file:`src/version.h`.
+The above example makes it possible to call, for example,
+:makevar:`version-minor` to bump the minor component in :file:`src/version.h`.
 
 .. note::
 
