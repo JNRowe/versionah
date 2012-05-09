@@ -6,5 +6,6 @@ doc/.build/
 versionah.egg-info/
 
 .coverage
+.coverage-behave
 *.py[co]
 MANIFEST
