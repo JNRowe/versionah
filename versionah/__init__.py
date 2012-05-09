@@ -493,25 +493,19 @@ def process_command_line(argv=sys.argv[1:]):
 
     parser.set_defaults(file_type=None, bump=None, display_format="dotted")
 
-    parser.add_option("-t", "--type", action="store",
-                      choices=Version.filetypes,
-                      dest="file_type",
-                      metavar="text",
+    parser.add_option("-t", "--type", choices=Version.filetypes,
+                      dest="file_type", metavar="text",
                       help="define the file type used for version file")
-    parser.add_option("-n", "--name", action="store",
-                      metavar="name",
+    parser.add_option("-n", "--name", metavar="name",
                       help="package name for version")
-    parser.add_option("-s", "--set", action="store",
-                      metavar="0.1.0",
+    parser.add_option("-s", "--set", metavar="0.1.0",
                       help="set to a specific version")
-    parser.add_option("-b", "--bump", action="store",
+    parser.add_option("-b", "--bump",
                       choices=("major", "minor", "micro", "patch"),
                       metavar="micro",
                       help="bump type by one")
-    parser.add_option("-d", "--display", action="store",
-                      choices=Version.display_types(),
-                      dest="display_format",
-                      metavar="dotted",
+    parser.add_option("-d", "--display", choices=Version.display_types(),
+                      dest="display_format", metavar="dotted",
                       help="display output in format")
 
     options, args = parser.parse_args(argv)
