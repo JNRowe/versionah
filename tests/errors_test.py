@@ -1,13 +1,29 @@
-
-from mock import patch
+from mock import (Mock, patch)
 from nose.tools import (assert_raises, eq_, ok_)
 
 from versionah import (Version, process_command_line)
+
+PATCHES = []
 
 
 def exit_wrapper(status, message):
     """Stub for OptionParser.exit() calls"""
     raise OSError(status, message.strip())
+
+
+def setup_module():
+    PATCHES.extend([
+        patch('versionah.optparse.OptionParser.exit',
+              new=Mock(side_effect=exit_wrapper)),
+        patch('versionah.optparse.OptionParser.print_usage'),
+    ])
+    for p in PATCHES:
+        p.start()
+
+
+def teardown_module():
+    for patch in PATCHES:
+        patch.stop()
 
 
 def test_version_init_too_few():
@@ -65,10 +81,7 @@ def test_version_read_no_identifier():
     eq_(error.exception.message, "No valid version identifier in 'setup.py'")
 
 
-@patch('versionah.optparse.OptionParser.exit')
-@patch('versionah.optparse.OptionParser.print_usage')
-def test_process_command_line_invalid_package_name(print_usage, exit_):
-    exit_.side_effect = exit_wrapper
+def test_process_command_line_invalid_package_name():
     with assert_raises(OSError) as error:
         process_command_line(['--name=__', 'test'])
     code, message = error.exception.args
@@ -76,10 +89,7 @@ def test_process_command_line_invalid_package_name(print_usage, exit_):
     ok_(message.endswith("error: Invalid package name string '__'"))
 
 
-@patch('versionah.optparse.OptionParser.exit')
-@patch('versionah.optparse.OptionParser.print_usage')
-def test_process_command_line_invalid_package_version(print_usage, exit_):
-    exit_.side_effect = exit_wrapper
+def test_process_command_line_invalid_package_version():
     with assert_raises(OSError) as error:
         process_command_line(['--set=__', 'test'])
     code, message = error.exception.args
@@ -87,10 +97,7 @@ def test_process_command_line_invalid_package_version(print_usage, exit_):
     ok_(message.endswith("error: Invalid version string for set '__'"))
 
 
-@patch('versionah.optparse.OptionParser.exit')
-@patch('versionah.optparse.OptionParser.print_usage')
-def test_process_command_line_no_file(print_usage, exit_):
-    exit_.side_effect = exit_wrapper
+def test_process_command_line_no_file():
     with assert_raises(OSError) as error:
         process_command_line([])
     code, message = error.exception.args
@@ -98,10 +105,7 @@ def test_process_command_line_no_file(print_usage, exit_):
     ok_(message.endswith('error: One version file must be specified'))
 
 
-@patch('versionah.optparse.OptionParser.exit')
-@patch('versionah.optparse.OptionParser.print_usage')
-def test_process_command_line_multiple_file(print_usage, exit_):
-    exit_.side_effect = exit_wrapper
+def test_process_command_line_multiple_file():
     with assert_raises(OSError) as error:
         process_command_line(['test1', 'test2'])
     code, message = error.exception.args
