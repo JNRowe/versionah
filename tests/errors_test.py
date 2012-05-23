@@ -29,26 +29,26 @@ def teardown_module():
 def test_version_init_too_few():
     with assert_raises(ValueError) as error:
         Version([1, ])
-    eq_(error.exception.message, 'Invalid number of components in [1]')
+    eq_(error.exception.args[0], 'Invalid number of components in [1]')
 
 
 def test_version_init_too_many():
     with assert_raises(ValueError) as error:
         Version([1, 2, 3, 4, 5])
-    eq_(error.exception.message,
+    eq_(error.exception.args[0],
         'Invalid number of components in [1, 2, 3, 4, 5]')
 
 
 def test_version_init_invalid_components_string():
     with assert_raises(ValueError) as error:
         Version([1, 2, 'a'])
-    eq_(error.exception.message, "Invalid component values in [1, 2, 'a']")
+    eq_(error.exception.args[0], "Invalid component values in [1, 2, 'a']")
 
 
 def test_version_init_invalid_components_negative():
     with assert_raises(ValueError) as error:
         Version([1, 2, -4])
-    eq_(error.exception.message, 'Invalid component values in [1, 2, -4]')
+    eq_(error.exception.args[0], 'Invalid component values in [1, 2, -4]')
 
 
 def test_version___eq___unknown_type():
@@ -64,7 +64,7 @@ def test_version_bump_invalid_type():
     v = Version()
     with assert_raises(ValueError) as error:
         v.bump('patch')
-    eq_(error.exception.message,
+    eq_(error.exception.args[0],
         "Invalid bump_type 'patch' for version (0, 1, 0)")
 
 
@@ -72,13 +72,13 @@ def test_version_bump_invalid_type_name():
     v = Version()
     with assert_raises(ValueError) as error:
         v.bump('pico')
-    eq_(error.exception.message, "Unknown bump_type 'pico'")
+    eq_(error.exception.args[0], "Unknown bump_type 'pico'")
 
 
 def test_version_read_no_identifier():
     with assert_raises(ValueError) as error:
         Version.read('setup.py')
-    eq_(error.exception.message, "No valid version identifier in 'setup.py'")
+    eq_(error.exception.args[0], "No valid version identifier in 'setup.py'")
 
 
 def test_process_command_line_invalid_package_name():
