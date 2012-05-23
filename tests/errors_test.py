@@ -1,4 +1,3 @@
-from sys import version_info
 
 from mock import patch
 from nose.tools import (assert_raises, eq_, ok_)
@@ -39,12 +38,10 @@ def test_version_init_invalid_components_negative():
 def test_version___eq___unknown_type():
     with assert_raises(NotImplementedError) as error:
         Version() == True
-    if version_info[0] == 3:
-        eq_(error.exception.args[0],
-            "Unable to compare Version and <class 'bool'>")
-    else:
-        eq_(error.exception.args[0],
-            "Unable to compare Version and <type 'bool'>")
+    # Differs between Python 2 and 3
+    true_repr = repr(type(True))
+    eq_(error.exception.args[0],
+        "Unable to compare Version and %s" % true_repr)
 
 
 def test_version_bump_invalid_type():
