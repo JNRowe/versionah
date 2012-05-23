@@ -5,12 +5,13 @@ python:
   - 3.2
 before_install:
   - sudo apt-get update
-  - sudo apt-get install m4 python-imaging
+  - sudo apt-get install m4 python-imaging python-unittest2
 install:
-  - pip install --use-mirrors pytest
+  - pip install --use-mirrors behave coverage nose
   - pip install --use-mirrors .
 script:
-  - py.test tests
+  - nosetests -v tests/
+  - behave tests/features
 branches:
   except:
     - /^play\/.*$/
