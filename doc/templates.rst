@@ -4,6 +4,11 @@ Version templates
 Version files are created from templates using Jinja_.  Before writing your own
 templates you should read the splendid `Jinja template designer`_ documentation.
 
+.. note::
+
+   If you create some cool templates of your own please consider posting them in
+   an issue_ or pushing them to a fork on GitHub_, so that others can benefit.
+
 .. _template_locations-label:
 
 Template locations
@@ -20,9 +25,8 @@ For information on the usage of :envvar:`XDG_DATA_HOME` and
 :envvar:`XDG_DATA_DIRS` read `XDG Base Directory Specification`_
 
 .. note::
-
-   If you create some cool templates of your own please consider posting them in
-   an issue_ or pushing them to a fork on GitHub_, so that others can benefit.
+   For OS X users there is a fallback to ``~/Library/Application Support``,
+   if :envvar:`XDG_DATA_HOME` is unset.
 
 Precedence
 ----------

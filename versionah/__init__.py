@@ -131,9 +131,12 @@ class Version(object):
 
     """Main version identifier representation."""
 
-    user_dir = os.environ.get("XDG_DATA_HOME",
-                              os.path.join(os.environ.get("HOME", "/"),
-                                           ".local"))
+    if sys.platform == 'darwin':
+        fallback_dir = os.path.expanduser('~/Library/Application Support')
+    else:
+        fallback_dir = os.path.join(os.environ.get("HOME", "/"), ".local")
+
+    user_dir = os.environ.get("XDG_DATA_HOME", fallback_dir)
     system_dirs = os.environ.get("XDG_DATA_DIRS",
                                  "/usr/local/share/:/usr/share/").split(":")
     mk_data_dir = lambda s: os.path.join(s, "versionah", "templates")
