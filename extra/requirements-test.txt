@@ -1,7 +1,7 @@
 -r requirements.txt
 behave>=1.1.0
-coverage>=3.5
 docutils>=0.7
 mock>=0.7.1
 nose2>=1.1.2
+nose2_cov>=1.0a4
 expecter>=0.2.1
