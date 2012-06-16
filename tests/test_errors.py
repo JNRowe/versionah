@@ -11,7 +11,7 @@ def exit_wrapper(status, message):
     raise OSError(status, message.strip())
 
 
-def setup_module():
+def setUpModule():
     PATCHES.extend([
         patch('versionah.optparse.OptionParser.exit',
               new=Mock(side_effect=exit_wrapper)),
@@ -21,7 +21,7 @@ def setup_module():
         p.start()
 
 
-def teardown_module():
+def tearDownModule():
     for patch in PATCHES:
         patch.stop()
 
