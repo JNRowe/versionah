@@ -1,5 +1,6 @@
 from expecter import expect
 from mock import (Mock, patch)
+from nose2.tools import params
 
 from versionah import (Version, process_command_line)
 
@@ -31,28 +32,24 @@ def tearDownModule():
         patch.stop()
 
 
-def test_version_init_too_few():
+@params(
+    ([1, ], ),
+    ([1, 2, 3, 4, 5], ),
+)
+def test_version_init_invalid_count(components):
     with expect.raises(ValueError,
-                       'Invalid number of components in [1]'):
-        Version([1, ])
+                       'Invalid number of components in %r' % components):
+        Version(components)
 
 
-def test_version_init_too_many():
+@params(
+    ([1, 2, 'a'], ),
+    ([1, 2, -4], ),
+)
+def test_version_init_invalid_component_type(components):
     with expect.raises(ValueError,
-                       'Invalid number of components in [1, 2, 3, 4, 5]'):
-        Version([1, 2, 3, 4, 5])
-
-
-def test_version_init_invalid_components_string():
-    with expect.raises(ValueError,
-                       'Invalid compentent values in [1, 2, 'a']"):
-        Version([1, 2, 'a'])
-
-
-def test_version_init_invalid_components_negative():
-    with expect.raises(ValueError,
-                       "Invalid component values in[1, 2, -4]"):
-        Version([1, 2, -4])
+                       "Invalid component values in %r" % components):
+        Version(components)
 
 
 def test_version___eq___unknown_type():
