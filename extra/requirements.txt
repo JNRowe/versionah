@@ -1,2 +1,2 @@
-Jinja>=2.4
+Jinja2>=2.4
 blessings>=1.3
