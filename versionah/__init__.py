@@ -532,24 +532,32 @@ def process_command_line(argv=sys.argv[1:]):
     parser.add_option("-d", "--display", choices=Version.display_types(),
                       dest="display_format", metavar="dotted",
                       help="display output in format")
+    parser.add_option("-l", "--list", action="store_true",
+                      help="list supported displayed formats")
 
     options, args = parser.parse_args(argv)
 
-    if options.name and not re.match("%s$" % VALID_PACKAGE, options.name):
-        parser.error("Invalid package name string %r" % options.name)
+    if options.list:
+        file_name = None
+    else:
+        if options.name and not re.match("%s$" % VALID_PACKAGE, options.name):
+            parser.error("Invalid package name string %r" % options.name)
 
-    if options.set and not re.match("%s$" % VALID_VERSION, options.set):
-        parser.error("Invalid version string for set %r" % options.set)
+        if options.set and not re.match("%s$" % VALID_VERSION, options.set):
+            parser.error("Invalid version string for set %r" % options.set)
 
-    if not args:
-        parser.error("One version file must be specified")
-    elif not len(args) == 1:
-        parser.error("Only one version file must be specified")
-    file_name = args[0]
+        if not args:
+            parser.error("One version file must be specified")
+        elif not len(args) == 1:
+            parser.error("Only one version file must be specified")
+        file_name = args[0]
 
-    if not options.file_type:
-        suffix = os.path.splitext(file_name)[1][1:]
-        options.file_type = suffix if suffix in Version.filetypes else "text"
+        if not options.file_type:
+            suffix = os.path.splitext(file_name)[1][1:]
+            if suffix in Version.filetypes:
+                options.file_type = suffix
+            else:
+                options.file_type = "text"
 
     return options, file_name
 
@@ -563,6 +571,12 @@ def main(argv=sys.argv[:]):
     """
 
     options, filename = process_command_line(argv[1:])
+
+    if options.list:
+        print(success("Supported display types:"))
+        for dtype in Version.display_types():
+            print("  *", dtype)
+        return
 
     try:
         version = Version.read(filename)
