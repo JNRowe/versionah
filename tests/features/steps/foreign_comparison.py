@@ -23,26 +23,26 @@ from behave import given
 import versionah
 
 
-@given('I have the Version object for {version1} and tuple {version2}')
+@given('I have the tuple {version1} and Version object for {version2}')
 def g_have_version_tuple(context, version1, version2):
-    context.version1 = versionah.Version(version1)
-    context.version2 = versionah.split_version(version2)
+    context.version1 = versionah.split_version(version1)
+    context.version2 = versionah.Version(version2)
 
 
-@given('I have the Version object for {version1} and string {version2}')
+@given('I have the string {version1} and Version object for {version2}')
 def g_have_version_string(context, version1, version2):
-    context.version1 = versionah.Version(version1)
-    context.version2 = versionah.split_version(version2)
+    context.version1 = versionah.split_version(version1)
+    context.version2 = versionah.Version(version2)
 
 
-@given('I have the Version object for {version1} and list {version2}')
+@given('I have the list {version1} and Version object for {version2}')
 def g_have_version_list(context, version1, version2):
-    context.version1 = versionah.Version(version1)
-    context.version2 = list(versionah.split_version(version2))
+    context.version1 = list(versionah.split_version(version1))
+    context.version2 = versionah.Version(version2)
 
 
-@given('I have the Version object for {version1} and RegExp matcher for ' \
-      '{version2}')
+@given('I have the RegExp matcher for {version1} and Version object for '
+       '{version2}')
 def have_version_regexp(context, version1, version2):
-    context.version1 = versionah.Version(version1)
-    context.version2 = re.compile(version2)
+    context.version1 = re.compile(version1)
+    context.version2 = versionah.Version(version2)
