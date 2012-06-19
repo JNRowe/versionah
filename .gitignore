@@ -10,3 +10,5 @@ versionah.egg-info/
 .noseids
 *.py[co]
 MANIFEST
+
+tests/data/test_wr.c
