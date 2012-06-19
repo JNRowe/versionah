@@ -17,8 +17,7 @@
 #
 
 from behave import (given, then, when)
-
-from nose.tools import assert_equal
+from expecter import expect
 
 import versionah
 
@@ -39,7 +38,7 @@ def w_comare_eq(context):
 
 @then('I see the comparison {result}')
 def t_see_result(context, result):
-    assert_equal(str(context.result), result)
+    expect(str(context.result)) == result
 
 
 @when('I search for the greatest')

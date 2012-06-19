@@ -19,10 +19,9 @@
 import datetime
 
 from behave import then
-
-from nose.tools import assert_equal
+from expecter import expect
 
 
 @then("I find today's date")
 def t_find_today(context):
-    assert_equal(context.version.date, datetime.date.today())
+    expect(context.version.date) == datetime.date.today()

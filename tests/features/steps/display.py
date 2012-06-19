@@ -19,8 +19,7 @@
 import datetime
 
 from behave import (given, then, when)
-
-from nose.tools import assert_equal
+from expecter import expect
 
 import versionah
 
@@ -32,7 +31,7 @@ def w_display_type(context, dtype):
 
 @then('I see the date string {date}')
 def t_see_date(context, date):
-    assert_equal(context.string, date)
+    expect(context.string) == date
 
 
 @given('I have version {version} created on {date}')

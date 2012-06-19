@@ -20,8 +20,7 @@ import os
 import subprocess
 
 from behave import (then, when)
-
-from nose.tools import assert_equal
+from expecter import expect
 
 import versionah
 
@@ -40,4 +39,4 @@ def w_process_with_linter(context, name, linter):
 
 @then('the linter returns 0')
 def t_linter_returns_0(context):
-    assert_equal(context.retval, 0)
+    expect(context.retval) == 0

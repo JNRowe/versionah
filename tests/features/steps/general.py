@@ -19,8 +19,7 @@
 import os
 
 from behave import (given, then, when)
-
-from nose.tools import assert_equal
+from expecter import expect
 
 import versionah
 
@@ -32,12 +31,12 @@ def g_have_version(context, version):
 
 @then('I see the version {version}')
 def t_see_version(context, version):
-    assert_equal(context.version.as_dotted(), version)
+    expect(context.version.as_dotted()) == version
 
 
 @then('I see the string {text}')
 def t_see_string(context, text):
-    assert_equal(context.string, text)
+    expect(context.string) == text
 
 
 @given('I have the file {name}')
@@ -68,4 +67,4 @@ def g_have_name_version(context, name, version):
 
 @then('I receive {error}')
 def t_receive_exception(context, error):
-    assert_equal(context.exception.__class__.__name__, error)
+    expect(context.exception.__class__.__name__) == error

@@ -17,8 +17,7 @@
 #
 
 from behave import (then, when)
-
-from nose.tools import assert_equal
+from expecter import expect
 
 import versionah
 
@@ -36,4 +35,4 @@ def w_pass_to_function_with_args(context, arg, value, function):
 
 @then('I see the file type {file_type}')
 def t_see_file_type(context, file_type):
-    assert_equal(context.result[0].file_type, file_type)
+    expect(context.result[0].file_type) == file_type

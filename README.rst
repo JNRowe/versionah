@@ -57,6 +57,7 @@ I'd like to thank the following people who have contributed to ``versionah``.
 Bug reports
 '''''''''''
 
+* Marc Abramowitz
 * Leal Hétu
 * Matt Leighy
 

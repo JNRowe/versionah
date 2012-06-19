@@ -17,10 +17,9 @@
 #
 
 from behave import then
-
-from nose.tools import assert_equal
+from expecter import expect
 
 
 @then('the interpreter returns 0')
 def t_interp_returns_9(context):
-    assert_equal(context.retval, 0)
+    expect(context.retval) == 0
