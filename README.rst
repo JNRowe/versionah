@@ -29,13 +29,13 @@ Example
 
 The simplest way to show how ``versionah`` works is by example::
 
-    $ ./versionah.py -s 2.4.3 example.txt
+    $ versionah -s 2.4.3 example.txt
     2.4.3
-    $ ./versionah.py example.txt
+    $ versionah example.txt
     2.4.3
-    $ ./versionah.py -b minor example.txt
+    $ versionah -b minor example.txt
     2.5.0
-    $ ./versionah.py -b major example.txt
+    $ versionah -b major example.txt
     3.0.0
     $ rm example.txt
     <BLANKLINE>
