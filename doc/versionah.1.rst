@@ -45,11 +45,10 @@ OPTIONS
     Bump ``type`` by one, where ``type`` is one {major,minor,micro,patch}
 
 -d <format>, --display=<format>
-    Display output in ``format``, the list of available formats can be shown with
-   ``--list``
+    Display output in ``format``, the list of available formats can be shown
+    with ``--list``
 
 -l, --list
-
     List supported displayed formats
 
 BUGS
