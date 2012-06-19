@@ -1,6 +1,5 @@
 include COPYING *.rst
 include doc/*.rst
-include doc/Makefile
 include doc/wordlist.txt
 include doc/conf.py
 include tests/data/shtool/test.*
