@@ -4,7 +4,7 @@ from nose2.tools import params
 
 from versionah import (Version, process_command_line)
 
-from utils import raises_OSError
+from tests.utils import raises_OSError
 
 expect.raises_OSError = staticmethod(raises_OSError)
 

@@ -7,7 +7,8 @@ class _RaisesOSErrorExpectation(_RaisesExpectation):
         self.message = message
 
     def validate_failure(self, exc_type, exc_value):
-        code, message = exc_value
+        code = exc_value.errno
+        message = exc_value.strerror
         if self.code != code:
             raise AssertionError('Expected code %s but got %s'
                                  % (self.code, exc_value[0]))
