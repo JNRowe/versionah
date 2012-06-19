@@ -1,0 +1,15 @@
+Brandl
+Georg
+UA
+autotools
+fallback
+jinja
+libtool
+regexp
+shtool
+symlink
+templating
+timestamp
+unparsable
+utilties
+versioning

@@ -32,6 +32,15 @@ extensions = \
                                        "intersphinx", "viewcode"]] + \
     ["sphinxcontrib.%s" % ext for ext in ["blockdiag", "cheeseshop"]]
 
+# Only activate spelling, if it is installed.  It is not required in the
+# general case and we don't have the granularity to describe this in a clean
+# way
+try:
+    from sphinxcontrib import spelling  # NOQA
+    extensions.append('sphinxcontrib.spelling')
+except ImportError:
+    pass
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['.templates']
 
@@ -236,3 +245,6 @@ intersphinx_mapping = {
               os.getenv('SPHINX_JINJA_OBJECTS')),
     'python': ('http://docs.python.org/', os.getenv('SPHINX_PYTHON_OBJECTS')),
 }
+
+spelling_lang = 'en_GB'
+spelling_word_list_filename = 'wordlist.txt'
