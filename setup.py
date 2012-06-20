@@ -1,6 +1,7 @@
 #! /usr/bin/python -tt
 
 import imp
+import sys
 
 from setuptools import setup
 
@@ -9,6 +10,10 @@ from setuptools import setup
 ver_file = open("versionah/_version.py")
 _version = imp.load_module("_version", ver_file, ver_file.name,
                            (".py", ver_file.mode, imp.PY_SOURCE))
+
+install_requires = ['Jinja2>=2', ]
+if sys.version_info[:2] < (2, 7):
+    install_requires.append('argparse')
 
 setup(
     name='versionah',
@@ -50,7 +55,7 @@ setup(
     package_data={'': ['templates/*.jinja', ], },
     entry_points={'console_scripts': ['versionah = versionah:main', ]},
     zip_safe=False,
-    install_requires=['Jinja2>=2', ],
+    install_requires=install_requires,
     extras_require={
         'colour': ['blessings', ],
         'color': ['blessings', ],
