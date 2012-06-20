@@ -43,7 +43,7 @@ Options
 
 .. cmdoption:: -b <type>, --bump=<type>
 
-   Bump ``type`` by one, where ``type`` is one {major,minor,micro,patch}
+   Bump ``type`` by one, where ``type`` is one of {major,minor,micro,patch}
 
 .. cmdoption:: -d <format>, --display=<format>
 
