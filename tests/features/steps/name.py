@@ -19,6 +19,6 @@
 from behave import when
 
 
-@when('I display its string representation')
+@when("I display the package's string representation")
 def w_display_string(context):
     context.string = str(context.version)

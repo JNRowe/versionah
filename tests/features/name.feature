@@ -5,7 +5,7 @@ Feature: Version names
 
     Scenario Outline: Name version
         Given I have the package <pkg> version <version>
-        When I display its string representation
+        When I display the package's string representation
         Then I see the string <result>
 
         Examples:
@@ -16,7 +16,7 @@ Feature: Version names
 
     Scenario Outline: Names with dashes and underscores
         Given I have the package <pkg> version <version>
-        When I display its string representation
+        When I display the package's string representation
         Then I see the string <result>
 
         Examples:
@@ -27,7 +27,7 @@ Feature: Version names
 
     Scenario Outline: Names with numeric suffixes
         Given I have the package <pkg> version <version>
-        When I display its string representation
+        When I display the package's string representation
         Then I see the string <result>
 
         Examples:
