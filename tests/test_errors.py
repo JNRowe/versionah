@@ -19,9 +19,9 @@ def exit_wrapper(status, message):
 
 def setUpModule():
     PATCHES.extend([
-        patch('versionah.optparse.OptionParser.exit',
+        patch('versionah.argparse.ArgumentParser.exit',
               new=Mock(side_effect=exit_wrapper)),
-        patch('versionah.optparse.OptionParser.print_usage'),
+        patch('versionah.argparse.ArgumentParser.print_usage'),
     ])
     for p in PATCHES:
         p.start()
@@ -80,20 +80,20 @@ def test_version_read_no_identifier():
 
 
 def test_process_command_line_invalid_package_name():
-    with expect.raises_OSError(2, "Invalid package name string '__'"):
+    with expect.raises_OSError(2, "Invalid string for --name: '__'"):
         process_command_line(['--name=__', 'test'])
 
 
 def test_process_command_line_invalid_package_version():
-    with expect.raises_OSError(2, "Invalid version string for set '__'"):
+    with expect.raises_OSError(2, "Invalid string for --set: '__'"):
         process_command_line(['--set=__', 'test'])
 
 
 def test_process_command_line_no_file():
-    with expect.raises_OSError(2, 'One version file must be specified'):
+    with expect.raises_OSError(2, 'too few arguments'):
         process_command_line([])
 
 
 def test_process_command_line_multiple_file():
-    with expect.raises_OSError(2, 'Only one version file must be specified'):
+    with expect.raises_OSError(2, 'unrecognized arguments: test2'):
         process_command_line(['test1', 'test2'])

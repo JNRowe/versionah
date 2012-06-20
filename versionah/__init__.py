@@ -41,9 +41,9 @@ for use in project management.
 """ % parseaddr(__author__)
 # pylint: enable-msg=W0622
 
+import argparse
 import datetime
 import errno
-import optparse
 import os
 import re
 import sys
@@ -62,11 +62,11 @@ T = Terminal()
 #: Base string type, used for compatibility with Python 2 and 3
 STR_TYPE = str if sys.version_info[0] == 3 else basestring
 
-#: Command line help string, for use with :mod:`optparse`
+#: Command line help string, for use with :mod:`argparse`
 # Pull the first paragraph from the docstring
 USAGE = "\n".join(__doc__[:__doc__.find('\n\n', 100)].splitlines()[2:])
-# Replace script name with optparse's substitution var
-USAGE = USAGE.replace("versionah", "%prog")
+# Replace script name with argparse's substitution var
+USAGE = USAGE.replace("versionah", "%(prog)s")
 
 #: Regular expression to match a valid package name
 VALID_PACKAGE = "[A-Za-z][A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*"
@@ -507,59 +507,55 @@ def process_command_line(argv=sys.argv[1:]):
     """Option processing and validation.
 
     :param list argv: Command line arguments to process
-    :rtype: `tuple` of `optparse.Values` and `int`
+    :rtype: `argparse.Namespace`
     :return: Parsed options and version file to process
 
     """
 
-    parser = optparse.OptionParser(usage="%prog [options...]",
-                                   version="%prog v" + __version__,
-                                   description=USAGE)
-
-    parser.set_defaults(file_type=None, bump=None, display_format="dotted")
-
-    parser.add_option("-t", "--type", choices=Version.filetypes,
-                      dest="file_type", metavar="text",
-                      help="define the file type used for version file")
-    parser.add_option("-n", "--name", metavar="name",
-                      help="package name for version")
-    parser.add_option("-s", "--set", metavar="0.1.0",
-                      help="set to a specific version")
-    parser.add_option("-b", "--bump",
-                      choices=("major", "minor", "micro", "patch"),
-                      metavar="micro",
-                      help="bump type by one")
-    parser.add_option("-d", "--display", choices=Version.display_types(),
-                      dest="display_format", metavar="dotted",
-                      help="display output in format")
-    parser.add_option("-l", "--list", action="store_true",
-                      help="list supported displayed formats")
-
-    options, args = parser.parse_args(argv)
-
-    if options.list:
-        file_name = None
-    else:
-        if options.name and not re.match("%s$" % VALID_PACKAGE, options.name):
-            parser.error("Invalid package name string %r" % options.name)
-
-        if options.set and not re.match("%s$" % VALID_VERSION, options.set):
-            parser.error("Invalid version string for set %r" % options.set)
-
-        if not args:
-            parser.error("One version file must be specified")
-        elif not len(args) == 1:
-            parser.error("Only one version file must be specified")
-        file_name = args[0]
-
-        if not options.file_type:
-            suffix = os.path.splitext(file_name)[1][1:]
-            if suffix in Version.filetypes:
-                options.file_type = suffix
+    class ValidatingAction(argparse.Action):
+        def __call__(self, parser, namespace, values, option_string=None):
+            if option_string in ('-n', '--name'):
+                matcher = "%s$" % VALID_PACKAGE
             else:
-                options.file_type = "text"
+                matcher = "%s$" % VALID_VERSION
+            if not re.match(matcher, values):
+                parser.error("Invalid string for %s: %r" % (option_string,
+                                                            values))
+            setattr(namespace, self.dest, values)
 
-    return options, file_name
+    parser = argparse.ArgumentParser(version="%(prog)s v" + __version__,
+                                     description=USAGE)
+
+    parser.set_defaults(file_type=None, bump=None, display_format="dotted",
+                        name=os.path.basename(os.getenv('PWD')))
+
+    parser.add_argument("-t", "--type", choices=Version.filetypes,
+                        dest="file_type", metavar="text",
+                        help="define the file type used for version file")
+    parser.add_argument("-n", "--name", metavar=parser.get_default("name"),
+                        action=ValidatingAction,
+                        help="package name for version(default from $PWD)")
+    parser.add_argument("-s", "--set", metavar="0.1.0",
+                        action=ValidatingAction,
+                        help="set to a specific version")
+    parser.add_argument("-b", "--bump",
+                        choices=("major", "minor", "micro", "patch"),
+                        metavar="micro", help="bump type by one")
+    parser.add_argument("-d", "--display", choices=Version.display_types(),
+                        dest="display_format", metavar="dotted",
+                        help="display output in format")
+    parser.add_argument("filename")
+
+    args = parser.parse_args(argv)
+
+    if not args.file_type:
+        suffix = os.path.splitext(args.filename)[1][1:]
+        if suffix in Version.filetypes:
+            args.file_type = suffix
+        else:
+            args.file_type = "text"
+
+    return args
 
 
 def main(argv=sys.argv[:]):
@@ -570,33 +566,27 @@ def main(argv=sys.argv[:]):
 
     """
 
-    options, filename = process_command_line(argv[1:])
-
-    if options.list:
-        print(success("Supported display types:"))
-        for dtype in Version.display_types():
-            print("  *", dtype)
-        return
+    args = process_command_line(argv[1:])
 
     try:
-        version = Version.read(filename)
+        version = Version.read(args.filename)
     except IOError:
         version = Version()
     except ValueError as error:
         print(fail(error.args[0]))
         return errno.EEXIST
 
-    if not options.set and not os.path.exists(filename):
+    if not args.set and not os.path.exists(args.filename):
         print(fail("File not found"))
         return errno.ENOENT
 
-    if options.name:
-        version.name = options.name
-    if options.bump:
-        version.bump(options.bump)
-        version.write(filename, options.file_type)
-    elif options.set:
-        version.set(options.set)
-        version.write(filename, options.file_type)
+    if args.name:
+        version.name = args.name
+    if args.bump:
+        version.bump(args.bump)
+        version.write(args.filename, args.file_type)
+    elif args.set:
+        version.set(args.set)
+        version.write(args.filename, args.file_type)
 
-    print(success(version.display(options.display_format)))
+    print(success(version.display(args.display_format)))

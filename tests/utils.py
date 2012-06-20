@@ -12,12 +12,9 @@ class _RaisesOSErrorExpectation(_RaisesExpectation):
             raise AssertionError('Expected code %s but got %s'
                                  % (self.code, exc_value[0]))
         if not message.endswith(self.message):
-            raise AssertionError(
-                "Expected to end with %s('%s') but got %s('%s')" %
-                 (self._exception_class.__name__,
-                  str(self.message),
-                  exc_type.__name__,
-                  str(exc_value)))
+            raise AssertionError("Expected to end with OSError('%s') but got "
+                                 "%s('%s')" % (self.message, exc_type.__name__,
+                                               exc_value))
         elif issubclass(exc_type, OSError):
             return True
         else:
