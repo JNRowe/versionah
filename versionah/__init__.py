@@ -41,6 +41,13 @@ for use in project management.
 """ % parseaddr(__author__)
 # pylint: enable-msg=W0622
 
+# This is here to workaround UserWarning messages caused by path fiddling in
+# dependencies
+try:
+    import pkg_resources  # NOQA
+except ImportError:
+    pass
+
 import argparse
 import datetime
 import errno
