@@ -20,9 +20,9 @@ an issue_ and I'll endeavour to fix it.
 
 If you would like coloured terminal output, then you will need blessings_.
 
-.. [#] If you still run older Python versions only small changes are required,
-       for to support Python 2.5 only the print syntax and ``from __future__
-       import print_function`` needs changing.
+.. [#] If you still run older Python versions only small changes should be
+       required, for example the unrolling of conditional expressions and
+       redefining of ``except..as`` structures.
 
 Example
 -------
