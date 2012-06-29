@@ -27,7 +27,7 @@ import versionah
 
 @when('I process {name} with {linter}')
 def w_process_with_linter(context, name, linter):
-    file_type = versionah.process_command_line([name, ])[0].file_type
+    file_type = versionah.process_command_line([name, ]).file_type
     context.version.write("tests/data/%s" % name, file_type)
     context.retval = subprocess.call(
         linter.split() + ["tests/data/%s" % name, ],

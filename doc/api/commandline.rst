@@ -24,13 +24,13 @@ Examples
 Parsing command line options
 ''''''''''''''''''''''''''''
 
-    >>> args, filename = process_command_line(['test.py', ])
-    >>> filename
+    >>> args = process_command_line(['test.py', ])
+    >>> args.filename
     'test.py'
     >>> args.file_type
     'py'
-    >>> args, filename = process_command_line(['-t', 'h', 'test', ])
-    >>> filename
+    >>> args = process_command_line(['-t', 'h', 'test', ])
+    >>> args.filename
     'test'
     >>> args.file_type
     'h'

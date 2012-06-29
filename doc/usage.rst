@@ -47,9 +47,5 @@ Options
 
 .. cmdoption:: -d <format>, --display=<format>
 
-   Display output in ``format``, the list of available formats can be shown with
-   ``--list``
-
-.. cmdoption:: -l, --list
-
-   List supported displayed formats
+   Display output in ``format``, where ``format`` is one of the list of
+   {date,dotted,hex,libtool,tuple,web}

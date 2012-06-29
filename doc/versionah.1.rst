@@ -45,11 +45,8 @@ OPTIONS
     Bump ``type`` by one, where ``type`` is one of {major,minor,micro,patch}
 
 -d <format>, --display=<format>
-    Display output in ``format``, the list of available formats can be shown
-    with ``--list``
-
--l, --list
-    List supported displayed formats
+    Display output in ``format``, where ``format`` is one of the list of
+    {date,dotted,hex,libtool,tuple,web}
 
 BUGS
 ----

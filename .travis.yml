@@ -7,7 +7,7 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install m4 splint
 install:
-  - pip install --use-mirrors behave coverage expecter nose2 nose2_cov
+  - pip install --use-mirrors argparse behave coverage expecter nose2 nose2_cov
   - pip install --use-mirrors .
 script:
   - nose2 -v tests
