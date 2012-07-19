@@ -3,6 +3,25 @@ User-visible changes
 
 .. contents::
 
+0.12.0 - 2012-07-19
+-------------------
+
+* blessings_ replaces termcolor_ for fancy output
+* argparse_ is now required for Python 2.6
+* Tests now use nose2_, expecter_ and nose2-cov_
+* attest_ is no longer required for running tests
+* cloud_sptheme_ is no longer required for building documentation
+* On OS-X we fall back to ``~/Library/Application Support`` for templates
+* pip_ requirements files are now included in ``extra``
+
+.. _blessings: http://pypi.python.org/pypi/blessings/
+.. _argparse: http://pypi.python.org/pypi/argparse
+.. _nose2: http://pypi.python.org/pypi/nose2/
+.. _expecter: http://pypi.python.org/pypi/expecter/
+.. _nose2-cov: http://pypi.python.org/pypi/nose2-cov/
+.. _cloud_sptheme: http://pypi.python.org/pypi/cloud_sptheme/
+.. _pip: http://pypi.python.org/pypi/pip/
+
 0.11.0 - 2012-01-30
 -------------------
 
