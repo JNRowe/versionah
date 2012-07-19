@@ -55,6 +55,12 @@ import os
 import re
 import sys
 
+try:
+    # For Python 3
+    from http.cookiejar import MONTHS
+except ImportError:
+    from cookielib import MONTHS  # NOQA
+
 import jinja2
 
 try:
@@ -81,7 +87,7 @@ VALID_PACKAGE = "[A-Za-z][A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*"
 VALID_VERSION = r"\d+\.\d+(?:\.\d+){,2}"
 #: Regular expression to match a package date.  ISO-8601, and %d-%b-%Y
 #: formatting for shtool compatibility
-VALID_DATE = r"(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:[A-Z][a-z]{2})-\d{4})"
+VALID_DATE = r"(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:%s)-\d{4})" % "|".join(MONTHS)
 
 
 def success(text):
