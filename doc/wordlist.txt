@@ -11,5 +11,4 @@ symlink
 templating
 timestamp
 unparsable
-utilties
 versioning
