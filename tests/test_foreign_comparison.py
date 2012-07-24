@@ -1,5 +1,3 @@
-import re
-
 from expecter import expect
 from nose2.tools import params
 
@@ -55,6 +53,9 @@ def test_list_unequal_comparison(l, v2):
 
 
 def test_unsupported_comparision():
+    from sys import version_info
+    repr_name = 'class' if version_info[0] >= 3 else 'type'
+
     with expect.raises(NotImplementedError, "Unable to compare Version and "
-                       "<type '_sre.SRE_Pattern'>"):
-        re.compile('0.2.0') == Version('0.2.0')
+                       "<%s 'float'>" % repr_name):
+        float(3.2) == Version('0.2.0')
