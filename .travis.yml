@@ -10,7 +10,7 @@ install:
   - pip install --use-mirrors argparse coverage expecter nose2 nose2_cov
   - pip install --use-mirrors .
 script:
-  - nose2 -v tests
+  - nose2 -v -A '!no_travis' tests
 branches:
   except:
     - /^play\/.*$/

@@ -39,3 +39,8 @@ def write_tag(f):
 def execute_tag(f):
     f.execute = 1
     return f
+
+
+def notravis_tag(f):
+    f.no_travis = 1
+    return f
