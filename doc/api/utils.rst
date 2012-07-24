@@ -1,7 +1,7 @@
 .. currentmodule:: versionah
 
-Utilties
-========
+Utilities
+=========
 
 .. note::
 

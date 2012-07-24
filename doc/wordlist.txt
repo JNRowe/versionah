@@ -10,5 +10,6 @@ shtool
 symlink
 templating
 timestamp
+tuple
 unparsable
 versioning
