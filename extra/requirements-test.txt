@@ -1,5 +1,4 @@
 -r requirements.txt
-behave>=1.1.0
 docutils>=0.7
 mock>=0.7.1
 nose2>=1.1.2

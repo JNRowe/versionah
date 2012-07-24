@@ -6,7 +6,6 @@ doc/.build/
 versionah.egg-info/
 
 .coverage
-.coverage-behave
 .noseids
 *.py[co]
 MANIFEST

@@ -24,3 +24,18 @@ class _RaisesOSErrorExpectation(_RaisesExpectation):
 
 def raises_OSError(code, message):
     return _RaisesOSErrorExpectation(code, message)
+
+
+def read_tag(f):
+    f.read = 1
+    return f
+
+
+def write_tag(f):
+    f.write = 1
+    return f
+
+
+def execute_tag(f):
+    f.execute = 1
+    return f
