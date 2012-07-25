@@ -7,8 +7,11 @@
 Introduction
 ------------
 
-``versionah`` is a `GPL v3`_ licensed module for maintaining version information
-files for use in project management.
+``versionah`` is a simple tool to help you, or more specifically *me*, easily
+maintain version information for a project.  Its entire aim is to make the act
+of displaying or bumping a project's version number a thoughtless task.
+
+It is written in Python, and released under the `GPL v3`_.
 
 Requirements
 ------------
