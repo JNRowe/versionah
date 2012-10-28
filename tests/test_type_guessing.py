@@ -1,7 +1,7 @@
 from expecter import expect
 from nose2.tools import params
 
-from versionah import process_command_line
+from versionah import guess_type
 
 
 @params(
@@ -9,16 +9,5 @@ from versionah import process_command_line
     ('test.rb', 'rb'),
     ('test', 'text'),
 )
-def test_guess_type_from_name(name, expected):
-    args = process_command_line([name, ])
-    expect(args.file_type) == expected
-
-
-@params(
-    ('test.py', 'py', 'py'),
-    ('test.rb', 'text', 'text'),
-    ('test', 'c', 'c'),
-)
-def test_guess_type_override(name, ftype, expected):
-    args = process_command_line(['--type', ftype, name, ])
-    expect(args.file_type) == expected
+def test_guess_type_from_name(filename, expected):
+    expect(guess_type(filename)) == expected

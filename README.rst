@@ -32,13 +32,13 @@ Example
 
 The simplest way to show how ``versionah`` works is by example::
 
-    $ versionah -s 2.4.3 example.txt
+    $ versionah set 2.4.3 example.txt
     2.4.3
-    $ versionah example.txt
+    $ versionah display example.txt
     2.4.3
-    $ versionah -b minor example.txt
+    $ versionah bump minor example.txt
     2.5.0
-    $ versionah -b major example.txt
+    $ versionah bump major example.txt
     3.0.0
     $ rm example.txt
     <BLANKLINE>

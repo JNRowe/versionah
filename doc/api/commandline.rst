@@ -11,26 +11,14 @@ Command line
 
 .. autodata:: USAGE
 
-.. autofunction:: process_command_line(argv=sys.argv[1:])
+.. autoclass:: ValidatingAction
+
+.. autofunction:: guess_type
+.. autofunction:: bump
+.. autofunction:: set
+.. autofunction:: display
 .. autofunction:: main(argv=sys.argv)
 
-Examples
---------
-
-.. testsetup::
-
-    from versionah import process_command_line
-
-Parsing command line options
-''''''''''''''''''''''''''''
-
-    >>> args = process_command_line(['test.py', ])
-    >>> args.filename
-    'test.py'
-    >>> args.file_type
-    'py'
-    >>> args = process_command_line(['-t', 'h', 'test', ])
-    >>> args.filename
-    'test'
-    >>> args.file_type
-    'h'
+..
+  Examples
+  --------
