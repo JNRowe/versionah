@@ -1,9 +1,9 @@
 #! /usr/bin/python -tt
 
 import imp
-import sys
 
 from setuptools import setup
+from sys import version_info
 
 # Hack to import _version file without importing versionah/__init__.py, its
 # purpose is to allow import without requiring dependencies at this point.
@@ -11,9 +11,14 @@ ver_file = open("versionah/_version.py")
 _version = imp.load_module("_version", ver_file, ver_file.name,
                            (".py", ver_file.mode, imp.PY_SOURCE))
 
-install_requires = ['Jinja2>=2', ]
-if sys.version_info[:2] < (2, 7):
-    install_requires.append('argparse')
+install_requires = map(str.strip, open('extra/requirements.txt').readlines())
+if version_info[:2] < (2, 7):
+    extra_req = map(str.strip,
+                    open('extra/requirements-py26.txt').readlines()[1:])
+    install_requires.extend(extra_req)
+
+colour_requires = map(str.strip,
+                      open('extra/requirements-colour.txt').readlines()[1:])
 
 setup(
     name='versionah',
@@ -57,7 +62,7 @@ setup(
     zip_safe=False,
     install_requires=install_requires,
     extras_require={
-        'colour': ['blessings', ],
-        'color': ['blessings', ],
+        'colour': colour_requires,
+        'color': colour_requires,
     },
 )
