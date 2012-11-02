@@ -45,12 +45,32 @@ __versionah_list_displaytypes() {
 
 _arguments '--help[show help message and exit]' \
     "--version[show program's version number and exit]" \
-    '--type=[define the file type used for version file]:select type:__versionah_list_filetypes' \
-    '--name=[package name for version]' \
-    '--set=[set to a specific version]' \
-    '--bump=[bump type by one]:select type:(major minor micro patch)' \
-    '--display=[display output in format]:select type:__versionah_list_displaytypes' \
-    '*:select file:_files' && return 0
+    ':versionah command:(bump display set)' \
+    '*::subcmd:->subcmd' && return 0
 
 ### DGEN_TAG: Generated from versionah/__init__.py {{{
+case "$words[1]" in
+(bump)
+    _arguments '--help[show help message and exit]' \
+        '--display=[display output in format]:select type:__versionah_list_displaytypes' \
+        '--type=[define the file type used for version file]:select type:__versionah_list_filetypes' \
+        '1:select file:_files' \
+        '2:select type:(major minor micro patch)'
+    ;;
+(set)
+    _arguments '--help[show help message and exit]' \
+        '--display=[display output in format]:select type:__versionah_list_displaytypes' \
+        '--type=[define the file type used for version file]:select type:__versionah_list_filetypes' \
+        '--name=[package name for version]' \
+        '1:select file:_files' \
+        '2:set version: '
+    ;;
+(display)
+    _arguments '--help[show help message and exit]' \
+        '--display=[display output in format]:select type:__versionah_list_displaytypes' \
+        '*:select file:_files'
+    ;;
+(*)
+    ;;
+esac
 ### DGEN_TAG: Generated from versionah/__init__.py }}}
