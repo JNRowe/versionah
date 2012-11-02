@@ -13,7 +13,7 @@ Version management made easy
 SYNOPSIS
 --------
 
-    versionah [option] <command>
+    versionah [option] <command> <filename> [command options]
 
 DESCRIPTION
 -----------
