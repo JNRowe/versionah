@@ -94,9 +94,9 @@ not recommended.
 :command:`pod2man` example
 --------------------------
 
-If you generate your documentation using perl_'s :command:`pod2man` then a
-sample :file:`Makefile` rule to include your program's version information would
-be:
+If you generate your documentation using perl_'s :command:`pod2man` then
+a sample :file:`Makefile` rule to include your program's version information
+would be:
 
 .. sourcecode:: make
 
