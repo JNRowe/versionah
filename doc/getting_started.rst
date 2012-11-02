@@ -9,9 +9,9 @@ number, and optionally a name for the package:
 
 .. code-block:: sh
 
-    ▶ versionah set -t c 0.2.0 src/version.h
+    ▶ versionah set -t c src/version.h 0.2.0
     0.2.0
-    ▶ versionah set -t c -n my_app 0.2.0 src/version.h
+    ▶ versionah set -t c -n my_app src/version.h 0.2.0
     0.2.0
 
 :file:`Makefile` usage
@@ -23,7 +23,7 @@ rules:
 .. code-block:: make
 
     $(addprefix version-, major minor micro):
-        versionah bump $(subst version-,, $@) src/version.h
+        versionah bump src/version.h $(subst version-,, $@)
 
 The above example makes it possible to call, for example,
 :makevar:`version-minor` to bump the minor component in :file:`src/version.h`.
@@ -44,7 +44,7 @@ make_ files:
     $(LIBRARY_NAME): $(LIBRARY_OBJS)
         $(LIBTOOL) --mode=link $(CC) -o $(LIBRARY_NAME) $(LIBRARY_OBJS) \
             -rpath $(libdir) \
-            -version-info `versionah -d libtool display src/version.h`
+            -version-info `versionah display -d libtool src/version.h`
 
 Using the version information as the ``libtool`` interface age requires strict
 practise in maintaining the semantics of your version data, but doing so
@@ -101,8 +101,8 @@ be:
 .. sourcecode:: make
 
     man.1: man.pod
-        pod2man --section=1 --release="`versionah -d dotted display src/version.h`" \
-            --date="`versionah -d date display src/version.h`" $< $@
+        pod2man --section=1 --release="`versionah display -d dotted src/version.h`" \
+            --date="`versionah display -d date src/version.h`" $< $@
 
 More examples
 -------------

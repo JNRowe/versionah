@@ -9,14 +9,14 @@ Let's start with some basic examples:
 
     ▶ versionah display _version.py  # Read the version data from _version.py
     2.4.3
-    ▶ versionah bump minor _version.py  # Bump the minor component
+    ▶ versionah bump _version.py minor  # Bump the minor component
     2.5.0
-    ▶ versionah bump major _version.py  # Bump the major component
+    ▶ versionah bump _version.py major  # Bump the major component
     3.0.0
 
-    ▶ versionah set 0.2.0 _version.rb  # Set the version in _version.rb to 0.2.0
+    ▶ versionah set _version.rb 0.2.0  # Set the version in _version.rb to 0.2.0
     0.2.0
-    ▶ versionah bump minor _version.h  # Bump the minor component in _version.h
+    ▶ versionah bump _version.h minor  # Bump the minor component in _version.h
     0.4.0
 
 Options
@@ -32,17 +32,16 @@ Options
 
    Show this help message and exit
 
-.. cmdoption:: -d <format>, --display=<format>
-
-   Display output in ``format``, where ``format`` is one of the list of
-   {date,dotted,hex,libtool,tuple,web}
-
-
 Commands
 --------
 
 ``bump`` - Bump version in given file
 '''''''''''''''''''''''''''''''''''''
+
+.. cmdoption:: -d <format>, --display=<format>
+
+   Display output in ``format``, where ``format`` is one of the list of
+   {date,dotted,hex,libtool,tuple,web}
 
 .. cmdoption:: -t <mode>, --type=<mode>
 
@@ -55,6 +54,11 @@ Commands
 
 ``set`` - Set version in given file
 '''''''''''''''''''''''''''''''''''
+
+.. cmdoption:: -d <format>, --display=<format>
+
+   Display output in ``format``, where ``format`` is one of the list of
+   {date,dotted,hex,libtool,tuple,web}
 
 .. cmdoption:: -n <name>, --name=<name>
 
@@ -71,3 +75,8 @@ Commands
 
 ``display`` - Display version in given file
 '''''''''''''''''''''''''''''''''''''''''''
+
+.. cmdoption:: -d <format>, --display=<format>
+
+   Display output in ``format``, where ``format`` is one of the list of
+   {date,dotted,hex,libtool,tuple,web}

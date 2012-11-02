@@ -548,7 +548,14 @@ def guess_type(filename):
     return file_type
 
 
-@APP.cmd(help='bump version in given file')
+OPTIONS = argparse.ArgumentParser(add_help=False)
+OPTIONS.add_argument('-d', '--display', default='dotted',
+                     choices=Version.display_types(), dest='display_format',
+                     metavar='dotted', help='display format for output')
+OPTIONS.add_argument('filename', help='version file to operate on')
+
+
+@APP.cmd(help='bump version in given file', parents=[OPTIONS, ])
 @APP.cmd_arg('-t', '--type', choices=Version.filetypes, dest='file_type',
              metavar='text', help='define the file type used for version file')
 @APP.cmd_arg('bump', choices=('major', 'minor', 'micro', 'patch'),
@@ -581,7 +588,7 @@ def bump(display_format, filename, file_type, bump):
     print(success(version.display(display_format)))
 
 
-@APP.cmd(help='set version in given file')
+@APP.cmd(help='set version in given file', parents=[OPTIONS, ])
 @APP.cmd_arg('-t', '--type', choices=Version.filetypes, dest='file_type',
              metavar='text',
              help='define the file type used for version file')
@@ -621,7 +628,7 @@ def set(display_format, filename, file_type, name, set):
     print(success(version.display(display_format)))
 
 
-@APP.cmd(help='display version in given file')
+@APP.cmd(help='display version in given file', parents=[OPTIONS, ])
 def display(display_format, filename):
     """Display version in existing file.
 
@@ -640,10 +647,5 @@ def display(display_format, filename):
 
 def main():
     """Main script entry point."""
-
-    APP.arg('-d', '--display', default='dotted',
-            choices=Version.display_types(), dest='display_format',
-            metavar='dotted', help='display format for output')
-    APP.arg('filename', help='version file to operate on')
 
     APP.run()
