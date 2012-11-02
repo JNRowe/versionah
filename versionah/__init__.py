@@ -70,6 +70,10 @@ except ImportError:
     class Terminal:  # NOQA
         def __getattr__(self, attr):
             return lambda x: x
+
+from .i18n import _
+
+
 #: blessings Terminal object, used for fancy output.  No-op without blessings
 T = Terminal()
 
@@ -83,7 +87,7 @@ USAGE = "\n".join(__doc__[:__doc__.find('\n\n', 100)].splitlines()[2:])
 USAGE = USAGE.replace("versionah", "%(prog)s")
 
 #: Command line interface object
-APP = aaargh.App(version="%(prog)s v" + __version__, description=USAGE)
+APP = aaargh.App(version="%(prog)s v" + __version__, description=_(USAGE))
 
 #: Regular expression to match a valid package name
 VALID_PACKAGE = "[A-Za-z][A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*"
@@ -551,15 +555,16 @@ def guess_type(filename):
 OPTIONS = argparse.ArgumentParser(add_help=False)
 OPTIONS.add_argument('-d', '--display', default='dotted',
                      choices=Version.display_types(), dest='display_format',
-                     metavar='dotted', help='display format for output')
-OPTIONS.add_argument('filename', help='version file to operate on')
+                     metavar='dotted', help=_('display format for output'))
+OPTIONS.add_argument('filename', help=_('version file to operate on'))
 
 
-@APP.cmd(help='bump version in given file', parents=[OPTIONS, ])
+@APP.cmd(help=_('bump version in given file'), parents=[OPTIONS, ])
 @APP.cmd_arg('-t', '--type', choices=Version.filetypes, dest='file_type',
-             metavar='text', help='define the file type used for version file')
+             metavar='text',
+             help=_('define the file type used for version file'))
 @APP.cmd_arg('bump', choices=('major', 'minor', 'micro', 'patch'),
-             help='bump type')
+             help=_('bump type'))
 def bump(display_format, filename, file_type, bump):
     """Bump version in existing file.
 
@@ -579,7 +584,7 @@ def bump(display_format, filename, file_type, bump):
         return errno.EEXIST
 
     if not os.path.exists(filename):
-        print(fail('File not found'))
+        print(fail(_('File not found')))
         return errno.ENOENT
 
     version.bump(bump)
@@ -588,14 +593,14 @@ def bump(display_format, filename, file_type, bump):
     print(success(version.display(display_format)))
 
 
-@APP.cmd(help='set version in given file', parents=[OPTIONS, ])
+@APP.cmd(help=_('set version in given file'), parents=[OPTIONS, ])
 @APP.cmd_arg('-t', '--type', choices=Version.filetypes, dest='file_type',
              metavar='text',
-             help='define the file type used for version file')
+             help=_('define the file type used for version file'))
 @APP.cmd_arg('-n', '--name', default=os.path.basename(os.getenv('PWD')),
              metavar=os.path.basename(os.getenv('PWD')),
              action=ValidatingAction,
-             help='package name for version(default from $PWD)')
+             help=_('package name for version(default from $PWD)'))
 @APP.cmd_arg('set', metavar='0.1.0', action=ValidatingAction,
              help='set to a specific version')
 def set(display_format, filename, file_type, name, set):
@@ -628,7 +633,7 @@ def set(display_format, filename, file_type, name, set):
     print(success(version.display(display_format)))
 
 
-@APP.cmd(help='display version in given file', parents=[OPTIONS, ])
+@APP.cmd(help=_('display version in given file'), parents=[OPTIONS, ])
 def display(display_format, filename):
     """Display version in existing file.
 
