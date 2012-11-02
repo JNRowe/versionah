@@ -70,8 +70,8 @@ except ImportError:
     class Terminal:  # NOQA
         def __getattr__(self, attr):
             return lambda x: x
+#: blessings Terminal object, used for fancy output.  No-op without blessings
 T = Terminal()
-
 
 #: Base string type, used for compatibility with Python 2 and 3
 STR_TYPE = str if sys.version_info[0] == 3 else basestring
