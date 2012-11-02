@@ -1,0 +1,55 @@
+# Translations template for versionah.
+# Copyright (C) 2012 ORGANIZATION
+# This file is distributed under the same license as the versionah project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: versionah 0.12.1\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2012-11-02 17:59+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: versionah/__init__.py:557
+msgid "display format for output"
+msgstr ""
+
+#: versionah/__init__.py:558
+msgid "version file to operate on"
+msgstr ""
+
+#: versionah/__init__.py:561
+msgid "bump version in given file"
+msgstr ""
+
+#: versionah/__init__.py:564 versionah/__init__.py:598
+msgid "define the file type used for version file"
+msgstr ""
+
+#: versionah/__init__.py:566
+msgid "bump type"
+msgstr ""
+
+#: versionah/__init__.py:586
+msgid "File not found"
+msgstr ""
+
+#: versionah/__init__.py:595
+msgid "set version in given file"
+msgstr ""
+
+#: versionah/__init__.py:602
+msgid "package name for version(default from $PWD)"
+msgstr ""
+
+#: versionah/__init__.py:635
+msgid "display version in given file"
+msgstr ""
+
