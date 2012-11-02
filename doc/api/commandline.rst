@@ -19,6 +19,21 @@ Command line
 .. autofunction:: display
 .. autofunction:: main(argv=sys.argv)
 
-..
-  Examples
-  --------
+Examples
+--------
+
+.. testsetup::
+
+    from versionah import guess_type
+
+Guess file type from name
+'''''''''''''''''''''''''
+
+    >>> guess_type('main.c')
+    'c'
+    >>> guess_type('version.py')
+    'py'
+    >>> guess_type('no_suffix')
+    'text'
+    >>> guess_type('suffix.unknown')
+    'text'
