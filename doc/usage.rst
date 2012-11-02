@@ -7,20 +7,20 @@ Let's start with some basic examples:
 
 .. code-block:: sh
 
-    ▶ versionah _version.py  # Read the version data from _version.py
+    ▶ versionah display _version.py  # Read the version data from _version.py
     2.4.3
-    ▶ versionah -b minor _version.py  # Bump the minor component
+    ▶ versionah bump _version.py minor  # Bump the minor component
     2.5.0
-    ▶ versionah -b major _version.py  # Bump the major component
+    ▶ versionah bump _version.py major  # Bump the major component
     3.0.0
 
-    ▶ versionah -s0.2.0 _version.rb  # Set the version in _version.rb to 0.2.0
+    ▶ versionah set _version.rb 0.2.0  # Set the version in _version.rb to 0.2.0
     0.2.0
-    ▶ versionah -b minor _version.h  # Bump the minor component in _version.h
+    ▶ versionah bump _version.h minor  # Bump the minor component in _version.h
     0.4.0
 
 Options
-'''''''
+-------
 
 .. program:: versionah
 
@@ -32,18 +32,55 @@ Options
 
    Show this help message and exit
 
+Commands
+--------
+
+``bump`` - Bump version in given file
+'''''''''''''''''''''''''''''''''''''
+
+.. program:: versionah bump
+
+.. cmdoption:: -d <format>, --display=<format>
+
+   Display output in ``format``, where ``format`` is one of the list of
+   {date,dotted,hex,libtool,tuple,web}
+
 .. cmdoption:: -t <mode>, --type=<mode>
 
    Define the file type used for version file.  Default is guessed based on file
    extension.
 
-.. cmdoption:: -s <version>, --set=<version>
+.. cmdoption:: <type>
+
+   Bump ``type`` by one, where ``type`` is one of {major,minor,micro,patch}
+
+``set`` - Set version in given file
+'''''''''''''''''''''''''''''''''''
+
+.. program:: versionah set
+
+.. cmdoption:: -d <format>, --display=<format>
+
+   Display output in ``format``, where ``format`` is one of the list of
+   {date,dotted,hex,libtool,tuple,web}
+
+.. cmdoption:: -n <name>, --name=<name>
+
+   Project name to use in output
+
+.. cmdoption:: -t <mode>, --type=<mode>
+
+   Define the file type used for version file.  Default is guessed based on file
+   extension.
+
+.. cmdoption:: <version>
 
    Set to a specific version
 
-.. cmdoption:: -b <type>, --bump=<type>
+``display`` - Display version in given file
+'''''''''''''''''''''''''''''''''''''''''''
 
-   Bump ``type`` by one, where ``type`` is one of {major,minor,micro,patch}
+.. program:: versionah display
 
 .. cmdoption:: -d <format>, --display=<format>
 

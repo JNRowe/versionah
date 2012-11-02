@@ -13,7 +13,7 @@ Version management made easy
 SYNOPSIS
 --------
 
-    versionah [option]... <file>
+    versionah [option] <command> <filename> [command options]
 
 DESCRIPTION
 -----------
@@ -22,31 +22,62 @@ DESCRIPTION
 maintain version information for a project.  Its entire aim is to make the act
 of displaying or bumping a project's version number a thoughtless task.
 
-OPTIONS
+Options
 -------
 
 --version
-    Show program's version number and exit
+    show program's version number and exit
 
 -h, --help
-    Show this help message and exit
+    show this help message and exit
 
--t <mode>, --type=<mode>
-    Define the file type used for version file.  Default is guessed based on
-    file extension.
+Commands
+--------
 
--n <name>, --name=<name>
-    Package name for version
+``bump``
+''''''''
 
--s <version>, --set=<version>
-    Set to a specific version
-
--b <type>, --bump=<type>
-    Bump ``type`` by one, where ``type`` is one of {major,minor,micro,patch}
+Bump version in given file
 
 -d <format>, --display=<format>
-    Display output in ``format``, where ``format`` is one of the list of
+    display output in ``format``, where ``format`` is one of the list of
     {date,dotted,hex,libtool,tuple,web}
+
+-t <mode>, --type=<mode>
+    define the file type used for version file.  Default is guessed based on
+    file extension.
+
+<type>
+    bump ``type`` by one, where ``type`` is one of {major,minor,micro,patch}
+
+``set``
+'''''''
+
+Set version in given file
+
+-d <format>, --display=<format>
+    display output in ``format``, where ``format`` is one of the list of
+    {date,dotted,hex,libtool,tuple,web}
+
+-n <name>, --name=<name>
+    project name to use in output
+
+-t <mode>, --type=<mode>
+    define the file type used for version file.  Default is guessed based on
+    file extension.
+
+<version>
+    set to a specific version
+
+``display``
+'''''''''''
+
+Display version in given file
+
+-d <format>, --display=<format>
+
+   display output in ``format``, where ``format`` is one of the list of
+   {date,dotted,hex,libtool,tuple,web}
 
 BUGS
 ----

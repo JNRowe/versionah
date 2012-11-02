@@ -11,9 +11,7 @@ ver_file = open("versionah/_version.py")
 _version = imp.load_module("_version", ver_file, ver_file.name,
                            (".py", ver_file.mode, imp.PY_SOURCE))
 
-install_requires = ['Jinja2>=2', ]
-if sys.version_info[:2] < (2, 7):
-    install_requires.append('argparse')
+install_requires = ['Jinja2>=2', 'aaargh']
 
 setup(
     name='versionah',

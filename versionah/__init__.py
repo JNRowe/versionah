@@ -61,6 +61,7 @@ try:
 except ImportError:
     from cookielib import MONTHS  # NOQA
 
+import aaargh
 import jinja2
 
 try:
@@ -81,6 +82,9 @@ USAGE = "\n".join(__doc__[:__doc__.find('\n\n', 100)].splitlines()[2:])
 # Replace script name with argparse's substitution var
 USAGE = USAGE.replace("versionah", "%(prog)s")
 
+#: Command line interface object
+APP = aaargh.App(version="%(prog)s v" + __version__, description=USAGE)
+
 #: Regular expression to match a valid package name
 VALID_PACKAGE = "[A-Za-z][A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*"
 #: Regular expression to match a valid package version
@@ -88,6 +92,20 @@ VALID_VERSION = r"\d+\.\d+(?:\.\d+){,2}"
 #: Regular expression to match a package date.  ISO-8601, and %d-%b-%Y
 #: formatting for shtool compatibility
 VALID_DATE = r"(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:%s)-\d{4})" % "|".join(MONTHS)
+
+
+class ValidatingAction(argparse.Action):
+
+    """argparse action to validate versionah input."""
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        if option_string in ('-n', '--name'):
+            matcher = "%s$" % VALID_PACKAGE
+        else:
+            matcher = "%s$" % VALID_VERSION
+        if not re.match(matcher, values):
+            parser.error("Invalid string for %s: %r" % (option_string, values))
+        setattr(namespace, self.dest, values)
 
 
 def success(text):
@@ -516,90 +534,118 @@ def split_version(version):
     return tuple(int(s) for s in version.split("."))
 
 
-def process_command_line(argv=sys.argv[1:]):
-    """Option processing and validation.
+def guess_type(filename):
+    """Guess output type from filename.
 
-    :param list argv: Command line arguments to process
-    :rtype: `argparse.Namespace`
-    :return: Parsed options and version file to process
+    :param str filename: File to operate on
+    """
+    suffix = os.path.splitext(filename)[1][1:]
+    if suffix in Version.filetypes:
+        file_type = suffix
+    else:
+        file_type = 'text'
+
+    return file_type
+
+
+OPTIONS = argparse.ArgumentParser(add_help=False)
+OPTIONS.add_argument('-d', '--display', default='dotted',
+                     choices=Version.display_types(), dest='display_format',
+                     metavar='dotted', help='display format for output')
+OPTIONS.add_argument('filename', help='version file to operate on')
+
+
+@APP.cmd(help='bump version in given file', parents=[OPTIONS, ])
+@APP.cmd_arg('-t', '--type', choices=Version.filetypes, dest='file_type',
+             metavar='text', help='define the file type used for version file')
+@APP.cmd_arg('bump', choices=('major', 'minor', 'micro', 'patch'),
+             help='bump type')
+def bump(display_format, filename, file_type, bump):
+    """Bump version in existing file.
+
+    :param str display_format: Format to display output in
+    :param str filename: File to operate on
+    :param str file_type: File type to produce
+    :param str bump: Component to bump
 
     """
-
-    class ValidatingAction(argparse.Action):
-        def __call__(self, parser, namespace, values, option_string=None):
-            if option_string in ('-n', '--name'):
-                matcher = "%s$" % VALID_PACKAGE
-            else:
-                matcher = "%s$" % VALID_VERSION
-            if not re.match(matcher, values):
-                parser.error("Invalid string for %s: %r" % (option_string,
-                                                            values))
-            setattr(namespace, self.dest, values)
-
-    parser = argparse.ArgumentParser(version="%(prog)s v" + __version__,
-                                     description=USAGE)
-
-    parser.set_defaults(file_type=None, bump=None, display_format="dotted",
-                        name=os.path.basename(os.getenv('PWD')))
-
-    parser.add_argument("-t", "--type", choices=Version.filetypes,
-                        dest="file_type", metavar="text",
-                        help="define the file type used for version file")
-    parser.add_argument("-n", "--name", metavar=parser.get_default("name"),
-                        action=ValidatingAction,
-                        help="package name for version(default from $PWD)")
-    parser.add_argument("-s", "--set", metavar="0.1.0",
-                        action=ValidatingAction,
-                        help="set to a specific version")
-    parser.add_argument("-b", "--bump",
-                        choices=("major", "minor", "micro", "patch"),
-                        metavar="micro", help="bump type by one")
-    parser.add_argument("-d", "--display", choices=Version.display_types(),
-                        dest="display_format", metavar="dotted",
-                        help="display output in format")
-    parser.add_argument("filename")
-
-    args = parser.parse_args(argv)
-
-    if not args.file_type:
-        suffix = os.path.splitext(args.filename)[1][1:]
-        if suffix in Version.filetypes:
-            args.file_type = suffix
-        else:
-            args.file_type = "text"
-
-    return args
-
-
-def main(argv=sys.argv[:]):
-    """Main script entry point.
-
-    :rtype: `int`
-    :return: Exit code
-
-    """
-
-    args = process_command_line(argv[1:])
+    if not file_type:
+        file_type = guess_type(filename)
 
     try:
-        version = Version.read(args.filename)
+        version = Version.read(filename)
+    except IOError as error:
+        print(fail(error.args[1]))
+        return errno.EEXIST
+
+    if not os.path.exists(filename):
+        print(fail('File not found'))
+        return errno.ENOENT
+
+    version.bump(bump)
+    version.write(filename, file_type)
+
+    print(success(version.display(display_format)))
+
+
+@APP.cmd(help='set version in given file', parents=[OPTIONS, ])
+@APP.cmd_arg('-t', '--type', choices=Version.filetypes, dest='file_type',
+             metavar='text',
+             help='define the file type used for version file')
+@APP.cmd_arg('-n', '--name', default=os.path.basename(os.getenv('PWD')),
+             metavar=os.path.basename(os.getenv('PWD')),
+             action=ValidatingAction,
+             help='package name for version(default from $PWD)')
+@APP.cmd_arg('set', metavar='0.1.0', action=ValidatingAction,
+             help='set to a specific version')
+def set(display_format, filename, file_type, name, set):
+    """Set version in new or existing file.
+
+    :param str display_format: Format to display output in
+    :param str filename: File to operate on
+    :param str file_type: File type to produce
+    :param str name: Project name used in output
+    :param str set: Initial version string
+
+    """
+    if not file_type:
+        file_type = guess_type(filename)
+
+    try:
+        version = Version.read(filename)
     except IOError:
         version = Version()
     except ValueError as error:
         print(fail(error.args[0]))
         return errno.EEXIST
 
-    if not args.set and not os.path.exists(args.filename):
-        print(fail("File not found"))
-        return errno.ENOENT
+    if name:
+        version.name = name
 
-    if args.name:
-        version.name = args.name
-    if args.bump:
-        version.bump(args.bump)
-        version.write(args.filename, args.file_type)
-    elif args.set:
-        version.set(args.set)
-        version.write(args.filename, args.file_type)
+    version.set(set)
+    version.write(filename, file_type)
 
-    print(success(version.display(args.display_format)))
+    print(success(version.display(display_format)))
+
+
+@APP.cmd(help='display version in given file', parents=[OPTIONS, ])
+def display(display_format, filename):
+    """Display version in existing file.
+
+    :param str display_format: Format to display output in
+    :param str filename: File to operate on
+
+    """
+    try:
+        version = Version.read(filename)
+    except IOError as error:
+        print(fail(error.args[1]))
+        return errno.EEXIST
+
+    print(success(version.display(display_format)))
+
+
+def main():
+    """Main script entry point."""
+
+    APP.run()

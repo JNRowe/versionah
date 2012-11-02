@@ -1,8 +1,10 @@
+import argparse
+
 from expecter import expect
 from mock import (Mock, patch)
 from nose2.tools import params
 
-from versionah import (Version, process_command_line)
+from versionah import (Version, ValidatingAction)
 
 from tests.utils import raises_OSError
 
@@ -80,20 +82,14 @@ def test_version_read_no_identifier():
 
 
 def test_process_command_line_invalid_package_name():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--name', action=ValidatingAction)
     with expect.raises_OSError(2, "Invalid string for --name: '__'"):
-        process_command_line(['--name=__', 'test'])
+        parser.parse_args(['--name=__'])
 
 
 def test_process_command_line_invalid_package_version():
-    with expect.raises_OSError(2, "Invalid string for --set: '__'"):
-        process_command_line(['--set=__', 'test'])
-
-
-def test_process_command_line_no_file():
-    with expect.raises_OSError(2, 'too few arguments'):
-        process_command_line([])
-
-
-def test_process_command_line_multiple_file():
-    with expect.raises_OSError(2, 'unrecognized arguments: test2'):
-        process_command_line(['test1', 'test2'])
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--version', action=ValidatingAction)
+    with expect.raises_OSError(2, "Invalid string for --version: '__'"):
+        parser.parse_args(['--version=__'])
