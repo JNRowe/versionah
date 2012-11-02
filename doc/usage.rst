@@ -38,6 +38,8 @@ Commands
 ``bump`` - Bump version in given file
 '''''''''''''''''''''''''''''''''''''
 
+.. program:: versionah bump
+
 .. cmdoption:: -d <format>, --display=<format>
 
    Display output in ``format``, where ``format`` is one of the list of
@@ -54,6 +56,8 @@ Commands
 
 ``set`` - Set version in given file
 '''''''''''''''''''''''''''''''''''
+
+.. program:: versionah set
 
 .. cmdoption:: -d <format>, --display=<format>
 
@@ -75,6 +79,8 @@ Commands
 
 ``display`` - Display version in given file
 '''''''''''''''''''''''''''''''''''''''''''
+
+.. program:: versionah display
 
 .. cmdoption:: -d <format>, --display=<format>
 
