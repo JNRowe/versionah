@@ -1,10 +1,10 @@
-.ropeproject/
+*.egg-info/
 build/
 dist/
 doc/.build/
-versionah.egg-info/
+
+*.py[co]
 
 .coverage
 .noseids
-*.py[co]
 MANIFEST
