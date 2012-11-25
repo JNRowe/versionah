@@ -20,7 +20,7 @@ from tests.utils import (execute_tag, write_tag)
 def test_output_validatity(v, filename, linter):
     file_type = guess_type(filename)
     Version(v).write('tests/data/%s' % file, file_type)
-    retval = call(linter.split() + ["tests/data/%s" % file, ],
+    retval = call(linter.split() + ['tests/data/%s' % file, ],
                   stdout=PIPE, stderr=PIPE)
     expect(retval) == 0
     # Don't wrap in try/finally, so we can inspect if we get failures

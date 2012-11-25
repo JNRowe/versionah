@@ -13,5 +13,5 @@ from tests.utils import read_tag
 )
 @read_tag
 def test_read_version_file(file, expected):
-    v = Version.read("tests/data/%s" % file)
+    v = Version.read('tests/data/%s' % file)
     expect(v.as_dotted()) == expected

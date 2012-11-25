@@ -26,7 +26,7 @@ import sys
 
 import shelldoctest as sd
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     sys.exit(doctest.testfile(sys.argv[1], module_relative=False,
-                              extraglobs={"system_command": sd.system_command},
+                              extraglobs={'system_command': sd.system_command},
                               parser=sd.ShellDocTestParser())[0])

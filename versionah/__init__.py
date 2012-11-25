@@ -23,11 +23,11 @@ from . import _version
 
 __version__ = _version.dotted
 __date__ = _version.date
-__author__ = "James Rowe <jnrowe@gmail.com>"
-__copyright__ = "Copyright (C) 2011-2012  James Rowe <jnrowe@gmail.com>"
-__license__ = "GNU General Public License Version 3"
-__credits__ = ""
-__history__ = "See git repository"
+__author__ = 'James Rowe <jnrowe@gmail.com>'
+__copyright__ = 'Copyright (C) 2011-2012  James Rowe <jnrowe@gmail.com>'
+__license__ = 'GNU General Public License Version 3'
+__credits__ = ''
+__history__ = 'See git repository'
 
 from email.utils import parseaddr
 
@@ -82,20 +82,20 @@ STR_TYPE = str if sys.version_info[0] == 3 else basestring
 
 #: Command line help string, for use with :mod:`argparse`
 # Pull the first paragraph from the docstring
-USAGE = "\n".join(__doc__[:__doc__.find('\n\n', 100)].splitlines()[2:])
+USAGE = '\n'.join(__doc__[:__doc__.find('\n\n', 100)].splitlines()[2:])
 # Replace script name with argparse's substitution var
-USAGE = USAGE.replace("versionah", "%(prog)s")
+USAGE = USAGE.replace('versionah', '%(prog)s')
 
 #: Command line interface object
-APP = aaargh.App(version="%(prog)s v" + __version__, description=_(USAGE))
+APP = aaargh.App(version='%(prog)s v' + __version__, description=_(USAGE))
 
 #: Regular expression to match a valid package name
-VALID_PACKAGE = "[A-Za-z][A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*"
+VALID_PACKAGE = '[A-Za-z][A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*'
 #: Regular expression to match a valid package version
-VALID_VERSION = r"\d+\.\d+(?:\.\d+){,2}"
+VALID_VERSION = r'\d+\.\d+(?:\.\d+){,2}'
 #: Regular expression to match a package date.  ISO-8601, and %d-%b-%Y
 #: formatting for shtool compatibility
-VALID_DATE = r"(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:%s)-\d{4})" % "|".join(MONTHS)
+VALID_DATE = r'(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:%s)-\d{4})' % '|'.join(MONTHS)
 
 
 class ValidatingAction(argparse.Action):
@@ -104,11 +104,11 @@ class ValidatingAction(argparse.Action):
 
     def __call__(self, parser, namespace, values, option_string=None):
         if option_string in ('-n', '--name'):
-            matcher = "%s$" % VALID_PACKAGE
+            matcher = '%s$' % VALID_PACKAGE
         else:
-            matcher = "%s$" % VALID_VERSION
+            matcher = '%s$' % VALID_VERSION
         if not re.match(matcher, values):
-            parser.error("Invalid string for %s: %r" % (option_string, values))
+            parser.error('Invalid string for %s: %r' % (option_string, values))
         setattr(namespace, self.dest, values)
 
 
@@ -159,7 +159,7 @@ def filter_regexp(string, pattern, repl, count=0, flags=0):
         # one.  Once 2.6 support disappears, so can this
         match = re.compile(pattern, flags=flags)
         return match.sub(repl, string, count)
-FILTERS["regexp"] = filter_regexp
+FILTERS['regexp'] = filter_regexp
 
 
 class Version(object):
@@ -169,23 +169,23 @@ class Version(object):
     if sys.platform == 'darwin':
         fallback_dir = os.path.expanduser('~/Library/Application Support')
     else:
-        fallback_dir = os.path.join(os.environ.get("HOME", "/"), ".local")
+        fallback_dir = os.path.join(os.environ.get('HOME', '/'), '.local')
 
-    user_dir = os.environ.get("XDG_DATA_HOME", fallback_dir)
-    system_dirs = os.environ.get("XDG_DATA_DIRS",
-                                 "/usr/local/share/:/usr/share/").split(":")
-    mk_data_dir = lambda s: os.path.join(s, "versionah", "templates")
+    user_dir = os.environ.get('XDG_DATA_HOME', fallback_dir)
+    system_dirs = os.environ.get('XDG_DATA_DIRS',
+                                 '/usr/local/share/:/usr/share/').split(':')
+    mk_data_dir = lambda s: os.path.join(s, 'versionah', 'templates')
     pkg_data_dirs = [mk_data_dir(user_dir), ]
     for directory in system_dirs:
         pkg_data_dirs.append(mk_data_dir(directory))
 
     env = jinja2.Environment(loader=jinja2.ChoiceLoader(
         list(jinja2.FileSystemLoader(s) for s in pkg_data_dirs)))
-    env.loader.loaders.append(jinja2.PackageLoader("versionah", "templates"))
+    env.loader.loaders.append(jinja2.PackageLoader('versionah', 'templates'))
     env.filters.update(FILTERS)
-    filetypes = [s.split(".")[0] for s in env.list_templates()]
+    filetypes = [s.split('.')[0] for s in env.list_templates()]
 
-    def __init__(self, components=(0, 1, 0), name="unknown",
+    def __init__(self, components=(0, 1, 0), name='unknown',
                  date=datetime.date.today()):
         """Initialise a new `Version` object.
 
@@ -198,10 +198,10 @@ class Version(object):
         if isinstance(components, STR_TYPE):
             components = split_version(components)
         if not 2 <= len(components) <= 4:
-            raise ValueError("Invalid number of components in %r"
+            raise ValueError('Invalid number of components in %r'
                              % (components, ))
         if not all((isinstance(n, int) and n >= 0) for n in components):
-            raise ValueError("Invalid component values in %r" % (components, ))
+            raise ValueError('Invalid component values in %r' % (components, ))
 
         # Stub attributes set via Version.set method
         self.major = self.minor = self.micro = self.patch = 0
@@ -218,7 +218,7 @@ class Version(object):
         :return: String representation of object
 
         """
-        return "%s(%r, %r, %r)" % (self.__class__.__name__, self.components,
+        return '%s(%r, %r, %r)' % (self.__class__.__name__, self.components,
                                    self.name, self.date)
 
     def __str__(self):
@@ -230,7 +230,7 @@ class Version(object):
         :return: Default strings representation of object
 
         """
-        return "%s v%s" % (self.name, self.as_dotted())
+        return '%s v%s' % (self.name, self.as_dotted())
 
     @staticmethod
     def __prepare_cmp_object(other):
@@ -252,7 +252,7 @@ class Version(object):
         elif isinstance(other, str):
             return (split_version(other) + (0, 0, 0))[:4]
         else:
-            raise NotImplementedError("Unable to compare Version and %r"
+            raise NotImplementedError('Unable to compare Version and %r'
                                       % type(other))
 
     def __eq__(self, other):
@@ -360,40 +360,40 @@ class Version(object):
         :param str bump_type: Component to bump
 
         """
-        if bump_type == "micro" and self._resolution < 3 \
-            or bump_type == "patch" and self._resolution < 4:
-            raise ValueError("Invalid bump_type %r for version %r"
+        if bump_type == 'micro' and self._resolution < 3 \
+            or bump_type == 'patch' and self._resolution < 4:
+            raise ValueError('Invalid bump_type %r for version %r'
                              % (bump_type, self.components))
-        if bump_type == "major":
+        if bump_type == 'major':
             self.major += 1
             self.micro = self.minor = self.patch = 0
-        elif bump_type == "minor":
+        elif bump_type == 'minor':
             self.minor += 1
             self.micro = self.patch = 0
-        elif bump_type == "micro":
+        elif bump_type == 'micro':
             self.micro += 1
             self.patch = 0
-        elif bump_type == "patch":
+        elif bump_type == 'patch':
             self.patch += 1
         else:
-            raise ValueError("Unknown bump_type %r" % bump_type)
+            raise ValueError('Unknown bump_type %r' % bump_type)
         self.date = datetime.date.today()
 
     def bump_major(self):
         """Bump major version component."""
-        self.bump("major")
+        self.bump('major')
 
     def bump_minor(self):
         """Bump minor version component."""
-        self.bump("minor")
+        self.bump('minor')
 
     def bump_micro(self):
         """Bump micro version component."""
-        self.bump("micro")
+        self.bump('micro')
 
     def bump_patch(self):
         """Bump patch version component."""
-        self.bump("patch")
+        self.bump('patch')
 
     def as_dotted(self):
         """Generate a dotted version string.
@@ -402,7 +402,7 @@ class Version(object):
         :return: Standard dotted version string
 
         """
-        return ".".join(str(s) for s in self.components)
+        return '.'.join(str(s) for s in self.components)
 
     def as_hex(self):
         """Generate a hex version string.
@@ -411,7 +411,7 @@ class Version(object):
         :return: Version as hex string
 
         """
-        return "0x" + "".join("%02x" % n for n in self.components)
+        return '0x' + ''.join('%02x' % n for n in self.components)
 
     def as_libtool(self):
         """Generate a libtool version string.
@@ -420,7 +420,7 @@ class Version(object):
         :return: Version as libtool string
 
         """
-        return "%i:%i" % (self.major * 10 + self.minor, 20 + self.micro)
+        return '%i:%i' % (self.major * 10 + self.minor, 20 + self.micro)
 
     def as_date(self):
         """Generate a ISO-8601 date string for release.
@@ -447,7 +447,7 @@ class Version(object):
         :return: Version's string in web UA-style
 
         """
-        return "%s/%s" % (self.name, self.as_dotted())
+        return '%s/%s' % (self.name, self.as_dotted())
 
     @staticmethod
     def display_types():
@@ -457,7 +457,7 @@ class Version(object):
         :return: Method names for representation types
 
         """
-        return [s[3:] for s in dir(Version) if s.startswith("as_")]
+        return [s[3:] for s in dir(Version) if s.startswith('as_')]
 
     def display(self, display_format):
         """Display a version string.
@@ -467,7 +467,7 @@ class Version(object):
         :return: Formatted version string
 
         """
-        return getattr(self, "as_%s" % display_format)()
+        return getattr(self, 'as_%s' % display_format)()
 
     @staticmethod
     def read(filename):
@@ -481,17 +481,17 @@ class Version(object):
 
         """
         data = open(filename).read().strip()
-        match = re.search(r"This is (%s),? [vV]ersion (%s) \((%s)\)"
+        match = re.search(r'This is (%s),? [vV]ersion (%s) \((%s)\)'
                           % (VALID_PACKAGE, VALID_VERSION, VALID_DATE),
                           data)
         if not match:
-            raise ValueError("No valid version identifier in %r" % filename)
+            raise ValueError('No valid version identifier in %r' % filename)
         name, version_str, date_str = match.groups()
         components = split_version(version_str)
         try:
-            parsed = datetime.datetime.strptime(date_str, "%Y-%m-%d")
+            parsed = datetime.datetime.strptime(date_str, '%Y-%m-%d')
         except ValueError:
-            parsed = datetime.datetime.strptime(date_str, "%d-%b-%Y")
+            parsed = datetime.datetime.strptime(date_str, '%d-%b-%Y')
         return Version(components, name, parsed.date())
 
     def write(self, filename, file_type):
@@ -514,13 +514,13 @@ class Version(object):
                                                      self.as_dotted(),
                                                      self.as_date()),
         })
-        data.update(dict(zip(["major", "minor", "micro", "patch"],
+        data.update(dict(zip(['major', 'minor', 'micro', 'patch'],
                              self.components)))
         data.update(dict([(k[3:], getattr(self, k)())
-                          for k in dir(self) if k.startswith("as_")]))
+                          for k in dir(self) if k.startswith('as_')]))
 
-        template = self.env.get_template("%s.jinja" % file_type)
-        open(filename, "w").write(template.render(data))
+        template = self.env.get_template('%s.jinja' % file_type)
+        open(filename, 'w').write(template.render(data))
 
 
 def split_version(version):
@@ -532,10 +532,10 @@ def split_version(version):
     :raise ValueError: Invalid version string
 
     """
-    if not re.match("%s$" % VALID_VERSION, version):
-        raise ValueError("Invalid version string %r" % version)
+    if not re.match('%s$' % VALID_VERSION, version):
+        raise ValueError('Invalid version string %r' % version)
 
-    return tuple(int(s) for s in version.split("."))
+    return tuple(int(s) for s in version.split('.'))
 
 
 def guess_type(filename):

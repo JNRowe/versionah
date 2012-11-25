@@ -50,7 +50,7 @@ def test_version_init_invalid_count(components):
 )
 def test_version_init_invalid_component_type(components):
     with expect.raises(ValueError,
-                       "Invalid component values in %r" % components):
+                       'Invalid component values in %r' % components):
         Version(components)
 
 
@@ -58,7 +58,7 @@ def test_version___eq___unknown_type():
     # Differs between Python 2 and 3
     true_repr = repr(type(True))
     with expect.raises(NotImplementedError,
-                       "Unable to compare Version and %s" % true_repr):
+                       'Unable to compare Version and %s' % true_repr):
         Version() == True
 
 

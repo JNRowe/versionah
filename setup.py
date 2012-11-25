@@ -6,9 +6,9 @@ from setuptools import setup
 
 # Hack to import _version file without importing versionah/__init__.py, its
 # purpose is to allow import without requiring dependencies at this point.
-ver_file = open("versionah/_version.py")
-_version = imp.load_module("_version", ver_file, ver_file.name,
-                           (".py", ver_file.mode, imp.PY_SOURCE))
+ver_file = open('versionah/_version.py')
+_version = imp.load_module('_version', ver_file, ver_file.name,
+                           ('.py', ver_file.mode, imp.PY_SOURCE))
 
 install_requires = map(str.strip, open('extra/requirements.txt').readlines())
 colour_requires = map(str.strip,
@@ -17,9 +17,9 @@ colour_requires = map(str.strip,
 setup(
     name='versionah',
     version=_version.dotted,
-    url="http://jnrowe.github.com/versionah/",
-    author="James Rowe",
-    author_email="jnrowe@gmail.com",
+    url='http://jnrowe.github.com/versionah/',
+    author='James Rowe',
+    author_email='jnrowe@gmail.com',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
