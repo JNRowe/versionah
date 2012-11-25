@@ -6,7 +6,6 @@ from nose2.tools import params
 
 from versionah import Version
 
-from tests.utils import (execute_tag, write_tag)
 from tests.utils import (execute_tag, notravis_tag, write_tag)
 
 
