@@ -88,7 +88,8 @@ USAGE = '\n'.join(__doc__[:__doc__.find('\n\n', 100)].splitlines()[2:])
 USAGE = USAGE.replace('versionah', '%(prog)s')
 
 #: Command line interface object
-APP = aaargh.App(version='%(prog)s v' + __version__, description=_(USAGE))
+APP = aaargh.App(description=USAGE,
+                 epilog=_('Please report bugs to jnrowe@gmail.com'))
 
 #: Regular expression to match a valid package name
 VALID_PACKAGE = '[A-Za-z][A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*'
@@ -654,4 +655,6 @@ def display(display_format, filename):
 def main():
     """Main script entry point."""
 
+    APP.arg('--version', action='version',
+            version='%%(prog)s %s' % _version.dotted)
     APP.run()

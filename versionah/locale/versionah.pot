@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: versionah 0.12.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-11-02 18:04+0000\n"
+"POT-Creation-Date: 2012-12-04 19:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,39 +17,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: versionah/__init__.py:558
+#: versionah/__init__.py:92
+msgid "Please report bugs to jnrowe@gmail.com"
+msgstr ""
+
+#: versionah/__init__.py:560
 msgid "display format for output"
 msgstr ""
 
-#: versionah/__init__.py:559
+#: versionah/__init__.py:561
 msgid "version file to operate on"
 msgstr ""
 
-#: versionah/__init__.py:562
+#: versionah/__init__.py:564
 msgid "bump version in given file"
 msgstr ""
 
-#: versionah/__init__.py:565 versionah/__init__.py:599
+#: versionah/__init__.py:567 versionah/__init__.py:601
 msgid "define the file type used for version file"
 msgstr ""
 
-#: versionah/__init__.py:567
+#: versionah/__init__.py:569
 msgid "bump type"
 msgstr ""
 
-#: versionah/__init__.py:587
+#: versionah/__init__.py:589
 msgid "File not found"
 msgstr ""
 
-#: versionah/__init__.py:596
+#: versionah/__init__.py:598
 msgid "set version in given file"
 msgstr ""
 
-#: versionah/__init__.py:603
+#: versionah/__init__.py:605
 msgid "package name for version(default from $PWD)"
 msgstr ""
 
-#: versionah/__init__.py:636
+#: versionah/__init__.py:638
 msgid "display version in given file"
 msgstr ""
 
