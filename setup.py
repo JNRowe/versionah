@@ -39,6 +39,7 @@ setup(
         'Programming Language :: Python :: 3.0',
         'Programming Language :: Python :: 3.1',
         'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
         'Topic :: Documentation',
         'Topic :: Software Development',
         'Topic :: Software Development :: Build Tools',
