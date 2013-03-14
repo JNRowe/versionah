@@ -30,27 +30,19 @@ from tests.utils import raises_OSError
 expect.raises_OSError = staticmethod(raises_OSError)
 
 
-PATCHES = []
-
-
 def exit_wrapper(status, message):
     """Stub for OptionParser.exit() calls"""
     raise OSError(status, message.strip())
 
 
 def setUpModule():
-    PATCHES.extend([
-        patch('versionah.argparse.ArgumentParser.exit',
-              new=Mock(side_effect=exit_wrapper)),
-        patch('versionah.argparse.ArgumentParser.print_usage'),
-    ])
-    for p in PATCHES:
-        p.start()
+    patch('versionah.argparse.ArgumentParser.exit',
+          new=Mock(side_effect=exit_wrapper)).start()
+    patch('versionah.argparse.ArgumentParser.print_usage').start()
 
 
 def tearDownModule():
-    for patch in PATCHES:
-        patch.stop()
+    patch.stopall()
 
 
 @params(
