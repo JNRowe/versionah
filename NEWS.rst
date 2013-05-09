@@ -3,6 +3,15 @@ User-visible changes
 
 .. contents::
 
+0.13.0 - 2013-05-09
+-------------------
+
+* Switched to a subcommand-based interface
+* aaargh_ is now required
+* Support for localisation, submit pull requests with your translations!
+
+.. _aaargh : http://pypi.python.org/pypi/aaargh/
+
 0.12.0 - 2012-07-19
 -------------------
 
