@@ -4,14 +4,26 @@ python:
   - 2.7
   - 3.2
   - 3.3
+matrix:
+  include:
+    - python: 2.7
+      env: SPHINX_BUILD=true
 before_install:
   - sudo apt-get update
   - sudo apt-get install m4 splint
 install:
   - pip install --use-mirrors -r extra/requirements-test.txt
+  - pip install --use-mirrors -r extra/requirements-doc.txt
   - pip install --use-mirrors .
 script:
   - nose2 -v -A '!no_travis' tests
+  - export BUILD_DIR=${PWD}/sphinx-doctest;
+    sphinx-build -W -b doctest -d ${BUILD_DIR}/doctrees doc
+      ${BUILD_DIR}/doctest
+      || exit 1
+  - if [[ "${SPHINX_DOCTEST}" == true ]]; then
+      python setup.py build_sphinx;
+    fi
 branches:
   except:
     - /^play\/.*$/
