@@ -21,7 +21,7 @@ script:
     sphinx-build -W -b doctest -d ${BUILD_DIR}/doctrees doc
       ${BUILD_DIR}/doctest
       || exit 1
-  - if [[ "${SPHINX_DOCTEST}" == true ]]; then
+  - if [[ "${SPHINX_BUILD}" == true ]]; then
       python setup.py build_sphinx;
     fi
 branches:
