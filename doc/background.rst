@@ -70,17 +70,17 @@ plea for a sane versioning policy.
 .. image:: _static/blockdiag-3d834509ba1c273e44f5449e96be6c6aec2e10ca.png
 
 Major component
-~~~~~~~~~~~~~~~
+'''''''''''''''
 
 Increment the major component for all backwards incompatible changes.
 
 Minor component
-~~~~~~~~~~~~~~~
+'''''''''''''''
 
 Increment the minor component for all backward compatible additions.
 
 Micro component
-~~~~~~~~~~~~~~~
+'''''''''''''''
 
 Increment the micro component for all bug-fix releases.
 
