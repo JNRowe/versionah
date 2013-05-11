@@ -12,9 +12,9 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install m4 splint
 install:
-  - pip install --use-mirrors -r extra/requirements-test.txt
-  - pip install --use-mirrors -r extra/requirements-doc.txt
-  - pip install --use-mirrors .
+  - pip install --quiet --use-mirrors -r extra/requirements-test.txt
+  - pip install --quiet --use-mirrors -r extra/requirements-doc.txt
+  - pip install --quiet --use-mirrors .
 script:
   - nose2 -v -A '!no_travis' tests
   - export BUILD_DIR=${PWD}/sphinx-doctest;
