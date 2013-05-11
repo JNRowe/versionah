@@ -45,39 +45,42 @@ Versioning policy
 Beyond the simple rule above you're free to do as you wish, but consider this a
 plea for a sane versioning policy.
 
-.. blockdiag::
+..
+  .. blockdiag::
 
-  diagram {
-    group A {
-      label = "Bug-fix releases";
-      "0.1.0" -> "0.1.1" -> "0.1.2";
+    diagram {
+      group A {
+        label = "Bug-fix releases";
+        "0.1.0" -> "0.1.1" -> "0.1.2";
+      }
+      group B {
+        "0.2.0" -> "0.2.1" -> "0.2.2";
+        "0.2.0" [label = "0.2.0\nNew features"]
+      }
+      group C {
+        "1.0.0" [label = "1.0.0\nFirst stable", color = "green"];
+        "1.0.0" -> "1.0.1";
+      }
+      "0.1.2" -> "0.2.0" [folded];
+      "0.2.2" -> "1.0.0" [folded];
+      "1.0.1" -> "2.0.0" [folded];
+      "2.0.0" [label = "2.0.0\nIncompatible"];
     }
-    group B {
-      "0.2.0" -> "0.2.1" -> "0.2.2";
-      "0.2.0" [label = "0.2.0\nNew features"]
-    }
-    group C {
-      "1.0.0" [label = "1.0.0\nFirst stable", color = "green"];
-      "1.0.0" -> "1.0.1";
-    }
-    "0.1.2" -> "0.2.0" [folded];
-    "0.2.2" -> "1.0.0" [folded];
-    "1.0.1" -> "2.0.0" [folded];
-    "2.0.0" [label = "2.0.0\nIncompatible"];
-  }
+
+.. image:: _static/blockdiag-3d834509ba1c273e44f5449e96be6c6aec2e10ca.png
 
 Major component
-~~~~~~~~~~~~~~~
+'''''''''''''''
 
 Increment the major component for all backwards incompatible changes.
 
 Minor component
-~~~~~~~~~~~~~~~
+'''''''''''''''
 
 Increment the minor component for all backward compatible additions.
 
 Micro component
-~~~~~~~~~~~~~~~
+'''''''''''''''
 
 Increment the micro component for all bug-fix releases.
 

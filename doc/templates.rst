@@ -21,12 +21,9 @@ Templates are loaded from directories in the following order:
   :envvar:`XDG_DATA_DIRS`
 * The :mod:`versionah` package's ``templates`` directory
 
-For information on the usage of :envvar:`XDG_DATA_HOME` and
-:envvar:`XDG_DATA_DIRS` read `XDG Base Directory Specification`_
-
 .. note::
    For OS X users there is a fallback to ``~/Library/Application Support``,
-   if :envvar:`XDG_DATA_HOME` is unset.
+   if ``XDG_DATA_HOME`` is unset.
 
 Precedence
 ----------
@@ -117,7 +114,6 @@ For example, it is used in the C template to make valid identifiers from
 
 .. _Jinja: http://jinja.pocoo.org/
 .. _Jinja template designer: http://jinja.pocoo.org/docs/templates/
-.. _XDG Base Directory Specification: http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 .. _issue: https://github.com/JNRowe/versionah/issues
 .. _GitHub: https://github.com/JNRowe/versionah/
 .. _mail: jnrowe@gmail.com

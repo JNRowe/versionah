@@ -31,7 +31,7 @@ The above example makes it possible to call, for example,
 .. note::
 
    If you use automake_ then you can use the :makevar:`PACKAGE_NAME` variable to
-   set the :option:`--name` value.
+   set the :option:`--name <versionah set -n>` value.
 
 ``libtool`` example
 -------------------

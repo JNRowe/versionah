@@ -30,7 +30,7 @@ import sys
 extensions = \
     ['sphinx.ext.%s' % ext for ext in ['autodoc', 'coverage', 'doctest',
                                        'intersphinx', 'viewcode']] + \
-    ['sphinxcontrib.%s' % ext for ext in ['blockdiag', ]]
+    ['sphinxcontrib.%s' % ext for ext in []]
 
 # Only activate spelling, if it is installed.  It is not required in the
 # general case and we don't have the granularity to describe this in a clean
