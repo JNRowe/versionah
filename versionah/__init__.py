@@ -478,8 +478,8 @@ class Version(object):
         :param str filename: Version file to read
         :rtype: `Version`
         :return: New `Version` object representing file
-        :raise OSError: When ``filename`` doesn't exist
-        :raise ValueError: Unparsable version data
+        :raise exceptions.OSError: When ``filename`` doesn't exist
+        :raise exceptions.ValueError: Unparsable version data
 
         """
         data = open(filename).read().strip()
@@ -531,7 +531,7 @@ def split_version(version):
     :param str version: Version string
     :rtype: `tuple` of `int`
     :return: Components of version string
-    :raise ValueError: Invalid version string
+    :raise exceptions.ValueError: Invalid version string
 
     """
     if not re.match('%s$' % VALID_VERSION, version):
