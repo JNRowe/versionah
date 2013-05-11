@@ -20,9 +20,9 @@ script:
   - export BUILD_DIR=${PWD}/sphinx-doctest;
     sphinx-build -W -b doctest -d ${BUILD_DIR}/doctrees doc
       ${BUILD_DIR}/doctest
-      || exit 1
   - if [[ "${SPHINX_BUILD}" == true ]]; then
       sphinx-build -n -W -b html -d build/sphinx/doctrees doc build/sphinx/html
+        || exit 1;
     fi
 branches:
   except:
