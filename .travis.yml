@@ -22,7 +22,7 @@ script:
       ${BUILD_DIR}/doctest
       || exit 1
   - if [[ "${SPHINX_BUILD}" == true ]]; then
-      python setup.py build_sphinx;
+      sphinx-build -n -W -b html -d build/sphinx/doctrees doc build/sphinx/html
     fi
 branches:
   except:
