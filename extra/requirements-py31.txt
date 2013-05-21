@@ -1,2 +1,2 @@
 -r requirements-base.txt
-Jinja2>=2.4
+Jinja2>=2.4,<2.7
