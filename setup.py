@@ -1,6 +1,6 @@
 #! /usr/bin/python -tt
 # coding=utf-8
-"""setup.py - Build and installation support"""
+"""setup.py - Setuptools tasks and config for versionah"""
 # Copyright © 2011, 2012, 2013  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -19,6 +19,8 @@
 
 import imp
 
+from sys import version_info
+
 from setuptools import setup
 
 # Hack to import _version file without importing versionah/__init__.py, its
@@ -27,27 +29,54 @@ ver_file = open('versionah/_version.py')
 _version = imp.load_module('_version', ver_file, ver_file.name,
                            ('.py', ver_file.mode, imp.PY_SOURCE))
 
-install_requires = map(str.strip, open('extra/requirements.txt').readlines())
+
+def parse_requires(file):
+    deps = []
+    req_file = open('extra/%s' % file)
+    entries = map(str.strip, req_file.readlines())
+    for dep in entries:
+        if dep.startswith('-r '):
+            deps.extend(parse_requires(dep.split()[1]))
+        else:
+            deps.append(dep)
+    return deps
+
+install_requires = parse_requires('requirements-py%s%s.txt' % version_info[:2])
 colour_requires = map(str.strip,
                       open('extra/requirements-colour.txt').readlines()[1:])
 
 setup(
     name='versionah',
     version=_version.dotted,
-    url='http://jnrowe.github.com/versionah/',
-    author='James Rowe',
-    author_email='jnrowe@gmail.com',
+    description="Simple version specification management",
+    long_description=open("README.rst").read(),
+    author="James Rowe",
+    author_email="jnrowe@gmail.com",
+    url="https://github.com/JNRowe/versionah",
+    license="GPL-3",
+    keywords="versioning admin packaging",
+    packages=['versionah', ],
+    include_package_data=True,
+    package_data={
+        '': ['versionah/locale/*/LC_MESSAGES/*.mo',
+             'versionah/templates/*.jinja', ],
+    },
+    entry_points={'console_scripts': ['versionah = versionah:main', ]},
+    install_requires=install_requires,
+    extras_require={
+        'colour': colour_requires,
+        'color': colour_requires,
+    },
+    zip_safe=False,
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Environment :: Other Environment',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
-        'License :: OSI Approved :: GNU General Public License (GPL)',
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
         'Natural Language :: English',
         'Operating System :: OS Independent',
-        'Operating System :: POSIX',
-        'Operating System :: POSIX :: Linux',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',
@@ -65,16 +94,5 @@ setup(
         'Topic :: Software Development :: Version Control',
         'Topic :: System :: Software Distribution',
         'Topic :: Utilities',
-
     ],
-    packages=['versionah', ],
-    include_package_data=True,
-    package_data={'': ['templates/*.jinja', ], },
-    entry_points={'console_scripts': ['versionah = versionah:main', ]},
-    zip_safe=False,
-    install_requires=install_requires,
-    extras_require={
-        'colour': colour_requires,
-        'color': colour_requires,
-    },
 )
