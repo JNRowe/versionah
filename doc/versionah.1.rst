@@ -47,6 +47,9 @@ Bump version in given file
     define the file type used for version file.  Default is guessed based on
     file extension.
 
+--shtool
+    write shtool compatible output
+
 <type>
     bump ``type`` by one, where ``type`` is one of {major,minor,micro,patch}
 

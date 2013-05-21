@@ -21,7 +21,7 @@ functionality ``shtool`` provides useful then I'd strongly recommend using
 can suffice.
 
 Since version 0.8.0 it has been possible to parse ``shtool`` generated files,
-but writing ``shtool``-compatible files is not supported.
+and you can write ``shtool``-compatible files with v0.14.0 and later.
 
 .. [#] According to the `shtool ChangeLog`_ I used it at least as far back as
    2004 when I contributed M4_ support.

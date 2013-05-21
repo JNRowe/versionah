@@ -50,6 +50,10 @@ Commands
    Define the file type used for version file.  Default is guessed based on file
    extension.
 
+.. cmdoption:: --shtool
+
+   Write shtool compatible output
+
 .. cmdoption:: <type>
 
    Bump ``type`` by one, where ``type`` is one of {major,minor,micro,patch}

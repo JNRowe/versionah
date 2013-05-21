@@ -496,13 +496,16 @@ class Version(object):
             parsed = datetime.datetime.strptime(date_str, '%d-%b-%Y')
         return Version(components, name, parsed.date())
 
-    def write(self, filename, file_type):
+    def write(self, filename, file_type, shtool=False):
         """Write a version file.
 
         :param str filename: Version file to write
         :param str file_type: File type to write
+        :param bool shtool: Write shtool_ compatible files
         :rtype: `bool`
         :return: `True` on write success
+
+        .. _shtool: http://www.gnu.org/software/shtool/shtool.html
 
         """
         data = vars(self)
@@ -512,10 +515,20 @@ class Version(object):
             'filename': filename,
             'dateobj': self.date,
             'resolution': self._resolution,
-            'magic': 'This is %s version %s (%s)' % (self.name,
-                                                     self.as_dotted(),
-                                                     self.as_date()),
         })
+        if shtool:
+            # %d-%b-%Y, if %b wasn't locale dependent
+            shtool_date = "%s-%s-%s" % (self.date.day,
+                                        MONTHS[self.date.month-1],
+                                        self.date.year)
+            data['magic'] = 'This is %s, Version %s (%s)' % (self.name,
+                                                             self.as_dotted(),
+                                                             shtool_date)
+        else:
+            data['magic'] = 'This is %s version %s (%s)' % (self.name,
+                                                            self.as_dotted(),
+                                                            self.as_date())
+
         data.update(dict(zip(['major', 'minor', 'micro', 'patch'],
                              self.components)))
         data.update(dict([(k[3:], getattr(self, k)())
@@ -565,15 +578,20 @@ OPTIONS.add_argument('filename', help=_('version file to operate on'))
 @APP.cmd_arg('-t', '--type', choices=Version.filetypes, dest='file_type',
              metavar='text',
              help=_('define the file type used for version file'))
+@APP.cmd_arg('--shtool', action='store_true',
+             help=_('write shtool compatible output'))
 @APP.cmd_arg('bump', choices=('major', 'minor', 'micro', 'patch'),
              help=_('bump type'))
-def bump(display_format, filename, file_type, bump):
+def bump(display_format, filename, file_type, shtool, bump):
     """Bump version in existing file.
 
     :param str display_format: Format to display output in
     :param str filename: File to operate on
     :param str file_type: File type to produce
+    :param bool shtool: Write shtool_ compatible files
     :param str bump: Component to bump
+
+    .. _shtool: http://www.gnu.org/software/shtool/shtool.html
 
     """
     if not file_type:
@@ -590,7 +608,7 @@ def bump(display_format, filename, file_type, bump):
         return errno.ENOENT
 
     version.bump(bump)
-    version.write(filename, file_type)
+    version.write(filename, file_type, shtool)
 
     print(success(version.display(display_format)))
 
