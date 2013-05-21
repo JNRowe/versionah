@@ -43,7 +43,7 @@ def parse_requires(file):
 
 install_requires = parse_requires('requirements-py%s%s.txt' % version_info[:2])
 colour_requires = map(str.strip,
-                      open('extra/requirements-colour.txt').readlines()[1:])
+                      open('extra/requirements-colour.txt').readlines())
 
 setup(
     name='versionah',

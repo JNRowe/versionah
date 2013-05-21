@@ -1,2 +1,1 @@
--r requirements.txt
 blessings>=1.3
