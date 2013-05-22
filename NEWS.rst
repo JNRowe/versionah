@@ -3,6 +3,11 @@ User-visible changes
 
 .. contents::
 
+0.14.0 - 2013-05-22
+-------------------
+
+* shtool_ compatible writing support
+
 0.13.0 - 2013-05-09
 -------------------
 
