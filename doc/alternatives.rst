@@ -12,10 +12,10 @@ number of years in certain projects [#]_ .  Unfortunately, the output formats
 are hard-coded in the script making it very difficult to use in most of the
 projects I work on.
 
-A few ideas have been borrowed from ``shtool``, and :mod:`versionah` should be
-seen as a homage to the version applet from ``shtool``.
+A few ideas have been borrowed from ``shtool``, and `versionah` should be seen
+as a homage to the version applet from ``shtool``.
 
-If you don't need the template support of :mod:`versionah` and find the other
+If you don't need the template support of `versionah` and find the other
 functionality ``shtool`` provides useful then I'd strongly recommend using
 ``shtool``.  There is little point depending on two external projects when one
 can suffice.

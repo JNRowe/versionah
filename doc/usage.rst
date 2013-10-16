@@ -1,7 +1,7 @@
 Usage
 =====
 
-The :program:`versionah` script is the main workhorse of :mod:`versionah`.
+The :program:`versionah` script is the main workhorse of `versionah`.
 
 Let's start with some basic examples:
 

@@ -13,7 +13,7 @@ shouldn't need to resort to various :kbd:`C-a` and :kbd:`C-x` contortions in
 vim_ or formulating complicated lisp functions with ``number-to-string`` and
 ``string-to-number`` in emacs_.
 
-Now :mod:`versionah` is born, and I should be able to realise those dreams!
+Now `versionah` is born, and I should be able to realise those dreams!
 
 Version numbers
 ===============
@@ -22,20 +22,20 @@ This - for some - is a very complicated topic, but not for me.  Version numbers
 are made of three components; major, minor and micro.  All three components are
 natural numbers, there are no exceptions.
 
-If you find version numbers like 0.6c11 acceptable then :mod:`versionah` is not
-for you.
+If you find version numbers like 0.6c11 acceptable then `versionah` is not for
+you.
 
 .. note::
 
    If you like version numbers with two or four integer components then
-   :mod:`versionah` can be for you too.  Support was added in 0.6.0, but that
-   doesn't mean you have to use it!
+   `versionah` can be for you too.  Support was added in 0.6.0, but that doesn't
+   mean you have to use it!
 
 PEP 386
 ~~~~~~~
 
-The version numbering scheme supported by :mod:`versionah` is a very small
-subset of ``LooseVersion`` defined in :pep:`386`.  It isn't compliant with
+The version numbering scheme supported by `versionah` is a very small subset of
+``LooseVersion`` defined in :pep:`386`.  It isn't compliant with
 ``StrictVersion`` due to the 4 component support, but support for packages in
 the wild is much more important to me.
 

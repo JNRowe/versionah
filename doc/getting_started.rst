@@ -69,8 +69,8 @@ the file, and access the data directly in your :file:`conf.py`::
     # The full version
     release = _version.dotted
 
-You may need to mangle :data:`sys.path` if you can't import the version file from
-your :file:`conf.py`.  For example, in :mod:`versionah`'s :file:`conf.py` we add
+You may need to mangle :data:`sys.path` if you can't import the version file
+from your :file:`conf.py`.  For example, in `versionah`'s :file:`conf.py` we add
 the project root directory to :data:`sys.path` with the following snippet::
 
     root_dir = os.path.sep.join(os.path.realpath(__file__).split(os.path.sep)[:-2])
@@ -107,9 +107,9 @@ would be:
 More examples
 -------------
 
-If you're using :mod:`versionah` with another common tool, then new examples for
-this section are most welcome.  Please consider posting them in an issue_ or
-pushing them to a fork on GitHub_, so that others can benefit.
+If you're using `versionah` with another common tool, then new examples for this
+section are most welcome.  Please consider posting them in an issue_ or pushing
+them to a fork on GitHub_, so that others can benefit.
 
 .. _make: http://www.gnu.org/software/make/make.html
 .. _automake: http://sources.redhat.com/automake/

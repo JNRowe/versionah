@@ -16,9 +16,8 @@ In the general case tests can be run via ``nose2``::
 
     $ nose2 -vv tests
 
-When preparing a release it is important to check that :mod:`versionah` works
-with all currently supported Python versions, and that the documentation is
-correct.
+When preparing a release it is important to check that `versionah` works with
+all currently supported Python versions, and that the documentation is correct.
 
 Prepare release
 ---------------
@@ -45,4 +44,4 @@ Create and upload the new release tarballs to PyPI::
 Fetch the uploaded tarballs, and check for errors.
 
 You should also perform test installations from PyPI, to check the experience
-:mod:`versionah` users will have.
+`versionah` users will have.

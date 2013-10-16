@@ -19,7 +19,7 @@ Templates are loaded from directories in the following order:
 * If it exists, ``${XDG_DATA_HOME:~/.local}/versionah/templates``
 * Any :file:`versionah/templates` directory in the directories specified by
   :envvar:`XDG_DATA_DIRS`
-* The :mod:`versionah` package's ``templates`` directory
+* The `versionah` package's ``templates`` directory
 
 .. note::
    For OS X users there is a fallback to ``~/Library/Application Support``,
@@ -31,14 +31,14 @@ Precedence
 The first name match in the order :ref:`specified above
 <template_locations-label>` selects the template, so a :file:`py.jinja` file in
 :file:`${XDG_DATA_HOME}/versionah/templates` overrides the :file:`py.jinja`
-template provided with :mod:`versionah`.
+template provided with `versionah`.
 
 Naming
 ------
 
 Templates should be named after the common type suffix if possible, doing so
-allows :mod:`versionah` to guess an appropriate template from a supplied file.
-For example, ``py.jinja`` will apply by default to all files ending in ``.py``.
+allows `versionah` to guess an appropriate template from a supplied file.  For
+example, ``py.jinja`` will apply by default to all files ending in ``.py``.
 
 However, templates *can* be given any name you wish.  This makes it simple to
 have project specific templates, should the need arise.  This functionality is
@@ -51,7 +51,7 @@ Data
 
 Each template is provided with the following variables for use in the output:
 
-* ``magic`` for the magic string to support reading :mod:`versionah` files
+* ``magic`` for the magic string to support reading `versionah` files
 * ``major``, ``minor``, ``micro`` and ``patch`` for the version components
 * ``tuple`` all version components as a tuple
 * ``resolution`` number of components used by version
@@ -90,14 +90,14 @@ use in their generation open an issue_.
 Filters
 -------
 
-:mod:`versionah` defines the following filters beyond the huge range of
-`built-in filters`_ in Jinja_:
+`versionah` defines the following filters beyond the huge range of `built-in
+filters`_ in Jinja_:
 
 .. note::
 
    If you write extra filters and believe they could be of use to other
-   :mod:`versionah` users please consider posting them in an issue_ or pushing
-   them to a fork on GitHub_, so that others can benefit from your work.
+   `versionah` users please consider posting them in an issue_ or pushing them
+   to a fork on GitHub_, so that others can benefit from your work.
 
 ``regexp``
 ''''''''''

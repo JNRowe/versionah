@@ -47,11 +47,11 @@ reasons people prefer other templating engines *I* prefer Jinja_.
 How do I add version data to my project's :file:`README`?
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-The way I manage it, using :mod:`versionah`, is by having a :doc:`custom
-template <templates>` for such a project.
+The way I manage it, using `versionah`, is by having a :doc:`custom template
+<templates>` for such a project.
 
-The only requirement :mod:`versionah` has is that ``{{ magic }}`` is included in
-the template, so you can use a project specific template that includes your full
+The only requirement `versionah` has is that ``{{ magic }}`` is included in the
+template, so you can use a project specific template that includes your full
 :file:`README` data and generate the distributed :file:`README` from that.
 Consider it the :file:`README.in` approach you've probably used with GNU
 autotools and it makes perfect sense.
