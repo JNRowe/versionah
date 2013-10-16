@@ -41,7 +41,7 @@ Bump version in given file
 
 -d <format>, --display=<format>
     display output in ``format``, where ``format`` is one of the list of
-    {date,dotted,hex,libtool,tuple,web}
+    {date,dict,dotted,hex,libtool,tuple,web}
 
 -t <mode>, --type=<mode>
     define the file type used for version file.  Default is guessed based on
@@ -60,7 +60,7 @@ Set version in given file
 
 -d <format>, --display=<format>
     display output in ``format``, where ``format`` is one of the list of
-    {date,dotted,hex,libtool,tuple,web}
+    {date,dict,dotted,hex,libtool,tuple,web}
 
 -n <name>, --name=<name>
     project name to use in output
@@ -80,7 +80,7 @@ Display version in given file
 -d <format>, --display=<format>
 
    display output in ``format``, where ``format`` is one of the list of
-   {date,dotted,hex,libtool,tuple,web}
+   {date,dict,dotted,hex,libtool,tuple,web}
 
 BUGS
 ----

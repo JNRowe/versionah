@@ -50,6 +50,7 @@ def test_version_bump(bump_type, expected):
 
 @params(
     ('date', '2012-05-11'),
+    ('dict', {'major': 0, 'minor': 1, 'micro': 0}),
     ('dotted', '0.1.0'),
     ('hex', '0x000100'),
     ('libtool', '1:20'),

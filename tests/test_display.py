@@ -25,6 +25,15 @@ from versionah import Version
 
 
 @params(
+    ('0.1.0', {'major': 0, 'minor': 1, 'micro': 0}),
+    ('1.0.0', {'major': 1, 'minor': 0, 'micro': 0}),
+    ('2.1.3', {'major': 2, 'minor': 1, 'micro': 3}),
+)
+def test_dict_display(v, expected):
+    expect(Version(v).as_dict()) == expected
+
+
+@params(
     ('0.1.0', '0.1.0'),
     ('1.0.0', '1.0.0'),
     ('2.1.3', '2.1.3'),

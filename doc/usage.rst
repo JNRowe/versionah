@@ -43,7 +43,7 @@ Commands
 .. cmdoption:: -d <format>, --display=<format>
 
    Display output in ``format``, where ``format`` is one of the list of
-   {date,dotted,hex,libtool,tuple,web}
+   {date,dict,dotted,hex,libtool,tuple,web}
 
 .. cmdoption:: -t <mode>, --type=<mode>
 
@@ -66,7 +66,7 @@ Commands
 .. cmdoption:: -d <format>, --display=<format>
 
    Display output in ``format``, where ``format`` is one of the list of
-   {date,dotted,hex,libtool,tuple,web}
+   {date,dict,dotted,hex,libtool,tuple,web}
 
 .. cmdoption:: -n <name>, --name=<name>
 
@@ -89,4 +89,4 @@ Commands
 .. cmdoption:: -d <format>, --display=<format>
 
    Display output in ``format``, where ``format`` is one of the list of
-   {date,dotted,hex,libtool,tuple,web}
+   {date,dict,dotted,hex,libtool,tuple,web}

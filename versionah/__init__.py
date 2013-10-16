@@ -397,6 +397,15 @@ class Version(object):
         """Bump patch version component."""
         self.bump('patch')
 
+    def as_dict(self):
+        """Generate a dictionary of version components.
+
+        :rtype: `dict`
+        :return: Version as dictionary
+
+        """
+        return dict(zip(['major', 'minor', 'micro', 'patch'], self.components))
+
     def as_dotted(self):
         """Generate a dotted version string.
 
