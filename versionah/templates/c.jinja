@@ -10,5 +10,7 @@
 #define VERSION_DATE "{{ date }}"
 #define VERSION_WEB "{{ web }}"
 
+const char {{ name | regexp("-", "_") }}_version_string[] = VERSION;
+
 #endif /* {{ escaped_name }} */
 
