@@ -8,6 +8,8 @@ matrix:
   include:
     - python: 2.7
       env: SPHINX_BUILD=true
+    - python: 3.2
+      env: SPHINX_DOCTEST=false
 before_install:
   - sudo apt-get update
   - sudo apt-get install m4 splint
@@ -17,9 +19,12 @@ install:
   - pip install --quiet --use-mirrors .
 script:
   - nose2 -v -A '!no_travis' tests
-  - export BUILD_DIR=${PWD}/sphinx-doctest;
-    sphinx-build -W -b doctest -d ${BUILD_DIR}/doctrees doc
-      ${BUILD_DIR}/doctest
+  - if [[ "${SPHINX_DOCTEST}" != false ]; then
+      export BUILD_DIR=${PWD}/sphinx-doctest;
+      sphinx-build -W -b doctest -d ${BUILD_DIR}/doctrees doc
+        ${BUILD_DIR}/doctest
+        || exit 1;
+    fi
   - if [[ "${SPHINX_BUILD}" == true ]]; then
       sphinx-build -n -W -b html -d build/sphinx/doctrees doc build/sphinx/html
         || exit 1;
