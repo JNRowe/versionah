@@ -589,8 +589,8 @@ OPTIONS.add_argument('filename', help=_('version file to operate on'))
              help=_('define the file type used for version file'))
 @APP.cmd_arg('--shtool', action='store_true',
              help=_('write shtool compatible output'))
-@APP.cmd_arg('bump', choices=('major', 'minor', 'micro', 'patch'),
-             help=_('bump type'))
+@APP.cmd_arg('bump', default='micro', nargs='?',
+             choices=('major', 'minor', 'micro', 'patch'), help=_('bump type'))
 def bump(display_format, filename, file_type, shtool, bump):
     """Bump version in existing file.
 
