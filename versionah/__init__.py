@@ -676,6 +676,9 @@ def display(display_format, filename):
     except IOError as error:
         print(fail(error.args[1]))
         return errno.EEXIST
+    except ValueError as error:
+        print(fail(error.args[0]))
+        return errno.EIO
 
     print(success(version.display(display_format)))
 
