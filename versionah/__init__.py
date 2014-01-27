@@ -688,4 +688,4 @@ def main():
 
     APP.arg('--version', action='version',
             version='%%(prog)s %s' % _version.dotted)
-    APP.run()
+    return APP.run()
