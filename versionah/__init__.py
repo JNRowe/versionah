@@ -363,7 +363,7 @@ class Version(object):
 
         """
         if bump_type == 'micro' and self._resolution < 3 \
-            or bump_type == 'patch' and self._resolution < 4:
+                or bump_type == 'patch' and self._resolution < 4:
             raise ValueError('Invalid bump_type %r for version %r'
                              % (bump_type, self.components))
         if bump_type == 'major':
@@ -583,7 +583,8 @@ OPTIONS.add_argument('-d', '--display', default='dotted',
 OPTIONS.add_argument('filename', help=_('version file to operate on'))
 
 
-@APP.cmd(help=_('bump version in given file'), parents=[OPTIONS, ])
+@APP.cmd(name='bump', help=_('bump version in given file'),
+         parents=[OPTIONS, ])
 @APP.cmd_arg('-t', '--type', choices=Version.filetypes, dest='file_type',
              metavar='text',
              help=_('define the file type used for version file'))
@@ -591,7 +592,7 @@ OPTIONS.add_argument('filename', help=_('version file to operate on'))
              help=_('write shtool compatible output'))
 @APP.cmd_arg('bump', default='micro', nargs='?',
              choices=('major', 'minor', 'micro', 'patch'), help=_('bump type'))
-def bump(display_format, filename, file_type, shtool, bump):
+def bump_version(display_format, filename, file_type, shtool, bump):
     """Bump version in existing file.
 
     :param str display_format: Format to display output in
@@ -622,7 +623,7 @@ def bump(display_format, filename, file_type, shtool, bump):
     print(success(version.display(display_format)))
 
 
-@APP.cmd(help=_('set version in given file'), parents=[OPTIONS, ])
+@APP.cmd(name='set', help=_('set version in given file'), parents=[OPTIONS, ])
 @APP.cmd_arg('-t', '--type', choices=Version.filetypes, dest='file_type',
              metavar='text',
              help=_('define the file type used for version file'))
@@ -630,16 +631,16 @@ def bump(display_format, filename, file_type, shtool, bump):
              metavar=os.path.basename(os.getenv('PWD')),
              action=ValidatingAction,
              help=_('package name for version(default from $PWD)'))
-@APP.cmd_arg('set', metavar='0.1.0', action=ValidatingAction,
+@APP.cmd_arg('version_str', metavar='version', action=ValidatingAction,
              help='set to a specific version')
-def set(display_format, filename, file_type, name, set):
+def set_version(display_format, filename, file_type, name, version_str):
     """Set version in new or existing file.
 
     :param str display_format: Format to display output in
     :param str filename: File to operate on
     :param str file_type: File type to produce
     :param str name: Project name used in output
-    :param str set: Initial version string
+    :param str version_str: Initial version string
 
     """
     if not file_type:
@@ -656,7 +657,7 @@ def set(display_format, filename, file_type, name, set):
     if name:
         version.name = name
 
-    version.set(set)
+    version.set(version_str)
     version.write(filename, file_type)
 
     print(success(version.display(display_format)))
