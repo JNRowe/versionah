@@ -81,14 +81,8 @@ T = Terminal()
 #: Base string type, used for compatibility with Python 2 and 3
 STR_TYPE = str if sys.version_info[0] == 3 else basestring
 
-#: Command line help string, for use with :mod:`argparse`
-# Pull the first paragraph from the docstring
-USAGE = '\n'.join(__doc__[:__doc__.find('\n\n', 100)].splitlines()[2:])
-# Replace script name with argparse's substitution var
-USAGE = USAGE.replace('versionah', '%(prog)s')
-
 #: Command line interface object
-APP = aaargh.App(description=USAGE,
+APP = aaargh.App(description=_('A tool to manage project version files'),
                  epilog=_('Please report bugs to jnrowe@gmail.com'))
 
 #: Regular expression to match a valid package name
