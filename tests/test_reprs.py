@@ -1,4 +1,4 @@
-#! /usr/bin/python -tt
+#
 # coding=utf-8
 """test_reprs - String representation tests"""
 # Copyright © 2011-2014  James Rowe <jnrowe@gmail.com>
