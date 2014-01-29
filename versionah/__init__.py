@@ -79,7 +79,7 @@ from .i18n import _
 T = Terminal()
 
 #: Base string type, used for compatibility with Python 2 and 3
-STR_TYPE = str if sys.version_info[0] == 3 else basestring
+STR_TYPE = basestring if sys.version_info[0] == 2 else str
 
 #: Command line interface object
 APP = aaargh.App(description=_('A tool to manage project version files'),
