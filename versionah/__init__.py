@@ -485,7 +485,8 @@ class Version(object):
         :raise exceptions.ValueError: Unparsable version data
 
         """
-        data = open(filename).read().strip()
+        with open(filename) as f:
+            data = f.read().strip()
         match = re.search(r'This is (%s),? [vV]ersion (%s) \((%s)\)'
                           % (VALID_PACKAGE, VALID_VERSION, VALID_DATE),
                           data)
@@ -538,7 +539,8 @@ class Version(object):
                           for k in dir(self) if k.startswith('as_')]))
 
         template = self.env.get_template('%s.jinja' % file_type)
-        open(filename, 'w').write(template.render(data))
+        with open(filename, 'w') as f:
+            f.write(template.render(data))
 
 
 def split_version(version):
