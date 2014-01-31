@@ -3,6 +3,12 @@ User-visible changes
 
 .. contents::
 
+0.15.0 - 2014-01-31
+-------------------
+
+* Defaults to bumping micro version, as that is the common case
+* New templates for golang and lua
+
 0.14.0 - 2013-05-22
 -------------------
 
