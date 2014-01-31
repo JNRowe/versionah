@@ -61,6 +61,7 @@ Patches
 '''''''
 
 * Marc Abramowitz
+* Ansel Cloutier
 
 Bug reports
 '''''''''''
