@@ -31,7 +31,7 @@ except ImportError:
         out, _ = process.communicate()
         ret = process.wait()
         if ret:
-            raise CalledProcessError(ret, cmd[0], out)
+            raise CalledProcessError(ret, cmd[0])
         return out
 
 root_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
