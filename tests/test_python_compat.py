@@ -29,10 +29,10 @@ from tests.utils import (execute_tag, notravis_tag, write_tag)
 
 
 @params(
-    'python2.5',
     'python2.6',
     'python2.7',
     'python3.2',
+    'python3.3',
 )
 @write_tag
 @execute_tag
@@ -49,6 +49,7 @@ def test_python_compatibility(interp):
 # machines
 @params(
     'python2.4',
+    'python2.5',
     'python3.1',
 )
 @write_tag
