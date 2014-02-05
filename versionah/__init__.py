@@ -93,6 +93,9 @@ VALID_VERSION = r'\d+\.\d+(?:\.\d+){,2}'
 #: formatting for shtool compatibility
 VALID_DATE = r'(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:%s)-\d{4})' % '|'.join(MONTHS)
 
+#: Supported version components
+VERSION_COMPS = ('major', 'minor', 'micro', 'patch')
+
 
 class ValidatingAction(argparse.Action):
 
@@ -398,7 +401,7 @@ class Version(object):
         :return: Version as dictionary
 
         """
-        return dict(zip(['major', 'minor', 'micro', 'patch'], self.components))
+        return dict(zip(VERSION_COMPS, self.components))
 
     def as_dotted(self):
         """Generate a dotted version string.
@@ -523,7 +526,7 @@ class Version(object):
         if shtool:
             # %d-%b-%Y, if %b wasn't locale dependent
             shtool_date = "%s-%s-%s" % (self.date.day,
-                                        MONTHS[self.date.month-1],
+                                        MONTHS[self.date.month - 1],
                                         self.date.year)
             data['magic'] = 'This is %s, Version %s (%s)' % (self.name,
                                                              self.as_dotted(),
@@ -533,8 +536,7 @@ class Version(object):
                                                             self.as_dotted(),
                                                             self.as_date())
 
-        data.update(dict(zip(['major', 'minor', 'micro', 'patch'],
-                             self.components)))
+        data.update(dict(zip(VERSION_COMPS, self.components)))
         data.update(dict([(k[3:], getattr(self, k)())
                           for k in dir(self) if k.startswith('as_')]))
 
@@ -614,7 +616,7 @@ def bump_version(display_format, filename, file_type, shtool, bump):
         return errno.ENOENT
 
     if not bump:
-        bump = ('major', 'minor', 'micro', 'patch')[len(version.components) - 1]
+        bump = VERSION_COMPS[len(version.components) - 1]
 
     version.bump(bump)
     version.write(filename, file_type, shtool)

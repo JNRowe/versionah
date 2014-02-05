@@ -12,6 +12,7 @@
 .. autodata:: VALID_PACKAGE
 .. autodata:: VALID_VERSION
 .. autodata:: VALID_DATE
+.. autodata:: VERSION_COMPS
 
 .. autoclass:: Version(components=(0, 1, 0), name='unknown', date=datetime.today())
 
