@@ -54,10 +54,6 @@ Commands
 
    Write shtool compatible output
 
-.. option:: <type>
-
-   Bump ``type`` by one, where ``type`` is one of {major,minor,micro,patch}
-
 ``set`` - Set version in given file
 '''''''''''''''''''''''''''''''''''
 
@@ -76,10 +72,6 @@ Commands
 
    Define the file type used for version file.  Default is guessed based on file
    extension.
-
-.. option:: <version>
-
-   Set to a specific version
 
 ``display`` - Display version in given file
 '''''''''''''''''''''''''''''''''''''''''''
