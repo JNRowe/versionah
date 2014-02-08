@@ -12,8 +12,8 @@ Command line
 .. autoclass:: ValidatingAction
 
 .. autofunction:: guess_type
-.. autofunction:: bump
-.. autofunction:: set
+.. autofunction:: bump_version
+.. autofunction:: set_version
 .. autofunction:: display
 .. autofunction:: main(argv=sys.argv)
 
