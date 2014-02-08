@@ -24,11 +24,11 @@ Options
 
 .. program:: versionah
 
-.. cmdoption:: --version
+.. option:: --version
 
    Show program's version number and exit
 
-.. cmdoption:: -h, --help
+.. option:: -h, --help
 
    Show this help message and exit
 
@@ -40,21 +40,21 @@ Commands
 
 .. program:: versionah bump
 
-.. cmdoption:: -d <format>, --display=<format>
+.. option:: -d <format>, --display=<format>
 
    Display output in ``format``, where ``format`` is one of the list of
    {date,dict,dotted,hex,libtool,tuple,web}
 
-.. cmdoption:: -t <mode>, --type=<mode>
+.. option:: -t <mode>, --type=<mode>
 
    Define the file type used for version file.  Default is guessed based on file
    extension.
 
-.. cmdoption:: --shtool
+.. option:: --shtool
 
    Write shtool compatible output
 
-.. cmdoption:: <type>
+.. option:: <type>
 
    Bump ``type`` by one, where ``type`` is one of {major,minor,micro,patch}
 
@@ -63,21 +63,21 @@ Commands
 
 .. program:: versionah set
 
-.. cmdoption:: -d <format>, --display=<format>
+.. option:: -d <format>, --display=<format>
 
    Display output in ``format``, where ``format`` is one of the list of
    {date,dict,dotted,hex,libtool,tuple,web}
 
-.. cmdoption:: -n <name>, --name=<name>
+.. option:: -n <name>, --name=<name>
 
    Project name to use in output
 
-.. cmdoption:: -t <mode>, --type=<mode>
+.. option:: -t <mode>, --type=<mode>
 
    Define the file type used for version file.  Default is guessed based on file
    extension.
 
-.. cmdoption:: <version>
+.. option:: <version>
 
    Set to a specific version
 
@@ -86,7 +86,7 @@ Commands
 
 .. program:: versionah display
 
-.. cmdoption:: -d <format>, --display=<format>
+.. option:: -d <format>, --display=<format>
 
    Display output in ``format``, where ``format`` is one of the list of
    {date,dict,dotted,hex,libtool,tuple,web}
