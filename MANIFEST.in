@@ -3,8 +3,9 @@ recursive-include doc  *.rst
 include doc/_static/blockdiag-3d834509ba1c273e44f5449e96be6c6aec2e10ca.png
 include doc/wordlist.txt
 include doc/conf.py
-include extra/docrunner.py
 include extra/_versionah
+include extra/doap.rdf
+include extra/docrunner.py
 include extra/requirements*.txt
 include nose2.cfg
 include tests/data/shtool/test.*
