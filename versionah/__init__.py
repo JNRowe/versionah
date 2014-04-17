@@ -115,7 +115,6 @@ def success(text):
     """Format a success message with colour, if possible.
 
     :rtype: `str`
-
     """
     return T.bright_green(text)
 
@@ -124,7 +123,6 @@ def fail(text):
     """Format a failure message with colour, if possible.
 
     :rtype: `str`
-
     """
     return T.bright_red(text)
 
@@ -133,7 +131,6 @@ def warn(text):
     """Format a warning message with colour, if possible.
 
     :rtype: `str`
-
     """
     return T.bright_yellow(text)
 
@@ -149,7 +146,6 @@ def filter_regexp(string, pattern, repl, count=0, flags=0):
 
     :rtype: `str`
     :return: Text with substitutions applied
-
     """
     if sys.version_info[:2] >= (2, 7):
         return re.sub(pattern, repl, string, count, flags)
@@ -192,7 +188,6 @@ class Version(object):
         :param components: Version components
         :param str name: Package name
         :param datetime.date date: Date associated with version
-
         """
         if isinstance(components, STR_TYPE):
             components = split_version(components)
@@ -215,7 +210,6 @@ class Version(object):
 
         :rtype: `str`
         :return: String representation of object
-
         """
         return '%s(%r, %r, %r)' % (self.__class__.__name__, self.components,
                                    self.name, self.date)
@@ -227,7 +221,6 @@ class Version(object):
 
         :rtype: `str`
         :return: Default strings representation of object
-
         """
         return '%s v%s' % (self.name, self.as_dotted())
 
@@ -242,7 +235,6 @@ class Version(object):
         :rtype: `tuple`
         :return: Full version component tuple for object
         :raise NotImplementedError: Incomparable other
-
         """
         if isinstance(other, Version):
             return other.components_full
@@ -261,7 +253,6 @@ class Version(object):
         considered equal to 0.1.0.0.
 
         :rtype: `bool`
-
         """
         return self.components_full == self.__prepare_cmp_object(other)
     __ne__ = lambda self, other: not self == (other)
@@ -273,7 +264,6 @@ class Version(object):
 
         :rtype: `bool`
         :return: True if ``self`` is strictly less-than ``other``
-
         """
         return self.components < self.__prepare_cmp_object(other)
 
@@ -284,7 +274,6 @@ class Version(object):
 
         :rtype: `bool`
         :return: True if ``self`` is strictly greater-than ``other``
-
         """
         return self.components_full > self.__prepare_cmp_object(other)
 
@@ -295,7 +284,6 @@ class Version(object):
 
         :rtype: `bool`
         :return: True if ``self`` is less-than or equal to ``other``
-
         """
         return self < other or self == other
 
@@ -306,7 +294,6 @@ class Version(object):
 
         :rtype: `bool`
         :return: True if ``self`` is greater-than or equal to ``other``
-
         """
         return self > other or self == other
 
@@ -315,7 +302,6 @@ class Version(object):
 
         :rtype: `str`
         :return: Object-unique hash value
-
         """
         return hash(repr(self))
 
@@ -324,7 +310,6 @@ class Version(object):
 
         :type components: `tuple` of `int`
         :param components: Version components
-
         """
         if isinstance(components, STR_TYPE):
             components = split_version(components)
@@ -339,7 +324,6 @@ class Version(object):
         """Generate full length component tuple for version.
 
         :rtype: `tuple` of `int`
-
         """
         return self.major, self.minor, self.micro, self.patch
 
@@ -348,7 +332,6 @@ class Version(object):
         """Generate component tuple to initial resolution.
 
         :rtype: `tuple` of `int`
-
         """
 
         return self.components_full[:self._resolution]
@@ -357,7 +340,6 @@ class Version(object):
         """Bump a version string.
 
         :param str bump_type: Component to bump
-
         """
         if bump_type == 'micro' and self._resolution < 3 \
                 or bump_type == 'patch' and self._resolution < 4:
@@ -399,7 +381,6 @@ class Version(object):
 
         :rtype: `dict`
         :return: Version as dictionary
-
         """
         return dict(zip(VERSION_COMPS, self.components))
 
@@ -408,7 +389,6 @@ class Version(object):
 
         :rtype: `str`
         :return: Standard dotted version string
-
         """
         return '.'.join(str(s) for s in self.components)
 
@@ -417,7 +397,6 @@ class Version(object):
 
         :rtype: `str`
         :return: Version as hex string
-
         """
         return '0x' + ''.join('%02x' % n for n in self.components)
 
@@ -426,7 +405,6 @@ class Version(object):
 
         :rtype: `str`
         :return: Version as libtool string
-
         """
         return '%i:%i' % (self.major * 10 + self.minor, 20 + self.micro)
 
@@ -435,7 +413,6 @@ class Version(object):
 
         :rtype: `str`
         :return: Version's release date as ISO-8601 date stamp
-
         """
         return self.date.isoformat()
 
@@ -444,7 +421,6 @@ class Version(object):
 
         :rtype: `int`
         :return: Version components as tuple
-
         """
         return self.components
 
@@ -453,7 +429,6 @@ class Version(object):
 
         :rtype: `str`
         :return: Version's string in web UA-style
-
         """
         return '%s/%s' % (self.name, self.as_dotted())
 
@@ -463,7 +438,6 @@ class Version(object):
 
         :rtype: `list` of `str`
         :return: Method names for representation types
-
         """
         return [s[3:] for s in dir(Version) if s.startswith('as_')]
 
@@ -473,7 +447,6 @@ class Version(object):
         :param str display_format: Format to display version string in
         :rtype: `str`
         :return: Formatted version string
-
         """
         return getattr(self, 'as_%s' % display_format)()
 
@@ -486,7 +459,6 @@ class Version(object):
         :return: New `Version` object representing file
         :raise exceptions.OSError: When ``filename`` doesn't exist
         :raise exceptions.ValueError: Unparsable version data
-
         """
         with open(filename) as f:
             data = f.read().strip()
@@ -513,7 +485,6 @@ class Version(object):
         :return: `True` on write success
 
         .. _shtool: http://www.gnu.org/software/shtool/shtool.html
-
         """
         data = vars(self)
         data.update({
@@ -552,7 +523,6 @@ def split_version(version):
     :rtype: `tuple` of `int`
     :return: Components of version string
     :raise exceptions.ValueError: Invalid version string
-
     """
     if not re.match('%s$' % VALID_VERSION, version):
         raise ValueError('Invalid version string %r' % version)
@@ -600,7 +570,6 @@ def bump_version(display_format, filename, file_type, shtool, bump):
     :param str bump: Component to bump
 
     .. _shtool: http://www.gnu.org/software/shtool/shtool.html
-
     """
     if not file_type:
         file_type = guess_type(filename)
@@ -642,7 +611,6 @@ def set_version(display_format, filename, file_type, name, version_str):
     :param str file_type: File type to produce
     :param str name: Project name used in output
     :param str version_str: Initial version string
-
     """
     if not file_type:
         file_type = guess_type(filename)
@@ -670,7 +638,6 @@ def display(display_format, filename):
 
     :param str display_format: Format to display output in
     :param str filename: File to operate on
-
     """
     try:
         version = Version.read(filename)
