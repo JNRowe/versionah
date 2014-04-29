@@ -2,12 +2,15 @@ Brandl
 Georg
 UA
 autotools
+dict
 fallback
+filename
 jinja
 libtool
 regexp
 shtool
 symlink
+tarballs
 templating
 timestamp
 tuple
