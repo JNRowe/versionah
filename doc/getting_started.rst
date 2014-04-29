@@ -7,11 +7,11 @@ Initial setup
 The first time we run :command:`versionah` we must supply the initial version
 number, and optionally a name for the package:
 
-.. code-block:: sh
+.. code-block:: console
 
-    ▶ versionah set -t c src/version.h 0.2.0
+    $ versionah set -t c src/version.h 0.2.0
     0.2.0
-    ▶ versionah set -t c -n my_app src/version.h 0.2.0
+    $ versionah set -t c -n my_app src/version.h 0.2.0
     0.2.0
 
 :file:`Makefile` usage
