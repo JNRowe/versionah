@@ -333,7 +333,6 @@ class Version(object):
 
         :rtype: `tuple` of `int`
         """
-
         return self.components_full[:self._resolution]
 
     def bump(self, bump_type):
@@ -653,7 +652,6 @@ def display(display_format, filename):
 
 def main():
     """Main script entry point."""
-
     APP.arg('--version', action='version',
             version='%%(prog)s %s' % _version.dotted)
     return APP.run()
