@@ -20,29 +20,12 @@
 import argparse
 
 from expecter import expect
-from mock import (Mock, patch)
 from nose2.tools import params
 
 from versionah import (Version, ValidatingAction)
 
-from tests.utils import raises_OSError
-
-expect.raises_OSError = staticmethod(raises_OSError)
-
-
-def exit_wrapper(status, message):
-    """Stub for OptionParser.exit() calls"""
-    raise OSError(status, message.strip())
-
-
-def setUpModule():
-    patch('versionah.argparse.ArgumentParser.exit',
-          new=Mock(side_effect=exit_wrapper)).start()
-    patch('versionah.argparse.ArgumentParser.print_usage').start()
-
-
-def tearDownModule():
-    patch.stopall()
+from tests.utils import argparse_setUpModule as setUpModule  # NOQA
+from tests.utils import tearDownModule  # NOQA
 
 
 @params(
