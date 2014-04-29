@@ -11,6 +11,8 @@ include nose2.cfg
 include tests/data/shtool/test.*
 include tests/data/test_[a-z]
 include tests/*.py
+include .editorconfig
+include .travis.yml
 include versionah.py
 include versionah/locale/versionah.pot
 include versionah/locale/*/LC_MESSAGES/*.mo
