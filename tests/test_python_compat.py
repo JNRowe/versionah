@@ -51,6 +51,7 @@ def test_python_compatibility(interp):
     'python2.4',
     'python2.5',
     'python3.1',
+    'python3.4',
 )
 @write_tag
 @execute_tag
