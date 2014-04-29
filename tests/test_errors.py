@@ -92,11 +92,16 @@ def test_version_read_no_identifier():
         Version.read('setup.py')
 
 
-def test_process_command_line_invalid_package_name():
+@params(
+    '__',
+    '3dom',  # initial digit
+    'mypackage.',  # trailing punctuation
+)
+def test_process_command_line_invalid_package_name(name):
     parser = argparse.ArgumentParser()
     parser.add_argument('--name', action=ValidatingAction)
-    with expect.raises_OSError(2, "Invalid string for --name: '__'"):
-        parser.parse_args(['--name=__'])
+    with expect.raises_OSError(2, "Invalid string for --name: '%s'" % name):
+        parser.parse_args(['--name=%s' % name])
 
 
 def test_process_command_line_invalid_package_version():

@@ -62,6 +62,7 @@ Patches
 
 * Marc Abramowitz
 * Ansel Cloutier
+* TakesxiSximada
 
 Bug reports
 '''''''''''
