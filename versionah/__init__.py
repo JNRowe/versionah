@@ -86,7 +86,7 @@ APP = aaargh.App(description=_('A tool to manage project version files'),
                  epilog=_('Please report bugs to jnrowe@gmail.com'))
 
 #: Regular expression to match a valid package name
-VALID_PACKAGE = '[A-Za-z][A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*'
+VALID_PACKAGE = '[A-Za-z][A-Za-z0-9\.]+(?:[_-][A-Za-z0-9]+)*'
 #: Regular expression to match a valid package version
 VALID_VERSION = r'\d+\.\d+(?:\.\d+){,2}'
 #: Regular expression to match a package date.  ISO-8601, and %d-%b-%Y
