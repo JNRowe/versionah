@@ -17,15 +17,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import argparse
-
+from click import UsageError
 from expecter import expect
 from nose2.tools import params
 
-from versionah import (Version, ValidatingAction)
-
-from tests.utils import argparse_setUpModule as setUpModule  # NOQA
-from tests.utils import tearDownModule  # NOQA
+from versionah import (NameParamType, Version, VersionParamType)
 
 
 @params(
@@ -81,14 +77,12 @@ def test_version_read_no_identifier():
     'mypackage.',  # trailing punctuation
 )
 def test_process_command_line_invalid_package_name(name):
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--name', action=ValidatingAction)
-    with expect.raises_OSError(2, "Invalid string for --name: '%s'" % name):
-        parser.parse_args(['--name=%s' % name])
+    p = NameParamType()
+    with expect.raises(UsageError, "Invalid value: '%s' for 'name'" % name):
+        p.convert(name, None, None)
 
 
 def test_process_command_line_invalid_package_version():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--version', action=ValidatingAction)
-    with expect.raises_OSError(2, "Invalid string for --version: '__'"):
-        parser.parse_args(['--version=__'])
+    p = VersionParamType()
+    with expect.raises(UsageError, "Invalid value: '__' for 'version'"):
+        p.convert('__', None, None)

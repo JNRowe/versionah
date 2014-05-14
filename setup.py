@@ -70,7 +70,7 @@ setup(
         '': ['versionah/locale/*/LC_MESSAGES/*.mo',
              'versionah/templates/*.jinja', ],
     },
-    entry_points={'console_scripts': ['versionah = versionah:main', ]},
+    entry_points={'console_scripts': ['versionah = versionah:cli', ]},
     install_requires=install_requires,
     extras_require={
         'colour': colour_requires,

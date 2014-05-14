@@ -22,4 +22,4 @@ import sys
 import versionah
 
 
-sys.exit(versionah.main())
+sys.exit(versionah.cli())
