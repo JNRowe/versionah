@@ -526,8 +526,8 @@ class Version(object):
                                                             self.as_date())
 
         data.update(dict(zip(VERSION_COMPS, self.components)))
-        data.update(dict([(k[3:], getattr(self, k)())
-                          for k in dir(self) if k.startswith('as_')]))
+        data.update(dict([(k, getattr(self, 'as_%s' % k)())
+                          for k in self.display_types()]))
 
         template = self.env.get_template('%s.jinja' % file_type)
         with open(filename, 'w') as f:
