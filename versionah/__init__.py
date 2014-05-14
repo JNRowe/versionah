@@ -114,6 +114,7 @@ class ValidatingAction(argparse.Action):
 def success(text):
     """Format a success message with colour, if possible.
 
+    :param str text: Text to colourise
     :rtype: `str`
     """
     return T.bright_green(text)
@@ -122,6 +123,7 @@ def success(text):
 def fail(text):
     """Format a failure message with colour, if possible.
 
+    :param str text: Text to colourise
     :rtype: `str`
     """
     return T.bright_red(text)
@@ -130,6 +132,7 @@ def fail(text):
 def warn(text):
     """Format a warning message with colour, if possible.
 
+    :param str text: Text to colourise
     :rtype: `str`
     """
     return T.bright_yellow(text)
@@ -144,6 +147,11 @@ def filter_regexp(string, pattern, repl, count=0, flags=0):
 
     See :func:`re.sub` for documentation.
 
+    :param str string: Text to operate on
+    :param str pattern: Regular expression to match
+    :param str repl: Text to replace match with
+    :param int count: Number of occurrences to replace
+    :param int flags: Regular expression matching flags
     :rtype: `str`
     :return: Text with substitutions applied
     """
@@ -184,7 +192,7 @@ class Version(object):
                  date=datetime.date.today()):
         """Initialise a new `Version` object.
 
-        :type components: `int` or `tuple` of `int`
+        :type components: `str` or `tuple` of `int`
         :param components: Version components
         :param str name: Package name
         :param datetime.date date: Date associated with version
@@ -252,6 +260,10 @@ class Version(object):
         Importantly, padded version components are checked so that 0.1 is
         considered equal to 0.1.0.0.
 
+        See `~Version.__prepare_cmp_object`.
+
+        :type other: `Version`, `list`, `tuple` or `int`
+        :param other: Object to munge
         :rtype: `bool`
         """
         return self.components_full == self.__prepare_cmp_object(other)
@@ -262,6 +274,8 @@ class Version(object):
 
         See `~Version.__prepare_cmp_object`.
 
+        :type other: `Version`, `list`, `tuple` or `int`
+        :param other: Object to munge
         :rtype: `bool`
         :return: True if ``self`` is strictly less-than ``other``
         """
@@ -272,6 +286,8 @@ class Version(object):
 
         See `~Version.__prepare_cmp_object`.
 
+        :type other: `Version`, `list`, `tuple` or `int`
+        :param other: Object to munge
         :rtype: `bool`
         :return: True if ``self`` is strictly greater-than ``other``
         """
@@ -282,6 +298,8 @@ class Version(object):
 
         See `~Version.__prepare_cmp_object`.
 
+        :type other: `Version`, `list`, `tuple` or `int`
+        :param other: Object to munge
         :rtype: `bool`
         :return: True if ``self`` is less-than or equal to ``other``
         """
@@ -292,6 +310,8 @@ class Version(object):
 
         See `~Version.__prepare_cmp_object`.
 
+        :type other: `Version`, `list`, `tuple` or `int`
+        :param other: Object to munge
         :rtype: `bool`
         :return: True if ``self`` is greater-than or equal to ``other``
         """
@@ -339,6 +359,7 @@ class Version(object):
         """Bump a version string.
 
         :param str bump_type: Component to bump
+        :raise ValueError: Invalid `bump_type` argument
         """
         if bump_type == 'micro' and self._resolution < 3 \
                 or bump_type == 'patch' and self._resolution < 4:
@@ -480,8 +501,6 @@ class Version(object):
         :param str filename: Version file to write
         :param str file_type: File type to write
         :param bool shtool: Write shtool_ compatible files
-        :rtype: `bool`
-        :return: `True` on write success
 
         .. _shtool: http://www.gnu.org/software/shtool/shtool.html
         """
