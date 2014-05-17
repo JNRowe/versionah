@@ -13,10 +13,10 @@ Command line
 .. autoclass:: VersionParamType
 
 .. autofunction:: guess_type
-.. autofunction:: bump_version
+.. autofunction:: bump
 .. autofunction:: set_version
 .. autofunction:: display
-.. autofunction:: main(argv=sys.argv)
+.. autofunction:: cli
 
 Examples
 --------
