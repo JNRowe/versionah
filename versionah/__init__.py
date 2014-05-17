@@ -572,7 +572,8 @@ def cli():
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(Version.display_types()),
               help=_('display format for output'))
-@click.argument('filename')
+@click.argument('filename', type=click.Path(exists=True, dir_okay=False,
+                writable=True, resolve_path=True))
 @click.option('-t', '--type', 'file_type', default='text',
               type=click.Choice(Version.filetypes),
               help=_('define the file type used for version file'))
@@ -593,15 +594,7 @@ def bump(display_format, filename, file_type, shtool, bump):
     if not file_type:
         file_type = guess_type(filename)
 
-    try:
-        version = Version.read(filename)
-    except IOError as error:
-        print(fail(error.args[1]))
-        return errno.EEXIST
-
-    if not os.path.exists(filename):
-        print(fail(_('File not found')))
-        return errno.ENOENT
+    version = Version.read(filename)
 
     if not bump:
         bump = VERSION_COMPS[len(version.components) - 1]
@@ -616,7 +609,8 @@ def bump(display_format, filename, file_type, shtool, bump):
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(Version.display_types()),
               help=_('display format for output'))
-@click.argument('filename')
+@click.argument('filename', type=click.Path(dir_okay=False, writable=True,
+                resolve_path=True))
 @click.option('-t', '--type', 'file_type', default='text',
               type=click.Choice(Version.filetypes),
               help=_('define the file type used for version file'))
@@ -642,7 +636,7 @@ def set_version(display_format, filename, file_type, name, version_str):
         version = Version()
     except ValueError as error:
         print(fail(error.args[0]))
-        return errno.EEXIST
+        return errno.EIO
 
     if name:
         version.name = name
@@ -657,7 +651,8 @@ def set_version(display_format, filename, file_type, name, version_str):
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(Version.display_types()),
               help=_('display format for output'))
-@click.argument('filename')
+@click.argument('filename', type=click.Path(exists=True, dir_okay=False,
+                resolve_path=True))
 def display(display_format, filename):
     """Display version in existing file.
 
@@ -666,9 +661,6 @@ def display(display_format, filename):
     """
     try:
         version = Version.read(filename)
-    except IOError as error:
-        print(fail(error.args[1]))
-        return errno.EEXIST
     except ValueError as error:
         print(fail(error.args[0]))
         return errno.EIO
