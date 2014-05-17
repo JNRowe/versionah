@@ -559,23 +559,10 @@ def guess_type(filename):
     return file_type
 
 
-def print_version(ctx, value):
-    """Display rdial version.
-
-    :param click.Context ctx: Current command context
-    :param bool value: True if flag given
-    """
-    if value:
-        click.echo('rdial %s' % _version.dotted)
-        ctx.exit()
-
-
 @click.group(help=_('A tool to manage project version files'),
              epilog=_('Please report bugs to '
                       'https://github.com/JNRowe/versionah/issues'))
-@click.option('--version', is_flag=True, callback=print_version,
-              expose_value=False, is_eager=True,
-              help=_('Show version string and exit.'))
+@click.version_option(_version.dotted)
 def cli():
     """Main command entry point."""
     pass
