@@ -64,18 +64,8 @@ except ImportError:
 import click
 import jinja2
 
-try:
-    from blessings import Terminal
-except ImportError:
-    class Terminal:  # NOQA
-        def __getattr__(self, attr):
-            return lambda x: x
-
 from .i18n import _
 
-
-#: blessings Terminal object, used for fancy output.  No-op without blessings
-T = Terminal()
 
 #: Base string type, used for compatibility with Python 2 and 3
 STR_TYPE = basestring if sys.version_info[0] == 2 else str
@@ -128,27 +118,18 @@ class VersionParamType(ReMatchParamType):
 
 
 def success(text):
-    """Format a success message with colour, if possible.
-
-    :rtype: `str`
-    """
-    return T.bright_green(text)
+    """Format a success message with colour, if possible."""
+    click.secho(text, fg='green', bold=True)
 
 
 def fail(text):
-    """Format a failure message with colour, if possible.
-
-    :rtype: `str`
-    """
-    return T.bright_red(text)
+    """Format a failure message with colour, if possible."""
+    click.secho(text, fg='green', bold=True)
 
 
 def warn(text):
-    """Format a warning message with colour, if possible.
-
-    :rtype: `str`
-    """
-    return T.bright_yellow(text)
+    """Format a warning message with colour, if possible."""
+    click.secho(text, fg='yellow', bold=True)
 
 
 #: Custom filters for Jinja
@@ -602,7 +583,7 @@ def bump(display_format, filename, file_type, shtool, bump):
     version.bump(bump)
     version.write(filename, file_type, shtool)
 
-    print(success(version.display(display_format)))
+    success(version.display(display_format))
 
 
 @cli.command(name='set', help=_('set version in given file'))
@@ -635,7 +616,7 @@ def set_version(display_format, filename, file_type, name, version_str):
     except IOError:
         version = Version()
     except ValueError as error:
-        print(fail(error.args[0]))
+        fail(error.args[0])
         return errno.EIO
 
     if name:
@@ -644,7 +625,7 @@ def set_version(display_format, filename, file_type, name, version_str):
     version.set(version_str)
     version.write(filename, file_type)
 
-    print(success(version.display(display_format)))
+    success(version.display(display_format))
 
 
 @cli.command(help=_('display version in given file'))
@@ -662,7 +643,7 @@ def display(display_format, filename):
     try:
         version = Version.read(filename)
     except ValueError as error:
-        print(fail(error.args[0]))
+        fail(error.args[0])
         return errno.EIO
 
-    print(success(version.display(display_format)))
+    success(version.display(display_format))

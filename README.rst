@@ -17,11 +17,9 @@ Requirements
 ------------
 
 ``versionah`` should run on Python_ v2.6 or newer [#]_, including Python v3.
-The only external library ``versionah`` currently depends on is jinja_.  If
-``versionah`` doesn't work with the version of Python you have installed, file
-an issue_ and I'll endeavour to fix it.
-
-If you would like coloured terminal output, then you will need blessings_.
+The only external libraries ``versionah`` currently depends on are click_ and
+jinja_.  If ``versionah`` doesn't work with the version of Python you have
+installed, file an issue_ and I'll endeavour to fix it.
 
 .. [#] If you still run older Python versions only small changes should be
        required, for example the unrolling of conditional expressions and
@@ -89,7 +87,7 @@ reproduce the problem, or even better a patch!
 
 .. _GPL v3: http://www.gnu.org/licenses/
 .. _Python: http://www.python.org/
+.. _click: http://click.pocoo.org/
 .. _jinja: http://jinja.pocoo.org/
-.. _blessings: http://pypi.python.org/pypi/blessings/
 .. _mail: jnrowe@gmail.com
 .. _issue: https://github.com/JNRowe/versionah/issues/
