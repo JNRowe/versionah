@@ -103,7 +103,7 @@ class ReMatchParamType(click.ParamType):
         if not self.matcher:
             raise NotImplementedError('No matcher provided')
         if not re.match('%s$' % self.matcher, value):
-            self.fail('%r for %r' % (value, self.name))
+            self.fail('%r' % value)
         return value
 
 

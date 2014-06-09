@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from click import UsageError
+from click import BadParameter
 from expecter import expect
 from nose2.tools import params
 
@@ -78,11 +78,11 @@ def test_version_read_no_identifier():
 )
 def test_process_command_line_invalid_package_name(name):
     p = NameParamType()
-    with expect.raises(UsageError, "Invalid value: '%s' for 'name'" % name):
+    with expect.raises(BadParameter, "'%s'" % name):
         p.convert(name, None, None)
 
 
 def test_process_command_line_invalid_package_version():
     p = VersionParamType()
-    with expect.raises(UsageError, "Invalid value: '__' for 'version'"):
+    with expect.raises(BadParameter, "'__'"):
         p.convert('__', None, None)
