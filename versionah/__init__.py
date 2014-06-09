@@ -556,7 +556,7 @@ def guess_type(filename):
     return file_type
 
 
-@click.group(help=_('A tool to manage project version files'),
+@click.group(help=_('A tool to manage project version files.'),
              epilog=_('Please report bugs to '
                       'https://github.com/JNRowe/versionah/issues'))
 @click.version_option(_version.dotted)
@@ -565,19 +565,20 @@ def cli():
     pass
 
 
-@cli.command(help=_('bump version in given file'))
+@cli.command(help=_('Bump version in given file.'))
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(Version.display_types()),
-              help=_('display format for output'))
-@click.argument('filename', type=click.Path(exists=True, dir_okay=False,
-                writable=True, resolve_path=True))
+              help=_('Display format for output.'))
 @click.option('-t', '--type', 'file_type', default='text',
               type=click.Choice(Version.filetypes),
-              help=_('define the file type used for version file'))
-@click.option('--shtool/--no-shtool', help=_('write shtool compatible output'))
+              help=_('Define the file type used for version file.'))
+@click.option('--shtool/--no-shtool',
+              help=_('Write shtool compatible output.'))
+@click.argument('filename', type=click.Path(exists=True, dir_okay=False,
+                writable=True, resolve_path=True))
 @click.argument('bump',
                 type=click.Choice(['major', 'minor', 'micro', 'patch']))
-def bump(display_format, filename, file_type, shtool, bump):
+def bump(display_format, file_type, shtool, filename, bump):
     """Bump version in existing file.
 
     :param str display_format: Format to display output in
@@ -602,20 +603,20 @@ def bump(display_format, filename, file_type, shtool, bump):
     success(version.display(display_format))
 
 
-@cli.command(name='set', help=_('set version in given file'))
+@cli.command(name='set', help=_('Set version in given file.'))
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(Version.display_types()),
-              help=_('display format for output'))
-@click.argument('filename', type=click.Path(dir_okay=False, writable=True,
-                resolve_path=True))
+              help=_('Display format for output.'))
 @click.option('-t', '--type', 'file_type', default='text',
               type=click.Choice(Version.filetypes),
-              help=_('define the file type used for version file'))
+              help=_('Define the file type used for version file.'))
 @click.option('-n', '--name', default=os.path.basename(os.getenv('PWD')),
               type=NameParamType(),
-              help=_('package name for version(default from $PWD)'))
+              help=_('Package name for version(default from $PWD).'))
+@click.argument('filename', type=click.Path(dir_okay=False, writable=True,
+                resolve_path=True))
 @click.argument('version_str', type=VersionParamType())
-def set_version(display_format, filename, file_type, name, version_str):
+def set_version(display_format, file_type, name, filename, version_str):
     """Set version in new or existing file.
 
     :param str display_format: Format to display output in
@@ -644,10 +645,10 @@ def set_version(display_format, filename, file_type, name, version_str):
     success(version.display(display_format))
 
 
-@cli.command(help=_('display version in given file'))
+@cli.command(help=_('Display version in given file.'))
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(Version.display_types()),
-              help=_('display format for output'))
+              help=_('Display format for output.'))
 @click.argument('filename', type=click.Path(exists=True, dir_okay=False,
                 resolve_path=True))
 def display(display_format, filename):

@@ -26,11 +26,11 @@ Options
 
 .. option:: --version
 
-   Show program's version number and exit
+   Show the version and exit.
 
 .. option:: -h, --help
 
-   Show this help message and exit
+   Show this message and exit.
 
 Commands
 --------
@@ -43,16 +43,16 @@ Commands
 .. option:: -d <format>, --display=<format>
 
    Display output in ``format``, where ``format`` is one of the list of
-   {date,dict,dotted,hex,libtool,tuple,web}
+   {date,dict,dotted,hex,libtool,tuple,web}.
 
 .. option:: -t <mode>, --type=<mode>
 
-   Define the file type used for version file.  Default is guessed based on file
-   extension.
+   Define the file type used for version file.  Default is guessed based on
+   file extension.
 
 .. option:: --shtool
 
-   Write shtool compatible output
+   Write shtool compatible output.
 
 ``set`` - Set version in given file
 '''''''''''''''''''''''''''''''''''
@@ -62,16 +62,16 @@ Commands
 .. option:: -d <format>, --display=<format>
 
    Display output in ``format``, where ``format`` is one of the list of
-   {date,dict,dotted,hex,libtool,tuple,web}
+   {date,dict,dotted,hex,libtool,tuple,web}.
 
 .. option:: -n <name>, --name=<name>
 
-   Project name to use in output
+   Project name to use in output.
 
 .. option:: -t <mode>, --type=<mode>
 
-   Define the file type used for version file.  Default is guessed based on file
-   extension.
+   Define the file type used for version file.  Default is guessed based on
+   file extension.
 
 ``display`` - Display version in given file
 '''''''''''''''''''''''''''''''''''''''''''
@@ -81,4 +81,4 @@ Commands
 .. option:: -d <format>, --display=<format>
 
    Display output in ``format``, where ``format`` is one of the list of
-   {date,dict,dotted,hex,libtool,tuple,web}
+   {date,dict,dotted,hex,libtool,tuple,web}.
