@@ -569,16 +569,16 @@ def cli():
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(Version.display_types()),
               help=_('Display format for output.'))
-@click.argument('filename', type=click.Path(exists=True, dir_okay=False,
-                writable=True, resolve_path=True))
 @click.option('-t', '--type', 'file_type', default='text',
               type=click.Choice(Version.filetypes),
               help=_('Define the file type used for version file.'))
 @click.option('--shtool/--no-shtool',
               help=_('Write shtool compatible output.'))
+@click.argument('filename', type=click.Path(exists=True, dir_okay=False,
+                writable=True, resolve_path=True))
 @click.argument('bump',
                 type=click.Choice(['major', 'minor', 'micro', 'patch']))
-def bump(display_format, filename, file_type, shtool, bump):
+def bump(display_format, file_type, shtool, filename, bump):
     """Bump version in existing file.
 
     :param str display_format: Format to display output in
@@ -607,16 +607,16 @@ def bump(display_format, filename, file_type, shtool, bump):
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(Version.display_types()),
               help=_('Display format for output.'))
-@click.argument('filename', type=click.Path(dir_okay=False, writable=True,
-                resolve_path=True))
 @click.option('-t', '--type', 'file_type', default='text',
               type=click.Choice(Version.filetypes),
               help=_('Define the file type used for version file.'))
 @click.option('-n', '--name', default=os.path.basename(os.getenv('PWD')),
               type=NameParamType(),
               help=_('Package name for version(default from $PWD).'))
+@click.argument('filename', type=click.Path(dir_okay=False, writable=True,
+                resolve_path=True))
 @click.argument('version_str', type=VersionParamType())
-def set_version(display_format, filename, file_type, name, version_str):
+def set_version(display_format, file_type, name, filename, version_str):
     """Set version in new or existing file.
 
     :param str display_format: Format to display output in
