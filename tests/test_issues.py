@@ -17,15 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import argparse
+from expecter import expect
 
-from versionah import ValidatingAction
-
-from tests.utils import argparse_setUpModule as setUpModule  # NOQA
-from tests.utils import tearDownModule  # NOQA
+from versionah import NameParamType
 
 
 def test_8_python_namespace_packages():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--name', action=ValidatingAction)
-    parser.parse_args(['--name=mypackage.subpackage', ])
+    p = NameParamType()
+    expect(p.convert('mypackage.subpackage', None, None)) \
+        == 'mypackage.subpackage'

@@ -49,7 +49,6 @@ try:
 except ImportError:
     pass
 
-import argparse
 import datetime
 import errno
 import os
@@ -62,28 +61,15 @@ try:
 except ImportError:
     from cookielib import MONTHS  # NOQA
 
-import aaargh
+import click
 import jinja2
-
-try:
-    from blessings import Terminal
-except ImportError:
-    class Terminal:  # NOQA
-        def __getattr__(self, attr):
-            return lambda x: x
 
 from .i18n import _
 
 
-#: blessings Terminal object, used for fancy output.  No-op without blessings
-T = Terminal()
-
 #: Base string type, used for compatibility with Python 2 and 3
 STR_TYPE = basestring if sys.version_info[0] == 2 else str
 
-#: Command line interface object
-APP = aaargh.App(description=_('A tool to manage project version files'),
-                 epilog=_('Please report bugs to jnrowe@gmail.com'))
 
 #: Regular expression to match a valid package name
 VALID_PACKAGE = '[A-Za-z][A-Za-z0-9]+(?:[_\.-][A-Za-z0-9]+)*'
@@ -97,45 +83,53 @@ VALID_DATE = r'(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:%s)-\d{4})' % '|'.join(MONTHS)
 VERSION_COMPS = ('major', 'minor', 'micro', 'patch')
 
 
-class ValidatingAction(argparse.Action):
+class ReMatchParamType(click.ParamType):
+    """Regular expression based parameter matcher"""
 
-    """argparse action to validate versionah input."""
+    def __init__(self):
+        super(ReMatchParamType, self).__init__()
+        # Set name to "<value>ParamType"
+        self.name = self.__class__.__name__[:-9].lower()
 
-    def __call__(self, parser, namespace, values, option_string=None):
-        if option_string in ('-n', '--name'):
-            matcher = '%s$' % VALID_PACKAGE
-        else:
-            matcher = '%s$' % VALID_VERSION
-        if not re.match(matcher, values):
-            parser.error('Invalid string for %s: %r' % (option_string, values))
-        setattr(namespace, self.dest, values)
+    def convert(self, value, param, ctx):
+        """Check given name is valid.
+
+        :param str value: Value given to flag
+        :param click.Argument param: Parameter being processed
+        :param click.Context ctx: Current command context
+        :rtype: :obj:`str`
+        :return: Valid value
+        """
+        if not self.matcher:
+            raise NotImplementedError('No matcher provided')
+        if not re.match('%s$' % self.matcher, value):
+            self.fail('%r' % value)
+        return value
+
+
+class NameParamType(ReMatchParamType):
+    """Name parameter handler."""
+    matcher = VALID_PACKAGE
+
+
+class VersionParamType(ReMatchParamType):
+    """Version parameter handler."""
+    matcher = VALID_VERSION
 
 
 def success(text):
-    """Format a success message with colour, if possible.
-
-    :param str text: Text to colourise
-    :rtype: `str`
-    """
-    return T.bright_green(text)
+    """Format a success message with colour, if possible."""
+    click.secho(text, fg='green', bold=True)
 
 
 def fail(text):
-    """Format a failure message with colour, if possible.
-
-    :param str text: Text to colourise
-    :rtype: `str`
-    """
-    return T.bright_red(text)
+    """Format a failure message with colour, if possible."""
+    click.secho(text, fg='green', bold=True)
 
 
 def warn(text):
-    """Format a warning message with colour, if possible.
-
-    :param str text: Text to colourise
-    :rtype: `str`
-    """
-    return T.bright_yellow(text)
+    """Format a warning message with colour, if possible."""
+    click.secho(text, fg='yellow', bold=True)
 
 
 #: Custom filters for Jinja
@@ -562,23 +556,28 @@ def guess_type(filename):
     return file_type
 
 
-OPTIONS = argparse.ArgumentParser(add_help=False)
-OPTIONS.add_argument('-d', '--display', default='dotted',
-                     choices=Version.display_types(), dest='display_format',
-                     metavar='dotted', help=_('display format for output'))
-OPTIONS.add_argument('filename', help=_('version file to operate on'))
+@click.group(help=_('A tool to manage project version files'),
+             epilog=_('Please report bugs to '
+                      'https://github.com/JNRowe/versionah/issues'))
+@click.version_option(_version.dotted)
+def cli():
+    """Main command entry point."""
+    pass
 
 
-@APP.cmd(name='bump', help=_('bump version in given file'),
-         parents=[OPTIONS, ])
-@APP.cmd_arg('-t', '--type', choices=Version.filetypes, dest='file_type',
-             metavar='text',
-             help=_('define the file type used for version file'))
-@APP.cmd_arg('--shtool', action='store_true',
-             help=_('write shtool compatible output'))
-@APP.cmd_arg('bump', default=None, nargs='?',
-             choices=('major', 'minor', 'micro', 'patch'), help=_('bump type'))
-def bump_version(display_format, filename, file_type, shtool, bump):
+@cli.command(help=_('bump version in given file'))
+@click.option('-d', '--display', 'display_format', default='dotted',
+              type=click.Choice(Version.display_types()),
+              help=_('display format for output'))
+@click.argument('filename', type=click.Path(exists=True, dir_okay=False,
+                writable=True, resolve_path=True))
+@click.option('-t', '--type', 'file_type', default='text',
+              type=click.Choice(Version.filetypes),
+              help=_('define the file type used for version file'))
+@click.option('--shtool/--no-shtool', help=_('write shtool compatible output'))
+@click.argument('bump',
+                type=click.Choice(['major', 'minor', 'micro', 'patch']))
+def bump(display_format, filename, file_type, shtool, bump):
     """Bump version in existing file.
 
     :param str display_format: Format to display output in
@@ -592,15 +591,7 @@ def bump_version(display_format, filename, file_type, shtool, bump):
     if not file_type:
         file_type = guess_type(filename)
 
-    try:
-        version = Version.read(filename)
-    except IOError as error:
-        print(fail(error.args[1]))
-        return errno.EEXIST
-
-    if not os.path.exists(filename):
-        print(fail(_('File not found')))
-        return errno.ENOENT
+    version = Version.read(filename)
 
     if not bump:
         bump = VERSION_COMPS[len(version.components) - 1]
@@ -608,19 +599,22 @@ def bump_version(display_format, filename, file_type, shtool, bump):
     version.bump(bump)
     version.write(filename, file_type, shtool)
 
-    print(success(version.display(display_format)))
+    success(version.display(display_format))
 
 
-@APP.cmd(name='set', help=_('set version in given file'), parents=[OPTIONS, ])
-@APP.cmd_arg('-t', '--type', choices=Version.filetypes, dest='file_type',
-             metavar='text',
-             help=_('define the file type used for version file'))
-@APP.cmd_arg('-n', '--name', default=os.path.basename(os.getenv('PWD')),
-             metavar=os.path.basename(os.getenv('PWD')),
-             action=ValidatingAction,
-             help=_('package name for version(default from $PWD)'))
-@APP.cmd_arg('version_str', metavar='version', action=ValidatingAction,
-             help='set to a specific version')
+@cli.command(name='set', help=_('set version in given file'))
+@click.option('-d', '--display', 'display_format', default='dotted',
+              type=click.Choice(Version.display_types()),
+              help=_('display format for output'))
+@click.argument('filename', type=click.Path(dir_okay=False, writable=True,
+                resolve_path=True))
+@click.option('-t', '--type', 'file_type', default='text',
+              type=click.Choice(Version.filetypes),
+              help=_('define the file type used for version file'))
+@click.option('-n', '--name', default=os.path.basename(os.getenv('PWD')),
+              type=NameParamType(),
+              help=_('package name for version(default from $PWD)'))
+@click.argument('version_str', type=VersionParamType())
 def set_version(display_format, filename, file_type, name, version_str):
     """Set version in new or existing file.
 
@@ -638,8 +632,8 @@ def set_version(display_format, filename, file_type, name, version_str):
     except IOError:
         version = Version()
     except ValueError as error:
-        print(fail(error.args[0]))
-        return errno.EEXIST
+        fail(error.args[0])
+        return errno.EIO
 
     if name:
         version.name = name
@@ -647,10 +641,15 @@ def set_version(display_format, filename, file_type, name, version_str):
     version.set(version_str)
     version.write(filename, file_type)
 
-    print(success(version.display(display_format)))
+    success(version.display(display_format))
 
 
-@APP.cmd(help=_('display version in given file'), parents=[OPTIONS, ])
+@cli.command(help=_('display version in given file'))
+@click.option('-d', '--display', 'display_format', default='dotted',
+              type=click.Choice(Version.display_types()),
+              help=_('display format for output'))
+@click.argument('filename', type=click.Path(exists=True, dir_okay=False,
+                resolve_path=True))
 def display(display_format, filename):
     """Display version in existing file.
 
@@ -659,18 +658,8 @@ def display(display_format, filename):
     """
     try:
         version = Version.read(filename)
-    except IOError as error:
-        print(fail(error.args[1]))
-        return errno.EEXIST
     except ValueError as error:
-        print(fail(error.args[0]))
+        fail(error.args[0])
         return errno.EIO
 
-    print(success(version.display(display_format)))
-
-
-def main():
-    """Main script entry point."""
-    APP.arg('--version', action='version',
-            version='%%(prog)s %s' % _version.dotted)
-    return APP.run()
+    success(version.display(display_format))

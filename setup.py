@@ -51,8 +51,6 @@ try:
 except IOError:
     warn('Unsupported Python version please open an issue!', RuntimeWarning)
     install_requires = parse_requires('requirements.txt')
-colour_requires = map(str.strip,
-                      open('extra/requirements-colour.txt').readlines())
 
 setup(
     name='versionah',
@@ -70,12 +68,8 @@ setup(
         '': ['versionah/locale/*/LC_MESSAGES/*.mo',
              'versionah/templates/*.jinja', ],
     },
-    entry_points={'console_scripts': ['versionah = versionah:main', ]},
+    entry_points={'console_scripts': ['versionah = versionah:cli', ]},
     install_requires=install_requires,
-    extras_require={
-        'colour': colour_requires,
-        'color': colour_requires,
-    },
     zip_safe=False,
     classifiers=[
         'Development Status :: 5 - Production/Stable',

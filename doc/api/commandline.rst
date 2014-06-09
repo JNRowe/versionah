@@ -9,13 +9,14 @@ Command line
   `versionah`, and can be skipped if you are simply using the tool from the
   command line.
 
-.. autoclass:: ValidatingAction
+.. autoclass:: NameParamType
+.. autoclass:: VersionParamType
 
 .. autofunction:: guess_type
-.. autofunction:: bump_version
+.. autofunction:: bump
 .. autofunction:: set_version
 .. autofunction:: display
-.. autofunction:: main(argv=sys.argv)
+.. autofunction:: cli
 
 Examples
 --------
