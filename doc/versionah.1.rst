@@ -13,7 +13,7 @@ Version management made easy
 SYNOPSIS
 --------
 
-    versionah [option] <command> <filename> [command options]
+    versionah [OPTIONS] COMMAND [ARGS]...
 
 DESCRIPTION
 -----------
@@ -26,10 +26,10 @@ Options
 -------
 
 --version
-    show program's version number and exit
+    Show the version and exit.
 
 -h, --help
-    show this help message and exit
+    Show this message and exit.
 
 Commands
 --------
@@ -37,40 +37,46 @@ Commands
 ``bump``
 ''''''''
 
-Bump version in given file
+Bump version in given file.
 
 -d <format>, --display=<format>
-    display output in ``format``, where ``format`` is one of the list of
-    {date,dict,dotted,hex,libtool,tuple,web}
+    Display output in ``format``, where ``format`` is one of the list of
+    {date,dict,dotted,hex,libtool,tuple,web}.
 
 -t <mode>, --type=<mode>
-    define the file type used for version file.  Default is guessed based on
+    Define the file type used for version file.  Default is guessed based on
     file extension.
 
 --shtool
-    write shtool compatible output
+    Write shtool compatible output.
+
+<filename>
+    Name of the file to bump.
 
 <type>
-    bump ``type`` by one, where ``type`` is one of {major,minor,micro,patch}
+    Bump ``type`` by one, where ``type`` is one of {major,minor,micro,patch}.
 
 ``set``
 '''''''
 
-Set version in given file
+Set version in given file.
 
 -d <format>, --display=<format>
-    display output in ``format``, where ``format`` is one of the list of
-    {date,dict,dotted,hex,libtool,tuple,web}
+    Display output in ``format``, where ``format`` is one of the list of
+    {date,dict,dotted,hex,libtool,tuple,web}.
 
 -n <name>, --name=<name>
-    project name to use in output
+    Project name to use in output.
 
 -t <mode>, --type=<mode>
-    define the file type used for version file.  Default is guessed based on
+    Define the file type used for version file.  Default is guessed based on
     file extension.
 
+<filename>
+    Name of the file to set the version for.
+
 <version>
-    set to a specific version
+    Set to a specific version.
 
 ``display``
 '''''''''''
@@ -79,8 +85,11 @@ Display version in given file
 
 -d <format>, --display=<format>
 
-   display output in ``format``, where ``format`` is one of the list of
+   Display output in ``format``, where ``format`` is one of the list of
    {date,dict,dotted,hex,libtool,tuple,web}
+
+<filename>
+    Name of the file to display the version from.
 
 BUGS
 ----
