@@ -7,7 +7,7 @@ Initial setup
 The first time we run :command:`versionah` we must supply the initial version
 number, and optionally a name for the package:
 
-.. code-block:: console
+.. code:: console
 
     $ versionah set -t c src/version.h 0.2.0
     0.2.0
@@ -20,7 +20,7 @@ number, and optionally a name for the package:
 If your project currently uses make_ it is a simple task to add version bumping
 rules:
 
-.. code-block:: make
+.. code:: make
 
     $(addprefix version-, major minor micro):
         versionah bump src/version.h $(subst version-,, $@)
@@ -39,7 +39,7 @@ The above example makes it possible to call, for example,
 It is quite easy to use the versioning information for libtool_ build rules in
 make_ files:
 
-.. code-block:: make
+.. code:: make
 
     $(LIBRARY_NAME): $(LIBRARY_OBJS)
         $(LIBTOOL) --mode=link $(CC) -o $(LIBRARY_NAME) $(LIBRARY_OBJS) \

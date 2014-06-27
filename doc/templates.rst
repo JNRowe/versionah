@@ -70,7 +70,7 @@ custom timestamp output.  For example, ``{{ utcnow.strftime("%a, %e %b %Y
 
 The ``text`` display's template is simply:
 
-.. code-block:: jinja
+.. code:: jinja
 
     {{ magic }}
 
@@ -108,7 +108,7 @@ This filter applies a regular expression to a value, it is a thin wrapper around
 For example, it is used in the C template to make valid identifiers from
 ``filename`` by replacing invalid characters with underscores:
 
-.. code-block:: jinja
+.. code:: jinja
 
     {% set escaped_name = filename|upper|regexp("[^A-Z]", "_") %}
 

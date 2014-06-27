@@ -5,7 +5,7 @@ The :program:`versionah` script is the main workhorse of `versionah`.
 
 Let's start with some basic examples:
 
-.. code-block:: console
+.. code:: console
 
     $ versionah display _version.py  # Read the version data from _version.py
     2.4.3
