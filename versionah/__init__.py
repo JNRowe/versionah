@@ -569,80 +569,98 @@ def cli():
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(Version.display_types()),
               help=_('Display format for output.'))
-@click.option('-t', '--type', 'file_type', default='text',
+@click.option('-t', '--type', 'file_type', multiple=True,
               type=click.Choice(Version.filetypes),
               help=_('Define the file type used for version file.'))
 @click.option('--shtool/--no-shtool',
               help=_('Write shtool compatible output.'))
 @click.argument('filename', type=click.Path(exists=True, dir_okay=False,
-                writable=True, resolve_path=True))
+                writable=True, resolve_path=True), nargs=-1, required=True)
 @click.argument('bump',
                 type=click.Choice(['major', 'minor', 'micro', 'patch']))
 def bump(display_format, file_type, shtool, filename, bump):
     """Bump version in existing file.
 
     :param str display_format: Format to display output in
-    :param str filename: File to operate on
-    :param str file_type: File type to produce
+    :type filename: `tuple` of `str`
+    :param filename: File to operate on
+    :type file_type: `tuple` of `str`
+    :param file_type: File type to produce
     :param bool shtool: Write shtool_ compatible files
     :param str bump: Component to bump
 
     .. _shtool: http://www.gnu.org/software/shtool/shtool.html
     """
-    if not file_type:
-        file_type = guess_type(filename)
+    if file_type and len(file_type) != len(filename):
+        raise click.BadParameter('Number of --type options and filename args '
+                                 'must match!')
+    multi = len(filename) != 1
+    for ftype, fname in zip(file_type + (None, ) * len(filename), filename):
+        if not ftype:
+            ftype = guess_type(fname)
 
-    version = Version.read(filename)
+        version = Version.read(fname)
 
-    if not bump:
-        bump = VERSION_COMPS[len(version.components) - 1]
+        if not bump:
+            bump = VERSION_COMPS[len(version.components) - 1]
 
-    version.bump(bump)
-    version.write(filename, file_type, shtool)
+        version.bump(bump)
+        version.write(fname, ftype, shtool)
 
-    success(version.display(display_format))
+        if multi:
+            click.echo("%s: " % fname, nl=False)
+        success(version.display(display_format))
 
 
 @cli.command(name='set', help=_('Set version in given file.'))
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(Version.display_types()),
               help=_('Display format for output.'))
-@click.option('-t', '--type', 'file_type', default='text',
+@click.option('-t', '--type', 'file_type', multiple=True,
               type=click.Choice(Version.filetypes),
               help=_('Define the file type used for version file.'))
 @click.option('-n', '--name', default=os.path.basename(os.getenv('PWD')),
               type=NameParamType(),
               help=_('Package name for version(default from $PWD).'))
 @click.argument('filename', type=click.Path(dir_okay=False, writable=True,
-                resolve_path=True))
+                resolve_path=True), nargs=-1, required=True)
 @click.argument('version_str', type=VersionParamType())
 def set_version(display_format, file_type, name, filename, version_str):
     """Set version in new or existing file.
 
     :param str display_format: Format to display output in
-    :param str filename: File to operate on
-    :param str file_type: File type to produce
+    :type filename: `tuple` of `str`
+    :param filename: File to operate on
+    :type file_type: `tuple` of `str`
+    :param file_type: File type to produce
     :param str name: Project name used in output
     :param str version_str: Initial version string
     """
-    if not file_type:
-        file_type = guess_type(filename)
+    if file_type and len(file_type) != len(filename):
+        raise click.BadParameter('Number of --type options and filename args '
+                                 'must match!')
+    multi = len(filename) != 1
+    for ftype, fname in zip(file_type + (None, ) * len(filename), filename):
+        if not ftype:
+            ftype = guess_type(fname)
 
-    try:
-        version = Version.read(filename)
-    except IOError:
-        version = Version()
-    except ValueError as error:
-        fail(error.args[0])
-        return errno.EIO
+        try:
+            version = Version.read(fname)
+        except IOError:
+            version = Version()
+        except ValueError as error:
+            fail(error.args[0])
+            return errno.EIO
 
-    if name:
-        version.name = name
+        if name:
+            version.name = name
 
-    version.set(version_str)
-    version.write(filename, file_type)
+        version.set(version_str)
+        version.write(fname, ftype)
 
-    success(version.display(display_format))
+        if multi:
+            click.echo("%s: " % fname, nl=False)
+        success(version.display(display_format))
 
 
 @cli.command(help=_('Display version in given file.'))
@@ -650,17 +668,22 @@ def set_version(display_format, file_type, name, filename, version_str):
               type=click.Choice(Version.display_types()),
               help=_('Display format for output.'))
 @click.argument('filename', type=click.Path(exists=True, dir_okay=False,
-                resolve_path=True))
+                resolve_path=True), nargs=-1, required=True)
 def display(display_format, filename):
     """Display version in existing file.
 
     :param str display_format: Format to display output in
-    :param str filename: File to operate on
+    :type filename: `tuple` of `str`
+    :param filename: File to operate on
     """
-    try:
-        version = Version.read(filename)
-    except ValueError as error:
-        fail(error.args[0])
-        return errno.EIO
+    multi = len(filename) != 1
+    for fname in filename:
+        try:
+            version = Version.read(fname)
+        except ValueError as error:
+            fail(error.args[0])
+            return errno.EIO
 
-    success(version.display(display_format))
+        if multi:
+            click.echo("%s: " % fname, nl=False)
+        success(version.display(display_format))

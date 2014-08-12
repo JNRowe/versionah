@@ -48,7 +48,8 @@ Commands
 .. option:: -t <mode>, --type=<mode>
 
    Define the file type used for version file.  Default is guessed based on
-   file extension.
+   file extension.  This option can be specified multiple times when processing
+   multiple files.
 
 .. option:: --shtool
 
@@ -71,7 +72,8 @@ Commands
 .. option:: -t <mode>, --type=<mode>
 
    Define the file type used for version file.  Default is guessed based on
-   file extension.
+   file extension.  This option can be specified multiple times when processing
+   multiple files.
 
 ``display`` - Display version in given file
 '''''''''''''''''''''''''''''''''''''''''''
