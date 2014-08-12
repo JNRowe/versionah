@@ -1,0 +1,12 @@
+-- {{ magic }}
+version = "{{ dotted }}"
+
+{
+    dotted: "{{ dotted }}",
+    libtool: "{{ libtool }}",
+    hex: {{ hex }},
+    date: "{{ date }}",
+    table: {{ "{" }}major: {{ major }}, minor: {{ minor }}, micro: {{ micro }}
+    {%- if patch %}, patch: {{ patch}}{% endif -%}{{ "}" }},
+    web: "{{ web }}",
+}
