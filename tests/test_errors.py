@@ -21,7 +21,8 @@ from click import BadParameter
 from expecter import expect
 from nose2.tools import params
 
-from versionah import (NameParamType, Version, VersionParamType)
+from versionah.cmdline import (CliVersion, NameParamType, VersionParamType)
+from versionah.models import Version
 
 
 @params(
@@ -68,7 +69,7 @@ def test_version_bump_invalid_type_name():
 def test_version_read_no_identifier():
     with expect.raises(ValueError,
                        "No valid version identifier in 'setup.py'"):
-        Version.read('setup.py')
+        CliVersion.read('setup.py')
 
 
 @params(

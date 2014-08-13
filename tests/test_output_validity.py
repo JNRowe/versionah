@@ -23,7 +23,7 @@ from subprocess import (call, PIPE)
 from expecter import expect
 from nose2.tools import params
 
-from versionah import (Version, guess_type)
+from versionah.cmdline import (CliVersion, guess_type)
 
 from tests.utils import (execute_tag, write_tag)
 
@@ -38,7 +38,7 @@ from tests.utils import (execute_tag, write_tag)
 @execute_tag
 def test_output_validatity(v, filename, linter):
     file_type = guess_type(filename)
-    Version(v).write('tests/data/%s' % filename, file_type)
+    CliVersion(v).write('tests/data/%s' % filename, file_type)
     retval = call(linter.split() + ['tests/data/%s' % filename, ],
                   stdout=PIPE, stderr=PIPE)
     expect(retval) == 0

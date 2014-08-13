@@ -68,7 +68,7 @@ setup(
         '': ['versionah/locale/*/LC_MESSAGES/*.mo',
              'versionah/templates/*.jinja', ],
     },
-    entry_points={'console_scripts': ['versionah = versionah:cli', ]},
+    entry_points={'console_scripts': ['versionah = versionah.cmdline:cli', ]},
     install_requires=install_requires,
     zip_safe=False,
     classifiers=[

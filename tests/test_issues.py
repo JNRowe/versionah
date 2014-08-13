@@ -19,7 +19,7 @@
 
 from expecter import expect
 
-from versionah import NameParamType
+from versionah.cmdline import NameParamType
 
 
 def test_8_python_namespace_packages():

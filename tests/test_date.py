@@ -23,7 +23,7 @@ from os import unlink
 from expecter import expect
 from nose2.tools import params
 
-from versionah import Version
+from versionah.cmdline import CliVersion
 
 from tests.utils import write_tag
 
@@ -35,8 +35,8 @@ from tests.utils import write_tag
 )
 @write_tag
 def test_date_metadata(v, file):
-    Version(v).write('tests/data/%s' % file, 'text')
-    read = Version.read('tests/data/%s' % file)
+    CliVersion(v).write('tests/data/%s' % file, 'text')
+    read = CliVersion.read('tests/data/%s' % file)
     expect(read.as_date()) == date.today().isoformat()
     # Don't wrap in try/finally, so we can inspect if we get failures
     unlink('tests/data/%s' % file)

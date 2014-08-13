@@ -20,7 +20,7 @@
 from expecter import expect
 from nose2.tools import params
 
-from versionah import guess_type
+from versionah.cmdline import guess_type
 
 
 @params(

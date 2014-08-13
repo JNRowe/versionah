@@ -1,4 +1,4 @@
-.. currentmodule:: versionah
+.. currentmodule:: versionah.utils
 
 Utilities
 =========
@@ -9,8 +9,6 @@ Utilities
   `versionah`, and can be skipped if you are simply using the tool from the
   command line.
 
-.. autodata:: STR_TYPE
-
 The following three functions are defined for purely cosmetic reasons, as they
 make the calling points easier to read.
 
@@ -20,14 +18,12 @@ make the calling points easier to read.
 
 .. autofunction:: warn
 
-.. autofunction:: split_version
-
 Examples
 --------
 
 .. testsetup::
 
-    from versionah import (fail, success, split_version)
+    from versionah.utils import (fail, success)
 
 Output formatting
 '''''''''''''''''
@@ -36,15 +32,3 @@ Output formatting
     u'\x1b[38;5;10mwell done!\x1b[m\x1b(B'
     >>> fail('unlucky!')  # doctest: +SKIP
     u'\x1b[38;5;9munlucky!\x1b[m\x1b(B'
-
-Version string parsing
-''''''''''''''''''''''
-
-    >>> split_version('4.3.0')
-    (4, 3, 0)
-    >>> split_version('4.3.0.1')
-    (4, 3, 0, 1)
-    >>> split_version('4.3.0.1.3')
-    Traceback (most recent call last):
-        ...
-    ValueError: Invalid version string '4.3.0.1.3'

@@ -23,7 +23,7 @@ from subprocess import (call, PIPE)
 from expecter import expect
 from nose2.tools import params
 
-from versionah import Version
+from versionah.cmdline import CliVersion
 
 from tests.utils import (execute_tag, notravis_tag, write_tag)
 
@@ -37,7 +37,7 @@ from tests.utils import (execute_tag, notravis_tag, write_tag)
 @write_tag
 @execute_tag
 def test_python_compatibility(interp):
-    Version('1.0.1').write('tests/data/test_wr.py', 'py')
+    CliVersion('1.0.1').write('tests/data/test_wr.py', 'py')
     retval = call([interp, '-W', 'all', 'tests/data/test_wr.py'],
                   stdout=PIPE, stderr=PIPE)
     expect(retval) == 0

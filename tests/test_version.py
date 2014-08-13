@@ -22,7 +22,8 @@ from datetime import date
 from expecter import expect
 from nose2.tools import params
 
-from versionah import Version
+from versionah.cmdline import CliVersion
+from versionah.models import Version
 
 
 @params(
@@ -58,5 +59,5 @@ def test_version_bump(bump_type, expected):
     ('web', 'unknown/0.1.0'),
 )
 def test_version_display(display_type, expected):
-    v = Version(date=date(2012, 5, 11))
+    v = CliVersion(date=date(2012, 5, 11))
     expect(v.display(display_type)) == expected
