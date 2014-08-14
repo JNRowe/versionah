@@ -17,15 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from os import unlink
 from subprocess import (call, PIPE)
 
-from expecter import expect
 from nose2.tools import params
 
 from versionah.cmdline import (CliVersion, guess_type)
 
-from tests.utils import (execute_tag, write_tag)
+from tests.utils import (execute_tag, expect_from_data, tempdir, write_tag)
 
 
 @params(
@@ -38,9 +36,8 @@ from tests.utils import (execute_tag, write_tag)
 @execute_tag
 def test_output_validatity(v, filename, linter):
     file_type = guess_type(filename)
-    CliVersion(v).write('tests/data/%s' % filename, file_type)
-    retval = call(linter.split() + ['tests/data/%s' % filename, ],
-                  stdout=PIPE, stderr=PIPE)
-    expect(retval) == 0
-    # Don't wrap in try/finally, so we can inspect if we get failures
-    unlink('tests/data/%s' % filename)
+    with tempdir():
+        CliVersion(v).write(filename, file_type)
+        retval = call(linter.split() + [filename, ],
+                      stdout=PIPE, stderr=PIPE)
+        expect_from_data(filename, retval, 0)

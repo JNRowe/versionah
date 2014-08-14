@@ -17,15 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from os import unlink
 from subprocess import (call, PIPE)
 
-from expecter import expect
 from nose2.tools import params
 
 from versionah.cmdline import CliVersion
 
-from tests.utils import (execute_tag, notravis_tag, write_tag)
+from tests.utils import (execute_tag, expect_from_data, notravis_tag, tempdir,
+                         write_tag)
 
 
 @params(
@@ -37,12 +36,11 @@ from tests.utils import (execute_tag, notravis_tag, write_tag)
 @write_tag
 @execute_tag
 def test_python_compatibility(interp):
-    CliVersion('1.0.1').write('tests/data/test_wr.py', 'py')
-    retval = call([interp, '-W', 'all', 'tests/data/test_wr.py'],
-                  stdout=PIPE, stderr=PIPE)
-    expect(retval) == 0
-    # Don't wrap in try/finally, so we can inspect if we get failures
-    unlink('tests/data/test_wr.py')
+    with tempdir():
+        CliVersion('1.0.1').write('test_wr.py', 'py')
+        retval = call([interp, '-W', 'all', 'test_wr.py'], stdout=PIPE,
+                      stderr=PIPE)
+        expect_from_data('test_wr.py', retval, 0)
 
 
 # Test interps not available on travis-ci.org, but available on all our test
