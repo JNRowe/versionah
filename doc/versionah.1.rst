@@ -51,6 +51,10 @@ Bump version in given file.
 --shtool
     Write shtool compatible output.
 
+--vcs
+
+    Commit version and create tag.
+
 <filename>
     Name of the file to bump.
 
@@ -73,6 +77,10 @@ Set version in given file.
     Define the file type used for version file.  Default is guessed based on
     file extension.  This option can be specified multiple times when
     processing multiple files.
+
+--vcs
+
+    Commit version and create tag.
 
 <filename>
     Name of the file to set the version for.

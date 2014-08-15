@@ -25,6 +25,8 @@ import os
 import re
 import sys
 
+from functools import wraps
+
 import jinja2
 import click
 
@@ -33,6 +35,7 @@ from .models import (MONTHS, VALID_DATE, VALID_PACKAGE, VALID_VERSION,
                      VERSION_COMPS, split_version)
 from .models import Version
 from .utils import (FILTERS, fail, success)
+from .vcs import SUPPORTED_VCS
 
 
 class ReMatchParamType(click.ParamType):
@@ -188,6 +191,46 @@ def guess_type(filename):
     return file_type
 
 
+def guess_vcs():
+    """Guess VCS type from directory.
+
+    :rtype: vcs.VCS
+    :return: Valid VCS type for current directory
+    """
+    repo = None
+    for _, vcs_type in SUPPORTED_VCS.items():
+        try:
+            vcs_type.validate()
+        except IOError as e:
+            if e.errno == 1:
+                raise click.UsageError(e.args[1])
+        else:
+            repo = vcs_type
+    if not repo:
+        raise click.BadParameter('No supported VCS in this directory')
+    return repo
+
+
+def vcs_wrap(f):
+    """Decorator to commit changes to version control
+
+    ..note:: This is about reduction of duplication, not prettiness.
+
+    :param func f: Function to wrap
+    """
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if kwargs['vcs']:
+            repo = guess_vcs()
+        version = f(*args, **kwargs)
+        if kwargs['vcs']:
+            repo.add(kwargs['filename'])
+            repo.commit(kwargs['filename'],
+                        message="%s released" % version)
+            repo.tag('v%s' % version.as_dotted(), "%s released" % version)
+    return wrapper
+
+
 @click.group(help=_('A tool to manage project version files.'),
              epilog=_('Please report bugs to '
                       'https://github.com/JNRowe/versionah/issues'))
@@ -206,11 +249,14 @@ def cli():
               help=_('Define the file type used for version file.'))
 @click.option('--shtool/--no-shtool',
               help=_('Write shtool compatible output.'))
+@click.option('--vcs/--no-vcs',
+              help=_('Commit version and create tag.'))
 @click.argument('filename', type=click.Path(exists=True, dir_okay=False,
                 writable=True, resolve_path=True), nargs=-1, required=True)
 @click.argument('bump',
                 type=click.Choice(['major', 'minor', 'micro', 'patch']))
-def bump(display_format, file_type, shtool, filename, bump):
+@vcs_wrap
+def bump(display_format, file_type, shtool, vcs, filename, bump):
     """Bump version in existing file.
 
     :param str display_format: Format to display output in
@@ -219,6 +265,7 @@ def bump(display_format, file_type, shtool, filename, bump):
     :type file_type: `tuple` of `str`
     :param file_type: File type to produce
     :param bool shtool: Write shtool_ compatible files
+    :param bool vcs: Tag release in version control
     :param str bump: Component to bump
 
     .. _shtool: http://www.gnu.org/software/shtool/shtool.html
@@ -242,6 +289,7 @@ def bump(display_format, file_type, shtool, filename, bump):
         if multi:
             click.echo("%s: " % fname, nl=False)
         success(version.display(display_format))
+    return version
 
 
 @cli.command(name='set', help=_('Set version in given file.'))
@@ -254,10 +302,13 @@ def bump(display_format, file_type, shtool, filename, bump):
 @click.option('-n', '--name', default=os.path.basename(os.getenv('PWD')),
               type=NameParamType(),
               help=_('Package name for version(default from $PWD).'))
+@click.option('--vcs/--no-vcs',
+              help=_('Commit version and create tag.'))
 @click.argument('filename', type=click.Path(dir_okay=False, writable=True,
                 resolve_path=True), nargs=-1, required=True)
 @click.argument('version_str', type=VersionParamType())
-def set_version(display_format, file_type, name, filename, version_str):
+@vcs_wrap
+def set_version(display_format, file_type, name, vcs, filename, version_str):
     """Set version in new or existing file.
 
     :param str display_format: Format to display output in
@@ -266,6 +317,7 @@ def set_version(display_format, file_type, name, filename, version_str):
     :type file_type: `tuple` of `str`
     :param file_type: File type to produce
     :param str name: Project name used in output
+    :param bool vcs: Tag release in version control
     :param str version_str: Initial version string
     """
     if file_type and len(file_type) != len(filename):
@@ -293,6 +345,7 @@ def set_version(display_format, file_type, name, filename, version_str):
         if multi:
             click.echo("%s: " % fname, nl=False)
         success(version.display(display_format))
+    return version
 
 
 @cli.command(help=_('Display version in given file.'))

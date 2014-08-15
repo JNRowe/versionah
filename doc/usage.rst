@@ -55,6 +55,10 @@ Commands
 
    Write shtool compatible output.
 
+.. option:: --vcs
+
+   Commit version and create tag.
+
 ``set`` - Set version in given file
 '''''''''''''''''''''''''''''''''''
 
@@ -74,6 +78,10 @@ Commands
    Define the file type used for version file.  Default is guessed based on
    file extension.  This option can be specified multiple times when processing
    multiple files.
+
+.. option:: --vcs
+
+   Commit version and create tag.
 
 ``display`` - Display version in given file
 '''''''''''''''''''''''''''''''''''''''''''

@@ -1,3 +1,4 @@
 -r requirements-base.txt
 Jinja2>=2.4
 click
+sh>=1.09
