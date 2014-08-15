@@ -16,3 +16,4 @@ API documentation
    commandline
    models
    utils
+   vcs
