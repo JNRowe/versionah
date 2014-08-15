@@ -60,3 +60,8 @@ def test_version_bump(bump_type, expected):
 def test_version_display(display_type, expected):
     v = Version(date=date(2012, 5, 11))
     expect(v.display(display_type)) == expected
+
+
+def test_default_date():
+    v = Version()
+    expect(v.display('date')) == str(date.today())
