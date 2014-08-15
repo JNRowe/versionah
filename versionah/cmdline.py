@@ -251,13 +251,15 @@ def bump(display_format, file_type, shtool, filename, bump):
 @click.option('-t', '--type', 'file_type', multiple=True,
               type=click.Choice(CliVersion.filetypes),
               help=_('Define the file type used for version file.'))
+@click.option('--shtool/--no-shtool',
+              help=_('Write shtool compatible output.'))
 @click.option('-n', '--name', default=os.path.basename(os.getenv('PWD')),
               type=NameParamType(),
               help=_('Package name for version(default from $PWD).'))
 @click.argument('filename', type=click.Path(dir_okay=False, writable=True,
                 resolve_path=True), nargs=-1, required=True)
 @click.argument('version_str', type=VersionParamType())
-def set_version(display_format, file_type, name, filename, version_str):
+def set_version(display_format, file_type, shtool, name, filename, version_str):
     """Set version in new or existing file.
 
     :param str display_format: Format to display output in
@@ -265,8 +267,11 @@ def set_version(display_format, file_type, name, filename, version_str):
     :param filename: File to operate on
     :type file_type: `tuple` of `str`
     :param file_type: File type to produce
+    :param bool shtool: Write shtool_ compatible files
     :param str name: Project name used in output
     :param str version_str: Initial version string
+
+    .. _shtool: http://www.gnu.org/software/shtool/shtool.html
     """
     if file_type and len(file_type) != len(filename):
         raise click.BadParameter('Number of --type options and filename args '
@@ -288,7 +293,7 @@ def set_version(display_format, file_type, name, filename, version_str):
             version.name = name
 
         version.set(version_str)
-        version.write(fname, ftype)
+        version.write(fname, ftype, shtool)
 
         if multi:
             click.echo("%s: " % fname, nl=False)
