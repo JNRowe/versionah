@@ -21,7 +21,7 @@ from datetime import date
 from expecter import expect
 from nose2.tools import params
 
-from versionah import Version
+from versionah.models import Version
 
 
 @params(

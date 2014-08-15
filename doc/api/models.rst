@@ -1,4 +1,4 @@
-.. currentmodule:: versionah
+.. currentmodule:: versionah.models
 
 ``Version``
 ===========
@@ -9,12 +9,16 @@
   `versionah`, and can be skipped if you are simply using the tool from the
   command line.
 
+.. autodata:: STR_TYPE
+
 .. autodata:: VALID_PACKAGE
 .. autodata:: VALID_VERSION
 .. autodata:: VALID_DATE
 .. autodata:: VERSION_COMPS
 
 .. autoclass:: Version(components=(0, 1, 0), name='unknown', date=datetime.today())
+
+.. autofunction:: split_version
 
 Examples
 --------
@@ -23,26 +27,7 @@ Examples
 
     import datetime
 
-    from versionah import Version
-
-Reading version data from a file
-''''''''''''''''''''''''''''''''
-
-    >>> Version.read('tests/data/test_a')
-    Version((0, 1, 0), 'test', datetime.date(2011, 2, 19))
-    >>> Version.read('tests/data/test_b')
-    Version((1, 0, 0), 'test', datetime.date(2011, 2, 19))
-    >>> Version.read('tests/data/test_c')
-    Version((2, 1, 3), 'test', datetime.date(2011, 2, 19))
-
-
-Writing version date to a file
-''''''''''''''''''''''''''''''
-
-    >>> v = Version((0, 1, 0), 'test', datetime.date(2011, 2, 19))
-    >>> v.write('test_data.python', 'py')  # doctest: +SKIP
-    >>> v.write('test_data.hh', 'h')  # doctest: +SKIP
-    >>> v.write('test_data.m4', 'm4')  # doctest: +SKIP
+    from versionah.models import (Version, split_version)
 
 Bumping a version component
 '''''''''''''''''''''''''''
@@ -57,3 +42,15 @@ Bumping a version component
     >>> v.bump_major()
     >>> v.components
     (2, 0, 0)
+
+Version string parsing
+''''''''''''''''''''''
+
+    >>> split_version('4.3.0')
+    (4, 3, 0)
+    >>> split_version('4.3.0.1')
+    (4, 3, 0, 1)
+    >>> split_version('4.3.0.1.3')
+    Traceback (most recent call last):
+        ...
+    ValueError: Invalid version string '4.3.0.1.3'

@@ -1,4 +1,4 @@
-.. currentmodule:: versionah
+.. currentmodule:: versionah.utils
 
 Jinja filters
 =============
@@ -26,7 +26,7 @@ Examples
 
     import re
 
-    from versionah import filter_regexp
+    from versionah.utils import filter_regexp
 
 .. doctest::
 

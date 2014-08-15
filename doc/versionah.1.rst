@@ -74,6 +74,9 @@ Set version in given file.
     file extension.  This option can be specified multiple times when
     processing multiple files.
 
+--shtool
+    Write shtool compatible output.
+
 <filename>
     Name of the file to set the version for.
 

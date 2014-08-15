@@ -12,7 +12,7 @@ API documentation
 .. toctree::
    :maxdepth: 2
 
-   Version
    filters
    commandline
+   models
    utils

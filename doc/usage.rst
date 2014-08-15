@@ -75,6 +75,10 @@ Commands
    file extension.  This option can be specified multiple times when processing
    multiple files.
 
+.. option:: --shtool
+
+   Write shtool compatible output.
+
 ``display`` - Display version in given file
 '''''''''''''''''''''''''''''''''''''''''''
 

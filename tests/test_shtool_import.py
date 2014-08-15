@@ -20,7 +20,7 @@
 from expecter import expect
 from nose2.tools import params
 
-from versionah import Version
+from versionah.cmdline import CliVersion
 
 from tests.utils import read_tag
 
@@ -34,5 +34,5 @@ from tests.utils import read_tag
 )
 @read_tag
 def test_read_shtool_files(file, expected):
-    v = Version.read('tests/data/%s' % file)
+    v = CliVersion.read('tests/data/%s' % file)
     expect(v.as_dotted()) == expected

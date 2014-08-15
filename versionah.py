@@ -19,7 +19,7 @@
 
 import sys
 
-import versionah
+from versionah import cmdline
 
 
-sys.exit(versionah.cli())
+sys.exit(cmdline.cli())

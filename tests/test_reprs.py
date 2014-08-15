@@ -21,7 +21,7 @@ from datetime import date
 
 from expecter import expect
 
-from versionah import Version
+from versionah.models import Version
 
 
 TODAY = date.today()
