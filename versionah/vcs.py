@@ -147,5 +147,5 @@ SUPPORTED_VCS = {}
 for t in VCS.__subclasses__():
     try:
         SUPPORTED_VCS[getattr(t, 'cmd_name', t.__name__.lower())] = t()
-    except CommandNotFound:
+    except OSError:
         pass
