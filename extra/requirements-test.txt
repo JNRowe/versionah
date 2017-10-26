@@ -2,3 +2,4 @@
 docutils>=0.7
 mock>=1.0.0
 pytest>=3.2
+pytest-cov>=1.8
