@@ -83,8 +83,8 @@ class VCS:
 class Git(VCS):
     def validate(self, *, allow_modified=False):
         if not isdir('.git'):
-            raise IOError(errno.ENOTDIR,
-                          'Current directory is not a git repository', '.git')
+            raise NotADirectoryError('Current directory is not a git '
+                                     'repository')
 
         if allow_modified:
             return
@@ -105,9 +105,8 @@ class Mercurial(VCS):
 
     def validate(self, *, allow_modified=False):
         if not isdir('.hg'):
-            raise IOError(errno.ENOTDIR,
-                          'Current directory is not a mercurial repository',
-                          '.hg')
+            raise NotADirectoryError('Current directory is not a mercurial '
+                                     'repository')
 
         if allow_modified:
             return
@@ -128,9 +127,8 @@ class Fossil(VCS):
         # This is an ``isfile`` check raising a directory error, but fossil is
         # the odd one out here so we'll paper over that.
         if not isfile('.fslckout'):
-            raise IOError(errno.ENOTDIR,
-                          'Current directory is not a fossil local tree',
-                          '.fslckout')
+            raise NotADirectoryError('Current directory is not a fossil local '
+                                     'tree')
 
         if allow_modified:
             return
