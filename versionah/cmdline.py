@@ -204,7 +204,7 @@ def guess_vcs():
         vcs.VCS: Valid VCS type for current directory
     """
     repo = None
-    for _, vcs_type in SUPPORTED_VCS.items():
+    for vcs_type in SUPPORTED_VCS.values():
         try:
             vcs_type.validate()
         except IOError as e:

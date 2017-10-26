@@ -64,4 +64,4 @@ def filter_regexp(string, pattern, repl, count=0, flags=0):
         # one.  Once 2.6 support disappears, so can this
         match = re.compile(pattern, flags=flags)
         return match.sub(repl, string, count)
-FILTERS['regexp'] = filter_regexp
+FILTERS['regexp'] = filter_regexp  # NOQA: E305

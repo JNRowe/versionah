@@ -1,6 +1,9 @@
 #! /usr/bin/env python
 # coding=utf-8
-"""docrunner - Execute shell tests"""
+"""docrunner - Execute shell tests.
+
+Run shell examples in reST literal blocks.
+"""
 # Copyright © 2011-2015  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of versionah.
@@ -16,10 +19,6 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
-
-__doc__ += """.
-
-Run shell examples in reST literal blocks."""
 
 import doctest
 import sys
