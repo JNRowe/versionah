@@ -20,7 +20,7 @@
 from click import BadParameter
 from pytest import mark, raises
 
-from versionah.cmdline import (CliVersion, NameParamType, VersionParamType)
+from versionah.cmdline import CliVersion, NameParamType, VersionParamType
 from versionah.models import Version
 
 

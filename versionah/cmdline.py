@@ -16,8 +16,6 @@
 # You should have received a copy of the GNU General Public License along with
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
-from . import _version
-
 import datetime
 import errno
 import os
@@ -26,14 +24,14 @@ import sys
 
 from functools import wraps
 
-import jinja2
 import click
+import jinja2
 
+from . import _version
 from .i18n import _
 from .models import (MONTHS, VALID_DATE, VALID_PACKAGE, VALID_VERSION,
-                     VERSION_COMPS, split_version)
-from .models import Version
-from .utils import (FILTERS, fail, success)
+                     VERSION_COMPS, Version, split_version)
+from .utils import FILTERS, fail, success
 from .vcs import SUPPORTED_VCS
 
 
