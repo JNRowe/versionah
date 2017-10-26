@@ -39,6 +39,7 @@ from .vcs import SUPPORTED_VCS
 
 
 class ReMatchParamType(click.ParamType):
+
     """Regular expression based parameter matcher"""
 
     def __init__(self):
@@ -64,12 +65,16 @@ class ReMatchParamType(click.ParamType):
 
 
 class NameParamType(ReMatchParamType):
+
     """Name parameter handler."""
+
     matcher = VALID_PACKAGE
 
 
 class VersionParamType(ReMatchParamType):
+
     """Version parameter handler."""
+
     matcher = VALID_VERSION
 
 
