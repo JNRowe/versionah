@@ -69,8 +69,8 @@ class Version:
         Returns:
             str: String representation of object
         """
-        return '%s(%r, %r, %r)' % (self.__class__.__name__, self.components,
-                                   self.name, self.date)
+        return '%s(%r, %r, %r)' % (self.__class__.__qualname__,
+                                   self.components, self.name, self.date)
 
     def __str__(self):
         """Return default string representation.

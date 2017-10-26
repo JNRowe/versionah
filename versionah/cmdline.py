@@ -43,7 +43,7 @@ class ReMatchParamType(click.ParamType):
     def __init__(self):
         super(ReMatchParamType, self).__init__()
         # Set name to "<value>ParamType"
-        self.name = self.__class__.__name__[:-9].lower()
+        self.name = self.__class__.__qualname__[:-9].lower()
 
     def convert(self, value, param, ctx):
         """Check given name is valid.
