@@ -18,6 +18,7 @@
 
 import errno
 
+from contextlib import suppress
 from os.path import (isdir, isfile)
 
 from sh import (CommandNotFound, Command)
@@ -147,7 +148,5 @@ class Fossil(VCS):
 SUPPORTED_VCS = {}
 
 for t in VCS.__subclasses__():
-    try:
+    with suppress(OSError):
         SUPPORTED_VCS[getattr(t, 'cmd_name', t.__name__.lower())] = t()
-    except OSError:
-        pass

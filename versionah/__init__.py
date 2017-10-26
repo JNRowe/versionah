@@ -28,9 +28,9 @@ __version__ = _version.dotted
 __date__ = _version.date
 __copyright__ = 'Copyright (C) 2011-2015  James Rowe <jnrowe@gmail.com>'
 
+from contextlib import suppress
+
 # This is here to workaround UserWarning messages caused by path fiddling in
 # dependencies
-try:
+with suppress(ImportError):
     import pkg_resources  # NOQA
-except ImportError:
-    pass

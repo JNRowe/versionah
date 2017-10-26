@@ -19,6 +19,7 @@
 import os
 import sys
 
+from contextlib import suppress
 from subprocess import (CalledProcessError, check_output)
 
 root_dir = os.path.dirname(os.path.dirname(__file__))
@@ -54,13 +55,11 @@ release = versionah._version.dotted
 default_role = 'py:obj'
 
 pygments_style = 'sphinx'
-try:
+with suppress(CalledProcessError):
     html_last_updated_fmt = check_output(['git', 'log',
                                           "--pretty=format:'%ad [%h]'",
                                           '--date=short', '-n1'],
                                          encoding='ascii')
-except CalledProcessError:
-    pass
 
 man_pages = [
     ('versionah.1', 'versionah', u'versionah Documentation',
