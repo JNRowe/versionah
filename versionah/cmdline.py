@@ -94,8 +94,11 @@ class CliVersion(Version):
     for directory in system_dirs:
         pkg_data_dirs.append(mk_data_dir(directory))
 
-    env = jinja2.Environment(loader=jinja2.ChoiceLoader(
-        [jinja2.FileSystemLoader(s) for s in pkg_data_dirs]))
+    env = jinja2.Environment(
+        autoescape=jinja2.select_autoescape(['html', 'xml']),
+        loader=jinja2.ChoiceLoader([jinja2.FileSystemLoader(s)
+                                    for s in pkg_data_dirs])
+    )
     env.loader.loaders.append(jinja2.PackageLoader('versionah', 'templates'))
     env.filters.update(FILTERS)
     filetypes = [s.split('.')[0] for s in env.list_templates()]
