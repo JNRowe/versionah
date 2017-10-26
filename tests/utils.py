@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """utils - Testing utilities"""
 # Copyright © 2012-2017  James Rowe <jnrowe@gmail.com>
 #                        Marc Abramowitz <marc@marc-abramowitz.com>

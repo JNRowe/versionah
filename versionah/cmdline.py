@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """cmdline - Command line functionality for versionah"""
 # Copyright © 2014-2015  James Rowe <jnrowe@gmail.com>
 #

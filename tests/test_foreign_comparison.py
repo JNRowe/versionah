@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_foreign_comparison - Foreign comparison tests"""
 # Copyright © 2012-2017  James Rowe <jnrowe@gmail.com>
 #

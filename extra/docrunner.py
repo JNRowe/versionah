@@ -1,5 +1,4 @@
 #! /usr/bin/env python3
-# coding=utf-8
 """docrunner - Execute shell tests"""
 # Copyright © 2011-2015  James Rowe <jnrowe@gmail.com>
 #

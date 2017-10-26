@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-#  coding=utf-8
 """versionah - Simple version specification management"""
 # Copyright © 2011-2015  James Rowe <jnrowe@gmail.com>
 #

@@ -1,5 +1,4 @@
 #compdef versionah versionah.py
-# coding=utf-8
 # versionah - ZSH completion support for versionah
 # Copyright © 2012-2015  James Rowe <jnrowe@gmail.com>
 #

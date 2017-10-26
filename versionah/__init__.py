@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """versionah - Simple version specification management
 
 versionah is a GPL v3 licensed module for maintaining version information files

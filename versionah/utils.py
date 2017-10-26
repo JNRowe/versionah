@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """utils - Utility functions for versionah"""
 # Copyright © 2014-2015  James Rowe <jnrowe@gmail.com>
 #

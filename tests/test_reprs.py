@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_reprs - String representation tests"""
 # Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
 #

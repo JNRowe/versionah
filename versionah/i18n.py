@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """i18n - internationalisation support for versionah"""
 # Copyright © 2011-2015  James Rowe <jnrowe@gmail.com>
 #
