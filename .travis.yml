@@ -22,7 +22,7 @@ install:
   - pip install --quiet -r extra/requirements-doc.txt
   - pip install --quiet .
 script:
-  - nose2 -A '!no_travis' tests
+  - pytest tests
   - export BUILD_DIR=${PWD}/build/sphinx
   - if [[ "${SPHINX_DOCTEST}" != false ]]; then
       sphinx-build -W -b doctest -d ${BUILD_DIR}/doctrees doc

@@ -7,7 +7,6 @@ include extra/_versionah
 include extra/doap.rdf
 include extra/docrunner.py
 include extra/requirements*.txt
-include nose2.cfg
 include tests/data/shtool/test.*
 include tests/data/test_[a-z]
 include tests/*.py
