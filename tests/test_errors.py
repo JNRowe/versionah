@@ -30,7 +30,8 @@ from versionah.models import Version
 ])
 def test_version_init_invalid_count(components):
     with raises(ValueError,
-                message='Invalid number of components in %r' % components):
+                message='Invalid number of components in {!r}'.format(
+                    components)):
         Version(components)
 
 
@@ -40,7 +41,7 @@ def test_version_init_invalid_count(components):
 ])
 def test_version_init_invalid_component_type(components):
     with raises(ValueError,
-                message='Invalid component values in %r' % components):
+                message='Invalid component values in {!r}'.format(components)):
         Version(components)
 
 
@@ -76,7 +77,7 @@ def test_version_read_no_identifier():
 ])
 def test_process_command_line_invalid_package_name(name):
     p = NameParamType()
-    with raises(BadParameter, match="'%s'" % name):
+    with raises(BadParameter, match="'{}'".format(name)):
         p.convert(name, None, None)
 
 

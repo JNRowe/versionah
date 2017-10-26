@@ -37,7 +37,7 @@ from tests.utils import expect_from_data
 ])
 def test_python_compatibility(interp, tmpdir):
     if not which(interp):
-        skip('Interpreter %r unavailable')
+        skip('Interpreter {!r} unavailable'.format(interp))
     CliVersion('1.0.1').write('test_wr.py', 'py')
     retval = call([interp, '-W', 'all', 'test_wr.py'], stdout=PIPE,
                   stderr=PIPE)
@@ -57,5 +57,5 @@ def test_python_compatibility(interp, tmpdir):
 ])
 def test_python_compatibility_extra(interp):
     if not which(interp):
-        skip('Interpreter %r unavailable')
+        skip('Interpreter {!r} unavailable'.format(interp))
     test_python_compatibility(interp)

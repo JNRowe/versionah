@@ -28,10 +28,10 @@ sys.path.insert(0, root_dir)
 import versionah  # NOQA: E402
 
 extensions = \
-    ['sphinx.ext.%s' % ext for ext in ['autodoc', 'coverage', 'doctest',
-                                       'intersphinx', 'napoleon',
-                                       'viewcode']] + \
-    ['sphinxcontrib.%s' % ext for ext in []]
+    ['sphinx.ext.{}'.format(ext)
+     for ext in ['autodoc', 'coverage', 'doctest', 'intersphinx', 'napoleon',
+                'viewcode']] + \
+    ['sphinxcontrib.{}'.format(ext) for ext in []]
 
 # Only activate spelling, if it is installed.  It is not required in the
 # general case and we don't have the granularity to describe this in a clean

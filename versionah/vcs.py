@@ -44,7 +44,7 @@ class VCS:
         try:
             self.command = Command(cmd_name)
         except CommandNotFound:
-            raise OSError(errno.ENOPROTOOPT, '%s not found' % cmd_name)
+            raise OSError(errno.ENOPROTOOPT, '{} not found'.format(cmd_name))
 
     def validate(self, *, allow_modified=False):
         """Ensure cwd is a VCS repository.

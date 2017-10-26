@@ -45,7 +45,7 @@ with open('versionah/_version.py') as ver_file:
 
 def parse_requires(file):
     deps = []
-    with open('extra/%s' % file) as req_file:
+    with open('extra/{}'.format(file)) as req_file:
         entries = [s.split('#')[0].strip() for s in req_file.readlines()]
     for dep in entries:
         if not dep or dep.startswith('#'):
@@ -56,7 +56,7 @@ def parse_requires(file):
         elif ';' in dep:
             dep, marker = dep.split(';')
             if not eval(marker.strip(), {
-                    'python_version': '%s.%s' % tuple(version_info[:2])
+                    'python_version': '{}.{}'.format(*version_info[:2])
                 }):
                 continue
         deps.append(dep)

@@ -50,10 +50,11 @@ class Version:
         if isinstance(components, str):
             components = split_version(components)
         if not 2 <= len(components) <= 4:
-            raise ValueError('Invalid number of components in %r'
-                             % (components, ))
+            raise ValueError(
+                'Invalid number of components in {!r}'.format(components))
         if not all((isinstance(n, int) and n >= 0) for n in components):
-            raise ValueError('Invalid component values in %r' % (components, ))
+            raise ValueError(
+                'Invalid component values in {!r}'.format(components))
 
         # Stub attributes set via Version.set method
         self.major = self.minor = self.micro = self.patch = 0
@@ -69,8 +70,9 @@ class Version:
         Returns:
             str: String representation of object
         """
-        return '%s(%r, %r, %r)' % (self.__class__.__qualname__,
-                                   self.components, self.name, self.date)
+        return '{}({!r}, {!r}, {!r})'.format(self.__class__.__qualname__,
+                                             self.components, self.name,
+                                             self.date)
 
     def __str__(self):
         """Return default string representation.
@@ -80,7 +82,7 @@ class Version:
         Returns:
             str: Default strings representation of object
         """
-        return '%s v%s' % (self.name, self.as_dotted())
+        return '{} v{}'.format(self.name, self.as_dotted())
 
     @staticmethod
     def __prepare_cmp_object(other):
@@ -102,8 +104,8 @@ class Version:
         elif isinstance(other, str):
             return (split_version(other) + (0, 0, 0))[:4]
         else:
-            raise NotImplementedError('Unable to compare Version and %r'
-                                      % type(other))
+            raise NotImplementedError(
+                'Unable to compare Version and {!r}'.format(type(other)))
 
     def __eq__(self, other):
         """Test `Version` objects for equality.
@@ -224,8 +226,9 @@ class Version:
         """
         if bump_type == 'micro' and self._resolution < 3 \
                 or bump_type == 'patch' and self._resolution < 4:
-            raise ValueError('Invalid bump_type %r for version %r'
-                             % (bump_type, self.components))
+            raise ValueError('Invalid bump_type {!r} for version {!r}'.format(
+                bump_type, self.components)
+            )
         if bump_type == 'major':
             self.major += 1
             self.micro = self.minor = self.patch = 0
@@ -238,7 +241,7 @@ class Version:
         elif bump_type == 'patch':
             self.patch += 1
         else:
-            raise ValueError('Unknown bump_type %r' % bump_type)
+            raise ValueError('Unknown bump_type {!r}'.format(bump_type))
         self.date = datetime.date.today()
 
     def bump_major(self):
@@ -311,7 +314,7 @@ class Version:
         Returns:
             str: Version's string in web UA-style
         """
-        return '%s/%s' % (self.name, self.as_dotted())
+        return '{}/{}'.format(self.name, self.as_dotted())
 
 
 def split_version(version):
@@ -325,6 +328,6 @@ def split_version(version):
         ValueError: Invalid version string
     """
     if not re.fullmatch(VALID_VERSION, version):
-        raise ValueError('Invalid version string %r' % version)
+        raise ValueError('Invalid version string {!r}'.format(version))
 
     return tuple(int(s) for s in version.split('.'))
