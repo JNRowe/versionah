@@ -18,15 +18,15 @@
 #
 
 from expecter import expect
-from nose2.tools import params
+from pytest import mark
 
 from versionah.cmdline import guess_type
 
 
-@params(
+@mark.parametrize('filename, expected', [
     ('test.py', 'py'),
     ('test.rb', 'rb'),
     ('test', 'text'),
-)
+])
 def test_guess_type_from_name(filename, expected):
     expect(guess_type(filename)) == expected

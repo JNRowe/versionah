@@ -18,20 +18,19 @@
 #
 
 from expecter import expect
-from nose2.tools import params
+from pytest import mark
 
 from versionah.cmdline import CliVersion
 
 from tests.utils import read_tag
 
-
-@params(
+@mark.parametrize('file, expected', [
     ('shtool/test.c', '1.2.3'),
     ('shtool/test.m4', '1.2.3'),
     ('shtool/test.perl', '1.2.3'),
     ('shtool/test.python', '1.2.3'),
     ('shtool/test.txt', '1.2.3'),
-)
+])
 @read_tag
 def test_read_shtool_files(file, expected):
     v = CliVersion.read('tests/data/%s' % file)

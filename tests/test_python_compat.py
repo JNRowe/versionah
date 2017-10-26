@@ -19,7 +19,7 @@
 
 from subprocess import (call, PIPE)
 
-from nose2.tools import params
+from pytest import mark
 
 from versionah.cmdline import CliVersion
 
@@ -27,7 +27,7 @@ from tests.utils import (execute_tag, expect_from_data, notravis_tag, tempdir,
                          write_tag)
 
 
-@params(
+@mark.parametrize('interp', [
     'python2.6',
     'python2.7',
     'python3.2',
@@ -45,12 +45,12 @@ def test_python_compatibility(interp):
 
 # Test interps not available on travis-ci.org, but available on all our test
 # machines
-@params(
+@mark.parametrize('interp', [
     'python2.4',
     'python2.5',
     'python3.1',
     'python3.4',
-)
+])
 @write_tag
 @execute_tag
 @notravis_tag

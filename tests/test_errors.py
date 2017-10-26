@@ -19,26 +19,26 @@
 
 from click import BadParameter
 from expecter import expect
-from nose2.tools import params
+from pytest import mark
 
 from versionah.cmdline import (CliVersion, NameParamType, VersionParamType)
 from versionah.models import Version
 
 
-@params(
-    ([1, ], ),
-    ([1, 2, 3, 4, 5], ),
-)
+@mark.parametrize('components', [
+    [1, ],
+    [1, 2, 3, 4, 5],
+])
 def test_version_init_invalid_count(components):
     with expect.raises(ValueError,
                        'Invalid number of components in %r' % components):
         Version(components)
 
 
-@params(
-    ([1, 2, 'a'], ),
-    ([1, 2, -4], ),
-)
+@mark.parametrize('components', [
+    [1, 2, 'a'],
+    [1, 2, -4],
+])
 def test_version_init_invalid_component_type(components):
     with expect.raises(ValueError,
                        'Invalid component values in %r' % components):
@@ -72,11 +72,11 @@ def test_version_read_no_identifier():
         CliVersion.read('setup.py')
 
 
-@params(
+@mark.parametrize('name', [
     '__',
     '3dom',  # initial digit
     'mypackage.',  # trailing punctuation
-)
+])
 def test_process_command_line_invalid_package_name(name):
     p = NameParamType()
     with expect.raises(BadParameter, "'%s'" % name):

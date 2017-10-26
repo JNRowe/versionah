@@ -20,36 +20,36 @@
 from datetime import date
 
 from expecter import expect
-from nose2.tools import params
+from pytest import mark
 
 from versionah.cmdline import CliVersion
 from versionah.models import Version
 
 
-@params(
+@mark.parametrize('value', [
     '0.3.0',
     [0, 3, 0],
-    ((0, 3, 0), ),
-)
+    (0, 3, 0),
+])
 def test_version_set(value):
     v = Version()
     v.set(value)
     expect(v.components) == (0, 3, 0)
 
 
-@params(
+@mark.parametrize('bump_type, expected', [
     ('major', (1, 0, 0, 0)),
     ('minor', (0, 2, 0, 0)),
     ('micro', (0, 1, 1, 0)),
     ('patch', (0, 1, 0, 1)),
-)
+])
 def test_version_bump(bump_type, expected):
     v = Version((0, 1, 0, 0))
     getattr(v, 'bump_%s' % bump_type)()
     expect(v.components) == expected
 
 
-@params(
+@mark.parametrize('display_type, expected', [
     ('date', '2012-05-11'),
     ('dict', {'major': 0, 'minor': 1, 'micro': 0}),
     ('dotted', '0.1.0'),
@@ -57,7 +57,7 @@ def test_version_bump(bump_type, expected):
     ('libtool', '1:20'),
     ('tuple', (0, 1, 0)),
     ('web', 'unknown/0.1.0'),
-)
+])
 def test_version_display(display_type, expected):
     v = CliVersion(date=date(2012, 5, 11))
     expect(v.display(display_type)) == expected

@@ -19,18 +19,18 @@
 
 from datetime import date
 
-from nose2.tools import params
+from pytest import mark
 
 from versionah.cmdline import CliVersion
 
 from tests.utils import (expect_from_data, tempdir, write_tag)
 
 
-@params(
+@mark.parametrize('v, file', [
     ('0.1.0', 'test_wr_a'),
     ('1.0.0', 'test_wr_b'),
     ('2.1.3', 'test_wr_c'),
-)
+])
 @write_tag
 def test_date_metadata(v, file):
     with tempdir():
