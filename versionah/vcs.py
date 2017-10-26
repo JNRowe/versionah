@@ -31,14 +31,13 @@ from sh import (CommandNotFound, Command)
 class VCS(object):
     """Base object for VCS wrappers.
 
-    .. warning::
+    Warning:
         Instantiation will raise ``OSError`` if the necessary command line tool
         is not available on the system.
 
-    .. attribute:: cmd_name
-
-        If set this will override the guess-from-class-name method of defining
-        the command name for the given VCS.
+    Attributes
+        cmd_name: If set this will override the guess-from-class-name method of
+            defining the command name for the given VCS.
     """
     def __init__(self):
         cmd_name = getattr(self, 'cmd_name', self.__class__.__name__.lower())
@@ -50,29 +49,33 @@ class VCS(object):
     def validate(self, allow_modified=False):
         """Ensure cwd is a VCS repository.
 
-        :param bool allow_modified: Allow operation on dirty trees
+        Args:
+            allow_modified (bool): Allow operation on dirty trees
         """
         raise NotImplementedError
 
     def add(self, files):
         """Add files to be committed.
 
-        :param list files: Files to add
+        Args:
+            files (list): Files to add
         """
         self.command.add(*files)
 
     def commit(self, files, message):
         """Commit files to repository.
 
-        :param list files: Files to add
+        Args:
+            files (list): Files to add
         """
         raise NotImplementedError
 
     def tag(self, name, message):
         """Create version tag
 
-        :param str name: Tag to create
-        :param str message: Message to associate with tag
+        Args:
+            name (str): Tag to create
+            message (str): Message to associate with tag
         """
         raise NotImplementedError
 

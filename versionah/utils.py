@@ -45,15 +45,17 @@ FILTERS = {}
 def filter_regexp(string, pattern, repl, count=0, flags=0):
     """Jinja filter for regexp replacements.
 
-    See :func:`re.sub` for documentation.
+    See also:
+        :func:`re.sub`
 
-    :param str string: Text to operate on
-    :param str pattern: Regular expression to match
-    :param str repl: Text to replace match with
-    :param int count: Number of occurrences to replace
-    :param int flags: Regular expression matching flags
-    :rtype: `str`
-    :return: Text with substitutions applied
+    Args:
+        string (str): Text to operate on
+        pattern (str): Regular expression to match
+        repl (str): Text to replace match with
+        count (int): Number of occurrences to replace
+        flags (int): Regular expression matching flags
+    Returns:
+        str: Text with substitutions applied
     """
     if sys.version_info[:2] >= (2, 7):
         return re.sub(pattern, repl, string, count, flags)

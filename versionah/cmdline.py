@@ -49,11 +49,12 @@ class ReMatchParamType(click.ParamType):
     def convert(self, value, param, ctx):
         """Check given name is valid.
 
-        :param str value: Value given to flag
-        :param click.Argument param: Parameter being processed
-        :param click.Context ctx: Current command context
-        :rtype: :obj:`str`
-        :return: Valid value
+        Args:
+            value (str): Value given to flag
+            param (click.Argument): Parameter being processed
+            ctx (click.Context): Current command context
+        Returns:
+            str: Valid value
         """
         if not self.matcher:
             raise NotImplementedError('No matcher provided')
@@ -99,17 +100,18 @@ class CliVersion(Version):
     def display_types():
         """Supported representation types.
 
-        :rtype: `list` of `str`
-        :return: Method names for representation types
+        Returns:
+            list of str: Method names for representation types
         """
         return [s[3:] for s in dir(CliVersion) if s.startswith('as_')]
 
     def display(self, display_format):
         """Display a version string.
 
-        :param str display_format: Format to display version string in
-        :rtype: `str`
-        :return: Formatted version string
+        Args:
+            display_format (str): Format to display version string in
+        Returns:
+            str: Formatted version string
         """
         return getattr(self, 'as_%s' % display_format)()
 
@@ -117,11 +119,13 @@ class CliVersion(Version):
     def read(filename):
         """Read a version file.
 
-        :param str filename: Version file to read
-        :rtype: `CliVersion`
-        :return: New `CliVersion` object representing file
-        :raise exceptions.OSError: When ``filename`` doesn't exist
-        :raise exceptions.ValueError: Unparsable version data
+        Args:
+            filename (str): Version file to read
+        Returns:
+            CliVersion: New `CliVersion` object representing file
+        Raises:
+            OSError: When ``filename`` doesn't exist
+            ValueError: Unparsable version data
         """
         with open(filename) as f:
             data = f.read().strip()
@@ -141,9 +145,10 @@ class CliVersion(Version):
     def write(self, filename, file_type, shtool=False):
         """Write a version file.
 
-        :param str filename: Version file to write
-        :param str file_type: File type to write
-        :param bool shtool: Write shtool_ compatible files
+        Args:
+            filename (str): Version file to write
+            file_type (str): File type to write
+            shtool (bool): Write shtool_ compatible files
 
         .. _shtool: http://www.gnu.org/software/shtool/shtool.html
         """
@@ -180,7 +185,8 @@ class CliVersion(Version):
 def guess_type(filename):
     """Guess output type from filename.
 
-    :param str filename: File to operate on
+    Args:
+        filename (str): File to operate on
     """
     suffix = os.path.splitext(filename)[1][1:]
     if suffix in CliVersion.filetypes:
@@ -194,8 +200,8 @@ def guess_type(filename):
 def guess_vcs():
     """Guess VCS type from directory.
 
-    :rtype: vcs.VCS
-    :return: Valid VCS type for current directory
+    Returns:
+        vcs.VCS: Valid VCS type for current directory
     """
     repo = None
     for _, vcs_type in SUPPORTED_VCS.items():
@@ -214,9 +220,11 @@ def guess_vcs():
 def vcs_wrap(f):
     """Decorator to commit changes to version control
 
-    ..note:: This is about reduction of duplication, not prettiness.
+    Note:
+        This is about reduction of duplication, not prettiness.
 
-    :param func f: Function to wrap
+    Args:
+        f (func): Function to wrap
     """
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -259,14 +267,13 @@ def cli():
 def bump(display_format, file_type, shtool, vcs, filename, bump):
     """Bump version in existing file.
 
-    :param str display_format: Format to display output in
-    :type filename: `tuple` of `str`
-    :param filename: File to operate on
-    :type file_type: `tuple` of `str`
-    :param file_type: File type to produce
-    :param bool shtool: Write shtool_ compatible files
-    :param bool vcs: Tag release in version control
-    :param str bump: Component to bump
+    Args:
+        display_format (str): Format to display output in
+        filename (tuple of str): File to operate on
+        file_type (tuple of str): File type to produce
+        shtool (bool): Write shtool_ compatible files
+        vcs (bool): Tag release in version control
+        bump (str): Component to bump
 
     .. _shtool: http://www.gnu.org/software/shtool/shtool.html
     """
@@ -313,15 +320,14 @@ def set_version(display_format, file_type, shtool, vcs, name, filename,
                 version_str):
     """Set version in new or existing file.
 
-    :param str display_format: Format to display output in
-    :type filename: `tuple` of `str`
-    :param filename: File to operate on
-    :type file_type: `tuple` of `str`
-    :param file_type: File type to produce
-    :param bool shtool: Write shtool_ compatible files
-    :param str name: Project name used in output
-    :param bool vcs: Tag release in version control
-    :param str version_str: Initial version string
+    Args:
+        display_format (str): Format to display output in
+        filename (tuple of str): File to operate on
+        file_type (tuple of str): File type to produce
+        shtool (bool): Write shtool_ compatible files
+        name (str): Project name used in output
+        vcs (bool): Tag release in version control
+        version_str (str): Initial version string
 
     .. _shtool: http://www.gnu.org/software/shtool/shtool.html
     """
@@ -362,9 +368,9 @@ def set_version(display_format, file_type, shtool, vcs, name, filename,
 def display(display_format, filename):
     """Display version in existing file.
 
-    :param str display_format: Format to display output in
-    :type filename: `tuple` of `str`
-    :param filename: File to operate on
+    Args:
+        display_format (str): Format to display output in
+        filename (tuple of str): File to operate on
     """
     multi = len(filename) != 1
     for fname in filename:
