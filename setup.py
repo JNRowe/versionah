@@ -20,7 +20,6 @@
 import imp
 
 from sys import version_info
-from warnings import warn
 
 from setuptools import setup
 from setuptools.command.test import test
@@ -48,24 +47,24 @@ with open('versionah/_version.py') as ver_file:
 def parse_requires(file):
     deps = []
     with open('extra/%s' % file) as req_file:
-        entries = map(lambda s: s.split('#')[0].strip(), req_file.readlines())
+        entries = [s.split('#')[0].strip() for s in req_file.readlines()]
     for dep in entries:
         if not dep or dep.startswith('#'):
             continue
-        dep = dep
-        if dep.startswith('-r '):
+        elif dep.startswith('-r '):
             deps.extend(parse_requires(dep.split()[1]))
-        else:
-            deps.append(dep)
+            continue
+        elif ';' in dep:
+            dep, marker = dep.split(';')
+            if not eval(marker.strip(), {
+                    'python_version': '%s.%s' % tuple(version_info[:2])
+                }):
+                continue
+        deps.append(dep)
     return deps
 
 
-try:
-    install_requires = parse_requires('requirements-py%s%s.txt'
-                                      % version_info[:2])
-except IOError:
-    warn('Unsupported Python version please open an issue!', RuntimeWarning)
-    install_requires = parse_requires('requirements.txt')
+install_requires = parse_requires('requirements.txt')
 
 tests_require = parse_requires('requirements-test.txt')
 

@@ -15,9 +15,6 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install m4 splint
 install:
-  - if [[ $TRAVIS_PYTHON_VERSION == '3.2' ]]; then
-      pip install -r extra/requirements-py32.txt;
-    fi
   - pip install -r extra/requirements-test.txt
   - pip install --quiet -r extra/requirements-doc.txt
   - pip install --quiet .
