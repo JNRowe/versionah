@@ -59,6 +59,7 @@ def parse_requires(file):
             deps.append(dep)
     return deps
 
+
 try:
     install_requires = parse_requires('requirements-py%s%s.txt'
                                       % version_info[:2])

@@ -37,7 +37,7 @@ except ImportError:
 root_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.insert(0, root_dir)
 
-import versionah
+import versionah  # NOQA: E402
 
 extensions = \
     ['sphinx.ext.%s' % ext for ext in ['autodoc', 'coverage', 'doctest',

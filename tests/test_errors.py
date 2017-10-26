@@ -49,7 +49,7 @@ def test_version___eq___unknown_type():
     true_repr = repr(type(True))
     with raises(NotImplementedError,
                 match='Unable to compare Version and %s' % true_repr):
-        Version() == True
+        Version() == True  # NOQA: E712
 
 
 def test_version_bump_invalid_type():
