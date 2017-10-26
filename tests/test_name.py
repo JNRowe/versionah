@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from expecter import expect
 from pytest import mark
 
 from versionah.models import Version
@@ -30,7 +29,7 @@ from versionah.models import Version
 ])
 def test_name_versions(name, v, expected):
     v1 = Version(v, name=name)
-    expect(str(v1)) == expected
+    assert str(v1) == expected
 
 
 @mark.parametrize('name, v, expected', [
@@ -40,7 +39,7 @@ def test_name_versions(name, v, expected):
 ])
 def test_name_version_with_dashes_and_underscores(name, v, expected):
     v1 = Version(v, name=name)
-    expect(str(v1)) == expected
+    assert str(v1) == expected
 
 
 @mark.parametrize('name, v, expected', [
@@ -49,4 +48,4 @@ def test_name_version_with_dashes_and_underscores(name, v, expected):
 ])
 def test_name_version_with_numeric_suffixes(name, v, expected):
     v1 = Version(v, name=name)
-    expect(str(v1)) == expected
+    assert str(v1) == expected

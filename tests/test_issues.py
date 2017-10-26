@@ -17,12 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from expecter import expect
-
 from versionah.cmdline import NameParamType
 
 
 def test_8_python_namespace_packages():
     p = NameParamType()
-    expect(p.convert('mypackage.subpackage', None, None)) \
+    assert p.convert('mypackage.subpackage', None, None) \
         == 'mypackage.subpackage'

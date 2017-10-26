@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from expecter import expect
 from pytest import mark
 
 from versionah.models import Version
@@ -31,7 +30,7 @@ from versionah.models import Version
 def test_major_bumps(v1, v2):
     start = Version(v1)
     start.bump_major()
-    expect(start) == Version(v2)
+    assert start == Version(v2)
 
 
 @mark.parametrize('v1, v2', [
@@ -42,7 +41,7 @@ def test_major_bumps(v1, v2):
 def test_minor_bumps(v1, v2):
     start = Version(v1)
     start.bump_minor()
-    expect(start) == Version(v2)
+    assert start == Version(v2)
 
 
 @mark.parametrize('v1, v2', [
@@ -53,7 +52,7 @@ def test_minor_bumps(v1, v2):
 def test_micro_bumps(v1, v2):
     start = Version(v1)
     start.bump_micro()
-    expect(start) == Version(v2)
+    assert start == Version(v2)
 
 
 @mark.parametrize('v1, v2', [
@@ -64,4 +63,4 @@ def test_micro_bumps(v1, v2):
 def test_patch_bumps(v1, v2):
     start = Version(v1)
     start.bump_patch()
-    expect(start) == Version(v2)
+    assert start == Version(v2)

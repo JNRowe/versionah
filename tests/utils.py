@@ -23,8 +23,6 @@ from contextlib import contextmanager
 from shutil import rmtree
 from tempfile import mkdtemp
 
-from expecter import expect
-
 
 def read_tag(f):
     f.read = 1
@@ -63,7 +61,7 @@ def tempdir():
 
 def expect_from_data(file, input, result):
     try:
-        expect(input) == result
+        assert input == result
     except AssertionError as e:
         data = open(file).read()
         raise AssertionError("%s from %r" % (e.message, data))

@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from expecter import expect
 from pytest import mark
 
 from versionah.cmdline import guess_type
@@ -29,4 +28,4 @@ from versionah.cmdline import guess_type
     ('test', 'text'),
 ])
 def test_guess_type_from_name(filename, expected):
-    expect(guess_type(filename)) == expected
+    assert guess_type(filename) == expected

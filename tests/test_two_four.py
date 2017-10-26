@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from expecter import expect
 from pytest import mark
 
 from versionah.models import Version
@@ -31,7 +30,7 @@ from versionah.models import Version
 def test_two_component_major_bump(v1, v2):
     start = Version(v1)
     start.bump_major()
-    expect(start) == Version(v2)
+    assert start == Version(v2)
 
 
 @mark.parametrize('v1, v2', [
@@ -42,7 +41,7 @@ def test_two_component_major_bump(v1, v2):
 def test_two_component_minor_bump(v1, v2):
     start = Version(v1)
     start.bump_minor()
-    expect(start) == Version(v2)
+    assert start == Version(v2)
 
 
 @mark.parametrize('v1, v2', [
@@ -53,7 +52,7 @@ def test_two_component_minor_bump(v1, v2):
 def test_four_component_major_bump(v1, v2):
     start = Version(v1)
     start.bump_major()
-    expect(start) == Version(v2)
+    assert start == Version(v2)
 
 
 @mark.parametrize('v1, v2', [
@@ -64,7 +63,7 @@ def test_four_component_major_bump(v1, v2):
 def test_four_component_minor_bump(v1, v2):
     start = Version(v1)
     start.bump_minor()
-    expect(start) == Version(v2)
+    assert start == Version(v2)
 
 
 @mark.parametrize('v1, v2', [
@@ -75,7 +74,7 @@ def test_four_component_minor_bump(v1, v2):
 def test_four_component_micro_bump(v1, v2):
     start = Version(v1)
     start.bump_micro()
-    expect(start) == Version(v2)
+    assert start == Version(v2)
 
 
 @mark.parametrize('v1, v2', [
@@ -86,4 +85,4 @@ def test_four_component_micro_bump(v1, v2):
 def test_four_component_patch_bump(v1, v2):
     start = Version(v1)
     start.bump_patch()
-    expect(start) == Version(v2)
+    assert start == Version(v2)

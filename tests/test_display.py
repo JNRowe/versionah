@@ -18,7 +18,7 @@
 #
 
 from datetime import date
-from expecter import expect
+
 from pytest import mark
 
 from versionah.models import Version
@@ -30,7 +30,7 @@ from versionah.models import Version
     ('2.1.3', {'major': 2, 'minor': 1, 'micro': 3}),
 ])
 def test_dict_display(v, expected):
-    expect(Version(v).as_dict()) == expected
+    assert Version(v).as_dict() == expected
 
 
 @mark.parametrize('v, expected', [
@@ -39,7 +39,7 @@ def test_dict_display(v, expected):
     ('2.1.3', '2.1.3'),
 ])
 def test_dotted_display(v, expected):
-    expect(Version(v).as_dotted()) == expected
+    assert Version(v).as_dotted() == expected
 
 
 @mark.parametrize('v, expected', [
@@ -48,7 +48,7 @@ def test_dotted_display(v, expected):
     ('2.1.3', '0x020103'),
 ])
 def test_hex_display(v, expected):
-    expect(Version(v).as_hex()) == expected
+    assert Version(v).as_hex() == expected
 
 
 @mark.parametrize('v, expected', [
@@ -57,7 +57,7 @@ def test_hex_display(v, expected):
     ('2.1.3', '21:23'),
 ])
 def test_libtool_display(v, expected):
-    expect(Version(v).as_libtool()) == expected
+    assert Version(v).as_libtool() == expected
 
 
 @mark.parametrize('v, date_string', [
@@ -67,7 +67,7 @@ def test_libtool_display(v, expected):
 ])
 def test_date_display(v, date_string):
     date_obj = date(*map(int, date_string.split('-')))
-    expect(Version(v, date=date_obj).as_date()) == date_string
+    assert Version(v, date=date_obj).as_date() == date_string
 
 
 @mark.parametrize('name, v, expected', [
@@ -76,4 +76,4 @@ def test_date_display(v, date_string):
     ('cat', '2.1.3', 'cat/2.1.3'),
 ])
 def test_web_display(name, v, expected):
-    expect(Version(v, name=name).as_web()) == expected
+    assert Version(v, name=name).as_web() == expected

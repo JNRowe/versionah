@@ -18,8 +18,7 @@
 #
 
 from click import BadParameter
-from expecter import expect
-from pytest import mark
+from pytest import mark, raises
 
 from versionah.cmdline import (CliVersion, NameParamType, VersionParamType)
 from versionah.models import Version
@@ -30,8 +29,8 @@ from versionah.models import Version
     [1, 2, 3, 4, 5],
 ])
 def test_version_init_invalid_count(components):
-    with expect.raises(ValueError,
-                       'Invalid number of components in %r' % components):
+    with raises(ValueError,
+                message='Invalid number of components in %r' % components):
         Version(components)
 
 
@@ -40,35 +39,35 @@ def test_version_init_invalid_count(components):
     [1, 2, -4],
 ])
 def test_version_init_invalid_component_type(components):
-    with expect.raises(ValueError,
-                       'Invalid component values in %r' % components):
+    with raises(ValueError,
+                message='Invalid component values in %r' % components):
         Version(components)
 
 
 def test_version___eq___unknown_type():
     # Differs between Python 2 and 3
     true_repr = repr(type(True))
-    with expect.raises(NotImplementedError,
-                       'Unable to compare Version and %s' % true_repr):
+    with raises(NotImplementedError,
+                match='Unable to compare Version and %s' % true_repr):
         Version() == True
 
 
 def test_version_bump_invalid_type():
     v = Version()
-    with expect.raises(ValueError,
-                       "Invalid bump_type 'patch' for version (0, 1, 0)"):
+    with raises(ValueError,
+                message="Invalid bump_type 'patch' for version (0, 1, 0)"):
         v.bump('patch')
 
 
 def test_version_bump_invalid_type_name():
     v = Version()
-    with expect.raises(ValueError, "Unknown bump_type 'pico'"):
+    with raises(ValueError, match="Unknown bump_type 'pico'"):
         v.bump('pico')
 
 
 def test_version_read_no_identifier():
-    with expect.raises(ValueError,
-                       "No valid version identifier in 'setup.py'"):
+    with raises(ValueError,
+                match="No valid version identifier in 'setup.py'"):
         CliVersion.read('setup.py')
 
 
@@ -79,11 +78,11 @@ def test_version_read_no_identifier():
 ])
 def test_process_command_line_invalid_package_name(name):
     p = NameParamType()
-    with expect.raises(BadParameter, "'%s'" % name):
+    with raises(BadParameter, match="'%s'" % name):
         p.convert(name, None, None)
 
 
 def test_process_command_line_invalid_package_version():
     p = VersionParamType()
-    with expect.raises(BadParameter, "'__'"):
+    with raises(BadParameter, match="'__'"):
         p.convert('__', None, None)
