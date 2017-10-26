@@ -17,9 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from os import getenv
 from subprocess import (call, PIPE)
 
-from pytest import mark
+from pytest import mark, skip
 
 from versionah.cmdline import CliVersion
 
@@ -43,6 +44,7 @@ def test_python_compatibility(interp, tmpdir):
 
 # Test interps not available on travis-ci.org, but available on all our test
 # machines
+@mark.skipif(getenv('TRAVIS_PYTHON_VERSION'), reason="Unavailable on travis")
 @mark.requires_exec
 @mark.requires_write
 @mark.parametrize('interp', [
@@ -51,6 +53,5 @@ def test_python_compatibility(interp, tmpdir):
     'python3.1',
     'python3.4',
 ])
-@notravis_tag
 def test_python_compatibility_extra(interp):
     test_python_compatibility(interp)
