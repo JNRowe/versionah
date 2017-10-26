@@ -23,7 +23,7 @@ from pytest import mark
 
 from versionah.cmdline import (CliVersion, guess_type)
 
-from tests.utils import (execute_tag, expect_from_data, tempdir, write_tag)
+from tests.utils import (execute_tag, expect_from_data, write_tag)
 
 
 @mark.parametrize('v, filename, linter', [
@@ -34,10 +34,8 @@ from tests.utils import (execute_tag, expect_from_data, tempdir, write_tag)
 ])
 @write_tag
 @execute_tag
-def test_output_validatity(v, filename, linter):
+def test_output_validatity(v, filename, linter, tmpdir):
     file_type = guess_type(filename)
-    with tempdir():
-        CliVersion(v).write(filename, file_type)
-        retval = call(linter.split() + [filename, ],
-                      stdout=PIPE, stderr=PIPE)
-        expect_from_data(filename, retval, 0)
+    CliVersion(v).write(filename, file_type)
+    retval = call(linter.split() + [filename, ], stdout=PIPE, stderr=PIPE)
+    expect_from_data(filename, retval, 0)

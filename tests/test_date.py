@@ -23,7 +23,7 @@ from pytest import mark
 
 from versionah.cmdline import CliVersion
 
-from tests.utils import (expect_from_data, tempdir, write_tag)
+from tests.utils import (expect_from_data, write_tag)
 
 
 @mark.parametrize('v, file', [
@@ -32,8 +32,7 @@ from tests.utils import (expect_from_data, tempdir, write_tag)
     ('2.1.3', 'test_wr_c'),
 ])
 @write_tag
-def test_date_metadata(v, file):
-    with tempdir():
-        CliVersion(v).write(file, 'text')
-        read = CliVersion.read(file)
-        expect_from_data(file, read.as_date(), date.today().isoformat())
+def test_date_metadata(v, file, tmpdir):
+    CliVersion(v).write(file, 'text')
+    read = CliVersion.read(file)
+    expect_from_data(file, read.as_date(), date.today().isoformat())
