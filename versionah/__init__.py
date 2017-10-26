@@ -1,6 +1,10 @@
 #
 # coding=utf-8
-"""versionah - Simple version specification management"""
+"""versionah - Simple version specification management
+
+versionah is a GPL v3 licensed module for maintaining version information files
+for use in project management.
+"""
 # Copyright © 2011-2015  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -22,23 +26,7 @@ from . import _version
 
 __version__ = _version.dotted
 __date__ = _version.date
-__author__ = 'James Rowe <jnrowe@gmail.com>'
 __copyright__ = 'Copyright (C) 2011-2015  James Rowe <jnrowe@gmail.com>'
-__license__ = 'GNU General Public License Version 3'
-__credits__ = ''
-__history__ = 'See git repository'
-
-from email.utils import parseaddr
-
-# pylint: disable-msg=W0622
-__doc__ += """.
-
-versionah is a GPL v3 licensed module for maintaining version information files
-for use in project management.
-
-.. moduleauthor:: `%s <mailto:%s>`__
-""" % parseaddr(__author__)
-# pylint: enable-msg=W0622
 
 # This is here to workaround UserWarning messages caused by path fiddling in
 # dependencies
