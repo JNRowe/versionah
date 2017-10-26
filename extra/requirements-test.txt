@@ -1,6 +1,5 @@
 -r requirements.txt
 docutils>=0.7
 mock>=1.0.0
-nose2>=0.4.1
-nose2_cov>=1.0a4
-expecter>=0.2.2
+pytest>=3.2
+pytest-cov>=1.8

@@ -17,53 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
-
-from contextlib import contextmanager
-from shutil import rmtree
-from tempfile import mkdtemp
-
-from expecter import expect
-
-
-def read_tag(f):
-    f.read = 1
-    return f
-
-
-def write_tag(f):
-    f.write = 1
-    return f
-
-
-def execute_tag(f):
-    f.execute = 1
-    return f
-
-
-def notravis_tag(f):
-    f.no_travis = 1
-    return f
-
-
-@contextmanager
-def tempdir():
-    cwd = os.getcwd()
-    d = mkdtemp()
-    os.chdir(d)
-    try:
-        yield d
-    finally:
-        os.chdir(cwd)
-        try:
-            rmtree(d)
-        except (OSError, IOError):
-            pass
-
 
 def expect_from_data(file, input, result):
     try:
-        expect(input) == result
+        assert input == result
     except AssertionError as e:
         data = open(file).read()
         raise AssertionError("%s from %r" % (e.message, data))

@@ -17,17 +17,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from expecter import expect
-from nose2.tools import params
+from pytest import mark, raises
 
 from versionah.models import Version
 
 
-@params(
+@mark.parametrize('v', [
     '1',
     '1.2.3.4.5',
     '1.2.-1.0',
-)
+])
 def test_version_validation(v):
-    with expect.raises(ValueError, 'Invalid version string %r' % v):
+    with raises(ValueError, match='Invalid version string %r' % v):
         Version(v)

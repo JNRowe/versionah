@@ -17,42 +17,46 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from os import getenv
+from shutil import which
 from subprocess import (call, PIPE)
 
-from nose2.tools import params
+from pytest import mark, skip
 
 from versionah.cmdline import CliVersion
 
-from tests.utils import (execute_tag, expect_from_data, notravis_tag, tempdir,
-                         write_tag)
+from tests.utils import expect_from_data
 
 
-@params(
+@mark.requires_exec
+@mark.requires_write
+@mark.parametrize('interp', [
     'python2.6',
     'python2.7',
     'python3.2',
     'python3.3',
-)
-@write_tag
-@execute_tag
-def test_python_compatibility(interp):
-    with tempdir():
-        CliVersion('1.0.1').write('test_wr.py', 'py')
-        retval = call([interp, '-W', 'all', 'test_wr.py'], stdout=PIPE,
-                      stderr=PIPE)
-        expect_from_data('test_wr.py', retval, 0)
+])
+def test_python_compatibility(interp, tmpdir):
+    if not which(interp):
+        skip('Interpreter %r unavailable')
+    CliVersion('1.0.1').write('test_wr.py', 'py')
+    retval = call([interp, '-W', 'all', 'test_wr.py'], stdout=PIPE,
+                  stderr=PIPE)
+    expect_from_data('test_wr.py', retval, 0)
 
 
 # Test interps not available on travis-ci.org, but available on all our test
 # machines
-@params(
+@mark.skipif(getenv('TRAVIS_PYTHON_VERSION'), reason="Unavailable on travis")
+@mark.requires_exec
+@mark.requires_write
+@mark.parametrize('interp', [
     'python2.4',
     'python2.5',
     'python3.1',
     'python3.4',
-)
-@write_tag
-@execute_tag
-@notravis_tag
+])
 def test_python_compatibility_extra(interp):
+    if not which(interp):
+        skip('Interpreter %r unavailable')
     test_python_compatibility(interp)

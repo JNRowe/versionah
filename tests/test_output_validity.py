@@ -17,27 +17,28 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from shutil import which
 from subprocess import (call, PIPE)
 
-from nose2.tools import params
+from pytest import mark, skip
 
 from versionah.cmdline import (CliVersion, guess_type)
 
-from tests.utils import (execute_tag, expect_from_data, tempdir, write_tag)
+from tests.utils import expect_from_data
 
 
-@params(
+@mark.requires_exec
+@mark.requires_write
+@mark.parametrize('v, filename, linter', [
     ('1.0.1', 'test_wr.c', 'splint'),
     ('1.0.1', 'test_wr.m4', 'm4 -P -E -E'),
     ('1.0.1', 'test_wr.py', 'python -W all'),
     ('1.0.1', 'test_wr.rb', 'ruby -c'),
-)
-@write_tag
-@execute_tag
-def test_output_validatity(v, filename, linter):
+])
+def test_output_validatity(v, filename, linter, tmpdir):
+    if not which(linter):
+        skip('Linter %r unavailable')
     file_type = guess_type(filename)
-    with tempdir():
-        CliVersion(v).write(filename, file_type)
-        retval = call(linter.split() + [filename, ],
-                      stdout=PIPE, stderr=PIPE)
-        expect_from_data(filename, retval, 0)
+    CliVersion(v).write(filename, file_type)
+    retval = call(linter.split() + [filename, ], stdout=PIPE, stderr=PIPE)
+    expect_from_data(filename, retval, 0)

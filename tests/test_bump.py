@@ -17,51 +17,50 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from expecter import expect
-from nose2.tools import params
+from pytest import mark
 
 from versionah.models import Version
 
 
-@params(
+@mark.parametrize('v1, v2', [
     ('0.1.0', '1.0.0'),
     ('1.0.0', '2.0.0'),
     ('2.1.3', '3.0.0'),
-)
+])
 def test_major_bumps(v1, v2):
     start = Version(v1)
     start.bump_major()
-    expect(start) == Version(v2)
+    assert start == Version(v2)
 
 
-@params(
+@mark.parametrize('v1, v2', [
     ('0.1.0', '0.2.0'),
     ('1.0.0', '1.1.0'),
     ('2.1.3', '2.2.0'),
-)
+])
 def test_minor_bumps(v1, v2):
     start = Version(v1)
     start.bump_minor()
-    expect(start) == Version(v2)
+    assert start == Version(v2)
 
 
-@params(
+@mark.parametrize('v1, v2', [
     ('0.1.0', '0.1.1'),
     ('1.0.0', '1.0.1'),
     ('2.1.3', '2.1.4'),
-)
+])
 def test_micro_bumps(v1, v2):
     start = Version(v1)
     start.bump_micro()
-    expect(start) == Version(v2)
+    assert start == Version(v2)
 
 
-@params(
+@mark.parametrize('v1, v2', [
     ('0.1.0.0', '0.1.0.1'),
     ('1.0.0.0', '1.0.0.1'),
     ('0.2.1.3', '0.2.1.4'),
-)
+])
 def test_patch_bumps(v1, v2):
     start = Version(v1)
     start.bump_patch()
-    expect(start) == Version(v2)
+    assert start == Version(v2)
