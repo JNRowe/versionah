@@ -46,7 +46,7 @@ class VCS:
         except CommandNotFound:
             raise OSError(errno.ENOPROTOOPT, '%s not found' % cmd_name)
 
-    def validate(self, allow_modified=False):
+    def validate(self, *, allow_modified=False):
         """Ensure cwd is a VCS repository.
 
         Args:
@@ -81,7 +81,7 @@ class VCS:
 
 
 class Git(VCS):
-    def validate(self, allow_modified=False):
+    def validate(self, *, allow_modified=False):
         if not isdir('.git'):
             raise IOError(errno.ENOTDIR,
                           'Current directory is not a git repository', '.git')
@@ -103,7 +103,7 @@ class Git(VCS):
 class Mercurial(VCS):
     cmd_name = 'hg'
 
-    def validate(self, allow_modified=False):
+    def validate(self, *, allow_modified=False):
         if not isdir('.hg'):
             raise IOError(errno.ENOTDIR,
                           'Current directory is not a mercurial repository',
@@ -124,7 +124,7 @@ class Mercurial(VCS):
 
 
 class Fossil(VCS):
-    def validate(self, allow_modified=False):
+    def validate(self, *, allow_modified=False):
         # This is an ``isfile`` check raising a directory error, but fossil is
         # the odd one out here so we'll paper over that.
         if not isfile('.fslckout'):

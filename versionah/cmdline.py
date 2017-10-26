@@ -142,7 +142,7 @@ class CliVersion(Version):
             parsed = datetime.datetime.strptime(date_str, '%d-%b-%Y')
         return CliVersion(components, name, parsed.date())
 
-    def write(self, filename, file_type, shtool=False):
+    def write(self, filename, file_type, *, shtool=False):
         """Write a version file.
 
         Args:
