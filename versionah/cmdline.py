@@ -96,7 +96,7 @@ class CliVersion(Version):
         pkg_data_dirs.append(mk_data_dir(directory))
 
     env = jinja2.Environment(loader=jinja2.ChoiceLoader(
-        list(jinja2.FileSystemLoader(s) for s in pkg_data_dirs)))
+        [jinja2.FileSystemLoader(s) for s in pkg_data_dirs]))
     env.loader.loaders.append(jinja2.PackageLoader('versionah', 'templates'))
     env.filters.update(FILTERS)
     filetypes = [s.split('.')[0] for s in env.list_templates()]
@@ -179,8 +179,8 @@ class CliVersion(Version):
                                                             self.as_date())
 
         data.update(dict(zip(VERSION_COMPS, self.components)))
-        data.update(dict([(k, getattr(self, 'as_%s' % k)())
-                          for k in self.display_types()]))
+        data.update({k: getattr(self, 'as_%s' % k)()
+                     for k in self.display_types()})
 
         template = self.env.get_template('%s.jinja' % file_type)
         with open(filename, 'w') as f:

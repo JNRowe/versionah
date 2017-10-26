@@ -61,7 +61,7 @@ source_suffix = '.rst'
 project = u'versionah'
 copyright = versionah.__copyright__
 
-version = '.'.join(map(str, versionah._version.tuple[:2]))
+version = '.'.join([str(x) for x in versionah._version.tuple[:2]])
 release = versionah._version.dotted
 
 default_role = 'py:obj'
