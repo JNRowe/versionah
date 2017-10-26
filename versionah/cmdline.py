@@ -57,7 +57,7 @@ class ReMatchParamType(click.ParamType):
         """
         if not self.matcher:
             raise NotImplementedError('No matcher provided')
-        if not re.match('%s$' % self.matcher, value):
+        if not re.fullmatch(self.matcher, value):
             self.fail('%r' % value)
         return value
 

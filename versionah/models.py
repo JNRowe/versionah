@@ -324,7 +324,7 @@ def split_version(version):
     Raises:
         ValueError: Invalid version string
     """
-    if not re.match('%s$' % VALID_VERSION, version):
+    if not re.fullmatch(VALID_VERSION, version):
         raise ValueError('Invalid version string %r' % version)
 
     return tuple(int(s) for s in version.split('.'))
