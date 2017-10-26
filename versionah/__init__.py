@@ -33,4 +33,4 @@ from contextlib import suppress
 # This is here to workaround UserWarning messages caused by path fiddling in
 # dependencies
 with suppress(ImportError):
-    import pkg_resources  # NOQA
+    import pkg_resources  # NOQA: F401
