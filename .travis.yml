@@ -21,6 +21,7 @@ install:
   - pip install -r extra/requirements-test.txt
   - pip install --quiet -r extra/requirements-doc.txt
   - pip install --quiet .
+  - pip install coveralls
 script:
   - pytest tests
   - export BUILD_DIR=${PWD}/build/sphinx
@@ -33,6 +34,8 @@ script:
       sphinx-build -n -W -b html -d ${BUILD_DIR}/doctrees doc ${BUILD_DIR}/html
         || exit 1;
     fi
+after_success:
+  - coveralls
 branches:
   except:
     - /^play\/.*$/

@@ -4,6 +4,10 @@
 .. image:: https://secure.travis-ci.org/JNRowe/versionah.png?branch=master
    :target: http://travis-ci.org/JNRowe/versionah
 
+.. image:: https://img.shields.io/coveralls/JNRowe/versionah/master.png?style=plastic
+   :target: https://coveralls.io/repos/JNRowe/versionah
+   :alt: Coverage state on master
+
 Introduction
 ------------
 
