@@ -46,10 +46,8 @@ def test_version_init_invalid_component_type(components):
 
 
 def test_version___eq___unknown_type():
-    # Differs between Python 2 and 3
-    true_repr = repr(type(True))
     with raises(NotImplementedError,
-                match='Unable to compare Version and %s' % true_repr):
+                match="Unable to compare Version and <class 'bool'>"):
         Version() == True  # NOQA: E712
 
 

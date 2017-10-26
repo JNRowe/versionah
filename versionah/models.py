@@ -19,17 +19,8 @@
 
 import datetime
 import re
-import sys
 
-try:
-    # For Python 3
-    from http.cookiejar import MONTHS
-except ImportError:
-    from cookielib import MONTHS  # NOQA
-
-
-#: Base string type, used for compatibility with Python 2 and 3
-STR_TYPE = basestring if sys.version_info[0] == 2 else str
+from http.cookiejar import MONTHS
 
 
 #: Regular expression to match a valid package name
@@ -44,7 +35,7 @@ VALID_DATE = r'(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:%s)-\d{4})' % '|'.join(MONTHS)
 VERSION_COMPS = ('major', 'minor', 'micro', 'patch')
 
 
-class Version(object):
+class Version:
 
     """Main version identifier representation."""
 
@@ -57,7 +48,7 @@ class Version(object):
             name (str): Package name
             date (datetime.date): Date associated with version
         """
-        if isinstance(components, STR_TYPE):
+        if isinstance(components, str):
             components = split_version(components)
         if not 2 <= len(components) <= 4:
             raise ValueError('Invalid number of components in %r'
@@ -198,7 +189,7 @@ class Version(object):
         Args:
             components (tuple of int): Version components
         """
-        if isinstance(components, STR_TYPE):
+        if isinstance(components, str):
             components = split_version(components)
         elif isinstance(components, list):
             components = tuple(components)

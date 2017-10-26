@@ -20,19 +20,7 @@
 import os
 import sys
 
-from subprocess import CalledProcessError
-try:
-    from subprocess import check_output
-except ImportError:
-    from subprocess import (PIPE, Popen)
-
-    def check_output(cmd):
-        process = Popen(cmd, stdout=PIPE)
-        out, _ = process.communicate()
-        ret = process.wait()
-        if ret:
-            raise CalledProcessError(ret, cmd[0])
-        return out
+from subprocess import (CalledProcessError, check_output)
 
 root_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.insert(0, root_dir)
@@ -70,7 +58,8 @@ pygments_style = 'sphinx'
 try:
     html_last_updated_fmt = check_output(['git', 'log',
                                           "--pretty=format:'%ad [%h]'",
-                                          '--date=short', '-n1'])
+                                          '--date=short', '-n1'],
+                                         encoding='ascii')
 except CalledProcessError:
     pass
 
@@ -85,8 +74,9 @@ autodoc_default_flags = ['members', ]
 
 intersphinx_mapping = {
     'jinja': ('http://jinja.pocoo.org/docs/',
-              os.getenv('SPHINX_JINJA_OBJECTS')),
-    'python': ('http://docs.python.org/', os.getenv('SPHINX_PYTHON_OBJECTS')),
+              os.getenv('SPHINX_JINJA2_OBJECTS')),
+    'python': ('http://docs.python.org/3/',
+               os.getenv('SPHINX_PYTHON_OBJECTS')),
 }
 
 spelling_lang = 'en_GB'

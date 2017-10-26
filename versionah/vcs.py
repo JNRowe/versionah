@@ -28,7 +28,7 @@ from sh import (CommandNotFound, Command)
 # request with a change to using a generic wrapper(if you can find one).
 
 
-class VCS(object):
+class VCS:
     """Base object for VCS wrappers.
 
     Warning:

@@ -18,7 +18,6 @@
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
 import re
-import sys
 
 import click
 
@@ -57,11 +56,5 @@ def filter_regexp(string, pattern, repl, count=0, flags=0):
     Returns:
         str: Text with substitutions applied
     """
-    if sys.version_info[:2] >= (2, 7):
-        return re.sub(pattern, repl, string, count, flags)
-    else:
-        # regexps are cached, so this uglier path is no better than the 2.7
-        # one.  Once 2.6 support disappears, so can this
-        match = re.compile(pattern, flags=flags)
-        return match.sub(repl, string, count)
+    return re.sub(pattern, repl, string, count, flags)
 FILTERS['regexp'] = filter_regexp

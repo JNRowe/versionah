@@ -71,10 +71,6 @@ def test_list_unequal_comparison(l, v2):
 
 
 def test_unsupported_comparision():
-    from sys import version_info
-    repr_name = 'class' if version_info[0] >= 3 else 'type'
-
     with raises(NotImplementedError,
-                match="Unable to compare Version and <%s 'float'>"
-                      % repr_name):
+                match="Unable to compare Version and <class 'float'>"):
         float(3.2) == Version('0.2.0')
