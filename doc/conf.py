@@ -67,9 +67,6 @@ release = versionah._version.dotted
 default_role = 'py:obj'
 
 pygments_style = 'sphinx'
-html_theme_options = {
-    'externalrefs': True,
-}
 try:
     html_last_updated_fmt = check_output(['git', 'log',
                                           "--pretty=format:'%ad [%h]'",
