@@ -23,18 +23,17 @@ from pytest import mark
 
 from versionah.cmdline import CliVersion
 
-from tests.utils import (execute_tag, expect_from_data, notravis_tag,
-                         write_tag)
+from tests.utils import expect_from_data
 
 
+@mark.requires_exec
+@mark.requires_write
 @mark.parametrize('interp', [
     'python2.6',
     'python2.7',
     'python3.2',
     'python3.3',
-)
-@write_tag
-@execute_tag
+])
 def test_python_compatibility(interp, tmpdir):
     CliVersion('1.0.1').write('test_wr.py', 'py')
     retval = call([interp, '-W', 'all', 'test_wr.py'], stdout=PIPE,
@@ -44,14 +43,14 @@ def test_python_compatibility(interp, tmpdir):
 
 # Test interps not available on travis-ci.org, but available on all our test
 # machines
+@mark.requires_exec
+@mark.requires_write
 @mark.parametrize('interp', [
     'python2.4',
     'python2.5',
     'python3.1',
     'python3.4',
 ])
-@write_tag
-@execute_tag
 @notravis_tag
 def test_python_compatibility_extra(interp):
     test_python_compatibility(interp)

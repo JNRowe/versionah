@@ -17,21 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-def read_tag(f):
-    f.read = 1
-    return f
-
-
-def write_tag(f):
-    f.write = 1
-    return f
-
-
-def execute_tag(f):
-    f.execute = 1
-    return f
-
-
 def notravis_tag(f):
     f.no_travis = 1
     return f
