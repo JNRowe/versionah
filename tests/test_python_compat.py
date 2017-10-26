@@ -38,10 +38,11 @@ from tests.utils import expect_from_data
 def test_python_compatibility(interp, tmpdir):
     if not which(interp):
         skip('Interpreter {!r} unavailable'.format(interp))
-    CliVersion('1.0.1').write('test_wr.py', 'py')
-    retval = call([interp, '-W', 'all', 'test_wr.py'], stdout=PIPE,
+    file_loc = tmpdir.join('test_wr.py').strpath
+    CliVersion('1.0.1').write(file_loc, 'py')
+    retval = call([interp, '-W', 'all', file_loc], stdout=PIPE,
                   stderr=PIPE)
-    expect_from_data('test_wr.py', retval, 0)
+    expect_from_data(file_loc, retval, 0)
 
 
 # Test interps not available on travis-ci.org, but available on all our test

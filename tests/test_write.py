@@ -30,6 +30,7 @@ from tests.utils import expect_from_data
     ('2.1.3', 'test_wr_c'),
 ])
 def test_write_version_file(v, file, tmpdir):
-    CliVersion(v).write(file, 'text')
-    read = CliVersion.read(file)
-    expect_from_data(file, read.as_dotted(), v)
+    file_loc = tmpdir.join(file).strpath
+    CliVersion(v).write(file_loc, 'text')
+    read = CliVersion.read(file_loc)
+    expect_from_data(file_loc, read.as_dotted(), v)

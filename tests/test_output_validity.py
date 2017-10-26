@@ -38,6 +38,7 @@ def test_output_validatity(v, filename, linter, tmpdir):
     if not which(linter):
         skip('Linter {!r} unavailable'.format(linter))
     file_type = guess_type(filename)
-    CliVersion(v).write(filename, file_type)
-    retval = call(linter.split() + [filename, ], stdout=PIPE, stderr=PIPE)
+    file_loc = tmpdir.join(filename).strpath
+    CliVersion(v).write(file_loc, file_type)
+    retval = call(linter.split() + [file_loc, ], stdout=PIPE, stderr=PIPE)
     expect_from_data(filename, retval, 0)
