@@ -13,14 +13,14 @@ Version management made easy
 SYNOPSIS
 --------
 
-    versionah [OPTIONS] COMMAND [ARGS]...
+    versionah [OPTIONS] COMMAND [ARGS]…
 
 DESCRIPTION
 -----------
 
 `versionah` is a simple tool to help you, or more specifically *me*, easily
 maintain version information for a project.  Its entire aim is to make the act
-of displaying or bumping a project's version number a thoughtless task.
+of displaying or bumping a project’s version number a thoughtless task.
 
 Options
 -------

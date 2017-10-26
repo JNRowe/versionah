@@ -15,7 +15,7 @@ Version control support
 .. autoclass:: Fossil
 
 .. autodata:: SUPPORTED_VCS
-   :annotation: = {name: sh.Command instance, ...}
+   :annotation: = {name: sh.Command instance, …}
 
 Examples
 --------

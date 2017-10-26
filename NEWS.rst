@@ -89,7 +89,7 @@ User-visible changes
 
 * User templates now override system templates
 * Ruby template
-* Default file type is now based on version file's extension
+* Default file type is now based on version file’s extension
 * Support for comparing version numbers when used as a library
 
 0.6.0 - 2011-02-19

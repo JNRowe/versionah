@@ -19,7 +19,7 @@ Templates are loaded from directories in the following order:
 * If it exists, ``${XDG_DATA_HOME:~/.local}/versionah/templates``
 * Any :file:`versionah/templates` directory in the directories specified by
   :envvar:`XDG_DATA_DIRS`
-* The `versionah` package's ``templates`` directory
+* The `versionah` package’s ``templates`` directory
 
 .. note::
    For OS X users there is a fallback to ``~/Library/Application Support``,
@@ -42,7 +42,7 @@ example, ``py.jinja`` will apply by default to all files ending in ``.py``.
 
 However, templates *can* be given any name you wish.  This makes it simple to
 have project specific templates, should the need arise.  This functionality is
-especially useful if you have shared data as you can use Jinja's
+especially useful if you have shared data as you can use Jinja’s
 :ref:`template-inheritance` support to reduce the duplication needed in each
 template.
 
@@ -60,7 +60,7 @@ Each template is provided with the following variables for use in the output:
 * ``now`` and ``utcnow`` for template creation timestamps, refer to the
   `datetime` documentation for information on :meth:`~datetime.datetime.now` and
   :meth:`~datetime.datetime.utcnow`
-* The output file's name as ``filename``
+* The output file’s name as ``filename``
 * All supported display methods [#]_, for example ``dotted`` and ``libtool``
 
 Jinja templates support object attribute and method access, so the ``utcnow``
@@ -68,7 +68,7 @@ object can be called with the :meth:`~datetime.datetime.strftime` method for
 custom timestamp output.  For example, ``{{ utcnow.strftime("%a, %e %b %Y
 %H:%M:%S %z") }}`` could be used to output an :rfc:`2822` date stamp [#]_.
 
-The ``text`` display's template is simply:
+The ``text`` display’s template is simply:
 
 .. code:: jinja
 
@@ -78,13 +78,13 @@ which results in output such as::
 
     This is mypkg version 2.2.4 (2011-02-19)
 
-If you're authoring your own templates and you find you need extra data for
+If you’re authoring your own templates and you find you need extra data for
 use in their generation open an issue_.
 
 .. [#] Technically the result of any ``Version`` method beginning with ``as_``
        is passed along to the template, with the ``as_`` prefixes removed.
 
-.. [#] But don't do that, as :meth:`~datetime.datetime.strftime` is locale
+.. [#] But don’t do that, as :meth:`~datetime.datetime.strftime` is locale
        dependent ;)
 
 Filters

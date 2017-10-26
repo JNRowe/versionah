@@ -296,7 +296,7 @@ class Version:
         """Generate a ISO-8601 date string for release.
 
         Returns:
-            str: Version's release date as ISO-8601 date stamp
+            str: Version’s release date as ISO-8601 date stamp
         """
         return self.date.isoformat()
 
@@ -312,7 +312,7 @@ class Version:
         """Generate a web UA-style string for release.
 
         Returns:
-            str: Version's string in web UA-style
+            str: Version’s string in web UA-style
         """
         return '{}/{}'.format(self.name, self.as_dotted())
 

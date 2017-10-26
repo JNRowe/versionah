@@ -48,19 +48,19 @@ make_ files:
 
 Using the version information as the ``libtool`` interface age requires strict
 practise in maintaining the semantics of your version data, but doing so
-provides significant value to your users even if they aren't using the library
+provides significant value to your users even if they aren’t using the library
 interface.
 
 ``Sphinx`` example
 ------------------
 
-If you generate your project's documentation using Georg Brandl's excellent
+If you generate your project’s documentation using Georg Brandl’s excellent
 Sphinx_ tool, then you have a few options for including the version information.
 
 Import the data
 '''''''''''''''
 
-If you're storing your version data in Python_ format then you can simply import
+If you’re storing your version data in Python_ format then you can simply import
 the file, and access the data directly in your :file:`conf.py`::
 
     from versionah import _version
@@ -69,9 +69,9 @@ the file, and access the data directly in your :file:`conf.py`::
     # The full version
     release = _version.dotted
 
-You may need to mangle :data:`sys.path` if you can't import the version file
-from your :file:`conf.py`.  For example, in `versionah`'s :file:`conf.py` we add
-the project root directory to :data:`sys.path` with the following snippet::
+You may need to mangle :data:`sys.path` if you can’t import the version file
+from your :file:`conf.py`.  For example, in `versionah`’s :file:`conf.py` we
+add the project root directory to :data:`sys.path` with the following snippet::
 
     root_dir = os.path.sep.join(__file__.split(os.path.sep)[:-2])
     sys.path.insert(0, root_dir)
@@ -94,8 +94,8 @@ not recommended.
 :command:`pod2man` example
 --------------------------
 
-If you generate your documentation using perl_'s :command:`pod2man` then
-a sample :file:`Makefile` rule to include your program's version information
+If you generate your documentation using perl_’s :command:`pod2man` then
+a sample :file:`Makefile` rule to include your program’s version information
 would be:
 
 .. sourcecode:: make
@@ -107,7 +107,7 @@ would be:
 More examples
 -------------
 
-If you're using `versionah` with another common tool, then new examples for this
+If you’re using `versionah` with another common tool, then new examples for this
 section are most welcome.  Please consider posting them in an issue_ or pushing
 them to a fork on GitHub_, so that others can benefit.
 

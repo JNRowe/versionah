@@ -15,8 +15,8 @@ projects I work on.
 A few ideas have been borrowed from ``shtool``, and `versionah` should be seen
 as a homage to the version applet from ``shtool``.
 
-If you don't need the template support of `versionah` and find the other
-functionality ``shtool`` provides useful then I'd strongly recommend using
+If you don’t need the template support of `versionah` and find the other
+functionality ``shtool`` provides useful then I’d strongly recommend using
 ``shtool``.  There is little point depending on two external projects when one
 can suffice.
 
