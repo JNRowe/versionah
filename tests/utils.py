@@ -24,4 +24,4 @@ def expect_from_data(file, input, result):
         assert input == result
     except AssertionError as e:
         data = open(file).read()
-        raise AssertionError("%s from %r" % (e.message, data))
+        raise AssertionError("%s from %r" % (e, data))
