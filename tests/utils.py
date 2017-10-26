@@ -24,4 +24,4 @@ def expect_from_data(file, input, result):
     except AssertionError as e:
         with open(file).read() as f:
             data = f.read()
-        raise AssertionError("{} from {!r}".format(e, data))
+        raise AssertionError('{} from {!r}'.format(e, data))
