@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_two_four - Two- and four-component tests"""
 # Copyright © 2012-2017  James Rowe <jnrowe@gmail.com>
 #

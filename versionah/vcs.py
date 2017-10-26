@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """vcs - Version interface for versionah"""
 # Copyright © 2014-2015  James Rowe <jnrowe@gmail.com>
 #
@@ -19,6 +18,7 @@
 
 import errno
 
+from contextlib import suppress
 from os.path import (isdir, isfile)
 
 from sh import (CommandNotFound, Command)
@@ -28,7 +28,7 @@ from sh import (CommandNotFound, Command)
 # request with a change to using a generic wrapper(if you can find one).
 
 
-class VCS(object):
+class VCS:
     """Base object for VCS wrappers.
 
     Warning:
@@ -44,9 +44,9 @@ class VCS(object):
         try:
             self.command = Command(cmd_name)
         except CommandNotFound:
-            raise OSError(errno.ENOPROTOOPT, '%s not found' % cmd_name)
+            raise OSError(errno.ENOPROTOOPT, '{} not found'.format(cmd_name))
 
-    def validate(self, allow_modified=False):
+    def validate(self, *, allow_modified=False):
         """Ensure cwd is a VCS repository.
 
         Args:
@@ -81,10 +81,10 @@ class VCS(object):
 
 
 class Git(VCS):
-    def validate(self, allow_modified=False):
+    def validate(self, *, allow_modified=False):
         if not isdir('.git'):
-            raise IOError(errno.ENOTDIR,
-                          'Current directory is not a git repository', '.git')
+            raise NotADirectoryError('Current directory is not a git '
+                                     'repository')
 
         if allow_modified:
             return
@@ -103,11 +103,10 @@ class Git(VCS):
 class Mercurial(VCS):
     cmd_name = 'hg'
 
-    def validate(self, allow_modified=False):
+    def validate(self, *, allow_modified=False):
         if not isdir('.hg'):
-            raise IOError(errno.ENOTDIR,
-                          'Current directory is not a mercurial repository',
-                          '.hg')
+            raise NotADirectoryError('Current directory is not a mercurial '
+                                     'repository')
 
         if allow_modified:
             return
@@ -124,13 +123,12 @@ class Mercurial(VCS):
 
 
 class Fossil(VCS):
-    def validate(self, allow_modified=False):
+    def validate(self, *, allow_modified=False):
         # This is an ``isfile`` check raising a directory error, but fossil is
         # the odd one out here so we'll paper over that.
         if not isfile('.fslckout'):
-            raise IOError(errno.ENOTDIR,
-                          'Current directory is not a fossil local tree',
-                          '.fslckout')
+            raise NotADirectoryError('Current directory is not a fossil local '
+                                     'tree')
 
         if allow_modified:
             return
@@ -148,7 +146,5 @@ class Fossil(VCS):
 SUPPORTED_VCS = {}
 
 for t in VCS.__subclasses__():
-    try:
+    with suppress(OSError):
         SUPPORTED_VCS[getattr(t, 'cmd_name', t.__name__.lower())] = t()
-    except OSError:
-        pass

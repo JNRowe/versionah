@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_version - Version object tests"""
 # Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
 #
@@ -44,7 +43,7 @@ def test_version_set(value):
 ])
 def test_version_bump(bump_type, expected):
     v = Version((0, 1, 0, 0))
-    getattr(v, 'bump_%s' % bump_type)()
+    getattr(v, 'bump_{}'.format(bump_type))()
     assert v.components == expected
 
 

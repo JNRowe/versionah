@@ -20,14 +20,10 @@ It is written in Python, and released under the `GPL v3`_.
 Requirements
 ------------
 
-``versionah`` should run on Python_ v2.6 or newer [#]_, including Python v3.
-The only external libraries ``versionah`` currently depends on are click_ and
-jinja_.  If ``versionah`` doesn't work with the version of Python you have
-installed, file an issue_ and I'll endeavour to fix it.
-
-.. [#] If you still run older Python versions only small changes should be
-       required, for example the unrolling of conditional expressions and
-       redefining of ``except..as`` structures.
+``versionah`` should run on Python_ v3.5 or newer.  The only external libraries
+``versionah`` currently depends on are click_ and jinja_.  If ``versionah``
+doesn't work with the version of Python you have installed, file an issue_ and
+I'll endeavour to fix it.
 
 Example
 -------
@@ -76,6 +72,7 @@ Ideas
 '''''
 
 * Ryan Lewis
+* Ryan Sutton
 
 If I've forgotten to include your name I wholeheartedly apologise.  Just drop me
 a mail_ and I'll update the list!

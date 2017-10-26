@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """utils - Testing utilities"""
 # Copyright © 2012-2017  James Rowe <jnrowe@gmail.com>
 #                        Marc Abramowitz <marc@marc-abramowitz.com>
@@ -25,4 +24,4 @@ def expect_from_data(file, input, result):
     except AssertionError as e:
         with open(file).read() as f:
             data = f.read()
-        raise AssertionError("%s from %r" % (e, data))
+        raise AssertionError("{} from {!r}".format(e, data))

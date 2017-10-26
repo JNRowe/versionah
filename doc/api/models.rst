@@ -9,8 +9,6 @@
   `versionah`, and can be skipped if you are simply using the tool from the
   command line.
 
-.. autodata:: STR_TYPE
-
 .. autodata:: VALID_PACKAGE
 .. autodata:: VALID_VERSION
 .. autodata:: VALID_DATE

@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_errors - Error tests"""
 # Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
 #                        Marc Abramowitz <marc@marc-abramowitz.com>
@@ -31,7 +30,8 @@ from versionah.models import Version
 ])
 def test_version_init_invalid_count(components):
     with raises(ValueError,
-                message='Invalid number of components in %r' % components):
+                message='Invalid number of components in {!r}'.format(
+                    components)):
         Version(components)
 
 
@@ -41,15 +41,13 @@ def test_version_init_invalid_count(components):
 ])
 def test_version_init_invalid_component_type(components):
     with raises(ValueError,
-                message='Invalid component values in %r' % components):
+                message='Invalid component values in {!r}'.format(components)):
         Version(components)
 
 
 def test_version___eq___unknown_type():
-    # Differs between Python 2 and 3
-    true_repr = repr(type(True))
     with raises(NotImplementedError,
-                match='Unable to compare Version and %s' % true_repr):
+                match="Unable to compare Version and <class 'bool'>"):
         Version() == True  # NOQA: E712
 
 
@@ -79,7 +77,7 @@ def test_version_read_no_identifier():
 ])
 def test_process_command_line_invalid_package_name(name):
     p = NameParamType()
-    with raises(BadParameter, match="'%s'" % name):
+    with raises(BadParameter, match="'{}'".format(name)):
         p.convert(name, None, None)
 
 

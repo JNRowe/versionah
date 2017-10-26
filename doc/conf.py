@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """conf - Sphinx configuration information"""
 # Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
 #
@@ -20,30 +19,19 @@
 import os
 import sys
 
-from subprocess import CalledProcessError
-try:
-    from subprocess import check_output
-except ImportError:
-    from subprocess import (PIPE, Popen)
+from contextlib import suppress
+from subprocess import (CalledProcessError, check_output)
 
-    def check_output(cmd):
-        process = Popen(cmd, stdout=PIPE)
-        out, _ = process.communicate()
-        ret = process.wait()
-        if ret:
-            raise CalledProcessError(ret, cmd[0])
-        return out
-
-root_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+root_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, root_dir)
 
 import versionah  # NOQA: E402
 
 extensions = \
-    ['sphinx.ext.%s' % ext for ext in ['autodoc', 'coverage', 'doctest',
-                                       'intersphinx', 'napoleon',
-                                       'viewcode']] + \
-    ['sphinxcontrib.%s' % ext for ext in []]
+    ['sphinx.ext.{}'.format(ext)
+     for ext in ['autodoc', 'coverage', 'doctest', 'intersphinx', 'napoleon',
+                'viewcode']] + \
+    ['sphinxcontrib.{}'.format(ext) for ext in []]
 
 # Only activate spelling, if it is installed.  It is not required in the
 # general case and we don't have the granularity to describe this in a clean
@@ -67,12 +55,11 @@ release = versionah._version.dotted
 default_role = 'py:obj'
 
 pygments_style = 'sphinx'
-try:
+with suppress(CalledProcessError):
     html_last_updated_fmt = check_output(['git', 'log',
                                           "--pretty=format:'%ad [%h]'",
-                                          '--date=short', '-n1'])
-except CalledProcessError:
-    pass
+                                          '--date=short', '-n1'],
+                                         encoding='ascii')
 
 man_pages = [
     ('versionah.1', 'versionah', u'versionah Documentation',
@@ -85,8 +72,9 @@ autodoc_default_flags = ['members', ]
 
 intersphinx_mapping = {
     'jinja': ('http://jinja.pocoo.org/docs/',
-              os.getenv('SPHINX_JINJA_OBJECTS')),
-    'python': ('http://docs.python.org/', os.getenv('SPHINX_PYTHON_OBJECTS')),
+              os.getenv('SPHINX_JINJA2_OBJECTS')),
+    'python': ('http://docs.python.org/3/',
+               os.getenv('SPHINX_PYTHON_OBJECTS')),
 }
 
 spelling_lang = 'en_GB'

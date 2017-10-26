@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_output_validity - Output validity tests"""
 # Copyright © 2012-2017  James Rowe <jnrowe@gmail.com>
 #
@@ -37,7 +36,7 @@ from tests.utils import expect_from_data
 ])
 def test_output_validatity(v, filename, linter, tmpdir):
     if not which(linter):
-        skip('Linter %r unavailable')
+        skip('Linter {!r} unavailable'.format(linter))
     file_type = guess_type(filename)
     CliVersion(v).write(filename, file_type)
     retval = call(linter.split() + [filename, ], stdout=PIPE, stderr=PIPE)

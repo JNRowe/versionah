@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """cmdline - Command line functionality for versionah"""
 # Copyright © 2014-2015  James Rowe <jnrowe@gmail.com>
 #
@@ -44,7 +43,7 @@ class ReMatchParamType(click.ParamType):
     def __init__(self):
         super(ReMatchParamType, self).__init__()
         # Set name to "<value>ParamType"
-        self.name = self.__class__.__name__[:-9].lower()
+        self.name = self.__class__.__qualname__[:-9].lower()
 
     def convert(self, value, param, ctx):
         """Check given name is valid.
@@ -58,8 +57,8 @@ class ReMatchParamType(click.ParamType):
         """
         if not self.matcher:
             raise NotImplementedError('No matcher provided')
-        if not re.match('%s$' % self.matcher, value):
-            self.fail('%r' % value)
+        if not re.fullmatch(self.matcher, value):
+            self.fail(repr(value))
         return value
 
 
@@ -113,7 +112,7 @@ class CliVersion(Version):
         Returns:
             str: Formatted version string
         """
-        return getattr(self, 'as_%s' % display_format)()
+        return getattr(self, 'as_{}'.format(display_format))()
 
     @staticmethod
     def read(filename):
@@ -129,11 +128,15 @@ class CliVersion(Version):
         """
         with open(filename) as f:
             data = f.read().strip()
-        match = re.search(r'This is (%s),? [vV]ersion (%s) \((%s)\)'
-                          % (VALID_PACKAGE, VALID_VERSION, VALID_DATE),
+        match = re.search(r'This is ({}),? [vV]ersion ({}) \(({})\)'.format(
+                            VALID_PACKAGE,
+                            VALID_VERSION,
+                            VALID_DATE
+                          ),
                           data)
         if not match:
-            raise ValueError('No valid version identifier in %r' % filename)
+            raise ValueError(
+                'No valid version identifier in {!r}'.format(filename))
         name, version_str, date_str = match.groups()
         components = split_version(version_str)
         try:
@@ -142,7 +145,7 @@ class CliVersion(Version):
             parsed = datetime.datetime.strptime(date_str, '%d-%b-%Y')
         return CliVersion(components, name, parsed.date())
 
-    def write(self, filename, file_type, shtool=False):
+    def write(self, filename, file_type, *, shtool=False):
         """Write a version file.
 
         Args:
@@ -162,22 +165,25 @@ class CliVersion(Version):
         })
         if shtool:
             # %d-%b-%Y, if %b wasn't locale dependent
-            shtool_date = "%s-%s-%s" % (self.date.day,
-                                        MONTHS[self.date.month - 1],
-                                        self.date.year)
-            data['magic'] = 'This is %s, Version %s (%s)' % (self.name,
-                                                             self.as_dotted(),
-                                                             shtool_date)
+            shtool_date = "-".join(self.date.day, MONTHS[self.date.month - 1],
+                                   self.date.year)
+            data['magic'] = 'This is {}, Version {} ({})'.format(
+                self.name,
+                self.as_dotted(),
+                shtool_date
+            )
         else:
-            data['magic'] = 'This is %s version %s (%s)' % (self.name,
-                                                            self.as_dotted(),
-                                                            self.as_date())
+            data['magic'] = 'This is {} version {} ({})'.format(
+                self.name,
+                self.as_dotted(),
+                self.as_date()
+            )
 
         data.update(dict(zip(VERSION_COMPS, self.components)))
-        data.update(dict([(k, getattr(self, 'as_%s' % k)())
+        data.update(dict([(k, getattr(self, 'as_{}'.format(k))())
                           for k in self.display_types()]))
 
-        template = self.env.get_template('%s.jinja' % file_type)
+        template = self.env.get_template('{}.jinja'.format(file_type))
         with open(filename, 'w') as f:
             f.write(template.render(data))
 
@@ -234,8 +240,9 @@ def vcs_wrap(f):
         if kwargs['vcs']:
             repo.add(kwargs['filename'])
             repo.commit(kwargs['filename'],
-                        message="%s released" % version)
-            repo.tag('v%s' % version.as_dotted(), "%s released" % version)
+                        message="{} released".format(version))
+            repo.tag('v{}'.format(version.as_dotted()),
+                     "{} released".format(version))
     return wrapper
 
 
@@ -294,7 +301,7 @@ def bump(display_format, file_type, shtool, vcs, filename, bump):
         version.write(fname, ftype, shtool)
 
         if multi:
-            click.echo("%s: " % fname, nl=False)
+            click.echo("{}: ".format(fname), nl=False)
         success(version.display(display_format))
     return version
 
@@ -354,7 +361,7 @@ def set_version(display_format, file_type, shtool, vcs, name, filename,
         version.write(fname, ftype, shtool)
 
         if multi:
-            click.echo("%s: " % fname, nl=False)
+            click.echo("{}: ".format(fname), nl=False)
         success(version.display(display_format))
     return version
 
@@ -381,5 +388,5 @@ def display(display_format, filename):
             return errno.EIO
 
         if multi:
-            click.echo("%s: " % fname, nl=False)
+            click.echo("{}: ".format(fname), nl=False)
         success(version.display(display_format))

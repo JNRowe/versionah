@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_read - Reading tests"""
 # Copyright © 2012-2017  James Rowe <jnrowe@gmail.com>
 #
@@ -29,5 +28,5 @@ from versionah.cmdline import CliVersion
     ('test_c', '2.1.3'),
 ])
 def test_read_version_file(file, expected):
-    v = CliVersion.read('tests/data/%s' % file)
+    v = CliVersion.read('tests/data/{}'.format(file))
     assert v.as_dotted() == expected

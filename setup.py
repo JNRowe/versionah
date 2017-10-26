@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-# coding=utf-8
 """setup.py - Setuptools tasks and config for versionah"""
 # Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
 #
@@ -20,7 +19,6 @@
 import imp
 
 from sys import version_info
-from warnings import warn
 
 from setuptools import setup
 from setuptools.command.test import test
@@ -47,25 +45,25 @@ with open('versionah/_version.py') as ver_file:
 
 def parse_requires(file):
     deps = []
-    with open('extra/%s' % file) as req_file:
-        entries = map(lambda s: s.split('#')[0].strip(), req_file.readlines())
+    with open('extra/{}'.format(file)) as req_file:
+        entries = [s.split('#')[0].strip() for s in req_file.readlines()]
     for dep in entries:
         if not dep or dep.startswith('#'):
             continue
-        dep = dep
-        if dep.startswith('-r '):
+        elif dep.startswith('-r '):
             deps.extend(parse_requires(dep.split()[1]))
-        else:
-            deps.append(dep)
+            continue
+        elif ';' in dep:
+            dep, marker = dep.split(';')
+            if not eval(marker.strip(), {
+                    'python_version': '{}.{}'.format(*version_info[:2])
+                }):
+                continue
+        deps.append(dep)
     return deps
 
 
-try:
-    install_requires = parse_requires('requirements-py%s%s.txt'
-                                      % version_info[:2])
-except IOError:
-    warn('Unsupported Python version please open an issue!', RuntimeWarning)
-    install_requires = parse_requires('requirements.txt')
+install_requires = parse_requires('requirements.txt')
 
 tests_require = parse_requires('requirements-test.txt')
 
@@ -103,15 +101,7 @@ setup(
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.0',
-        'Programming Language :: Python :: 3.1',
-        'Programming Language :: Python :: 3.2',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Topic :: Documentation',

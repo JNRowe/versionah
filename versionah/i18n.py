@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """i18n - internationalisation support for versionah"""
 # Copyright © 2011-2015  James Rowe <jnrowe@gmail.com>
 #
@@ -21,7 +20,7 @@ import gettext
 
 from os import path
 
-PACKAGE_LOCALE = path.join(path.realpath(path.dirname(__file__)), 'locale')
+PACKAGE_LOCALE = path.join(path.dirname(__file__), 'locale')
 
 gettext.install('versionah', PACKAGE_LOCALE)
 

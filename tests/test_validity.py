@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_validity - Version validity tests"""
 # Copyright © 2012-2017  James Rowe <jnrowe@gmail.com>
 #
@@ -28,5 +27,5 @@ from versionah.models import Version
     '1.2.-1.0',
 ])
 def test_version_validation(v):
-    with raises(ValueError, match='Invalid version string %r' % v):
+    with raises(ValueError, match='Invalid version string {!r}'.format(v)):
         Version(v)

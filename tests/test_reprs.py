@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_reprs - String representation tests"""
 # Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
 #
@@ -26,17 +25,18 @@ TODAY = date.today()
 
 
 def test_version_repr():
-    assert repr(Version()) == "Version((0, 1, 0), 'unknown', %r)" % TODAY
+    assert repr(Version()) \
+        == "Version((0, 1, 0), 'unknown', {!r})".format(TODAY)
 
 
 def test_version_repr_components():
     assert repr(Version([0, 2, 0])) \
-        == "Version((0, 2, 0), 'unknown', %r)" % TODAY
+        == "Version((0, 2, 0), 'unknown', {!r})".format(TODAY)
 
 
 def test_version_repr_name():
     assert repr(Version(name='foo')) \
-        == "Version((0, 1, 0), 'foo', %r)" % TODAY
+        == "Version((0, 1, 0), 'foo', {!r})".format(TODAY)
 
 
 def test_version_repr_date():
