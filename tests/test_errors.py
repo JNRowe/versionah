@@ -29,9 +29,7 @@ from versionah.models import Version
     [1, 2, 3, 4, 5],
 ])
 def test_version_init_invalid_count(components):
-    with raises(ValueError,
-                message='Invalid number of components in {!r}'.format(
-                    components)):
+    with raises(ValueError, match='Invalid number of components'):
         Version(components)
 
 
@@ -40,8 +38,7 @@ def test_version_init_invalid_count(components):
     [1, 2, -4],
 ])
 def test_version_init_invalid_component_type(components):
-    with raises(ValueError,
-                message='Invalid component values in {!r}'.format(components)):
+    with raises(ValueError, match='Invalid component values'):
         Version(components)
 
 
@@ -53,8 +50,7 @@ def test_version___eq___unknown_type():
 
 def test_version_bump_invalid_type():
     v = Version()
-    with raises(ValueError,
-                message="Invalid bump_type 'patch' for version (0, 1, 0)"):
+    with raises(ValueError, match="Invalid bump_type 'patch'"):
         v.bump('patch')
 
 
