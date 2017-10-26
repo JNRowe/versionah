@@ -17,9 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from shutil import which
 from subprocess import (call, PIPE)
 
-from pytest import mark
+from pytest import mark, skip
 
 from versionah.cmdline import (CliVersion, guess_type)
 
@@ -35,6 +36,8 @@ from tests.utils import expect_from_data
     ('1.0.1', 'test_wr.rb', 'ruby -c'),
 ])
 def test_output_validatity(v, filename, linter, tmpdir):
+    if not which(linter):
+        skip('Linter %r unavailable')
     file_type = guess_type(filename)
     CliVersion(v).write(filename, file_type)
     retval = call(linter.split() + [filename, ], stdout=PIPE, stderr=PIPE)
