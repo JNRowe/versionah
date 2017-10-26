@@ -29,6 +29,7 @@ from sh import (CommandNotFound, Command)
 
 
 class VCS:
+
     """Base object for VCS wrappers.
 
     Warning:
@@ -39,6 +40,7 @@ class VCS:
         cmd_name: If set this will override the guess-from-class-name method of
             defining the command name for the given VCS.
     """
+
     def __init__(self):
         cmd_name = getattr(self, 'cmd_name', self.__class__.__name__.lower())
         try:

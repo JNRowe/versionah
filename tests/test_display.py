@@ -65,7 +65,7 @@ def test_libtool_display(v, expected):
     ('2.1.3', '1970-01-01'),
 ])
 def test_date_display(v, date_string):
-    date_obj = date(*map(int, date_string.split('-')))
+    date_obj = date(*[int(x) for x in date_string.split('-')])
     assert Version(v, date=date_obj).as_date() == date_string
 
 

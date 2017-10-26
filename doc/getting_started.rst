@@ -65,7 +65,7 @@ the file, and access the data directly in your :file:`conf.py`::
 
     from versionah import _version
     # The short X.Y version.
-    version = ".".join(map(str, _version.tuple[:2]))
+    version = ".".join([str(x) for x in _version.tuple[:2]])
     # The full version
     release = _version.dotted
 

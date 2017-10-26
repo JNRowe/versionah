@@ -56,4 +56,4 @@ def filter_regexp(string, pattern, repl, count=0, flags=0):
         str: Text with substitutions applied
     """
     return re.sub(pattern, repl, string, count, flags)
-FILTERS['regexp'] = filter_regexp
+FILTERS['regexp'] = filter_regexp  # NOQA: E305

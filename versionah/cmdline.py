@@ -38,6 +38,7 @@ from .vcs import SUPPORTED_VCS
 
 
 class ReMatchParamType(click.ParamType):
+
     """Regular expression based parameter matcher"""
 
     def __init__(self):
@@ -63,12 +64,16 @@ class ReMatchParamType(click.ParamType):
 
 
 class NameParamType(ReMatchParamType):
+
     """Name parameter handler."""
+
     matcher = VALID_PACKAGE
 
 
 class VersionParamType(ReMatchParamType):
+
     """Version parameter handler."""
+
     matcher = VALID_VERSION
 
 
@@ -90,7 +95,7 @@ class CliVersion(Version):
         pkg_data_dirs.append(mk_data_dir(directory))
 
     env = jinja2.Environment(loader=jinja2.ChoiceLoader(
-        list(jinja2.FileSystemLoader(s) for s in pkg_data_dirs)))
+        [jinja2.FileSystemLoader(s) for s in pkg_data_dirs]))
     env.loader.loaders.append(jinja2.PackageLoader('versionah', 'templates'))
     env.filters.update(FILTERS)
     filetypes = [s.split('.')[0] for s in env.list_templates()]
@@ -180,8 +185,8 @@ class CliVersion(Version):
             )
 
         data.update(dict(zip(VERSION_COMPS, self.components)))
-        data.update(dict([(k, getattr(self, 'as_{}'.format(k))())
-                          for k in self.display_types()]))
+        data.update({k: getattr(self, 'as_{}'.format(k))()
+                     for k in self.display_types()})
 
         template = self.env.get_template('{}.jinja'.format(file_type))
         with open(filename, 'w') as f:
@@ -210,7 +215,7 @@ def guess_vcs():
         vcs.VCS: Valid VCS type for current directory
     """
     repo = None
-    for _, vcs_type in SUPPORTED_VCS.items():
+    for vcs_type in SUPPORTED_VCS.values():
         try:
             vcs_type.validate()
         except IOError as e:
