@@ -20,7 +20,7 @@ from pytest import mark
 
 from versionah.cmdline import CliVersion
 
-from tests.utils import expect_from_data
+from .utils import expect_from_data
 
 
 @mark.requires_write

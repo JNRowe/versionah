@@ -19,9 +19,10 @@
 import errno
 
 from contextlib import suppress
-from os.path import (isdir, isfile)
+from os.path import isdir, isfile
 
-from sh import (CommandNotFound, Command)
+from sh import Command, CommandNotFound
+
 
 # This only supports the few version control systems that users I know have
 # seen in the field.  Feel free to add more, or consider submitting a pull

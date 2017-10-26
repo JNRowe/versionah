@@ -16,8 +16,6 @@
 # You should have received a copy of the GNU General Public License along with
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
-from . import _version
-
 import datetime
 import errno
 import os
@@ -26,14 +24,14 @@ import sys
 
 from functools import wraps
 
-import jinja2
 import click
+import jinja2
 
+from . import _version
 from .i18n import _
 from .models import (MONTHS, VALID_DATE, VALID_PACKAGE, VALID_VERSION,
-                     VERSION_COMPS, split_version)
-from .models import Version
-from .utils import (FILTERS, fail, success)
+                     VERSION_COMPS, Version, split_version)
+from .utils import FILTERS, fail, success
 from .vcs import SUPPORTED_VCS
 
 
@@ -173,7 +171,7 @@ class CliVersion(Version):
         })
         if shtool:
             # %d-%b-%Y, if %b wasn't locale dependent
-            shtool_date = "-".join(self.date.day, MONTHS[self.date.month - 1],
+            shtool_date = '-'.join(self.date.day, MONTHS[self.date.month - 1],
                                    self.date.year)
             data['magic'] = 'This is {}, Version {} ({})'.format(
                 self.name,
@@ -248,9 +246,9 @@ def vcs_wrap(f):
         if kwargs['vcs']:
             repo.add(kwargs['filename'])
             repo.commit(kwargs['filename'],
-                        message="{} released".format(version))
+                        message='{} released'.format(version))
             repo.tag('v{}'.format(version.as_dotted()),
-                     "{} released".format(version))
+                     '{} released'.format(version))
     return wrapper
 
 
@@ -309,7 +307,7 @@ def bump(display_format, file_type, shtool, vcs, filename, bump):
         version.write(fname, ftype, shtool)
 
         if multi:
-            click.echo("{}: ".format(fname), nl=False)
+            click.echo('{}: '.format(fname), nl=False)
         success(version.display(display_format))
     return version
 
@@ -369,7 +367,7 @@ def set_version(display_format, file_type, shtool, vcs, name, filename,
         version.write(fname, ftype, shtool)
 
         if multi:
-            click.echo("{}: ".format(fname), nl=False)
+            click.echo('{}: '.format(fname), nl=False)
         success(version.display(display_format))
     return version
 
@@ -396,5 +394,5 @@ def display(display_format, filename):
             return errno.EIO
 
         if multi:
-            click.echo("{}: ".format(fname), nl=False)
+            click.echo('{}: '.format(fname), nl=False)
         success(version.display(display_format))

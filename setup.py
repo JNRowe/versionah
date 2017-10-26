@@ -67,19 +67,19 @@ install_requires = parse_requires('requirements.txt')
 
 tests_require = parse_requires('requirements-test.txt')
 
-with open("README.rst") as f:
+with open('README.rst') as f:
     long_description = f.read()
 
 setup(
     name='versionah',
     version=_version.dotted,
-    description="Simple version specification management",
+    description='Simple version specification management',
     long_description=long_description,
-    author="James Rowe",
-    author_email="jnrowe@gmail.com",
-    url="https://github.com/JNRowe/versionah",
-    license="GPL-3",
-    keywords="versioning admin packaging",
+    author='James Rowe',
+    author_email='jnrowe@gmail.com',
+    url='https://github.com/JNRowe/versionah',
+    license='GPL-3',
+    keywords='versioning admin packaging',
     packages=['versionah', ],
     include_package_data=True,
     package_data={

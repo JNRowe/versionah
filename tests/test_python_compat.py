@@ -18,13 +18,13 @@
 
 from os import getenv
 from shutil import which
-from subprocess import (call, PIPE)
+from subprocess import PIPE, call
 
 from pytest import mark, skip
 
 from versionah.cmdline import CliVersion
 
-from tests.utils import expect_from_data
+from .utils import expect_from_data
 
 
 @mark.requires_exec
@@ -47,7 +47,7 @@ def test_python_compatibility(interp, tmpdir):
 
 # Test interps not available on travis-ci.org, but available on all our test
 # machines
-@mark.skipif(getenv('TRAVIS_PYTHON_VERSION'), reason="Unavailable on travis")
+@mark.skipif(getenv('TRAVIS_PYTHON_VERSION'), reason='Unavailable on travis')
 @mark.requires_exec
 @mark.requires_write
 @mark.parametrize('interp', [

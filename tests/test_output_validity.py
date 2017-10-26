@@ -17,13 +17,13 @@
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
 from shutil import which
-from subprocess import (call, PIPE)
+from subprocess import PIPE, call
 
 from pytest import mark, skip
 
-from versionah.cmdline import (CliVersion, guess_type)
+from versionah.cmdline import CliVersion, guess_type
 
-from tests.utils import expect_from_data
+from .utils import expect_from_data
 
 
 @mark.requires_exec
