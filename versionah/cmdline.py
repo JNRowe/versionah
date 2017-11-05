@@ -105,7 +105,7 @@ class CliVersion(Version):
         """Supported representation types.
 
         Returns:
-            list of str: Method names for representation types
+            list[str]: Method names for representation types
         """
         return [s[3:] for s in dir(CliVersion) if s.startswith('as_')]
 
@@ -235,8 +235,8 @@ def bump(display_format, file_type, shtool, filename, bump):
 
     Args:
         display_format (str): Format to display output in
-        filename (tuple of str): File to operate on
-        file_type (tuple of str): File type to produce
+        filename (tuple[str]): File to operate on
+        file_type (tuple[str]): File type to produce
         shtool (bool): Write shtool_ compatible files
         bump (str): Component to bump
 
@@ -283,8 +283,8 @@ def set_version(display_format, file_type, shtool, name, filename, version_str):
 
     Args:
         display_format (str): Format to display output in
-        filename (tuple of str): File to operate on
-        file_type (tuple of str): File type to produce
+        filename (tuple[str]): File to operate on
+        file_type (tuple[str]): File type to produce
         shtool (bool): Write shtool_ compatible files
         name (str): Project name used in output
         version_str (str): Initial version string
@@ -329,7 +329,7 @@ def display(display_format, filename):
 
     Args:
         display_format (str): Format to display output in
-        filename (tuple of str): File to operate on
+        filename (tuple[str]): File to operate on
     """
     multi = len(filename) != 1
     for fname in filename:

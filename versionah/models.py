@@ -45,7 +45,7 @@ class Version:
         """Initialise a new `Version` object.
 
         Args:
-            components (str or tuple of int): Version components
+            components (str): Version components
             name (str): Package name
             date (datetime.date): Date associated with version
         """
@@ -93,7 +93,7 @@ class Version:
         This presents a tuple for comparison with Version.components_full.
 
         Args
-            other (Version, list or tuple): Object to munge
+            other (Version): Object to munge
         Returns
             tuple: Full version component tuple for object
         Raises
@@ -119,7 +119,7 @@ class Version:
             ``~Version.__prepare_cmp_object``
 
         Args:
-            other (Version, list, tuple or int): Object to munge
+            other (Version): Object to munge
         Returns:
             bool
         """
@@ -132,7 +132,7 @@ class Version:
             ``~Version.__prepare_cmp_object``
 
         Args:
-            other (Version, list, tuple or int): Object to munge
+            other (Version): Object to munge
         Returns:
             bool: True if ``self`` is strictly less-than ``other``
         """
@@ -150,7 +150,7 @@ class Version:
         """Set version components.
 
         Args:
-            components (tuple of int): Version components
+            components (tuple[int]): Version components
         """
         if isinstance(components, str):
             components = split_version(components)
@@ -165,7 +165,7 @@ class Version:
         """Generate full length component tuple for version.
 
         Returns:
-            ``tuple`` of ``int``
+            tuple[int]
         """
         return self.major, self.minor, self.micro, self.patch
 
@@ -174,7 +174,7 @@ class Version:
         """Generate component tuple to initial resolution.
 
         Returns:
-            ``tuple`` of ``int``
+            tuple[int]
         """
         return self.components_full[:self._resolution]
 
@@ -184,7 +184,7 @@ class Version:
         Args:
             bump_type (str): Component to bump
         Raises:
-            ValueError: Invalid `bump_type` argument
+            ValueError: Invalid ``bump_type`` argument
         """
         if bump_type == 'micro' and self._resolution < 3 \
                 or bump_type == 'patch' and self._resolution < 4:
@@ -285,7 +285,7 @@ def split_version(version):
     Args:
         version (str): Version string
     Returns:
-        tuple of int: Components of version string
+        tuple[int]: Components of version string
     Raises:
         ValueError: Invalid version string
     """

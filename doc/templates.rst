@@ -80,7 +80,7 @@ Each template is provided with the following variables for use in the output:
 |                | <datetime.datetime.now>`                                  |
 +----------------+-----------------------------------------------------------+
 | ``utcnow``     | File creation timestamp in :meth:`UTC                     |
-|                | <py:datetime.datetime.utcnow>`                            |
+|                | <datetime.datetime.utcnow>`                               |
 +----------------+-----------------------------------------------------------+
 | ``filename``   | Output file’s name                                        |
 +----------------+-----------------------------------------------------------+
