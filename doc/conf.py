@@ -36,7 +36,7 @@ extensions = \
     ['sphinx.ext.{}'.format(ext)
      for ext in ['autodoc', 'coverage', 'doctest', 'intersphinx', 'napoleon',
                  'viewcode']] + \
-    ['sphinxcontrib.{}'.format(ext) for ext in []]
+    ['sphinxcontrib.{}'.format(ext) for ext in ['blockdiag', ]]
 
 if not on_rtd:
     # Only activate spelling, if it is installed.  It is not required in the
