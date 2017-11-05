@@ -3,6 +3,7 @@
 
 .. image:: https://secure.travis-ci.org/JNRowe/versionah.png?branch=master
    :target: http://travis-ci.org/JNRowe/versionah
+   :alt: Test state on master
 
 .. image:: https://img.shields.io/coveralls/JNRowe/versionah/master.png
    :target: https://coveralls.io/repos/JNRowe/versionah
