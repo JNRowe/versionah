@@ -55,10 +55,6 @@ Commands
 
    Write shtool compatible output.
 
-.. option:: --vcs
-
-   Commit version and create tag.
-
 ``set`` - Set version in given file
 '''''''''''''''''''''''''''''''''''
 
@@ -82,10 +78,6 @@ Commands
 .. option:: --shtool
 
    Write shtool compatible output.
-
-.. option:: --vcs
-
-   Commit version and create tag.
 
 ``display`` - Display version in given file
 '''''''''''''''''''''''''''''''''''''''''''

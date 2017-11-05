@@ -51,10 +51,6 @@ Bump version in given file.
 --shtool
     Write shtool compatible output.
 
---vcs
-
-    Commit version and create tag.
-
 <filename>
     Name of the file to bump.
 
@@ -80,10 +76,6 @@ Set version in given file.
 
 --shtool
     Write shtool compatible output.
-
---vcs
-
-    Commit version and create tag.
 
 <filename>
     Name of the file to set the version for.
