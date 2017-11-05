@@ -4,8 +4,8 @@
 #
 # This file is part of versionah.
 #
-# versionah is free software: you can redistribute it and/or modify it under
-# the terms of the GNU General Public License as published by the Free Software
+# versionah is free software: you can redistribute it and/or modify it under the
+# terms of the GNU General Public License as published by the Free Software
 # Foundation, either version 3 of the License, or (at your option) any later
 # version.
 #
@@ -16,9 +16,8 @@
 # You should have received a copy of the GNU General Public License along with
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
-import imp
-
-from sys import version_info
+from configparser import ConfigParser
+from importlib.util import module_from_spec, spec_from_file_location
 
 from setuptools import setup
 from setuptools.command.test import test
@@ -36,11 +35,28 @@ class PytestTest(test):
         exit(main(self.test_args))
 
 
-# Hack to import _version file without importing versionah/__init__.py, its
-# purpose is to allow import without requiring dependencies at this point.
-with open('versionah/_version.py') as ver_file:
-    _version = imp.load_module('_version', ver_file, ver_file.name,
-                               ('.py', ver_file.mode, imp.PY_SOURCE))
+def import_file(package, fname):
+    """Import file directly.
+
+    This is a hack to import files from packages without importing
+    <package>/__init__.py, its purpose is to allow import without requiring
+    all the dependencies at this point.
+
+    Args:
+        package (str): Package to import from
+        fname (str): File to import
+    Returns:
+        types.ModuleType: Imported module
+    """
+    mod_name = fname.rstrip('.py')
+    spec = spec_from_file_location(mod_name, '{}/{}'.format(package, fname))
+    module = module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def make_list(s):
+    return s.strip().splitlines()
 
 
 def parse_requires(file):
@@ -53,65 +69,42 @@ def parse_requires(file):
         elif dep.startswith('-r '):
             deps.extend(parse_requires(dep.split()[1]))
             continue
-        elif ';' in dep:
-            dep, marker = dep.split(';')
-            if not eval(marker.strip(), {
-                    'python_version': '{}.{}'.format(*version_info[:2])
-                }):
-                continue
         deps.append(dep)
     return deps
 
+
+conf = ConfigParser()
+conf.read('setup.cfg')
+metadata = dict(conf['metadata'])
 
 install_requires = parse_requires('requirements.txt')
 
 tests_require = parse_requires('requirements-test.txt')
 
-with open('README.rst') as f:
-    long_description = f.read()
+metadata = dict(conf['metadata'])
+for k in ['classifiers', 'packages', 'py_modules']:
+    if k in metadata:
+        metadata[k] = make_list(metadata[k])
 
-setup(
-    name='versionah',
-    version=_version.dotted,
-    description='Simple version specification management',
-    long_description=long_description,
-    author='James Rowe',
-    author_email='jnrowe@gmail.com',
-    url='https://github.com/JNRowe/versionah',
-    license='GPL-3',
-    keywords='versioning admin packaging',
-    packages=['versionah', ],
-    include_package_data=True,
-    package_data={
-        '': ['versionah/locale/*/LC_MESSAGES/*.mo',
-             'versionah/templates/*.jinja', ],
-    },
-    entry_points={'console_scripts': ['versionah = versionah.cmdline:cli', ]},
-    install_requires=install_requires,
-    tests_require=tests_require,
-    cmdclass={'test': PytestTest},
-    zip_safe=False,
-    classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Environment :: Console',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved',
-        'License :: OSI Approved :: GNU General Public License (GPL)',
-        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
-        'Natural Language :: English',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Topic :: Documentation',
-        'Topic :: Software Development',
-        'Topic :: Software Development :: Build Tools',
-        'Topic :: Software Development :: Code Generators',
-        'Topic :: Software Development :: Quality Assurance',
-        'Topic :: Software Development :: Version Control',
-        'Topic :: System',
-        'Topic :: System :: Software Distribution',
-        'Topic :: Utilities',
-    ],
-)
+for k in ['include_package_data', ]:
+    if k in metadata:
+        metadata[k] = conf.getboolean('metadata', k)
+
+for k in ['entry_points', 'package_data']:
+    if k in metadata:
+        metadata[k] = eval(metadata[k], {'__builtins__': {}})
+
+with open('README.rst') as readme:
+    metadata['long_description'] = readme.read()
+
+_version = import_file(metadata['name'], '_version.py')
+
+if __name__ == '__main__':
+    setup(
+        version=_version.dotted,
+        install_requires=install_requires,
+        tests_require=tests_require,
+        cmdclass={'test': PytestTest},
+        zip_safe=False,
+        **metadata,
+    )
