@@ -3,8 +3,7 @@ Usage
 
 .. highlight:: console
 
-The :program:`versionah` script is the main workhorse of the :mod:`versionah`
-module.
+The |progref| script is the main workhorse of the :mod:`versionah` module.
 
 Let’s start with some basic examples::
 

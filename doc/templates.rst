@@ -21,7 +21,7 @@ Templates are loaded from directories in the following order:
 * If it exists, ``${XDG_DATA_HOME:~/.local/share}/versionah/templates``
 * Any :file:`versionah/templates` directory in the directories specified by
   :envvar:`XDG_DATA_DIRS`
-* The :program:`versionah` package’s ``templates`` directory
+* The |progref| package’s ``templates`` directory
 
 .. note::
    For OS X users ``versionah`` will fallback to ``~/Library/Application
@@ -33,7 +33,7 @@ Precedence
 The first name match in the order :ref:`specified above
 <template_locations-label>` selects the template, so a :file:`py.jinja` file in
 :file:`${XDG_DATA_HOME}/versionah/templates` overrides the :file:`py.jinja`
-template provided with :program:`versionah`.
+template provided with |progref|.
 
 .. _template_naming-label:
 
@@ -41,9 +41,8 @@ Naming
 ------
 
 Templates should be named after the common type suffix if possible, doing so
-allows :program:`versionah` to guess an appropriate template from a supplied
-file.  For example, :file:`py.jinja` will apply by default to all files ending
-in ``.py``.
+allows |progref| to guess an appropriate template from a supplied file.  For
+example, :file:`py.jinja` will apply by default to all files ending in ``.py``.
 
 Nevertheless, templates *can* be given any name you wish.  This makes it simple
 to have project specific templates, should the need arise.  This functionality
@@ -59,8 +58,7 @@ Each template is provided with the following variables for use in the output:
 +----------------+-----------------------------------------------------------+
 | Variable       | Content                                                   |
 +================+===========================================================+
-| ``magic``      | Magic string to support re-reading :program:`versionah`   |
-|                | files                                                     |
+| ``magic``      | Magic string to support re-reading |progref| files        |
 +----------------+-----------------------------------------------------------+
 | ``major`` /    | Individual component parts                                |
 | ``minor`` /    |                                                           |
@@ -110,15 +108,14 @@ which results in output such as::
 Filters
 -------
 
-:program:`versionah` defines the following filters beyond the huge range of
-`built-in filters`_ in Jinja_:
+|progref| defines the following filters beyond the huge range of `built-in
+filters`_ in Jinja_:
 
 .. note::
 
    If you write extra filters and believe they could be of use to other
-   :program:`versionah` users please consider posting them in an issue_ or
-   pushing them to a fork on GitHub_, so that others may benefit from your
-   work.
+   |progref| users please consider posting them in an issue_ or pushing them to
+   a fork on GitHub_, so that others may benefit from your work.
 
 ``regexp``
 ''''''''''

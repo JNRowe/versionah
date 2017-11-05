@@ -4,8 +4,8 @@ Getting started
 Initial setup
 -------------
 
-The first time we run :program:`versionah` we must supply the initial version
-number, and optionally a name for the package:
+The first time we run |progref| we must supply the initial version number, and
+optionally a name for the package:
 
 .. code-block:: console
 
@@ -95,10 +95,10 @@ import the file.  Accessing the data directly in your project’s
     You may need to mangle :data:`sys.path` if you can’t import the version
     file from your :file:`conf.py`.
 
-Use the :program:`versionah` output
-'''''''''''''''''''''''''''''''''''
+Use the |progref| output
+''''''''''''''''''''''''
 
-Another option is to call :program:`versionah` inside your :file:`conf.py`::
+Another option is to call |progref| inside your :file:`conf.py`::
 
     import subprocess
     # The full version
@@ -107,8 +107,8 @@ Another option is to call :program:`versionah` inside your :file:`conf.py`::
     version = '.'.join(release.split('.')[:2])
 
 The obvious drawback to this method is that it requires *all* users who wish to
-build the documentation to have :program:`versionah` installed, and is
-therefore not recommended.
+build the documentation to have |progref| installed, and is therefore not
+recommended.
 
 :command:`pod2man` example
 --------------------------
@@ -127,9 +127,9 @@ would be:
 More examples
 -------------
 
-If you’re using :program:`versionah` with another common(-ish) tool, then new
-examples for this section are most welcome.  Please consider posting them in an
-issue_ or pushing them to a fork on GitHub_, so that others may benefit.
+If you’re using |progref| with another common(-ish) tool, then new examples for
+this section are most welcome.  Please consider posting them in an issue_ or
+pushing them to a fork on GitHub_, so that others may benefit.
 
 .. _make: http://www.gnu.org/software/make/make.html
 .. _automake: http://sources.redhat.com/automake/

@@ -13,7 +13,7 @@ need to resort to various :kbd:`C-a` and :kbd:`C-x` contortions in vim_ or
 formulating complicated lisp functions with ``number-to-string`` and
 ``string-to-number`` in emacs_.
 
-Now :program:`versionah` is born, and I should be able to realise those dreams!
+Now |progref| is born, and I should be able to realise those dreams!
 
 Version numbers
 ===============
@@ -22,20 +22,20 @@ This — for some — is a very complicated topic, but not for me.  Version numb
 are made of three components; major, minor and micro.  All three components are
 natural numbers; no exceptions.
 
-If you find version numbers like 0.6c11 acceptable then :program:`versionah` is
-not for you.
+If you find version numbers like 0.6c11 acceptable then |progref| is not for
+you.
 
 .. note::
 
    If you like version numbers with two or four integer components then
-   :program:`versionah` can be for you too.  Support was added in 0.6.0, but
-   that doesn’t mean you have to use it!
+   |progref| can be for you too.  Support was added in 0.6.0, but that doesn’t
+   mean you have to use it!
 
 PEP 386
 ~~~~~~~
 
-The version numbering scheme supported by :program:`versionah`` is a very small
-subset of ``LooseVersion`` defined in :pep:`386`.  It isn’t compliant with
+The version numbering scheme supported by |progref| is a very small subset of
+``LooseVersion`` defined in :pep:`386`.  It isn’t compliant with
 ``StrictVersion`` because of the 4 component support, but support for packages
 in the wild is much more important to me.
 

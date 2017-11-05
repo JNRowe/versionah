@@ -12,14 +12,14 @@ Release HOWTO
 Test
 ----
 
-Tests can be run via pytest_::
+Tests can be run via :pypi:`pytest`::
 
     $ pip install -r extra/requirements-test.txt
     $ pytest -v tests
 
-When preparing a release it is important to check that :program:`versionah`
-works with all supported Python versions, and that the documentation for
-executing them is correct.
+When preparing a release it is important to check that |progref| works with all
+supported Python versions, and that the documentation for executing them is
+correct.
 
 Prepare release
 ---------------
@@ -33,15 +33,14 @@ With the tests passing, do the following steps:
 * Push the changes — including the new tag — to the GitHub repository
 * Create a new release on GitHub
 
-Update :abbr:`PyPI (Python Package Index)`
-------------------------------------------
+Update |PyPI|
+-------------
 
 ..
   This is the section you’re especially likely to get wrong at some point if you
   try to handle all of this manually ;)
 
-Create and upload the new release tarballs to :abbr:`PyPI (Python Package
-Index)` using twine_::
+Create and upload the new release tarballs to |PyPI| using :pypi:`twine`::
 
     $ ./setup.py sdist bdist_wheel
     $ gpg --detach-sign --armour dist/versionah-${version}.tar.gz
@@ -50,8 +49,5 @@ Index)` using twine_::
 
 Fetch the uploaded tarballs, and check for errors.
 
-You should also test installation from :abbr:`PyPI (Python Package Index)`, to
-check the experience :program:`versionah`’s end users will have.
-
-.. _pytest: http://pytest.org/
-.. _twine: https://pypi.python.org/pypi/twine
+You should also test installation from |PyPI|, to check the experience
+|progref|’s end users will have.

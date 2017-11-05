@@ -18,7 +18,7 @@ information in your editor or using a simpler approach such as shtool_’s
 I give ``perl`` scripts the suffix ``.perl``, can I make type guessing work?
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-Yes.  The simplest way is to just create a symlink from :program:`versionah`’s
+Yes.  The simplest way is to just create a symlink from |progref|’s
 :file:`pl.jinja`` to
 ``${XDG_DATA_HOME:~/.local/share}/versionah/templates/perl.jinja``.
 
@@ -54,14 +54,14 @@ religious — reasons people prefer other templating engines *I* prefer Jinja_.
 How do I add version data to my project’s :file:`README`?
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-The way I manage it, using :program:`versionah`, is by having a :ref:`custom
-template <template_naming-label>` for such a project.
+The way I manage it, using |progref|, is by having a :ref:`custom template
+<template_naming-label>` for such a project.
 
-The only templating requirement :program:`versionah` has is that ``{{ magic
-}}`` is included *somewhere*.  This means you can use a custom template that
-includes your full :file:`README` data, and generate the distributed
-:file:`README` from that.  Consider it the :file:`README.in` approach you’ve
-probably used with GNU autotools, and it makes perfect sense.
+The only templating requirement |progref| has is that ``{{ magic }}`` is
+included *somewhere*.  This means you can use a custom template that includes
+your full :file:`README` data, and generate the distributed :file:`README` from
+that.  Consider it the :file:`README.in` approach you’ve probably used with GNU
+autotools, and it makes perfect sense.
 
 Will you support other version formats?
 '''''''''''''''''''''''''''''''''''''''
