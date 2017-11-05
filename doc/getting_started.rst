@@ -50,6 +50,27 @@ practise in maintaining the semantics of your version data, but doing so
 provides significant value to your users even if they aren’t using the library
 interface.
 
+``ninja`` example
+-----------------
+
+An example of usage from within ninja_ could be:
+
+.. code-block:: text
+
+    rule bump_versionah
+        command = versionah bump example.txt $component
+        description = BUMP $component
+
+    build version-major: bump_versionah
+        component = major
+    build version-minor: bump_versionah
+        component = minor
+    build version-micro: bump_versionah
+        component = micro
+
+Obviously, being a ``ninja`` you would generate the ``rule`` and ``build``
+directives programmatically.
+
 ``Sphinx`` example
 ------------------
 
@@ -112,6 +133,7 @@ issue_ or pushing them to a fork on GitHub_, so that others may benefit.
 .. _make: http://www.gnu.org/software/make/make.html
 .. _automake: http://sources.redhat.com/automake/
 .. _libtool: http://www.gnu.org/software/libtool/
+.. _ninja: https://ninja-build.org/
 .. _Sphinx: http://sphinx.pocoo.org/
 .. _Python: http://www.python.org/
 .. _perl: http://www.perl.org/
