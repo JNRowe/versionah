@@ -255,7 +255,7 @@ def bump(display_format, file_type, shtool, filename, bump):
             bump = VERSION_COMPS[len(version.components) - 1]
 
         version.bump(bump)
-        version.write(fname, ftype, shtool)
+        version.write(fname, ftype, shtool=shtool)
 
         if multi:
             click.echo('{}: '.format(fname), nl=False)
@@ -310,7 +310,7 @@ def set_version(display_format, file_type, shtool, name, filename, version_str):
             version.name = name
 
         version.set(version_str)
-        version.write(fname, ftype, shtool)
+        version.write(fname, ftype, shtool=shtool)
 
         if multi:
             click.echo('{}: '.format(fname), nl=False)
