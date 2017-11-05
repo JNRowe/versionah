@@ -210,7 +210,8 @@ def guess_type(filename):
 
 @click.group(help=_('A tool to manage project version files.'),
              epilog=_('Please report bugs to '
-                      'https://github.com/JNRowe/versionah/issues'))
+                      'https://github.com/JNRowe/versionah/issues'),
+             context_settings={'help_option_names': ['-h', '--help']})
 @click.version_option(_version.dotted)
 def cli():
     """Main command entry point."""
