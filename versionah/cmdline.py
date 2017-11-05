@@ -86,7 +86,8 @@ class CliVersion(Version):
     user_dir = os.environ.get('XDG_DATA_HOME', fallback_dir)
     system_dirs = os.environ.get('XDG_DATA_DIRS',
                                  '/usr/local/share/:/usr/share/').split(':')
-    mk_data_dir = lambda s: os.path.join(s, 'versionah', 'templates')
+    mk_data_dir = lambda s: os.path.join(s, 'versionah',  # NOQA: E731
+                                    'templates')
     pkg_data_dirs = [mk_data_dir(user_dir), ]
     for directory in system_dirs:
         pkg_data_dirs.append(mk_data_dir(directory))
