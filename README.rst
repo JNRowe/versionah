@@ -1,6 +1,8 @@
 ``versionah`` - Simple version specification management
 =======================================================
 
+|travis| |coveralls| |pypi|
+
 .. image:: https://secure.travis-ci.org/JNRowe/versionah.png?branch=master
    :target: http://travis-ci.org/JNRowe/versionah
    :alt: Test state on master
@@ -97,3 +99,15 @@ reproduce the problem, or even better a patch!
 .. _jinja: http://jinja.pocoo.org/
 .. _mail: jnrowe@gmail.com
 .. _issue: https://github.com/JNRowe/versionah/issues/
+
+.. |travis| image:: https://secure.travis-ci.org/JNRowe/versionah.png?branch=master
+   :target: http://travis-ci.org/JNRowe/versionah
+   :alt: Test state on master
+
+.. |coveralls| image:: https://img.shields.io/coveralls/JNRowe/versionah/master.png
+   :target: https://coveralls.io/repos/JNRowe/versionah
+   :alt: Coverage state on master
+
+.. |pypi| image:: https://img.shields.io/pypi/v/jnrbase.png
+   :target: https://pypi.python.org/pypi/jnrbase
+   :alt: Current PyPI release
