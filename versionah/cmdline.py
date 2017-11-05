@@ -80,7 +80,8 @@ class CliVersion(Version):
     if sys.platform == 'darwin':
         fallback_dir = os.path.expanduser('~/Library/Application Support')
     else:
-        fallback_dir = os.path.join(os.environ.get('HOME', '/'), '.local')
+        fallback_dir = os.path.join(os.environ.get('HOME', '/'), '.local',
+                                    'share')
 
     user_dir = os.environ.get('XDG_DATA_HOME', fallback_dir)
     system_dirs = os.environ.get('XDG_DATA_DIRS',
