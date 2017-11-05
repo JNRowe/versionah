@@ -143,6 +143,7 @@ Written by `James Rowe <mailto:jnrowe@gmail.com>`__
 RESOURCES
 ---------
 
+:Documentation: http://versionah.readthedocs.io/
 :Git repository:  https://github.com/JNRowe/versionah/
 :Issue tracker:  https://github.com/JNRowe/versionah/issues/
 :Contributors:  https://github.com/JNRowe/versionah/contributors/
