@@ -1,11 +1,12 @@
 Usage
 =====
 
-The :program:`versionah` script is the main workhorse of `versionah`.
+.. highlight:: console
 
-Let’s start with some basic examples:
+The :program:`versionah` script is the main workhorse of the :mod:`versionah`
+module.
 
-.. code:: console
+Let’s start with some basic examples::
 
     $ versionah display _version.py  # Read the version data from _version.py
     2.4.3

@@ -7,24 +7,36 @@ below.  If I have missed something please drop me a mail_.
 shtool
 ------
 
-shtool_ provides a great version management applet, one which I used for a
-number of years in certain projects [#]_ .  Unfortunately, the output formats
-are hard-coded in the script making it very difficult to use in most of the
-projects I work on.
+shtool_ provides a great version management applet, one which I used for many
+years in various projects [#]_.  Unfortunately, the output formats are
+hard-coded in the script making it extremely difficult to use in the projects
+I work on.
 
-A few ideas have been borrowed from ``shtool``, and `versionah` should be seen
-as a homage to the version applet from ``shtool``.
+A few ideas have been borrowed from ``shtool``, and :program:`versionah` should
+be seen as a homage to the version applet from ``shtool``.
 
-If you don’t need the template support of `versionah` and find the other
-functionality ``shtool`` provides useful then I’d strongly recommend using
-``shtool``.  There is little point depending on two external projects when one
-can suffice.
+If you don’t need the template support of :program:`versionah` and find the
+other functionality ``shtool`` provides useful, then I’d strongly recommend
+using ``shtool``.  There is little point depending on two external projects
+when one can suffice.
 
-Since version 0.8.0 it has been possible to parse ``shtool`` generated files,
-and you can write ``shtool``-compatible files with v0.14.0 and later.
+Since version 0.8.0 of :program:`versionah` it has been possible to parse
+``shtool`` generated files [#]_.  You can also write ``shtool``-compatible files
+with :program:`versionah` v0.14.0 and later [#]_, see the :option:`versionah
+bump --shtool` documentation.
+
+.. rubric:: Footnotes
 
 .. [#] According to the `shtool ChangeLog`_ I used it at least as far back as
-   2004 when I contributed M4_ support.
+   2004 when I contributed M4_ support, and I didn’t spike :program:`versionah`
+   until 2011.
+
+.. [#] 0.8.0 was the release I cut to as I started to migrate existing projects
+   that used ``shtool``.
+
+.. [#] 0.14.0 was the release I cut to support a project that didn’t want to
+   migrate to :program:`versionah`, when I had become accustomed to its
+   interface in the intervening three months.
 
 .. _mail: jnrowe@gmail.com
 .. _shtool: http://www.gnu.org/software/shtool/shtool.html

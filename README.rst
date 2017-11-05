@@ -11,7 +11,7 @@
 Introduction
 ------------
 
-``versionah`` is a simple tool to help you, or more specifically *me*, easily
+``versionah`` is a simple tool to help you — or more specifically *me* — easily
 maintain version information for a project.  Its entire aim is to make the act
 of displaying or bumping a project’s version number a thoughtless task.
 
@@ -21,14 +21,16 @@ Requirements
 ------------
 
 ``versionah`` should run on Python_ v3.5 or newer.  The only external libraries
-``versionah`` currently depends on are click_ and jinja_.  If ``versionah``
-doesn’t work with the version of Python you have installed, file an issue_ and
-I’ll endeavour to fix it.
+``versionah`` depends on are click_ and jinja_.  If ``versionah`` doesn’t work
+with the version of Python you have installed, file an issue_ and I’ll
+endeavour to fix it.
 
 Example
 -------
 
-The simplest way to show how ``versionah`` works is by example::
+The simplest way to show how ``versionah`` works is by example:
+
+.. code:: console
 
     $ versionah set example.txt 2.4.3
     2.4.3
@@ -83,7 +85,7 @@ Bugs
 If you find any problems, bugs or just have a question about this package either
 file an issue_ or drop me a mail_.
 
-If you’ve found a bug please attempt to include a minimal testcase so I can
+If you’ve found a bug please try to include a minimal testcase so I can
 reproduce the problem, or even better a patch!
 
 .. _GPL v3: http://www.gnu.org/licenses/

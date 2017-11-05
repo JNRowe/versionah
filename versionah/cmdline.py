@@ -208,7 +208,7 @@ def guess_type(filename):
 
 
 @click.group(help=_('A tool to manage project version files.'),
-             epilog=_('Please report bugs to '
+             epilog=_('Please report bugs at '
                       'https://github.com/JNRowe/versionah/issues'))
 @click.version_option(_version.dotted)
 def cli():
