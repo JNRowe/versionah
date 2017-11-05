@@ -29,6 +29,7 @@ Contents
    faq
    alternatives
    upgrading
+   NEWS
    api/index
    release
    appendix
