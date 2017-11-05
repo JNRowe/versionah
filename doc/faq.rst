@@ -1,6 +1,9 @@
 Frequently Asked Questions
 --------------------------
 
+.. contents::
+   :local:
+
 Isn’t this an overly elaborate solution for a simple problem?
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
