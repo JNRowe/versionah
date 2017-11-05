@@ -9,6 +9,10 @@
    :target: https://coveralls.io/repos/JNRowe/versionah
    :alt: Coverage state on master
 
+.. image:: https://img.shields.io/pypi/v/jnrbase.png
+   :target: https://pypi.python.org/pypi/jnrbase
+   :alt: Current PyPI release
+
 Introduction
 ------------
 
