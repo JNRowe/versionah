@@ -1,5 +1,5 @@
 #
-"""cmdline - Command line functionality for versionah"""
+"""cmdline - Command line functionality for versionah."""
 # Copyright © 2014-2015  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of versionah.
@@ -35,9 +35,10 @@ from .utils import (FILTERS, fail, success)
 
 class ReMatchParamType(click.ParamType):
 
-    """Regular expression based parameter matcher"""
+    """Regular expression based parameter matcher."""
 
     def __init__(self):
+        """Initialise a new `ReMatchParamType` object."""
         super(ReMatchParamType, self).__init__()
         # Set name to "<value>ParamType"
         self.name = self.__class__.__qualname__[:-9].lower()

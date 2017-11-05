@@ -1,5 +1,5 @@
 #
-"""versionah - Simple version specification management
+"""versionah - Simple version specification management.
 
 versionah is a GPL v3 licensed module for maintaining version information files
 for use in project management.

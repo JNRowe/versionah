@@ -1,5 +1,5 @@
 #
-"""models - Version models for versionah"""
+"""models - Version models for versionah."""
 # Copyright © 2014-2015  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of versionah.

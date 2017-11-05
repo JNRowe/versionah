@@ -10,15 +10,17 @@ Command line
   command line.
 
 .. autoclass:: NameParamType
+.. autoclass:: ReMatchParamType
 .. autoclass:: VersionParamType
 
 .. autoclass:: CliVersion
 
 .. autofunction:: guess_type
-.. autofunction:: bump
-.. autofunction:: set_version
-.. autofunction:: display
+
 .. autofunction:: cli
+.. autofunction:: bump
+.. autofunction:: display
+.. autofunction:: set_version
 
 Examples
 --------

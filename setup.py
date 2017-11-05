@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-"""setup.py - Setuptools tasks and config for versionah"""
+"""setup.py - Setuptools tasks and config for versionah."""
 # Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of versionah.
