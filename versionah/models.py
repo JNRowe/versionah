@@ -228,7 +228,7 @@ class Version:
         Returns:
             dict: Version as dictionary
         """
-        return dict(zip(VERSION_COMPS, self.components))
+        return {k: v for k, v in zip(VERSION_COMPS, self.components)}
 
     def as_dotted(self):
         """Generate a dotted version string.

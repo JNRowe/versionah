@@ -185,7 +185,7 @@ class CliVersion(Version):
                 self.as_date()
             )
 
-        data.update(dict(zip(VERSION_COMPS, self.components)))
+        data.update({k: v for k, v in zip(VERSION_COMPS, self.components)})
         data.update({k: getattr(self, 'as_{}'.format(k))()
                      for k in self.display_types()})
 
