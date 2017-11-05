@@ -26,6 +26,7 @@ import click
 import jinja2
 
 from jnrbase.colourise import pfail, psuccess
+from jnrbase.iso_8601 import parse_datetime
 from jnrbase.template import FILTERS
 
 from . import _version
@@ -148,7 +149,7 @@ class CliVersion(Version):
         name, version_str, date_str = match.groups()
         components = split_version(version_str)
         try:
-            parsed = datetime.datetime.strptime(date_str, '%Y-%m-%d')
+            parsed = parse_datetime(date_str)
         except ValueError:
             parsed = datetime.datetime.strptime(date_str, '%d-%b-%Y')
         return CliVersion(components, name, parsed.date())
