@@ -28,6 +28,7 @@ Contents
    versionah manpage <versionah.1>
    faq
    alternatives
+   upgrading
    api/index
    release
    appendix
