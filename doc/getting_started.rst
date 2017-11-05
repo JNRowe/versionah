@@ -120,7 +120,8 @@ would be:
 .. code-block:: make
 
     man.1: man.pod
-        pod2man --section=1 --release="`versionah display -d dotted src/version.h`" \
+        pod2man --section=1 \
+            --release="`versionah display -d dotted src/version.h`" \
             --date="`versionah display -d date src/version.h`" $< $@
 
 More examples
