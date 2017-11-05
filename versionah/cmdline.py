@@ -20,7 +20,6 @@ import datetime
 import errno
 import os
 import re
-import sys
 
 import click
 import jinja2
@@ -29,6 +28,7 @@ from jnrbase import i18n
 from jnrbase.colourise import pfail, psuccess
 from jnrbase.iso_8601 import parse_datetime
 from jnrbase.template import FILTERS
+from jnrbase.xdg_basedir import get_data_dirs, user_data
 
 from . import _version
 from .models import (MONTHS, VALID_DATE, VALID_PACKAGE, VALID_VERSION,
@@ -83,19 +83,9 @@ class CliVersion(Version):
 
     """Specialisation of models.Version for command line usage."""
 
-    if sys.platform == 'darwin':
-        fallback_dir = os.path.expanduser('~/Library/Application Support')
-    else:
-        fallback_dir = os.path.join(os.environ.get('HOME', '/'), '.local',
-                                    'share')
-
-    user_dir = os.environ.get('XDG_DATA_HOME', fallback_dir)
-    system_dirs = os.environ.get('XDG_DATA_DIRS',
-                                 '/usr/local/share/:/usr/share/').split(':')
-    mk_data_dir = lambda s: os.path.join(s, 'versionah',  # NOQA: E731
-                                    'templates')
-    pkg_data_dirs = [mk_data_dir(user_dir), ]
-    for directory in system_dirs:
+    mk_data_dir = lambda s: os.path.join(s, 'templates')  # NOQA: E731
+    pkg_data_dirs = [mk_data_dir(user_data('versionah')), ]
+    for directory in get_data_dirs('versionah'):
         pkg_data_dirs.append(mk_data_dir(directory))
 
     env = jinja2.Environment(
