@@ -1,4 +1,4 @@
-.. currentmodule:: versionah.utils
+.. module:: versionah.utils
 
 Jinja filters
 =============

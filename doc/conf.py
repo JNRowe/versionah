@@ -59,6 +59,7 @@ version = '.'.join([str(x) for x in versionah._version.tuple[:2]])
 release = versionah._version.dotted
 
 html_experimental_html5_writer = True
+modindex_common_prefix = ['versionah.', ]
 
 # readthedocs.org handles this setup for their builds, but it is nice to see
 # approximately correct builds on the local system too

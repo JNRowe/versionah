@@ -1,4 +1,4 @@
-.. currentmodule:: versionah.models
+.. module:: versionah.models
 
 ``Version``
 ===========

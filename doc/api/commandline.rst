@@ -1,4 +1,4 @@
-.. currentmodule:: versionah.cmdline
+.. module:: versionah.cmdline
 
 Command line
 ============
