@@ -25,13 +25,13 @@ import sys
 import click
 import jinja2
 
+from jnrbase.colourise import pfail, psuccess
 from jnrbase.template import FILTERS
 
 from . import _version
 from .i18n import _
 from .models import (MONTHS, VALID_DATE, VALID_PACKAGE, VALID_VERSION,
                      VERSION_COMPS, Version, split_version)
-from .utils import fail, success
 
 
 class ReMatchParamType(click.ParamType):
@@ -264,7 +264,7 @@ def bump(display_format, file_type, shtool, filename, bump):
 
         if multi:
             click.echo('{}: '.format(fname), nl=False)
-        success(version.display(display_format))
+        psuccess(version.display(display_format))
 
 
 @cli.command(name='set', help=_('Set version in given file.'))
@@ -309,7 +309,7 @@ def set_version(display_format, file_type, shtool, name, filename,
         except IOError:
             version = CliVersion()
         except ValueError as error:
-            fail(error.args[0])
+            pfail(error.args[0])
             return errno.EIO
 
         if name:
@@ -320,7 +320,7 @@ def set_version(display_format, file_type, shtool, name, filename,
 
         if multi:
             click.echo('{}: '.format(fname), nl=False)
-        success(version.display(display_format))
+        psuccess(version.display(display_format))
 
 
 @cli.command(help=_('Display version in given file.'))
@@ -341,9 +341,9 @@ def display(display_format, filename):
         try:
             version = CliVersion.read(fname)
         except ValueError as error:
-            fail(error.args[0])
+            pfail(error.args[0])
             return errno.EIO
 
         if multi:
             click.echo('{}: '.format(fname), nl=False)
-        success(version.display(display_format))
+        psuccess(version.display(display_format))

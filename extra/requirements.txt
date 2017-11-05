@@ -1,3 +1,3 @@
 Jinja2>=2.4
 click
-jnrbase[template]>=0.7
+jnrbase[colour,template]>=0.7
