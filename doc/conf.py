@@ -28,21 +28,26 @@ sys.path.insert(0, root_dir)
 
 import versionah  # NOQA: E402
 
+on_rtd = os.getenv('READTHEDOCS')
+if not on_rtd:
+    import sphinx_rtd_theme
+
 extensions = \
     ['sphinx.ext.{}'.format(ext)
      for ext in ['autodoc', 'coverage', 'doctest', 'intersphinx', 'napoleon',
                  'viewcode']] + \
     ['sphinxcontrib.{}'.format(ext) for ext in []]
 
-# Only activate spelling, if it is installed.  It is not required in the
-# general case and we don't have the granularity to describe this in a clean
-# way
-try:
-    from sphinxcontrib import spelling  # NOQA: F401
-except ImportError:
-    pass
-else:
-    extensions.append('sphinxcontrib.spelling')
+if not on_rtd:
+    # Only activate spelling, if it is installed.  It is not required in the
+    # general case and we don't have the granularity to describe this in a
+    # clean way
+    try:
+        from sphinxcontrib import spelling  # NOQA: F401
+    except ImportError:
+        pass
+    else:
+        extensions.append('sphinxcontrib.spelling')
 
 master_doc = 'index'
 source_suffix = '.rst'
@@ -52,6 +57,12 @@ copyright = versionah.__copyright__
 
 version = '.'.join([str(x) for x in versionah._version.tuple[:2]])
 release = versionah._version.dotted
+
+# readthedocs.org handles this setup for their builds, but it is nice to see
+# approximately correct builds on the local system too
+if not on_rtd:
+    html_theme = "sphinx_rtd_theme"
+    html_theme_path = [sphinx_rtd_theme.get_html_theme_path(), ]
 
 default_role = 'py:obj'
 
