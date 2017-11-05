@@ -5,7 +5,6 @@ include doc/conf.py
 include extra/_versionah
 include extra/README.pip
 include extra/doap.rdf
-include extra/docrunner.py
 include extra/requirements*.txt
 include tests/data/shtool/test.*
 include tests/data/test_[a-z]
