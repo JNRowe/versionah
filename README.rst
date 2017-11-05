@@ -40,8 +40,6 @@ The simplest way to show how ``versionah`` works is by example:
     2.5.0
     $ versionah bump example.txt major
     3.0.0
-    $ rm example.txt
-    <BLANKLINE>
 
 API Stability
 -------------
