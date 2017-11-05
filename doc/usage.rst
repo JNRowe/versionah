@@ -37,9 +37,13 @@ Commands
 --------
 
 ``bump`` - Bump version in given file
-'''''''''''''''''''''''''''''''''''''
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. program:: versionah bump
+
+::
+
+    versionah bump [--help] [-d <format>] [-t <mode>] [--shtool] <filename>
 
 .. option:: -d <format>, --display=<format>
 
@@ -56,36 +60,56 @@ Commands
 
    Write shtool compatible output.
 
-``set`` - Set version in given file
-'''''''''''''''''''''''''''''''''''
+.. option:: --help
 
-.. program:: versionah set
+   Show help message and exit.
+
+``display`` - Display version in given file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. program:: versionah display
+
+::
+
+    versionah display [--help] [-d <format>] <filename>
 
 .. option:: -d <format>, --display=<format>
 
    Display output in ``format``, where ``format`` is one of the list of
    {date,dict,dotted,hex,libtool,tuple,web}.
+
+.. option:: --help
+
+   Show help message and exit.
+
+``set`` - Set version in given file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. program:: versionah set
+
+::
+
+    versionah set [--help] [-d <format>] [-t <mode>] [--shtool] [-n <name>] <filename>
+
+.. option:: -d <format>, --display=<format>
+
+   Display output in ``format``, where ``format`` is one of the list of
+   {date,dict,dotted,hex,libtool,tuple,web}.
+
+.. option:: -t <mode>, --type=<mode>
+
+   Define the file type used for version file.  Default is guessed based on
+   file extension.  This option can be specified multiple times when processing
+   multiple files.
+
+.. option:: --shtool
+
+   Write shtool compatible output.
 
 .. option:: -n <name>, --name=<name>
 
    Project name to use in output.
 
-.. option:: -t <mode>, --type=<mode>
+.. option:: --help
 
-   Define the file type used for version file.  Default is guessed based on
-   file extension.  This option can be specified multiple times when processing
-   multiple files.
-
-.. option:: --shtool
-
-   Write shtool compatible output.
-
-``display`` - Display version in given file
-'''''''''''''''''''''''''''''''''''''''''''
-
-.. program:: versionah display
-
-.. option:: -d <format>, --display=<format>
-
-   Display output in ``format``, where ``format`` is one of the list of
-   {date,dict,dotted,hex,libtool,tuple,web}.
+   Show help message and exit.
