@@ -280,7 +280,8 @@ def bump(display_format, file_type, shtool, filename, bump):
 @click.argument('filename', type=click.Path(dir_okay=False, writable=True,
                 resolve_path=True), nargs=-1, required=True)
 @click.argument('version_str', type=VersionParamType())
-def set_version(display_format, file_type, shtool, name, filename, version_str):
+def set_version(display_format, file_type, shtool, name, filename,
+                version_str):
     """Set version in new or existing file.
 
     Args:
