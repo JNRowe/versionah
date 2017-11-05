@@ -16,8 +16,6 @@
 # You should have received a copy of the GNU General Public License along with
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
-import re
-
 import click
 
 
@@ -34,26 +32,3 @@ def fail(text):
 def warn(text):
     """Format a warning message with colour, if possible."""
     click.secho(text, fg='yellow', bold=True)
-
-
-#: Custom filters for Jinja
-FILTERS = {}
-
-
-def filter_regexp(string, pattern, repl, count=0, flags=0):
-    """Jinja filter for regexp replacements.
-
-    See also:
-        :func:`re.sub`
-
-    Args:
-        string (str): Text to operate on
-        pattern (str): Regular expression to match
-        repl (str): Text to replace match with
-        count (int): Number of occurrences to replace
-        flags (int): Regular expression matching flags
-    Returns:
-        str: Text with substitutions applied
-    """
-    return re.sub(pattern, repl, string, count, flags)
-FILTERS['regexp'] = filter_regexp  # NOQA: E305

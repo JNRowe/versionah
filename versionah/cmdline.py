@@ -25,11 +25,13 @@ import sys
 import click
 import jinja2
 
+from jnrbase.template import FILTERS
+
 from . import _version
 from .i18n import _
 from .models import (MONTHS, VALID_DATE, VALID_PACKAGE, VALID_VERSION,
                      VERSION_COMPS, Version, split_version)
-from .utils import FILTERS, fail, success
+from .utils import fail, success
 
 
 class ReMatchParamType(click.ParamType):

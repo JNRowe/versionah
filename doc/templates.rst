@@ -108,8 +108,9 @@ which results in output such as::
 Filters
 -------
 
-|progref| defines the following filters beyond the huge range of `built-in
-filters`_ in Jinja_:
+|progref| defines various filters beyond the huge range of `built-in filters`_
+in Jinja_, please refer to the :mod:`jnrbase.template` documentation for more
+information.
 
 .. note::
 
@@ -117,15 +118,9 @@ filters`_ in Jinja_:
    |progref| users please consider posting them in an issue_ or pushing them to
    a fork on GitHub_, so that others may benefit from your work.
 
-``regexp``
-''''''''''
-
-This filter applies a regular expression to a value, it is a thin wrapper
-around :func:`re.sub` and takes the same arguments.
-
-For example, it is used in the C template to make valid identifiers from
-``filename`` by replacing characters that are invalid in identifiers with
-underscores:
+For example, the ``regexp`` filter is used in the C template to make valid
+identifiers from ``filename`` by replacing characters that are invalid in
+identifiers with underscores:
 
 .. code-block:: jinja
 
