@@ -19,6 +19,7 @@
 import datetime
 import re
 
+from functools import total_ordering
 from http.cookiejar import MONTHS
 
 
@@ -34,6 +35,7 @@ VALID_DATE = r'(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:%s)-\d{4})' % '|'.join(MONTHS)
 VERSION_COMPS = ('major', 'minor', 'micro', 'patch')
 
 
+@total_ordering
 class Version:
 
     """Main version identifier representation."""
@@ -122,7 +124,6 @@ class Version:
             bool
         """
         return self.components_full == self.__prepare_cmp_object(other)
-    __ne__ = lambda self, other: not self == (other)
 
     def __lt__(self, other):
         """Strict less-than test against comparable object.
@@ -135,46 +136,7 @@ class Version:
         Returns:
             bool: True if ``self`` is strictly less-than ``other``
         """
-        return self.components < self.__prepare_cmp_object(other)
-
-    def __gt__(self, other):
-        """Strict greater-than test against comparable object.
-
-        See also:
-            ``~Version.__prepare_cmp_object``
-
-        Args:
-            other (Version, list, tuple or int): Object to munge
-        Returns:
-            bool: True if ``self`` is strictly greater-than ``other``
-        """
-        return self.components_full > self.__prepare_cmp_object(other)
-
-    def __le__(self, other):
-        """Less-than or equal to test against comparable object.
-
-        See also:
-            ``~Version.__prepare_cmp_object``
-
-        Args:
-            other (Version, list, tuple or int): Object to munge
-        Returns:
-            bool: True if ``self`` is less-than or equal to ``other``
-        """
-        return self < other or self == other
-
-    def __ge__(self, other):
-        """Greater-than or equal to test against comparable object.
-
-        See also:
-            ``~Version.__prepare_cmp_object``
-
-        Args:
-            other (Version, list, tuple or int): Object to munge
-        Returns:
-            bool: True if ``self`` is greater-than or equal to ``other``
-        """
-        return self > other or self == other
+        return self.components_full < self.__prepare_cmp_object(other)
 
     def __hash__(self):
         """Create object-unique hash value.
