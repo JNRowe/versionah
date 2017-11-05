@@ -29,6 +29,6 @@ Output formatting
 '''''''''''''''''
 
     >>> success('well done!')  # doctest: +SKIP
-    u'\x1b[38;5;10mwell done!\x1b[m\x1b(B'
+    '\x1b[38;5;10mwell done!\x1b[m\x1b(B'
     >>> fail('unlucky!')  # doctest: +SKIP
-    u'\x1b[38;5;9munlucky!\x1b[m\x1b(B'
+    '\x1b[38;5;9munlucky!\x1b[m\x1b(B'

@@ -47,7 +47,7 @@ else:
 master_doc = 'index'
 source_suffix = '.rst'
 
-project = u'versionah'
+project = 'versionah'
 copyright = versionah.__copyright__
 
 version = '.'.join([str(x) for x in versionah._version.tuple[:2]])
@@ -63,8 +63,7 @@ with suppress(CalledProcessError):
                                          encoding='ascii')
 
 man_pages = [
-    ('versionah.1', 'versionah', u'versionah Documentation',
-     [u'James Rowe'], 1)
+    ('versionah.1', 'versionah', 'versionah Documentation', ['James Rowe'], 1)
 ]
 
 # Autodoc extension settings
