@@ -27,7 +27,7 @@ Examples
 
     import datetime
 
-    from versionah.cmdline import (CliVersion, guess_type)
+    from versionah.cmdline import CliVersion, guess_type
 
 Reading version data from a file
 ''''''''''''''''''''''''''''''''

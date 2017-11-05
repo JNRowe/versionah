@@ -25,7 +25,7 @@ Examples
 
     import datetime
 
-    from versionah.models import (Version, split_version)
+    from versionah.models import Version, split_version
 
 Bumping a version component
 '''''''''''''''''''''''''''

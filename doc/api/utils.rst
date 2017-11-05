@@ -23,7 +23,7 @@ Examples
 
 .. testsetup::
 
-    from versionah.utils import (fail, success)
+    from versionah.utils import fail, success
 
 Output formatting
 '''''''''''''''''
