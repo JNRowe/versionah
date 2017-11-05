@@ -1,6 +1,6 @@
 #
 """i18n - internationalisation support for versionah"""
-# Copyright © 2011-2015  James Rowe <jnrowe@gmail.com>
+# Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of versionah.
 #

@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 """versionah - Simple version specification management"""
-# Copyright © 2011-2015  James Rowe <jnrowe@gmail.com>
+# Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of versionah.
 #
