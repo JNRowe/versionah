@@ -71,6 +71,9 @@ man_pages = [
 autoclass_content = 'init'
 autodoc_default_flags = ['members', ]
 
+# coverage extension settings
+coverage_write_headline = False
+
 intersphinx_mapping = {
     'jinja': ('http://jinja.pocoo.org/docs/',
               os.getenv('SPHINX_JINJA2_OBJECTS')),
