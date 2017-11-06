@@ -250,9 +250,6 @@ def bump(display_format, file_type, shtool, filename, bump):
 
         version = CliVersion.read(fname)
 
-        if not bump:
-            bump = VERSION_COMPS[len(version.components) - 1]
-
         version.bump(bump)
         version.write(fname, ftype, shtool=shtool)
 
@@ -278,7 +275,7 @@ def bump(display_format, file_type, shtool, filename, bump):
 @click.argument('version_str', type=VersionParamType())
 def set_version(display_format, file_type, shtool, name, filename,
                 version_str):
-    """Set version in new or existing file.
+    """Set version in file.
 
     Args:
         display_format (str): Format to display output in
@@ -298,18 +295,7 @@ def set_version(display_format, file_type, shtool, name, filename,
         if not ftype:
             ftype = guess_type(fname)
 
-        try:
-            version = CliVersion.read(fname)
-        except IOError:
-            version = CliVersion()
-        except ValueError as error:
-            pfail(error.args[0])
-            return errno.EIO
-
-        if name:
-            version.name = name
-
-        version.set(version_str)
+        version = CliVersion(version_str, name)
         version.write(fname, ftype, shtool=shtool)
 
         if multi:
@@ -332,11 +318,7 @@ def display(display_format, filename):
     """
     multi = len(filename) != 1
     for fname in filename:
-        try:
-            version = CliVersion.read(fname)
-        except ValueError as error:
-            pfail(error.args[0])
-            return errno.EIO
+        version = CliVersion.read(fname)
 
         if multi:
             click.echo('{}: '.format(fname), nl=False)
