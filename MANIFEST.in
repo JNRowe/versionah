@@ -1,9 +1,8 @@
 include .editorconfig
-include .travis.yml
 include COPYING
 include *.rst
-include doc/wordlist.txt
 include doc/conf.py
+include doc/wordlist.txt
 include extra/_versionah
 include extra/README.pip
 include extra/doap.rdf
