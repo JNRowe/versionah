@@ -50,6 +50,28 @@ def test_bump_with_type(tmpdir):
     assert load(test_file)['dotted'] == '0.2.0'
 
 
+@mark.parametrize('suffix, expected', [
+    ('a', '0.1.0'),
+    ('b', '1.0.0'),
+    ('c', '2.1.3'),
+])
+def test_display(suffix, expected):
+    runner = CliRunner()
+    result = runner.invoke(display,
+                           ['tests/data/test_{}'.format(suffix), ])
+    assert result.exit_code == 0
+    assert result.output.strip() == expected
+
+
+def test_display_multi_files():
+    files = ['tests/data/test_{}'.format(suffix) for suffix in 'abc']
+    runner = CliRunner()
+    result = runner.invoke(display, files)
+    assert result.exit_code == 0
+    for suffix, expected in zip('abc', ['0.1.0', '1.0.0', '2.1.3']):
+        assert 'test_{}: {}'.format(suffix, expected) in result.output
+
+
 def test_bump_non_matching_files_and_types(tmpdir):
     tmpfiles = []
     for c in 'abc':
