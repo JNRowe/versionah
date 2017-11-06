@@ -6,6 +6,21 @@ User-visible changes
 .. contents::
    :local:
 
+0.16.0 - 2017-11-06
+-------------------
+
+* Python 3 *only*, for Python 2 support you must use 0.15.0 or earlier
+* Support for multiple output files per call
+* ``.`` is now allowed in package names
+* click_ and jnrbase_\ ``[colour,iso_8601,template]`` are now required
+* ``aaargh`` and ``blessings`` are no longer required
+* pytest_ is used for running tests; ``expecter``, ``mock`` and ``nose`` are no
+  longer required
+
+.. _click: https://pypi.python.org/pypi/click/
+.. _jnrbase: https://pypi.python.org/pypi/jnrbase/
+.. _pytest: https://pypi.python.org/pypi/pytest/
+
 0.15.0 - 2014-01-31
 -------------------
 
