@@ -24,8 +24,6 @@ from pytest import mark, skip
 
 from versionah.cmdline import CliVersion
 
-from .utils import expect_from_data
-
 
 @mark.requires_exec
 @mark.requires_write
@@ -42,7 +40,7 @@ def test_python_compatibility(interp, tmpdir):
     CliVersion('1.0.1').write(file_loc, 'py')
     retval = call([interp, '-W', 'all', file_loc], stdout=PIPE,
                   stderr=PIPE)
-    expect_from_data(file_loc, retval, 0)
+    assert retval == 0
 
 
 # Test interps not available on travis-ci.org, but available on all our test

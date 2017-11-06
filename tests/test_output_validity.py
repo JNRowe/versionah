@@ -23,8 +23,6 @@ from pytest import mark, skip
 
 from versionah.cmdline import CliVersion, guess_type
 
-from .utils import expect_from_data
-
 
 @mark.requires_exec
 @mark.requires_write
@@ -41,4 +39,4 @@ def test_output_validatity(v, filename, linter, tmpdir):
     file_loc = tmpdir.join(filename).strpath
     CliVersion(v).write(file_loc, file_type)
     retval = call(linter.split() + [file_loc, ], stdout=PIPE, stderr=PIPE)
-    expect_from_data(filename, retval, 0)
+    assert retval == 0

@@ -22,8 +22,6 @@ from pytest import mark
 
 from versionah.cmdline import CliVersion
 
-from .utils import expect_from_data
-
 
 @mark.requires_write
 @mark.parametrize('v, file', [
@@ -35,4 +33,4 @@ def test_date_metadata(v, file, tmpdir):
     file_loc = tmpdir.join(file).strpath
     CliVersion(v).write(file_loc, 'text')
     read = CliVersion.read(file_loc)
-    expect_from_data(file_loc, read.as_date(), date.today().isoformat())
+    assert read.as_date() == date.today().isoformat()

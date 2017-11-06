@@ -3,18 +3,6 @@
 
 |travis| |coveralls| |pypi|
 
-.. image:: https://secure.travis-ci.org/JNRowe/versionah.png?branch=master
-   :target: http://travis-ci.org/JNRowe/versionah
-   :alt: Test state on master
-
-.. image:: https://img.shields.io/coveralls/JNRowe/versionah/master.png
-   :target: https://coveralls.io/repos/JNRowe/versionah
-   :alt: Coverage state on master
-
-.. image:: https://img.shields.io/pypi/v/jnrbase.png
-   :target: https://pypi.python.org/pypi/jnrbase
-   :alt: Current PyPI release
-
 Introduction
 ------------
 
@@ -28,9 +16,9 @@ Requirements
 ------------
 
 ``versionah`` should run on Python_ v3.5 or newer.  The only external libraries
-``versionah`` depends on are click_ and jinja_.  If ``versionah`` doesn’t work
-with the version of Python you have installed, file an issue_ and I’ll
-endeavour to fix it.
+``versionah`` depends on are click_, jinja_ and jnrbase_.  If ``versionah``
+doesn’t work with the version of Python you have installed, file an issue_ and
+I’ll endeavour to fix it.
 
 Example
 -------
@@ -97,11 +85,12 @@ reproduce the problem, or even better a patch!
 .. _Python: http://www.python.org/
 .. _click: http://click.pocoo.org/
 .. _jinja: http://jinja.pocoo.org/
+.. _jnrbase: https://pypi.python.org/pypi/jnrbase/
 .. _mail: jnrowe@gmail.com
 .. _issue: https://github.com/JNRowe/versionah/issues/
 
 .. |travis| image:: https://secure.travis-ci.org/JNRowe/versionah.png?branch=master
-   :target: http://travis-ci.org/JNRowe/versionah
+   :target: https://travis-ci.org/JNRowe/versionah
    :alt: Test state on master
 
 .. |coveralls| image:: https://img.shields.io/coveralls/JNRowe/versionah/master.png

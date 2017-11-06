@@ -28,4 +28,4 @@ Preferably, include the following too:
 
 * `click` version:
 * `jinja` version:
-* `sh` version:
+* `jnrbase` version:
