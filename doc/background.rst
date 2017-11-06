@@ -1,43 +1,43 @@
 Background
 ==========
 
-I maintain a large number of projects, both my toy stuff on GitHub_ and more
-serious things at the office.  While skipping around in my editor to increase a
-version number I came to the obvious realisation that I shouldn’t be doing this
-manually.
+I maintain a many projects, both my toy stuff on GitHub_ and more serious
+things at the office.  While skipping around in my editor to increase a version
+number I came to the blindingly obvious realisation that I shouldn’t be doing
+this manually.
 
-Bumping or querying version numbers should be a zero thought process.  I
-shouldn’t need to remember the :abbr:`RegExp (Regular Expression)` needed to
-make my editor jump to the version identifier in a particular file type.  I
-shouldn’t need to resort to various :kbd:`C-a` and :kbd:`C-x` contortions in
-vim_ or formulating complicated lisp functions with ``number-to-string`` and
+Bumping or querying version numbers should be a zero thought process.
+I shouldn’t need to remember the :abbr:`regex (Regular Expression)` needed to
+make my editor jump to the version identifier in any given file.  I shouldn’t
+need to resort to various :kbd:`C-a` and :kbd:`C-x` contortions in vim_ or
+formulating complicated lisp functions with ``number-to-string`` and
 ``string-to-number`` in emacs_.
 
-Now `versionah` is born, and I should be able to realise those dreams!
+Now :program:`versionah` is born, and I should be able to realise those dreams!
 
 Version numbers
 ===============
 
-This - for some - is a very complicated topic, but not for me.  Version numbers
+This — for some — is a very complicated topic, but not for me.  Version numbers
 are made of three components; major, minor and micro.  All three components are
-natural numbers, there are no exceptions.
+natural numbers; no exceptions.
 
-If you find version numbers like 0.6c11 acceptable then `versionah` is not for
-you.
+If you find version numbers like 0.6c11 acceptable then :program:`versionah` is
+not for you.
 
 .. note::
 
    If you like version numbers with two or four integer components then
-   `versionah` can be for you too.  Support was added in 0.6.0, but that doesn’t
-   mean you have to use it!
+   :program:`versionah` can be for you too.  Support was added in 0.6.0, but
+   that doesn’t mean you have to use it!
 
 PEP 386
 ~~~~~~~
 
-The version numbering scheme supported by `versionah` is a very small subset of
-``LooseVersion`` defined in :pep:`386`.  It isn’t compliant with
-``StrictVersion`` due to the 4 component support, but support for packages in
-the wild is much more important to me.
+The version numbering scheme supported by :program:`versionah`` is a very small
+subset of ``LooseVersion`` defined in :pep:`386`.  It isn’t compliant with
+``StrictVersion`` because of the 4 component support, but support for packages
+in the wild is much more important to me.
 
 Versioning policy
 -----------------
@@ -45,29 +45,29 @@ Versioning policy
 Beyond the simple rule above you’re free to do as you wish, but consider this a
 plea for a sane versioning policy.
 
-..
-  .. blockdiag::
+.. blockdiag::
 
     diagram {
-      group A {
-        label = "Bug-fix releases";
-        "0.1.0" -> "0.1.1" -> "0.1.2";
-      }
-      group B {
-        "0.2.0" -> "0.2.1" -> "0.2.2";
-        "0.2.0" [label = "0.2.0\nNew features"]
-      }
-      group C {
-        "1.0.0" [label = "1.0.0\nFirst stable", color = "green"];
-        "1.0.0" -> "1.0.1";
-      }
-      "0.1.2" -> "0.2.0" [folded];
-      "0.2.2" -> "1.0.0" [folded];
-      "1.0.1" -> "2.0.0" [folded];
-      "2.0.0" [label = "2.0.0\nIncompatible"];
+        group A {
+            label = "Bug-fix releases";
+            "0.1.0" -> "0.1.1";
+            "0.1.1" -> "0.1.n" [style=dotted];
+        }
+        group B {
+            label = "Bug-fix releases";
+            "0.2.0" -> "0.2.n" [style=dotted];
+            "0.2.0" [label = "0.2.0\nNew features"]
+        }
+        group C {
+            label = "Bug-fix releases";
+            "1.0.0" [label = "1.0.0\nFirst stable", color = "green"];
+            "1.0.0" -> "1.0.n" [style=dotted];
+        }
+        "0.1.n" -> "0.2.0" [folded];
+        "0.2.n" -> "1.0.0" [folded];
+        "1.0.n" -> "2.0.0" [folded];
+        "2.0.0" [label = "2.0.0\nIncompatible"];
     }
-
-.. image:: _static/blockdiag-3d834509ba1c273e44f5449e96be6c6aec2e10ca.png
 
 Major component
 '''''''''''''''

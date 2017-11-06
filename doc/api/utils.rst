@@ -1,4 +1,4 @@
-.. currentmodule:: versionah.utils
+.. module:: versionah.utils
 
 Utilities
 =========
@@ -23,7 +23,7 @@ Examples
 
 .. testsetup::
 
-    from versionah.utils import (fail, success)
+    from versionah.utils import fail, success
 
 Output formatting
 '''''''''''''''''

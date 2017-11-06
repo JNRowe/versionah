@@ -1,47 +1,57 @@
 Release HOWTO
 =============
 
-.. highlight:: sh
-
 ..
   Much of this stuff is automated locally, but I’m describing the process for
   other people who will not have access to the same release tools I use.  The
   first thing I recommend that you do is find/write a tool that allows you to
   automate all of this, or you’re going to miss important steps at some point.
 
+.. highlight:: console
+
 Test
 ----
 
-In the general case tests can be run via ``pytest``::
+Tests can be run via pytest_::
 
+    $ pip install -r extra/requirements-test.txt
     $ pytest -v tests
 
-When preparing a release it is important to check that `versionah` works with
-all currently supported Python versions, and that the documentation is correct.
+When preparing a release it is important to check that :program:`versionah`
+works with all supported Python versions, and that the documentation for
+executing them is correct.
 
 Prepare release
 ---------------
 
-With the tests passing, perform the following steps
+With the tests passing, do the following steps:
 
 * Update the version data in :file:`versionah/_version.py`
-* Update :file:`NEWS.rst`, if there are any user visible changes
+* Update :file:`NEWS.rst` with any user visible changes
 * Commit the release notes and version changes
 * Create a signed tag for the release
-* Push the changes, including the new tag, to the GitHub repository
+* Push the changes — including the new tag — to the GitHub repository
+* Create a new release on GitHub
 
-Update PyPI
------------
+Update :abbr:`PyPI (Python Package Index)`
+------------------------------------------
 
 ..
   This is the section you’re especially likely to get wrong at some point if you
   try to handle all of this manually ;)
 
-Create and upload the new release tarballs to PyPI::
+Create and upload the new release tarballs to :abbr:`PyPI (Python Package
+Index)` using twine_::
 
-    $ ./setup.py sdist --formats=bztar,gztar register upload --sign
+    $ ./setup.py sdist bdist_wheel
+    $ gpg --detach-sign --armour dist/versionah-${version}.tar.gz
+    $ gpg --detach-sign --armour dist/versionah-${version}-*.whl
+    $ twine upload dist/versionah-${version}*
 
 Fetch the uploaded tarballs, and check for errors.
 
-You should also perform test installations from PyPI, to check the experience
-`versionah` users will have.
+You should also test installation from :abbr:`PyPI (Python Package Index)`, to
+check the experience :program:`versionah`’s end users will have.
+
+.. _pytest: http://pytest.org/
+.. _twine: https://pypi.python.org/pypi/twine

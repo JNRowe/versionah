@@ -1,5 +1,5 @@
 #
-"""versionah - Simple version specification management
+"""versionah - Simple version specification management.
 
 versionah is a GPL v3 licensed module for maintaining version information files
 for use in project management.
@@ -26,7 +26,7 @@ from . import _version
 
 __version__ = _version.dotted
 __date__ = _version.date
-__copyright__ = 'Copyright (C) 2011-2015  James Rowe <jnrowe@gmail.com>'
+__copyright__ = 'Copyright © 2011-2015  James Rowe <jnrowe@gmail.com>'
 
 from contextlib import suppress
 

@@ -1,4 +1,4 @@
-.. currentmodule:: versionah.cmdline
+.. module:: versionah.cmdline
 
 Command line
 ============
@@ -10,15 +10,17 @@ Command line
   command line.
 
 .. autoclass:: NameParamType
+.. autoclass:: ReMatchParamType
 .. autoclass:: VersionParamType
 
 .. autoclass:: CliVersion
 
 .. autofunction:: guess_type
-.. autofunction:: bump
-.. autofunction:: set_version
-.. autofunction:: display
+
 .. autofunction:: cli
+.. autofunction:: bump
+.. autofunction:: display
+.. autofunction:: set_version
 
 Examples
 --------
@@ -27,7 +29,7 @@ Examples
 
     import datetime
 
-    from versionah.cmdline import (CliVersion, guess_type)
+    from versionah.cmdline import CliVersion, guess_type
 
 Reading version data from a file
 ''''''''''''''''''''''''''''''''
