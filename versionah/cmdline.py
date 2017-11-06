@@ -223,8 +223,9 @@ def cli():
               help=_('Define the file type used for version file.'))
 @click.option('--shtool/--no-shtool',
               help=_('Write shtool compatible output.'))
-@click.argument('filename', type=click.Path(exists=True, dir_okay=False,
-                writable=True, resolve_path=True), nargs=-1, required=True)
+@click.argument('filename',
+                type=click.Path(exists=True, dir_okay=False, writable=True),
+                nargs=-1, required=True)
 @click.argument('bump',
                 type=click.Choice(['major', 'minor', 'micro', 'patch']))
 def bump(display_format, file_type, shtool, filename, bump):
@@ -249,9 +250,6 @@ def bump(display_format, file_type, shtool, filename, bump):
 
         version = CliVersion.read(fname)
 
-        if not bump:
-            bump = VERSION_COMPS[len(version.components) - 1]
-
         version.bump(bump)
         version.write(fname, ftype, shtool=shtool)
 
@@ -272,12 +270,12 @@ def bump(display_format, file_type, shtool, filename, bump):
 @click.option('-n', '--name', default=os.path.basename(os.getenv('PWD')),
               type=NameParamType(),
               help=_('Package name for version(default from $PWD).'))
-@click.argument('filename', type=click.Path(dir_okay=False, writable=True,
-                resolve_path=True), nargs=-1, required=True)
+@click.argument('filename', type=click.Path(dir_okay=False, writable=True),
+                nargs=-1, required=True)
 @click.argument('version_str', type=VersionParamType())
 def set_version(display_format, file_type, shtool, name, filename,
                 version_str):
-    """Set version in new or existing file.
+    """Set version in file.
 
     Args:
         display_format (str): Format to display output in
@@ -297,18 +295,7 @@ def set_version(display_format, file_type, shtool, name, filename,
         if not ftype:
             ftype = guess_type(fname)
 
-        try:
-            version = CliVersion.read(fname)
-        except IOError:
-            version = CliVersion()
-        except ValueError as error:
-            pfail(error.args[0])
-            return errno.EIO
-
-        if name:
-            version.name = name
-
-        version.set(version_str)
+        version = CliVersion(version_str, name)
         version.write(fname, ftype, shtool=shtool)
 
         if multi:
@@ -320,8 +307,8 @@ def set_version(display_format, file_type, shtool, name, filename,
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(CliVersion.display_types()),
               help=_('Display format for output.'))
-@click.argument('filename', type=click.Path(exists=True, dir_okay=False,
-                resolve_path=True), nargs=-1, required=True)
+@click.argument('filename', type=click.Path(exists=True, dir_okay=False),
+                nargs=-1, required=True)
 def display(display_format, filename):
     """Display version in existing file.
 
@@ -331,11 +318,7 @@ def display(display_format, filename):
     """
     multi = len(filename) != 1
     for fname in filename:
-        try:
-            version = CliVersion.read(fname)
-        except ValueError as error:
-            pfail(error.args[0])
-            return errno.EIO
+        version = CliVersion.read(fname)
 
         if multi:
             click.echo('{}: '.format(fname), nl=False)
