@@ -84,9 +84,8 @@ class CliVersion(Version):
     """Specialisation of models.Version for command line usage."""
 
     mk_data_dir = lambda s: os.path.join(s, 'templates')  # NOQA: E731
-    pkg_data_dirs = [mk_data_dir(user_data('versionah')), ]
-    for directory in get_data_dirs('versionah'):
-        pkg_data_dirs.append(mk_data_dir(directory))
+    pkg_data_dirs = [mk_data_dir(s) for s in get_data_dirs('versionah')]
+    pkg_data_dirs.insert(0, mk_data_dir(user_data('versionah')))
 
     env = jinja2.Environment(
         autoescape=jinja2.select_autoescape(['html', 'xml']),
