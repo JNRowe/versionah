@@ -23,7 +23,7 @@
 (( $+functions[__versionah_list_filetypes] )) ||
 __versionah_list_filetypes() {
     local tmp
-    tmp=($(python3 -c 'import versionah; print(" ".join(versionah.Version.filetypes))'))
+    tmp=($(python3 -c 'from versionah.cmdline import CliVersion; print(" ".join(CliVersion.filetypes))'))
     if [ -z "${tmp}" ]; then
         _message "Unable to read supported file types!"
     else
@@ -34,7 +34,7 @@ __versionah_list_filetypes() {
 (( $+functions[__versionah_list_displaytypes] )) ||
 __versionah_list_displaytypes() {
     local tmp
-    tmp=($(python3 -c 'import versionah; print(" ".join(versionah.Version.display_types()))'))
+    tmp=($(python3 -c 'from versionah.cmdline import CliVersion; print(" ".join(CliVersion.display_types()))'))
     if [ -z "${tmp}" ]; then
         _message "Unable to read supported display types!"
     else
@@ -42,31 +42,32 @@ __versionah_list_displaytypes() {
     fi
 }
 
-_arguments '--help[show help message and exit]' \
-    "--version[show program's version number and exit]" \
+_arguments '--version[Show the version and exit]' \
+    '--help[Show this message and exit]' \
     ':versionah command:(bump display set)' \
     '*::subcmd:->subcmd' && return 0
 
 ### DGEN_TAG: Generated from versionah/__init__.py {{{
 case "$words[1]" in
 (bump)
-    _arguments '--help[show help message and exit]' \
-        '--display=[display output in format]:select type:__versionah_list_displaytypes' \
-        '--type=[define the file type used for version file]:select type:__versionah_list_filetypes' \
+    _arguments '--help[Show this message and exit]' \
+        '--display=[Display format for output]:select type:__versionah_list_displaytypes' \
+        '--type=[Define the file type used for version file]:select type:__versionah_list_filetypes' \
         '1:select file:_files' \
         '2:select type:(major minor micro patch)'
     ;;
 (set)
-    _arguments '--help[show help message and exit]' \
-        '--display=[display output in format]:select type:__versionah_list_displaytypes' \
-        '--type=[define the file type used for version file]:select type:__versionah_list_filetypes' \
-        '--name=[package name for version]' \
+    _arguments '--help[Show this message and exit]' \
+        '--display=[Display format for output]:select type:__versionah_list_displaytypes' \
+        '--type=[Define the file type used for version file]:select type:__versionah_list_filetypes' \
+        '--shtool[Write shtool compatible output]' \
+        '--name=[Package name for version(default from $PWD]' \
         '1:select file:_files' \
         '2:set version: '
     ;;
 (display)
-    _arguments '--help[show help message and exit]' \
-        '--display=[display output in format]:select type:__versionah_list_displaytypes' \
+    _arguments '--help[Show this message and exit]' \
+        '--display=[Display format for output]:select type:__versionah_list_displaytypes' \
         '*:select file:_files'
     ;;
 (*)
