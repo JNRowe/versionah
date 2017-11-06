@@ -18,7 +18,7 @@
 
     <homepage rdf:resource="https://github.com/JNRowe/versionah" />
     <download-page rdf:resource="https://pypi.python.org/pypi/versionah/" />
-    <bug-database rdf:resource="http://github.com/JNRowe/versionah/issues" />
+    <bug-database rdf:resource="https://github.com/JNRowe/versionah/issues" />
     <repository>
         <GitRepository>
             <location rdf:resource="git://github.com/JNRowe/versionah.git" />
@@ -33,7 +33,7 @@
         <foaf:Person>
             <foaf:name>James Rowe</foaf:name>
             <mbox rdf:resource="mailto:jnrowe@gmail.com" />
-            <rdfs:homepage rdf:resource="http://jnrowe.github.io" />
+            <rdfs:homepage rdf:resource="https://jnrowe.github.io" />
         </foaf:Person>
     </maintainer>
 </Project>

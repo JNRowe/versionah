@@ -1,6 +1,6 @@
 #
 """cmdline - Command line functionality for versionah."""
-# Copyright © 2014-2015  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2017  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of versionah.
 #
@@ -28,9 +28,8 @@ import jinja2
 from . import _version
 from .i18n import _
 from .models import (MONTHS, VALID_DATE, VALID_PACKAGE, VALID_VERSION,
-                     VERSION_COMPS, split_version)
-from .models import Version
-from .utils import (FILTERS, fail, success)
+                     VERSION_COMPS, Version, split_version)
+from .utils import FILTERS, fail, success
 
 
 class ReMatchParamType(click.ParamType):
@@ -87,7 +86,8 @@ class CliVersion(Version):
     user_dir = os.environ.get('XDG_DATA_HOME', fallback_dir)
     system_dirs = os.environ.get('XDG_DATA_DIRS',
                                  '/usr/local/share/:/usr/share/').split(':')
-    mk_data_dir = lambda s: os.path.join(s, 'versionah', 'templates')
+    mk_data_dir = lambda s: os.path.join(s, 'versionah',  # NOQA: E731
+                                    'templates')
     pkg_data_dirs = [mk_data_dir(user_dir), ]
     for directory in system_dirs:
         pkg_data_dirs.append(mk_data_dir(directory))
@@ -185,7 +185,7 @@ class CliVersion(Version):
                 self.as_date()
             )
 
-        data.update(dict(zip(VERSION_COMPS, self.components)))
+        data.update({k: v for k, v in zip(VERSION_COMPS, self.components)})
         data.update({k: getattr(self, 'as_{}'.format(k))()
                      for k in self.display_types()})
 
@@ -280,7 +280,8 @@ def bump(display_format, file_type, shtool, filename, bump):
 @click.argument('filename', type=click.Path(dir_okay=False, writable=True,
                 resolve_path=True), nargs=-1, required=True)
 @click.argument('version_str', type=VersionParamType())
-def set_version(display_format, file_type, shtool, name, filename, version_str):
+def set_version(display_format, file_type, shtool, name, filename,
+                version_str):
     """Set version in new or existing file.
 
     Args:

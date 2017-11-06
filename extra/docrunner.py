@@ -1,5 +1,8 @@
-#
-"""i18n - internationalisation support for versionah."""
+#! /usr/bin/env python3
+"""docrunner - Execute shell tests.
+
+Run shell examples in reST literal blocks.
+"""
 # Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of versionah.
@@ -16,12 +19,12 @@
 # You should have received a copy of the GNU General Public License along with
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
-import gettext
+import doctest
+import sys
 
-from os import path
+import shelldoctest as sd
 
-PACKAGE_LOCALE = path.join(path.dirname(__file__), 'locale')
-
-gettext.install('versionah', PACKAGE_LOCALE)
-
-_, N_ = gettext.gettext, gettext.ngettext
+if __name__ == '__main__':
+    sys.exit(doctest.testfile(sys.argv[1], module_relative=False,
+                              extraglobs={'system_command': sd.system_command},
+                              parser=sd.ShellDocTestParser())[0])

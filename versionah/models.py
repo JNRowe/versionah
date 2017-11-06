@@ -1,6 +1,6 @@
 #
 """models - Version models for versionah."""
-# Copyright © 2014-2015  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2017  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of versionah.
 #
@@ -228,7 +228,7 @@ class Version:
         Returns:
             dict: Version as dictionary
         """
-        return dict(zip(VERSION_COMPS, self.components))
+        return {k: v for k, v in zip(VERSION_COMPS, self.components)}
 
     def as_dotted(self):
         """Generate a dotted version string.

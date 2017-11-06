@@ -1,5 +1,7 @@
-include COPYING *.rst
-recursive-include doc  *.rst
+include .editorconfig
+include .travis.yml
+include COPYING
+include *.rst
 include doc/wordlist.txt
 include doc/conf.py
 include extra/_versionah
@@ -9,10 +11,11 @@ include extra/requirements*.txt
 include tests/data/shtool/test.*
 include tests/data/test_[a-z]
 include tests/*.py
-include .editorconfig
-include .travis.yml
 include versionah.py
 include versionah/locale/versionah.pot
 include versionah/locale/*/LC_MESSAGES/*.mo
 include versionah/locale/*/LC_MESSAGES/*.po
 include versionah/templates/*.jinja
+
+recursive-include .github *.rst
+recursive-include doc *.rst
