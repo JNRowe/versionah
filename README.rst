@@ -90,7 +90,7 @@ reproduce the problem, or even better a patch!
 .. _issue: https://github.com/JNRowe/versionah/issues/
 
 .. |travis| image:: https://secure.travis-ci.org/JNRowe/versionah.png?branch=master
-   :target: http://travis-ci.org/JNRowe/versionah
+   :target: https://travis-ci.org/JNRowe/versionah
    :alt: Test state on master
 
 .. |coveralls| image:: https://img.shields.io/coveralls/JNRowe/versionah/master.png
