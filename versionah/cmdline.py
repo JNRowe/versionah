@@ -58,7 +58,7 @@ class ReMatchParamType(click.ParamType):
         Returns:
             str: Valid value
         """
-        if not self.matcher:
+        if not getattr(self, 'matcher', None):
             raise NotImplementedError('No matcher provided')
         if not re.fullmatch(self.matcher, value):
             self.fail(repr(value))
@@ -166,8 +166,10 @@ class CliVersion(Version):
         })
         if shtool:
             # %d-%b-%Y, if %b wasn't locale dependent
-            shtool_date = '-'.join(self.date.day, MONTHS[self.date.month - 1],
-                                   self.date.year)
+            shtool_date = '{:02d}-{}-{}'.format(
+                self.date.day, MONTHS[self.date.month - 1],
+                self.date.year
+            )
             data['magic'] = 'This is {}, Version {} ({})'.format(
                 self.name,
                 self.as_dotted(),

@@ -20,7 +20,8 @@
 from click import BadParameter
 from pytest import mark, raises
 
-from versionah.cmdline import CliVersion, NameParamType, VersionParamType
+from versionah.cmdline import (CliVersion, NameParamType, ReMatchParamType,
+                               VersionParamType)
 from versionah.models import Version
 
 
@@ -75,6 +76,12 @@ def test_process_command_line_invalid_package_name(name):
     p = NameParamType()
     with raises(BadParameter, match="'{}'".format(name)):
         p.convert(name, None, None)
+
+
+def test_ReMatchParamType_no_setup():
+    p = ReMatchParamType()
+    with raises(NotImplementedError, match="No matcher"):
+        p.convert('', None, None)
 
 
 def test_process_command_line_invalid_package_version():
