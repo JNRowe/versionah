@@ -72,26 +72,76 @@ def test_display_multi_files():
         assert 'test_{}: {}'.format(suffix, expected) in result.output
 
 
-def test_bump_non_matching_files_and_types(tmpdir):
+@mark.parametrize('version', [
+    '1.0.0',
+    '0.2.0',
+    '0.1.1',
+])
+def test_set(version, tmpdir):
+    test_file = tmpdir.join('test.txt').strpath
+    runner = CliRunner()
+    result = runner.invoke(set_version, [test_file, version])
+    assert result.exit_code == 0
+    assert result.output.strip() == version
+
+
+def test_set_invalid_version(tmpdir):
+    test_file = tmpdir.join('test.txt').strpath
+    runner = CliRunner()
+    result = runner.invoke(set_version, [test_file, 'dog', ])
+    assert result.exit_code == 2
+    assert 'Invalid value for "version_str"' in result.output
+
+
+def test_set_with_name(tmpdir):
+    test_file = tmpdir.join('test.json')
+    runner = CliRunner()
+    result = runner.invoke(set_version,
+                           ['--name', 'unique', test_file.strpath,
+                            '0.1.0'])
+    assert result.exit_code == 0
+    assert result.output.strip() == '0.1.0'
+    assert 'This is unique' in load(test_file)['magic']
+
+
+def test_set_with_type(tmpdir):
+    test_file = tmpdir.join('test.txt')
+    runner = CliRunner()
+    result = runner.invoke(set_version,
+                           ['-t', 'json', test_file.strpath, '4.3.2'])
+    assert result.exit_code == 0
+    assert result.output.strip() == '4.3.2'
+    assert load(test_file)['dotted'] == '4.3.2'
+
+
+@mark.parametrize('command, arg', [
+    (bump, 'major'),
+    (set_version, '1.2.3'),
+])
+def test_command_non_matching_files_and_types(command, arg, tmpdir):
     tmpfiles = []
     for c in 'abc':
         tmpfiles.append(tmpdir.join('test{}.txt'.format(c)).strpath)
         copyfile('tests/data/test_a', tmpfiles[-1])
     runner = CliRunner()
-    result = runner.invoke(bump,
-                           ['-t', 'py', ] + tmpfiles + ['major', ])
+    result = runner.invoke(command,
+                           ['-t', 'py', ] + tmpfiles + [arg, ])
     assert result.exit_code == 2
     assert '--type options and filename args must match' \
         in result.output
 
 
-def test_bump_multi_files(tmpdir):
+@mark.parametrize('command, arg, expected', [
+    (bump, 'major', '1.0.0'),
+    (set_version, '1.2.3', '1.2.3'),
+])
+def test_command_multi_files(command, arg, expected, tmpdir):
     tmpfiles = []
     for c in 'abc':
         tmpfiles.append(tmpdir.join('test{}.txt'.format(c)).strpath)
         copyfile('tests/data/test_a', tmpfiles[-1])
     runner = CliRunner()
-    result = runner.invoke(bump, tmpfiles + ['major', ])
+    result = runner.invoke(command, tmpfiles + [arg, ])
     assert result.exit_code == 0
     for f in tmpfiles:
-        assert '{}: 1.0.0'.format(f) in result.output
+        assert '{}: {}'.format(f, expected) in result.output
