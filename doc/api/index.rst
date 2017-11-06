@@ -12,7 +12,5 @@ API documentation
 .. toctree::
    :maxdepth: 2
 
-   filters
    commandline
    models
-   utils

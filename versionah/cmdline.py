@@ -20,16 +20,22 @@ import datetime
 import errno
 import os
 import re
-import sys
 
 import click
 import jinja2
 
+from jnrbase import i18n
+from jnrbase.colourise import pfail, psuccess
+from jnrbase.iso_8601 import parse_datetime
+from jnrbase.template import FILTERS
+from jnrbase.xdg_basedir import get_data_dirs, user_data
+
 from . import _version
-from .i18n import _
 from .models import (MONTHS, VALID_DATE, VALID_PACKAGE, VALID_VERSION,
                      VERSION_COMPS, Version, split_version)
-from .utils import FILTERS, fail, success
+
+
+_, N_ = i18n.setup(_version)
 
 
 class ReMatchParamType(click.ParamType):
@@ -77,19 +83,9 @@ class CliVersion(Version):
 
     """Specialisation of models.Version for command line usage."""
 
-    if sys.platform == 'darwin':
-        fallback_dir = os.path.expanduser('~/Library/Application Support')
-    else:
-        fallback_dir = os.path.join(os.environ.get('HOME', '/'), '.local',
-                                    'share')
-
-    user_dir = os.environ.get('XDG_DATA_HOME', fallback_dir)
-    system_dirs = os.environ.get('XDG_DATA_DIRS',
-                                 '/usr/local/share/:/usr/share/').split(':')
-    mk_data_dir = lambda s: os.path.join(s, 'versionah',  # NOQA: E731
-                                    'templates')
-    pkg_data_dirs = [mk_data_dir(user_dir), ]
-    for directory in system_dirs:
+    mk_data_dir = lambda s: os.path.join(s, 'templates')  # NOQA: E731
+    pkg_data_dirs = [mk_data_dir(user_data('versionah')), ]
+    for directory in get_data_dirs('versionah'):
         pkg_data_dirs.append(mk_data_dir(directory))
 
     env = jinja2.Environment(
@@ -146,7 +142,7 @@ class CliVersion(Version):
         name, version_str, date_str = match.groups()
         components = split_version(version_str)
         try:
-            parsed = datetime.datetime.strptime(date_str, '%Y-%m-%d')
+            parsed = parse_datetime(date_str)
         except ValueError:
             parsed = datetime.datetime.strptime(date_str, '%d-%b-%Y')
         return CliVersion(components, name, parsed.date())
@@ -262,7 +258,7 @@ def bump(display_format, file_type, shtool, filename, bump):
 
         if multi:
             click.echo('{}: '.format(fname), nl=False)
-        success(version.display(display_format))
+        psuccess(version.display(display_format))
 
 
 @cli.command(name='set', help=_('Set version in given file.'))
@@ -307,7 +303,7 @@ def set_version(display_format, file_type, shtool, name, filename,
         except IOError:
             version = CliVersion()
         except ValueError as error:
-            fail(error.args[0])
+            pfail(error.args[0])
             return errno.EIO
 
         if name:
@@ -318,7 +314,7 @@ def set_version(display_format, file_type, shtool, name, filename,
 
         if multi:
             click.echo('{}: '.format(fname), nl=False)
-        success(version.display(display_format))
+        psuccess(version.display(display_format))
 
 
 @cli.command(help=_('Display version in given file.'))
@@ -339,9 +335,9 @@ def display(display_format, filename):
         try:
             version = CliVersion.read(fname)
         except ValueError as error:
-            fail(error.args[0])
+            pfail(error.args[0])
             return errno.EIO
 
         if multi:
             click.echo('{}: '.format(fname), nl=False)
-        success(version.display(display_format))
+        psuccess(version.display(display_format))
