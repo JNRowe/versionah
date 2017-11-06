@@ -28,9 +28,9 @@ Requirements
 ------------
 
 ``versionah`` should run on Python_ v3.5 or newer.  The only external libraries
-``versionah`` depends on are click_ and jinja_.  If ``versionah`` doesn’t work
-with the version of Python you have installed, file an issue_ and I’ll
-endeavour to fix it.
+``versionah`` depends on are click_, jinja_ and jnrbase_.  If ``versionah``
+doesn’t work with the version of Python you have installed, file an issue_ and
+I’ll endeavour to fix it.
 
 Example
 -------
@@ -97,6 +97,7 @@ reproduce the problem, or even better a patch!
 .. _Python: http://www.python.org/
 .. _click: http://click.pocoo.org/
 .. _jinja: http://jinja.pocoo.org/
+.. _jnrbase: https://pypi.python.org/pypi/jnrbase/
 .. _mail: jnrowe@gmail.com
 .. _issue: https://github.com/JNRowe/versionah/issues/
 
