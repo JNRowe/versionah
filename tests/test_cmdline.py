@@ -145,3 +145,11 @@ def test_command_multi_files(command, arg, expected, tmpdir):
     assert result.exit_code == 0
     for f in tmpfiles:
         assert '{}: {}'.format(f, expected) in result.output
+
+
+def test_cli_wrapper():
+    runner = CliRunner()
+    result = runner.invoke(cli,
+                           ['display', 'tests/data/test_c'])
+    assert result.exit_code == 0
+    assert result.output.strip() == '2.1.3'
