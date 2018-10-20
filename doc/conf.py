@@ -66,6 +66,7 @@ nitpicky = True
 
 # Project information {{{
 project = 'versionah'
+author = 'James Rowe'
 copyright = '2014-2017  James Rowe'
 
 version = '{major}.{minor}'.format_map(versionah._version.dict)
@@ -89,6 +90,8 @@ with suppress(CalledProcessError):
                stdout=PIPE)
     html_last_updated_fmt = proc.stdout.decode()
 
+html_baseurl = 'https://hubugs.readthedocs.io/'
+
 man_pages = [
     ('versionah.1', 'versionah', 'versionah Documentation', ['James Rowe'], 1)
 ]
@@ -100,7 +103,9 @@ html_experimental_html5_writer = True
 
 # autodoc extension settings {{{
 autoclass_content = 'both'
-autodoc_default_flags = ['members', ]
+autodoc_default_options = {
+    'members': None,
+}
 # }}}
 
 # coverage extension settings {{{
