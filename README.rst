@@ -93,8 +93,8 @@ reproduce the problem, or even better a patch!
    :target: https://travis-ci.org/JNRowe/versionah
    :alt: Test state on master
 
-.. |coveralls| image:: https://img.shields.io/coveralls/JNRowe/versionah/master.png
-   :target: https://coveralls.io/repos/JNRowe/versionah
+.. |coveralls| image:: https://img.shields.io/coveralls/github/JNRowe/versionah/master.png
+   :target: https://coveralls.io/github/repos/JNRowe/versionah
    :alt: Coverage state on master
 
 .. |pypi| image:: https://img.shields.io/pypi/v/jnrbase.png
