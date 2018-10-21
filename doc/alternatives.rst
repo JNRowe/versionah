@@ -35,8 +35,8 @@ documentation.
    that used ``shtool``.
 
 .. [#] 0.14.0 was the release I cut to support a project that didn’t want to
-   migrate to |progref|, when I had become accustomed to its interface in the
-   intervening three months.
+   migrate to |progref|, where I had already become accustomed to |progref|’s
+   interface in the intervening three months.
 
 .. _mail: jnrowe@gmail.com
 .. _shtool: http://www.gnu.org/software/shtool/shtool.html
