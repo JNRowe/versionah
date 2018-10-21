@@ -1,9 +1,8 @@
-*.egg-info/
-build/
-dist/
-
+*.html
 *.py[co]
 
-.coverage
-.noseids
-MANIFEST
+/build/
+/dist/
+/versionah.egg-info/
+
+/.coverage
