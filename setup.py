@@ -2,6 +2,8 @@
 """setup.py - Setuptools tasks and config for versionah."""
 # Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
 #
+# SPDX-License-Identifier: GPL-3.0+
+#
 # This file is part of versionah.
 #
 # versionah is free software: you can redistribute it and/or modify it under
