@@ -24,7 +24,6 @@ import re
 import click
 import jinja2
 
-from jnrbase import i18n
 from jnrbase.colourise import pfail, psuccess
 from jnrbase.iso_8601 import parse_datetime
 from jnrbase.template import FILTERS
@@ -33,9 +32,6 @@ from jnrbase.xdg_basedir import get_data_dirs, user_data
 from . import _version
 from .models import (MONTHS, VALID_DATE, VALID_PACKAGE, VALID_VERSION,
                      VERSION_COMPS, Version, split_version)
-
-
-_, N_ = i18n.setup(_version)
 
 
 class ReMatchParamType(click.ParamType):
@@ -206,9 +202,9 @@ def guess_type(filename):
     return file_type
 
 
-@click.group(help=_('A tool to manage project version files.'),
-             epilog=_('Please report bugs at '
-                      'https://github.com/JNRowe/versionah/issues'),
+@click.group(help='A tool to manage project version files.',
+             epilog='Please report bugs at '
+                    'https://github.com/JNRowe/versionah/issues',
              context_settings={'help_option_names': ['-h', '--help']})
 @click.version_option(_version.dotted)
 def cli():
@@ -216,15 +212,15 @@ def cli():
     pass
 
 
-@cli.command(help=_('Bump version in given file.'))
+@cli.command(help='Bump version in given file.')
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(CliVersion.display_types()),
-              help=_('Display format for output.'))
+              help='Display format for output.')
 @click.option('-t', '--type', 'file_type', multiple=True,
               type=click.Choice(CliVersion.filetypes),
-              help=_('Define the file type used for version file.'))
+              help='Define the file type used for version file.')
 @click.option('--shtool/--no-shtool',
-              help=_('Write shtool compatible output.'))
+              help='Write shtool compatible output.')
 @click.argument('filename',
                 type=click.Path(exists=True, dir_okay=False, writable=True),
                 nargs=-1, required=True)
@@ -260,18 +256,18 @@ def bump(display_format, file_type, shtool, filename, bump):
         psuccess(version.display(display_format))
 
 
-@cli.command(name='set', help=_('Set version in given file.'))
+@cli.command(name='set', help='Set version in given file.')
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(CliVersion.display_types()),
-              help=_('Display format for output.'))
+              help='Display format for output.')
 @click.option('-t', '--type', 'file_type', multiple=True,
               type=click.Choice(CliVersion.filetypes),
-              help=_('Define the file type used for version file.'))
+              help='Define the file type used for version file.')
 @click.option('--shtool/--no-shtool',
-              help=_('Write shtool compatible output.'))
+              help='Write shtool compatible output.')
 @click.option('-n', '--name', default=os.path.basename(os.getenv('PWD')),
               type=NameParamType(),
-              help=_('Package name for version(default from $PWD).'))
+              help='Package name for version(default from $PWD).')
 @click.argument('filename', type=click.Path(dir_okay=False, writable=True),
                 nargs=-1, required=True)
 @click.argument('version_str', type=VersionParamType())
@@ -305,10 +301,10 @@ def set_version(display_format, file_type, shtool, name, filename,
         psuccess(version.display(display_format))
 
 
-@cli.command(help=_('Display version in given file.'))
+@cli.command(help='Display version in given file.')
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(CliVersion.display_types()),
-              help=_('Display format for output.'))
+              help='Display format for output.')
 @click.argument('filename', type=click.Path(exists=True, dir_okay=False),
                 nargs=-1, required=True)
 def display(display_format, filename):
