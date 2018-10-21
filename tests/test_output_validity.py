@@ -2,6 +2,8 @@
 """test_output_validity - Output validity tests"""
 # Copyright © 2012-2017  James Rowe <jnrowe@gmail.com>
 #
+# SPDX-License-Identifier: GPL-3.0+
+#
 # This file is part of versionah.
 #
 # versionah is free software: you can redistribute it and/or modify it under
