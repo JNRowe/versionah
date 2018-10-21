@@ -214,7 +214,7 @@ def cli():
     pass
 
 
-@cli.command(help='Bump version in given file.')
+@cli.command()
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(CliVersion.display_types()),
               help='Display format for output.')
@@ -231,6 +231,7 @@ def cli():
 def bump(display_format, file_type, shtool, filename, bump):
     """Bump version in existing file.
 
+    \f
     Args:
         display_format (str): Format to display output in
         filename (tuple[str]): File to operate on
@@ -258,7 +259,7 @@ def bump(display_format, file_type, shtool, filename, bump):
         psuccess(version.display(display_format))
 
 
-@cli.command(name='set', help='Set version in given file.')
+@cli.command(name='set')
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(CliVersion.display_types()),
               help='Display format for output.')
@@ -275,8 +276,9 @@ def bump(display_format, file_type, shtool, filename, bump):
 @click.argument('version_str', type=VersionParamType())
 def set_version(display_format, file_type, shtool, name, filename,
                 version_str):
-    """Set version in file.
+    """Set version in given file.
 
+    \f
     Args:
         display_format (str): Format to display output in
         filename (tuple[str]): File to operate on
@@ -303,15 +305,16 @@ def set_version(display_format, file_type, shtool, name, filename,
         psuccess(version.display(display_format))
 
 
-@cli.command(help='Display version in given file.')
+@cli.command()
 @click.option('-d', '--display', 'display_format', default='dotted',
               type=click.Choice(CliVersion.display_types()),
               help='Display format for output.')
 @click.argument('filename', type=click.Path(exists=True, dir_okay=False),
                 nargs=-1, required=True)
 def display(display_format, filename):
-    """Display version in existing file.
+    """Display version in given file.
 
+    \f
     Args:
         display_format (str): Format to display output in
         filename (tuple[str]): File to operate on
