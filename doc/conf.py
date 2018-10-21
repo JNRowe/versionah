@@ -20,7 +20,6 @@
 
 import os
 import sys
-
 from contextlib import suppress
 from subprocess import PIPE, CalledProcessError, run
 

@@ -25,7 +25,6 @@ import re
 
 import click
 import jinja2
-
 from jnrbase.colourise import pfail, psuccess
 from jnrbase.iso_8601 import parse_datetime
 from jnrbase.template import FILTERS
