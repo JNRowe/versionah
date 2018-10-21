@@ -90,7 +90,7 @@ def test_set_invalid_version(tmpdir):
     runner = CliRunner()
     result = runner.invoke(set_version, [test_file, 'dog', ])
     assert result.exit_code == 2
-    assert 'Invalid value for "version_str"' in result.output
+    assert 'Invalid value for "VERSION_STR"' in result.output
 
 
 def test_set_with_name(tmpdir):
