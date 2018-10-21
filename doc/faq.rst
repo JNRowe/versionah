@@ -68,7 +68,7 @@ Will you support other version formats?
 
 If the patches you submit for other version formats aren’t too invasive then
 they’ll probably be accepted.  If you’re going to propose such a patch open an
-issue_ or drop me a mail_ first, so it can be discussed.
+issue_ or drop me a mail_ *first*, so it can be discussed.
 
 If the format you’re going to implement looks like the ``LooseVersion`` format
 defined in :pep:`386` with support for random words or odd characters then the
