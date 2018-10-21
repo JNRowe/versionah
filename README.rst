@@ -25,7 +25,7 @@ Example
 
 The simplest way to show how ``versionah`` works is by example:
 
-.. code:: console
+.. code-block:: console
 
     $ versionah set example.txt 2.4.3
     2.4.3
