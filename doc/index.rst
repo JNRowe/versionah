@@ -31,6 +31,7 @@ Contents
    upgrading
    NEWS
    api/index
+   glossary
    release
    appendix
 
