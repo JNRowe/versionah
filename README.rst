@@ -1,7 +1,7 @@
 ``versionah`` - Simple version specification management
 =======================================================
 
-|travis| |coveralls| |pypi|
+|travis| |coveralls| |pypi| |readthedocs|
 
 Introduction
 ------------
@@ -100,3 +100,7 @@ reproduce the problem, or even better a patch!
 .. |pypi| image:: https://img.shields.io/pypi/v/jnrbase.png
    :target: https://pypi.python.org/pypi/jnrbase
    :alt: Current PyPI release
+
+.. |readthedocs| image:: https://img.shields.io/readthedocs/versionah/stable.png
+   :target: https://versionah.readthedocs.io/
+   :alt: Documentation
