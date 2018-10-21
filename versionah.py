@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 """versionah - Simple version specification management."""
 # Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
 #
