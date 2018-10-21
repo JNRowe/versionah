@@ -39,7 +39,7 @@ User-visible changes
 * aaargh_ is now required
 * Support for localisation, submit pull requests with your translations!
 
-.. _aaargh : http://pypi.python.org/pypi/aaargh/
+.. _aaargh : https://pypi.org/project/aaargh/
 
 0.12.0 - 2012-07-19
 -------------------
@@ -52,13 +52,13 @@ User-visible changes
 * On OS-X we fall back to ``~/Library/Application Support`` for templates
 * pip_ requirements files are now included in ``extra``
 
-.. _blessings: http://pypi.python.org/pypi/blessings/
-.. _argparse: http://pypi.python.org/pypi/argparse
-.. _nose2: http://pypi.python.org/pypi/nose2/
-.. _expecter: http://pypi.python.org/pypi/expecter/
-.. _nose2-cov: http://pypi.python.org/pypi/nose2-cov/
-.. _cloud_sptheme: http://pypi.python.org/pypi/cloud_sptheme/
-.. _pip: http://pypi.python.org/pypi/pip/
+.. _blessings: https://pypi.org/project/blessings/
+.. _argparse: https://pypi.org/project/argparse/
+.. _nose2: https://pypi.org/project/nose2/
+.. _expecter: https://pypi.org/project/expecter/
+.. _nose2-cov: https://pypi.org/project/nose2-cov/
+.. _cloud_sptheme: https://pypi.org/project/cloud_sptheme/
+.. _pip: https://pypi.org/project/pip/
 
 0.11.0 - 2012-01-30
 -------------------
@@ -69,8 +69,8 @@ User-visible changes
 * attest_ and  behave_ are now required to run the testsuite
 
 .. _JSON: www.json.org/
-.. _attest: http://pypi.python.org/pypi/Attest/
-.. _behave: http://pypi.python.org/pypi/behave/
+.. _attest: https://pypi.org/project/Attest/
+.. _behave: https://pypi.org/project/behave/
 
 0.10.0 - 2011-03-30
 -------------------
@@ -89,7 +89,7 @@ User-visible changes
 * Installable with setuptools_
 * Release date output with ``--display date`` option
 
-.. _setuptools: http://pypi.python.org/pypi/distribute
+.. _setuptools: https://pypi.org/project/distribute/
 
 0.8.0 - 2011-02-26
 ------------------
@@ -135,7 +135,7 @@ User-visible changes
 * No longer supports Python 2.5 or lower
 
 .. _Jinja: http://jinja.pocoo.org/
-.. _termcolor: http://pypi.python.org/pypi/termcolor/
+.. _termcolor: https://pypi.org/project/termcolor/
 
 0.2.0 - 2011-02-15
 ------------------
