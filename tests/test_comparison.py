@@ -27,7 +27,7 @@ from versionah.models import Version
     ('0.1.0', '0.1.0'),
     ('1.0.0', '1.0.0'),
 ])
-def test_equal_versions(v1, v2):
+def test_equal_versions(v1: str, v2: str):
     assert Version(v1) == Version(v2)
 
 
@@ -35,7 +35,7 @@ def test_equal_versions(v1, v2):
     ('1.0.0', '2.0.0'),
     ('2.1.3', '3.0.0'),
 ])
-def test_unequal_versions(v1, v2):
+def test_unequal_versions(v1: str, v2: str):
     assert Version(v1) != Version(v2)
 
 
@@ -44,7 +44,7 @@ def test_unequal_versions(v1, v2):
     ('2.1.3', '3.0.0', '3.0.0'),
     ('3.0.0', '2.9.99.9', '3.0.0'),
 ])
-def test_greatest_version(v1, v2, expected):
+def test_greatest_version(v1: str, v2: str, expected: str):
     assert max(Version(v1), Version(v2)) == Version(expected)
 
 
@@ -54,7 +54,7 @@ def test_greatest_version(v1, v2, expected):
     ('0.1.0.0', '0.1.0'),
     ('0.1.0.0', '0.1'),
 ])
-def test_equal_versions_with_uneven_components(v1, v2):
+def test_equal_versions_with_uneven_components(v1: str, v2: str):
     assert Version(v1) == Version(v2)
 
 
@@ -62,5 +62,5 @@ def test_equal_versions_with_uneven_components(v1, v2):
     ('0.1', '0.1.0.1'),
     ('0.1.1.1', '0.1.1'),
 ])
-def test_unequal_versions_with_uneven_components(v1, v2):
+def test_unequal_versions_with_uneven_components(v1: str, v2: str):
     assert Version(v1) != Version(v2)

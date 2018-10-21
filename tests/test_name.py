@@ -28,7 +28,7 @@ from versionah.models import Version
     ('dog', '1.0.0', 'dog v1.0.0'),
     ('fish', '2.1.3', 'fish v2.1.3'),
 ])
-def test_name_versions(name, v, expected):
+def test_name_versions(name: str, v: str, expected: str):
     v1 = Version(v, name=name)
     assert str(v1) == expected
 
@@ -38,7 +38,8 @@ def test_name_versions(name, v, expected):
     ('dog-bark', '1.0.0', 'dog-bark v1.0.0'),
     ('fish-bubble', '2.1.3', 'fish-bubble v2.1.3'),
 ])
-def test_name_version_with_dashes_and_underscores(name, v, expected):
+def test_name_version_with_dashes_and_underscores(name: str, v: str,
+                                                  expected: str):
     v1 = Version(v, name=name)
     assert str(v1) == expected
 
@@ -47,6 +48,6 @@ def test_name_version_with_dashes_and_underscores(name, v, expected):
     ('cat-2', '0.1.0', 'cat-2 v0.1.0'),
     ('dog1', '1.0.0', 'dog1 v1.0.0'),
 ])
-def test_name_version_with_numeric_suffixes(name, v, expected):
+def test_name_version_with_numeric_suffixes(name: str, v: str, expected: str):
     v1 = Version(v, name=name)
     assert str(v1) == expected

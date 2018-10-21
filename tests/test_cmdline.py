@@ -20,6 +20,7 @@
 
 from json import load
 from shutil import copyfile
+from typing import Callable
 
 from click.testing import CliRunner
 from pytest import mark
@@ -32,7 +33,7 @@ from versionah.cmdline import bump, cli, display, set_version
     ('minor', '0.2.0'),
     ('micro', '0.1.1'),
 ])
-def test_bump(component, expected, tmpdir):
+def test_bump(component: str, expected: str, tmpdir):
     test_file = tmpdir.join('test.txt').strpath
     copyfile('tests/data/test_a', test_file)
     runner = CliRunner()
@@ -57,7 +58,7 @@ def test_bump_with_type(tmpdir):
     ('b', '1.0.0'),
     ('c', '2.1.3'),
 ])
-def test_display(suffix, expected):
+def test_display(suffix: str, expected: str):
     runner = CliRunner()
     result = runner.invoke(display,
                            ['tests/data/test_{}'.format(suffix), ])
@@ -79,7 +80,7 @@ def test_display_multi_files():
     '0.2.0',
     '0.1.1',
 ])
-def test_set(version, tmpdir):
+def test_set(version: str, tmpdir):
     test_file = tmpdir.join('test.txt').strpath
     runner = CliRunner()
     result = runner.invoke(set_version, [test_file, version])
@@ -120,7 +121,8 @@ def test_set_with_type(tmpdir):
     (bump, 'major'),
     (set_version, '1.2.3'),
 ])
-def test_command_non_matching_files_and_types(command, arg, tmpdir):
+def test_command_non_matching_files_and_types(command: Callable, arg: str,
+                                              tmpdir):
     tmpfiles = []
     for c in 'abc':
         tmpfiles.append(tmpdir.join('test{}.txt'.format(c)).strpath)
@@ -137,7 +139,8 @@ def test_command_non_matching_files_and_types(command, arg, tmpdir):
     (bump, 'major', '1.0.0'),
     (set_version, '1.2.3', '1.2.3'),
 ])
-def test_command_multi_files(command, arg, expected, tmpdir):
+def test_command_multi_files(command: Callable, arg: str, expected: str,
+                             tmpdir):
     tmpfiles = []
     for c in 'abc':
         tmpfiles.append(tmpdir.join('test{}.txt'.format(c)).strpath)

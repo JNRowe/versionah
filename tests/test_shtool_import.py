@@ -31,6 +31,6 @@ from versionah.cmdline import CliVersion
     ('shtool/test.python', '1.2.3'),
     ('shtool/test.txt', '1.2.3'),
 ])
-def test_read_shtool_files(file, expected):
+def test_read_shtool_files(file: str, expected: str):
     v = CliVersion.read('tests/data/{}'.format(file))
     assert v.as_dotted() == expected

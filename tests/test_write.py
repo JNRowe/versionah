@@ -29,7 +29,7 @@ from versionah.cmdline import CliVersion
     ('1.0.0', 'test_wr_b'),
     ('2.1.3', 'test_wr_c'),
 ])
-def test_write_version_file(v, file, tmpdir):
+def test_write_version_file(v: str, file: str, tmpdir):
     file_loc = tmpdir.join(file).strpath
     CliVersion(v).write(file_loc, 'text')
     read = CliVersion.read(file_loc)

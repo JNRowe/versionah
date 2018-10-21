@@ -28,7 +28,7 @@ from versionah.models import Version
     ('1.0.0', '2.0.0'),
     ('2.1.3', '3.0.0'),
 ])
-def test_major_bumps(v1, v2):
+def test_major_bumps(v1: str, v2: str):
     start = Version(v1)
     start.bump_major()
     assert start == Version(v2)
@@ -39,7 +39,7 @@ def test_major_bumps(v1, v2):
     ('1.0.0', '1.1.0'),
     ('2.1.3', '2.2.0'),
 ])
-def test_minor_bumps(v1, v2):
+def test_minor_bumps(v1: str, v2: str):
     start = Version(v1)
     start.bump_minor()
     assert start == Version(v2)
@@ -50,7 +50,7 @@ def test_minor_bumps(v1, v2):
     ('1.0.0', '1.0.1'),
     ('2.1.3', '2.1.4'),
 ])
-def test_micro_bumps(v1, v2):
+def test_micro_bumps(v1: str, v2: str):
     start = Version(v1)
     start.bump_micro()
     assert start == Version(v2)
@@ -61,7 +61,7 @@ def test_micro_bumps(v1, v2):
     ('1.0.0.0', '1.0.0.1'),
     ('0.2.1.3', '0.2.1.4'),
 ])
-def test_patch_bumps(v1, v2):
+def test_patch_bumps(v1: str, v2: str):
     start = Version(v1)
     start.bump_patch()
     assert start == Version(v2)

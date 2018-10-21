@@ -28,7 +28,7 @@ from versionah.models import Version
     ('1.0', '2.0'),
     ('2.1', '3.0'),
 ])
-def test_two_component_major_bump(v1, v2):
+def test_two_component_major_bump(v1: str, v2: str):
     start = Version(v1)
     start.bump_major()
     assert start == Version(v2)
@@ -39,7 +39,7 @@ def test_two_component_major_bump(v1, v2):
     ('1.0', '1.1'),
     ('2.1', '2.2'),
 ])
-def test_two_component_minor_bump(v1, v2):
+def test_two_component_minor_bump(v1: str, v2: str):
     start = Version(v1)
     start.bump_minor()
     assert start == Version(v2)
@@ -50,7 +50,7 @@ def test_two_component_minor_bump(v1, v2):
     ('1.0.0.4', '2.0.0.0'),
     ('2.1.3.0', '3.0.0.0'),
 ])
-def test_four_component_major_bump(v1, v2):
+def test_four_component_major_bump(v1: str, v2: str):
     start = Version(v1)
     start.bump_major()
     assert start == Version(v2)
@@ -61,7 +61,7 @@ def test_four_component_major_bump(v1, v2):
     ('1.0.0.4', '1.1.0.0'),
     ('2.1.3.0', '2.2.0.0'),
 ])
-def test_four_component_minor_bump(v1, v2):
+def test_four_component_minor_bump(v1: str, v2: str):
     start = Version(v1)
     start.bump_minor()
     assert start == Version(v2)
@@ -72,7 +72,7 @@ def test_four_component_minor_bump(v1, v2):
     ('1.0.0.4', '1.0.1.0'),
     ('2.1.3.0', '2.1.4.0'),
 ])
-def test_four_component_micro_bump(v1, v2):
+def test_four_component_micro_bump(v1: str, v2: str):
     start = Version(v1)
     start.bump_micro()
     assert start == Version(v2)
@@ -83,7 +83,7 @@ def test_four_component_micro_bump(v1, v2):
     ('1.0.0.4', '1.0.0.5'),
     ('2.1.3.0', '2.1.3.1'),
 ])
-def test_four_component_patch_bump(v1, v2):
+def test_four_component_patch_bump(v1: str, v2: str):
     start = Version(v1)
     start.bump_patch()
     assert start == Version(v2)

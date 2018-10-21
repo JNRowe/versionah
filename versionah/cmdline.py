@@ -22,6 +22,7 @@ import datetime
 import errno
 import os
 import re
+from typing import List, Optional, Tuple
 
 import click
 import jinja2
@@ -40,21 +41,22 @@ class ReMatchParamType(click.ParamType):
 
     """Regular expression based parameter matcher."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialise a new `ReMatchParamType` object."""
         super(ReMatchParamType, self).__init__()
         # Set name to "<value>ParamType"
         self.name = self.__class__.__qualname__[:-9].lower()
 
-    def convert(self, value, param, ctx):
+    def convert(self, value: str, param: Optional[click.Argument],
+                ctx: Optional[click.Context]) -> str:
         """Check given name is valid.
 
         Args:
-            value (str): Value given to flag
-            param (click.Argument): Parameter being processed
-            ctx (click.Context): Current command context
+            value: Value given to flag
+            param: Parameter being processed
+            ctx: Current command context
         Returns:
-            str: Valid value
+            Valid value
         """
         if not getattr(self, 'matcher', None):
             raise NotImplementedError('No matcher provided')
@@ -95,32 +97,32 @@ class CliVersion(Version):
     filetypes = [s.split('.')[0] for s in env.list_templates()]
 
     @staticmethod
-    def display_types():
+    def display_types() -> List[str]:
         """Supported representation types.
 
         Returns:
-            list[str]: Method names for representation types
+            Method names for representation types
         """
         return [s[3:] for s in dir(CliVersion) if s.startswith('as_')]
 
-    def display(self, display_format):
+    def display(self, display_format: str) -> str:
         """Display a version string.
 
         Args:
-            display_format (str): Format to display version string in
+            display_format: Format to display version string in
         Returns:
-            str: Formatted version string
+            Formatted version string
         """
         return getattr(self, 'as_{}'.format(display_format))()
 
     @staticmethod
-    def read(filename):
+    def read(filename: str) -> 'CliVersion':
         """Read a version file.
 
         Args:
-            filename (str): Version file to read
+            filename Version file to read
         Returns:
-            CliVersion: New `CliVersion` object representing file
+            New `CliVersion` object representing file
         Raises:
             OSError: When ``filename`` doesn't exist
             ValueError: Unparsable version data
@@ -144,13 +146,14 @@ class CliVersion(Version):
             parsed = datetime.datetime.strptime(date_str, '%d-%b-%Y')
         return CliVersion(components, name, parsed.date())
 
-    def write(self, filename, file_type, *, shtool=False):
+    def write(self, filename: str, file_type: str, *,
+              shtool: bool = False) -> None:
         """Write a version file.
 
         Args:
-            filename (str): Version file to write
-            file_type (str): File type to write
-            shtool (bool): Write shtool_ compatible files
+            filename: Version file to write
+            file_type: File type to write
+            shtool: Write shtool_ compatible files
 
         .. _shtool: http://www.gnu.org/software/shtool/shtool.html
         """
@@ -189,11 +192,11 @@ class CliVersion(Version):
             f.write(template.render(data))
 
 
-def guess_type(filename):
+def guess_type(filename: str) -> str:
     """Guess output type from filename.
 
     Args:
-        filename (str): File to operate on
+        filename: File to operate on
     """
     suffix = os.path.splitext(filename)[1][1:]
     if suffix in CliVersion.filetypes:
@@ -228,15 +231,16 @@ def cli():
                 nargs=-1, required=True)
 @click.argument('bump',
                 type=click.Choice(['major', 'minor', 'micro', 'patch']))
-def bump(display_format, file_type, shtool, filename, bump):
+def bump(display_format: str, file_type: Tuple[str], shtool: bool,
+         filename: Tuple[str], bump: str):
     """Bump version in existing file.
 
     Args:
-        display_format (str): Format to display output in
-        filename (tuple[str]): File to operate on
-        file_type (tuple[str]): File type to produce
-        shtool (bool): Write shtool_ compatible files
-        bump (str): Component to bump
+        display_format: Format to display output in
+        file_type: File type to produce
+        shtool: Write shtool_ compatible files
+        filename: File to operate on
+        bump: Component to bump
 
     .. _shtool: http://www.gnu.org/software/shtool/shtool.html
     """
@@ -273,17 +277,17 @@ def bump(display_format, file_type, shtool, filename, bump):
 @click.argument('filename', type=click.Path(dir_okay=False, writable=True),
                 nargs=-1, required=True)
 @click.argument('version_str', type=VersionParamType())
-def set_version(display_format, file_type, shtool, name, filename,
-                version_str):
+def set_version(display_format: str, file_type: Tuple[str], shtool: bool,
+                name: str, filename: Tuple[str], version_str: str):
     """Set version in file.
 
     Args:
-        display_format (str): Format to display output in
-        filename (tuple[str]): File to operate on
-        file_type (tuple[str]): File type to produce
-        shtool (bool): Write shtool_ compatible files
-        name (str): Project name used in output
-        version_str (str): Initial version string
+        display_format: Format to display output in
+        file_type: File type to produce
+        shtool: Write shtool_ compatible files
+        name: Project name used in output
+        filename: File to operate on
+        version_str: Initial version string
 
     .. _shtool: http://www.gnu.org/software/shtool/shtool.html
     """
@@ -309,12 +313,12 @@ def set_version(display_format, file_type, shtool, name, filename,
               help='Display format for output.')
 @click.argument('filename', type=click.Path(exists=True, dir_okay=False),
                 nargs=-1, required=True)
-def display(display_format, filename):
+def display(display_format: str, filename: Tuple[str]):
     """Display version in existing file.
 
     Args:
-        display_format (str): Format to display output in
-        filename (tuple[str]): File to operate on
+        display_format: Format to display output in
+        filename: File to operate on
     """
     multi = len(filename) != 1
     for fname in filename:

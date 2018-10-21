@@ -23,6 +23,7 @@ import re
 
 from functools import total_ordering
 from http.cookiejar import MONTHS
+from typing import Any, Dict, Tuple
 
 
 #: Regular expression to match a valid package name
@@ -42,14 +43,15 @@ class Version:
 
     """Main version identifier representation."""
 
-    def __init__(self, components=(0, 1, 0), name='unknown',
-                 date=datetime.date.today()):
+    def __init__(self, components: Tuple[int] = (0, 1, 0),
+                 name: str = 'unknown',
+                 date: datetime.date = datetime.date.today()) -> None:
         """Initialise a new `Version` object.
 
         Args:
-            components (str): Version components
-            name (str): Package name
-            date (datetime.date): Date associated with version
+            components: Version components
+            name: Package name
+            date: Date associated with version
         """
         if isinstance(components, str):
             components = split_version(components)
@@ -68,36 +70,36 @@ class Version:
         self.name = name
         self.date = date
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Self-documenting string representation.
 
         Returns:
-            str: String representation of object
+            String representation of object
         """
         return '{}({!r}, {!r}, {!r})'.format(self.__class__.__qualname__,
                                              self.components, self.name,
                                              self.date)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Return default string representation.
 
         We return a dotted version string, as that is the most common format.
 
         Returns:
-            str: Default strings representation of object
+            Default strings representation of object
         """
         return '{} v{}'.format(self.name, self.as_dotted())
 
     @staticmethod
-    def __prepare_cmp_object(other):
+    def __prepare_cmp_object(other: Any) -> Tuple[int]:
         """Prepare object for comparison with Version.
 
         This presents a tuple for comparison with Version.components_full.
 
         Args
-            other (Version): Object to munge
+            other: Object to munge
         Returns
-            tuple: Full version component tuple for object
+            Full version component tuple for object
         Raises
             NotImplementedError: Incomparable other
         """
@@ -111,7 +113,7 @@ class Version:
             raise NotImplementedError(
                 'Unable to compare Version and {!r}'.format(type(other)))
 
-    def __eq__(self, other):
+    def __eq__(self, other: Any) -> bool:
         """Test `Version` objects for equality.
 
         Importantly, padded version components are checked so that 0.1 is
@@ -121,38 +123,38 @@ class Version:
             ``~Version.__prepare_cmp_object``
 
         Args:
-            other (Version): Object to munge
+            other: Object to munge
         Returns:
-            bool
+            True if ``self`` is equal to ``other``
         """
         return self.components_full == self.__prepare_cmp_object(other)
 
-    def __lt__(self, other):
+    def __lt__(self, other: Any) -> bool:
         """Strict less-than test against comparable object.
 
         See also:
             ``~Version.__prepare_cmp_object``
 
         Args:
-            other (Version): Object to munge
+            other: Object to munge
         Returns:
-            bool: True if ``self`` is strictly less-than ``other``
+            True if ``self`` is strictly less-than ``other``
         """
         return self.components_full < self.__prepare_cmp_object(other)
 
-    def __hash__(self):
+    def __hash__(self) -> str:
         """Create object-unique hash value.
 
         Returns:
-            str: Object-unique hash value
+            Object-unique hash value
         """
         return hash(repr(self))
 
-    def set(self, components):
+    def set(self, components: Tuple[int]) -> None:
         """Set version components.
 
         Args:
-            components (tuple[int]): Version components
+            components: Version components
         """
         if isinstance(components, str):
             components = split_version(components)
@@ -163,28 +165,20 @@ class Version:
         self._resolution = len(components)
 
     @property
-    def components_full(self):
-        """Generate full length component tuple for version.
-
-        Returns:
-            tuple[int]
-        """
+    def components_full(self) -> Tuple[int]:
+        """Generate full length component tuple for version."""
         return self.major, self.minor, self.micro, self.patch
 
     @property
-    def components(self):
-        """Generate component tuple to initial resolution.
-
-        Returns:
-            tuple[int]
-        """
+    def components(self) -> Tuple[int]:
+        """Generate component tuple to initial resolution."""
         return self.components_full[:self._resolution]
 
-    def bump(self, bump_type):
+    def bump(self, bump_type: str) -> None:
         """Bump a version string.
 
         Args:
-            bump_type (str): Component to bump
+            bump_type: Component to bump
         Raises:
             ValueError: Invalid ``bump_type`` argument
         """
@@ -208,86 +202,86 @@ class Version:
             raise ValueError('Unknown bump_type {!r}'.format(bump_type))
         self.date = datetime.date.today()
 
-    def bump_major(self):
+    def bump_major(self) -> None:
         """Bump major version component."""
         self.bump('major')
 
-    def bump_minor(self):
+    def bump_minor(self) -> None:
         """Bump minor version component."""
         self.bump('minor')
 
-    def bump_micro(self):
+    def bump_micro(self) -> None:
         """Bump micro version component."""
         self.bump('micro')
 
-    def bump_patch(self):
+    def bump_patch(self) -> None:
         """Bump patch version component."""
         self.bump('patch')
 
-    def as_dict(self):
+    def as_dict(self) -> Dict[str, int]:
         """Generate a dictionary of version components.
 
         Returns:
-            dict: Version as dictionary
+            Version as dictionary
         """
         return {k: v for k, v in zip(VERSION_COMPS, self.components)}
 
-    def as_dotted(self):
+    def as_dotted(self) -> str:
         """Generate a dotted version string.
 
         Returns:
-            str: Standard dotted version string
+            Standard dotted version string
         """
         return '.'.join(str(s) for s in self.components)
 
-    def as_hex(self):
+    def as_hex(self) -> str:
         """Generate a hex version string.
 
         Returns:
-            str: Version as hex string
+            Version as hex string
         """
         return '0x' + ''.join('%02x' % n for n in self.components)
 
-    def as_libtool(self):
+    def as_libtool(self) -> str:
         """Generate a libtool version string.
 
         Returns:
-            str: Version as libtool string
+            Version as libtool string
         """
         return '%i:%i' % (self.major * 10 + self.minor, 20 + self.micro)
 
-    def as_date(self):
+    def as_date(self) -> str:
         """Generate a ISO-8601 date string for release.
 
         Returns:
-            str: Version’s release date as ISO-8601 date stamp
+            Version’s release date as ISO-8601 date stamp
         """
         return self.date.isoformat()
 
-    def as_tuple(self):
+    def as_tuple(self) -> Tuple[int]:
         """Generate a tuple of version components.
 
         Returns:
-            int: Version components as tuple
+            Version components as tuple
         """
         return self.components
 
-    def as_web(self):
+    def as_web(self) -> str:
         """Generate a web UA-style string for release.
 
         Returns:
-            str: Version’s string in web UA-style
+            Version’s string in web UA-style
         """
         return '{}/{}'.format(self.name, self.as_dotted())
 
 
-def split_version(version):
+def split_version(version: str) -> Tuple[int]:
     """Split version string to components.
 
     Args:
-        version (str): Version string
+        version Version string
     Returns:
-        tuple[int]: Components of version string
+        Components of version string
     Raises:
         ValueError: Invalid version string
     """

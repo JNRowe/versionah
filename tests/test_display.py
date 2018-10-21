@@ -19,6 +19,7 @@
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import date
+from typing import Dict
 
 from pytest import mark
 
@@ -30,7 +31,7 @@ from versionah.models import Version
     ('1.0.0', {'major': 1, 'minor': 0, 'micro': 0}),
     ('2.1.3', {'major': 2, 'minor': 1, 'micro': 3}),
 ])
-def test_dict_display(v, expected):
+def test_dict_display(v: str, expected: Dict[str, int]):
     assert Version(v).as_dict() == expected
 
 
@@ -39,7 +40,7 @@ def test_dict_display(v, expected):
     ('1.0.0', '1.0.0'),
     ('2.1.3', '2.1.3'),
 ])
-def test_dotted_display(v, expected):
+def test_dotted_display(v: str, expected: str):
     assert Version(v).as_dotted() == expected
 
 
@@ -48,7 +49,7 @@ def test_dotted_display(v, expected):
     ('1.0.0', '0x010000'),
     ('2.1.3', '0x020103'),
 ])
-def test_hex_display(v, expected):
+def test_hex_display(v: str, expected: str):
     assert Version(v).as_hex() == expected
 
 
@@ -57,7 +58,7 @@ def test_hex_display(v, expected):
     ('1.0.0', '10:20'),
     ('2.1.3', '21:23'),
 ])
-def test_libtool_display(v, expected):
+def test_libtool_display(v: str, expected: str):
     assert Version(v).as_libtool() == expected
 
 
@@ -66,7 +67,7 @@ def test_libtool_display(v, expected):
     ('1.0.0', '2000-01-01'),
     ('2.1.3', '1970-01-01'),
 ])
-def test_date_display(v, date_string):
+def test_date_display(v: str, date_string: str):
     date_obj = date(*[int(x) for x in date_string.split('-')])
     assert Version(v, date=date_obj).as_date() == date_string
 
@@ -76,5 +77,5 @@ def test_date_display(v, date_string):
     ('test', '1.0.0', 'test/1.0.0'),
     ('cat', '2.1.3', 'cat/2.1.3'),
 ])
-def test_web_display(name, v, expected):
+def test_web_display(name: str, v: str, expected: str):
     assert Version(v, name=name).as_web() == expected

@@ -19,6 +19,8 @@
 # You should have received a copy of the GNU General Public License along with
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Any, List
+
 from click import BadParameter
 from pytest import mark, raises
 
@@ -31,7 +33,7 @@ from versionah.models import Version
     [1, ],
     [1, 2, 3, 4, 5],
 ])
-def test_version_init_invalid_count(components):
+def test_version_init_invalid_count(components: List[int]):
     with raises(ValueError, match='Invalid number of components'):
         Version(components)
 
@@ -40,7 +42,7 @@ def test_version_init_invalid_count(components):
     [1, 2, 'a'],
     [1, 2, -4],
 ])
-def test_version_init_invalid_component_type(components):
+def test_version_init_invalid_component_type(components: List[Any]):
     with raises(ValueError, match='Invalid component values'):
         Version(components)
 
@@ -74,7 +76,7 @@ def test_version_read_no_identifier():
     '3dom',  # initial digit
     'mypackage.',  # trailing punctuation
 ])
-def test_process_command_line_invalid_package_name(name):
+def test_process_command_line_invalid_package_name(name: str):
     p = NameParamType()
     with raises(BadParameter, match="'{}'".format(name)):
         p.convert(name, None, None)

@@ -29,6 +29,6 @@ from versionah.cmdline import CliVersion
     ('test_b', '1.0.0'),
     ('test_c', '2.1.3'),
 ])
-def test_read_version_file(file, expected):
+def test_read_version_file(file: str, expected: str):
     v = CliVersion.read('tests/data/{}'.format(file))
     assert v.as_dotted() == expected

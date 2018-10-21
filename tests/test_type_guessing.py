@@ -28,5 +28,5 @@ from versionah.cmdline import guess_type
     ('test.rb', 'rb'),
     ('test', 'text'),
 ])
-def test_guess_type_from_name(filename, expected):
+def test_guess_type_from_name(filename: str, expected: str):
     assert guess_type(filename) == expected

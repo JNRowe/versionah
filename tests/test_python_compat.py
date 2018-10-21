@@ -35,7 +35,7 @@ from versionah.cmdline import CliVersion
     'python3.2',
     'python3.3',
 ])
-def test_python_compatibility(interp, tmpdir):
+def test_python_compatibility(interp: str, tmpdir):
     if not which(interp):
         skip('Interpreter {!r} unavailable'.format(interp))
     file_loc = tmpdir.join('test_wr.py').strpath
@@ -56,7 +56,7 @@ def test_python_compatibility(interp, tmpdir):
     'python3.1',
     'python3.4',
 ])
-def test_python_compatibility_extra(interp):
+def test_python_compatibility_extra(interp: str, tmpdir):
     if not which(interp):
         skip('Interpreter {!r} unavailable'.format(interp))
     test_python_compatibility(interp)

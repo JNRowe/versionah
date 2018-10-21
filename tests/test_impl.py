@@ -19,6 +19,7 @@
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import date
+from typing import Optional, Tuple, Union
 
 from pytest import mark
 
@@ -33,7 +34,7 @@ TODAY = date.today()
     ((0, 1, 0), 'unknown'),
     ((0, 1, 0), 'unknown', date(2017, 11, 5)),
 ])
-def test_version_hash_equal(v):
+def test_version_hash_equal(v: Tuple[Tuple[int], str, Optional[date]]):
     assert hash(Version(*v)) == hash(Version(*v))
 
 
@@ -43,5 +44,6 @@ def test_version_hash_equal(v):
     (((0, 1, 0), 'unknown', date(2017, 11, 5)),
      ((0, 1, 0), 'unknown', date(1980, 11, 5))),
 ])
-def test_version_hash_unequal(v1, v2):
+def test_version_hash_unequal(v1: Tuple[Tuple[int], str, Optional[date]],
+                              v2: Tuple[Tuple[int], str, Optional[date]]):
     assert hash(Version(*v1)) != hash(Version(*v2))

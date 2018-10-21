@@ -28,6 +28,6 @@ from versionah.models import Version
     '1.2.3.4.5',
     '1.2.-1.0',
 ])
-def test_version_validation(v):
+def test_version_validation(v: str):
     with raises(ValueError, match='Invalid version string {!r}'.format(v)):
         Version(v)

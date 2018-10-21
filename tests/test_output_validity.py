@@ -34,7 +34,7 @@ from versionah.cmdline import CliVersion, guess_type
     ('1.0.1', 'test_wr.py', 'python -W all'),
     ('1.0.1', 'test_wr.rb', 'ruby -c'),
 ])
-def test_output_validatity(v, filename, linter, tmpdir):
+def test_output_validatity(v: str, filename: str, linter: str, tmpdir):
     if not which(linter):
         skip('Linter {!r} unavailable'.format(linter))
     file_type = guess_type(filename)

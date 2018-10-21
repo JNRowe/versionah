@@ -18,6 +18,8 @@
 # You should have received a copy of the GNU General Public License along with
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Tuple
+
 from pytest import mark
 
 from versionah.models import Version
@@ -47,7 +49,7 @@ def test_cmp_version_less_than():
     ((0, 1, 0), (0, 2, 0)),
     ((0, 2, 0), (0, 2, 0)),
 ])
-def test_cmp_version_less_than_equal(v1, v2):
+def test_cmp_version_less_than_equal(v1: Tuple[int], v2: Tuple[int]):
     assert Version(v1) <= Version(v2)
 
 
@@ -55,5 +57,5 @@ def test_cmp_version_less_than_equal(v1, v2):
     ((0, 2, 0), (0, 1, 0)),
     ((0, 2, 0), (0, 2, 0)),
 ])
-def test_cmp_version_greather_than_equal(v1, v2):
+def test_cmp_version_greather_than_equal(v1: Tuple[int], v2: Tuple[int]):
     assert Version(v1) >= Version(v2)

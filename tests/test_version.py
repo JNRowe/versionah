@@ -19,6 +19,7 @@
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import date
+from typing import Dict, List, Tuple, Union
 
 from pytest import mark
 
@@ -31,7 +32,7 @@ from versionah.models import Version
     [0, 3, 0],
     (0, 3, 0),
 ])
-def test_version_set(value):
+def test_version_set(value: Union[str, List[int]]):
     v = Version()
     v.set(value)
     assert v.components == (0, 3, 0)
@@ -43,7 +44,7 @@ def test_version_set(value):
     ('micro', (0, 1, 1, 0)),
     ('patch', (0, 1, 0, 1)),
 ])
-def test_version_bump(bump_type, expected):
+def test_version_bump(bump_type: str, expected: Tuple[int]):
     v = Version((0, 1, 0, 0))
     getattr(v, 'bump_{}'.format(bump_type))()
     assert v.components == expected
@@ -58,7 +59,8 @@ def test_version_bump(bump_type, expected):
     ('tuple', (0, 1, 0)),
     ('web', 'unknown/0.1.0'),
 ])
-def test_version_display(display_type, expected):
+def test_version_display(display_type: str,
+                         expected: Union[str, Dict[str, int], Tuple[int]]):
     v = CliVersion(date=date(2012, 5, 11))
     assert v.display(display_type) == expected
 
