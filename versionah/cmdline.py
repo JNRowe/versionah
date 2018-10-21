@@ -47,14 +47,14 @@ class ReMatchParamType(click.ParamType):
         # Set name to "<value>ParamType"
         self.name = self.__class__.__qualname__[:-9].lower()
 
-    def convert(self, value: str, param: Optional[click.Argument],
-                ctx: Optional[click.Context]) -> str:
+    def convert(self, __value: str, __param: Optional[click.Argument],
+                __ctx: Optional[click.Context]) -> str:
         """Check given name is valid.
 
         Args:
-            value: Value given to flag
-            param: Parameter being processed
-            ctx: Current command context
+            __value: Value given to flag
+            __param: Parameter being processed
+            __ctx: Current command context
         Returns:
             Valid value
         """
