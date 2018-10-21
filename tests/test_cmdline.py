@@ -43,8 +43,7 @@ def test_bump_with_type(tmpdir):
     test_file = tmpdir.join('test.txt')
     copyfile('tests/data/test_a', test_file.strpath)
     runner = CliRunner()
-    result = runner.invoke(bump,
-                           ['-t', 'json', test_file.strpath, 'minor'])
+    result = runner.invoke(bump, '-t json {} minor'.format(test_file))
     assert result.exit_code == 0
     assert result.output.strip() == '0.2.0'
     assert load(test_file)['dotted'] == '0.2.0'
@@ -57,8 +56,7 @@ def test_bump_with_type(tmpdir):
 ])
 def test_display(suffix, expected):
     runner = CliRunner()
-    result = runner.invoke(display,
-                           ['tests/data/test_{}'.format(suffix), ])
+    result = runner.invoke(display, 'tests/data/test_{}'.format(suffix))
     assert result.exit_code == 0
     assert result.output.strip() == expected
 
@@ -97,8 +95,7 @@ def test_set_with_name(tmpdir):
     test_file = tmpdir.join('test.json')
     runner = CliRunner()
     result = runner.invoke(set_version,
-                           ['--name', 'unique', test_file.strpath,
-                            '0.1.0'])
+                           '--name unique {} 0.1.0'.format(test_file.strpath))
     assert result.exit_code == 0
     assert result.output.strip() == '0.1.0'
     assert 'This is unique' in load(test_file)['magic']
@@ -108,7 +105,7 @@ def test_set_with_type(tmpdir):
     test_file = tmpdir.join('test.txt')
     runner = CliRunner()
     result = runner.invoke(set_version,
-                           ['-t', 'json', test_file.strpath, '4.3.2'])
+                           '-t json {} 4.3.2'.format(test_file))
     assert result.exit_code == 0
     assert result.output.strip() == '4.3.2'
     assert load(test_file)['dotted'] == '4.3.2'
@@ -149,7 +146,6 @@ def test_command_multi_files(command, arg, expected, tmpdir):
 
 def test_cli_wrapper():
     runner = CliRunner()
-    result = runner.invoke(cli,
-                           ['display', 'tests/data/test_c'])
+    result = runner.invoke(cli, 'display tests/data/test_c')
     assert result.exit_code == 0
     assert result.output.strip() == '2.1.3'
