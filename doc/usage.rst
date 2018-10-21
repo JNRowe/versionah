@@ -16,6 +16,7 @@ Let’s start with some basic examples::
 
     $ versionah set _version.rb 0.2.0  # Set the version in _version.rb to 0.2.0
     0.2.0
+
     $ versionah bump _version.h minor  # Bump the minor component in _version.h
     0.4.0
 
