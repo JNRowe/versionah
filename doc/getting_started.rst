@@ -68,8 +68,8 @@ An example of usage from within ninja_ could be:
     build version-micro: bump_versionah
         component = micro
 
-Obviously, being a ``ninja`` you would generate the ``rule`` and ``build``
-directives programmatically.
+Obviously, being a ninja you would choose to generate the ``rule`` and
+``build`` directives programmatically.
 
 ``Sphinx`` example
 ------------------

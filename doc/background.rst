@@ -1,10 +1,10 @@
 Background
 ==========
 
-I maintain a many projects, both my toy stuff on GitHub_ and more serious
-things at the office.  While skipping around in my editor to increase a version
-number I came to the blindingly obvious realisation that I shouldn’t be doing
-this manually.
+I maintain many projects, both my toy stuff on GitHub_ and more serious things
+at the office.  While skipping around in my editor to increase a version number
+I came to the blindingly obvious realisation that I shouldn’t be doing this
+manually.
 
 Bumping or querying version numbers should be a zero thought process.
 I shouldn’t need to remember the :abbr:`regex (Regular Expression)` needed to

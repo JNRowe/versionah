@@ -1,6 +1,8 @@
 Version templates
 =================
 
+.. highlight:: jinja
+
 Version files are created from templates using Armin Ronacher’s excellent
 Jinja_.  Before writing your own templates you should read the splendid `Jinja
 template designer`_ documentation.
@@ -91,9 +93,7 @@ object can be called with the :meth:`~datetime.datetime.strftime` method for
 custom timestamp output.  For example, ``{{ utcnow.strftime("%a, %e %b %Y
 %H:%M:%S %z") }}`` could be used to output an :rfc:`2822` date stamp [#]_.
 
-The ``text`` display’s template is simply:
-
-.. code-block:: jinja
+The ``text`` display’s template is simply::
 
     {{ magic }}
 
@@ -120,9 +120,7 @@ information.
 
 For example, the ``regexp`` filter is used in the C template to make valid
 identifiers from ``filename`` by replacing characters that are invalid in
-identifiers with underscores:
-
-.. code-block:: jinja
+identifiers with underscores::
 
     {% set escaped_name = filename|upper|regexp("[^A-Z]", "_") %}
 
