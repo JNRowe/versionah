@@ -127,9 +127,9 @@ intersphinx_mapping = {
     k: (v, os.getenv('SPHINX_{}_OBJECTS'.format(k.upper())))
     for k, v in {
         'click': 'http://click.pocoo.org/6/',
-        'jinja': 'http://jinja.pocoo.org/docs/',
-        'jnrbase': 'http://jnrbase.readthedocs.io/en/latest/',
-        'python': 'http://docs.python.org/3/',
+        'jinja2': 'http://jinja.pocoo.org/docs/',
+        'jnrbase': 'https://jnrbase.readthedocs.io/en/latest/',
+        'python': 'https://docs.python.org/3/',
     }.items()
 }
 # }}}
