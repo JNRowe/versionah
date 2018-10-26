@@ -38,17 +38,16 @@ def test_bump(component, expected, tmpdir):
     runner = CliRunner()
     result = runner.invoke(bump, [test_file, component])
     assert result.exit_code == 0
-    assert result.output.strip() == expected
+    assert result.stdout.strip() == expected
 
 
 def test_bump_with_type(tmpdir):
     test_file = tmpdir.join('test.txt')
     copyfile('tests/data/test_a', test_file.strpath)
     runner = CliRunner()
-    result = runner.invoke(bump,
-                           ['-t', 'json', test_file.strpath, 'minor'])
+    result = runner.invoke(bump, '-t json {} minor'.format(test_file))
     assert result.exit_code == 0
-    assert result.output.strip() == '0.2.0'
+    assert result.stdout.strip() == '0.2.0'
     assert load(test_file)['dotted'] == '0.2.0'
 
 
@@ -59,10 +58,9 @@ def test_bump_with_type(tmpdir):
 ])
 def test_display(suffix, expected):
     runner = CliRunner()
-    result = runner.invoke(display,
-                           ['tests/data/test_{}'.format(suffix), ])
+    result = runner.invoke(display, 'tests/data/test_{}'.format(suffix))
     assert result.exit_code == 0
-    assert result.output.strip() == expected
+    assert result.stdout.strip() == expected
 
 
 def test_display_multi_files():
@@ -71,7 +69,7 @@ def test_display_multi_files():
     result = runner.invoke(display, files)
     assert result.exit_code == 0
     for suffix, expected in zip('abc', ['0.1.0', '1.0.0', '2.1.3']):
-        assert 'test_{}: {}'.format(suffix, expected) in result.output
+        assert 'test_{}: {}'.format(suffix, expected) in result.stdout
 
 
 @mark.parametrize('version', [
@@ -84,7 +82,7 @@ def test_set(version, tmpdir):
     runner = CliRunner()
     result = runner.invoke(set_version, [test_file, version])
     assert result.exit_code == 0
-    assert result.output.strip() == version
+    assert result.stdout.strip() == version
 
 
 def test_set_invalid_version(tmpdir):
@@ -92,17 +90,16 @@ def test_set_invalid_version(tmpdir):
     runner = CliRunner()
     result = runner.invoke(set_version, [test_file, 'dog', ])
     assert result.exit_code == 2
-    assert 'Invalid value for "version_str"' in result.output
+    assert 'Invalid value for "VERSION_STR"' in result.stdout
 
 
 def test_set_with_name(tmpdir):
     test_file = tmpdir.join('test.json')
     runner = CliRunner()
     result = runner.invoke(set_version,
-                           ['--name', 'unique', test_file.strpath,
-                            '0.1.0'])
+                           '--name unique {} 0.1.0'.format(test_file.strpath))
     assert result.exit_code == 0
-    assert result.output.strip() == '0.1.0'
+    assert result.stdout.strip() == '0.1.0'
     assert 'This is unique' in load(test_file)['magic']
 
 
@@ -110,9 +107,9 @@ def test_set_with_type(tmpdir):
     test_file = tmpdir.join('test.txt')
     runner = CliRunner()
     result = runner.invoke(set_version,
-                           ['-t', 'json', test_file.strpath, '4.3.2'])
+                           '-t json {} 4.3.2'.format(test_file))
     assert result.exit_code == 0
-    assert result.output.strip() == '4.3.2'
+    assert result.stdout.strip() == '4.3.2'
     assert load(test_file)['dotted'] == '4.3.2'
 
 
@@ -129,8 +126,7 @@ def test_command_non_matching_files_and_types(command, arg, tmpdir):
     result = runner.invoke(command,
                            ['-t', 'py', ] + tmpfiles + [arg, ])
     assert result.exit_code == 2
-    assert '--type options and filename args must match' \
-        in result.output
+    assert '--type options and filename args must match' in result.stdout
 
 
 @mark.parametrize('command, arg, expected', [
@@ -146,12 +142,11 @@ def test_command_multi_files(command, arg, expected, tmpdir):
     result = runner.invoke(command, tmpfiles + [arg, ])
     assert result.exit_code == 0
     for f in tmpfiles:
-        assert '{}: {}'.format(f, expected) in result.output
+        assert '{}: {}'.format(f, expected) in result.stdout
 
 
 def test_cli_wrapper():
     runner = CliRunner()
-    result = runner.invoke(cli,
-                           ['display', 'tests/data/test_c'])
+    result = runner.invoke(cli, 'display tests/data/test_c')
     assert result.exit_code == 0
-    assert result.output.strip() == '2.1.3'
+    assert result.stdout.strip() == '2.1.3'
