@@ -1,6 +1,6 @@
 #
 """test_errors - Error tests"""
-# Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
+# Copyright © 2011-2018  James Rowe <jnrowe@gmail.com>
 #                        Marc Abramowitz <marc@marc-abramowitz.com>
 #
 # SPDX-License-Identifier: GPL-3.0+

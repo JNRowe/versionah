@@ -1,6 +1,6 @@
 #
 """test_python_compat - Python output compatibility tests"""
-# Copyright © 2012-2017  James Rowe <jnrowe@gmail.com>
+# Copyright © 2012-2018  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0+
 #

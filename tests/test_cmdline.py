@@ -1,6 +1,6 @@
 #
 """test_cli - CLI functionality tests"""
-# Copyright © 2012-2017  James Rowe <jnrowe@gmail.com>
+# Copyright © 2017-2018  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0+
 #

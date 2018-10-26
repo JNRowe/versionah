@@ -1,6 +1,6 @@
 #
 """conf - Sphinx configuration information."""
-# Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
+# Copyright © 2011-2018  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0+
 #
@@ -68,7 +68,7 @@ nitpicky = True
 
 # Project information {{{
 project = 'versionah'
-copyright = '2014-2017  James Rowe'
+copyright = '2014-2018  James Rowe'
 
 version = '{major}.{minor}'.format_map(versionah._version.dict)
 release = versionah._version.dotted

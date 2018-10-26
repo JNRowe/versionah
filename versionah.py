@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 """versionah - Simple version specification management."""
-# Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
+# Copyright © 2011-2018  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0+
 #

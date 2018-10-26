@@ -4,7 +4,7 @@
 versionah is a GPL v3 licensed module for maintaining version information files
 for use in project management.
 """
-# Copyright © 2011-2017  James Rowe <jnrowe@gmail.com>
+# Copyright © 2011-2018  James Rowe <jnrowe@gmail.com>
 #                        TakesxiSximada <takeshi.shimada@ticketstar.jp>
 #
 # SPDX-License-Identifier: GPL-3.0+
@@ -28,7 +28,7 @@ from . import _version
 
 __version__ = _version.dotted
 __date__ = _version.date
-__copyright__ = 'Copyright © 2011-2015  James Rowe <jnrowe@gmail.com>'
+__copyright__ = 'Copyright © 2011-2018  James Rowe <jnrowe@gmail.com>'
 
 from contextlib import suppress
 

@@ -1,6 +1,6 @@
 #
 """cmdline - Command line functionality for versionah."""
-# Copyright © 2014-2017  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0+
 #
