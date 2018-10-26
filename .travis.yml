@@ -1,10 +1,13 @@
+dist: xenial
 language: python
 python:
   - 3.5
   - 3.6
+  - 3.7
+sudo: required
 matrix:
   include:
-    - python: 3.6
+    - python: 3.7
       env: SPHINX_BUILD=true
     - python: 3.5
       env: SPHINX_DOCTEST=false
