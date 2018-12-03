@@ -3,8 +3,8 @@
 module("{{ name }}.version", package.seeall)
 
 dotted = "{{ dotted }}"
-libtool = "{{ libtool }}"
 hex = {{ hex }}
+libtool = "{{ libtool }}"
 date = "{{ date }}"
 table = {{ "{" }}major={{ major }}, minor={{ minor }}, micro={{ micro }}
 {%- if patch %}, patch={{ patch}}{% endif -%}{{ "}" }}
