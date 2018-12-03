@@ -44,35 +44,39 @@ __versionah_list_displaytypes() {
     fi
 }
 
-_arguments '--version[Show the version and exit]' \
-    '--help[Show this message and exit]' \
-    ':versionah command:(bump display set)' \
+_arguments '--version[Show the version and exit.]' \
+    '--help[Show this message and exit.]' \
+    ':versionah command:((
+        bump\:"Bump version in given file."
+        display\:"Display version in given file."
+        set\:"Set version in given file."
+    ))' \
     '*::subcmd:->subcmd' && return 0
 
-### DGEN_TAG: Generated from versionah/__init__.py {{{
+### DGEN_TAG: Generated from versionah/cmdline.py {{{
 case "$words[1]" in
 (bump)
-    _arguments '--help[Show this message and exit]' \
-        '--display=[Display format for output]:select type:__versionah_list_displaytypes' \
-        '--type=[Define the file type used for version file]:select type:__versionah_list_filetypes' \
+    _arguments '--help[Show this message and exit.]' \
+        '--display=[Display format for output.]:select type:__versionah_list_displaytypes' \
+        '--type=[Define the file type used for version file.]:select type:__versionah_list_filetypes' \
         '1:select file:_files' \
         '2:select type:(major minor micro patch)'
     ;;
 (set)
-    _arguments '--help[Show this message and exit]' \
-        '--display=[Display format for output]:select type:__versionah_list_displaytypes' \
-        '--type=[Define the file type used for version file]:select type:__versionah_list_filetypes' \
-        '--shtool[Write shtool compatible output]' \
-        '--name=[Package name for version(default from $PWD]' \
+    _arguments '--help[Show this message and exit.]' \
+        '--display=[Display format for output.]:select type:__versionah_list_displaytypes' \
+        '--type=[Define the file type used for version file.]:select type:__versionah_list_filetypes' \
+        '--shtool[Write shtool compatible output.]' \
+        '--name=[Package name for version(default from $PWD).]' \
         '1:select file:_files' \
         '2:set version: '
     ;;
 (display)
-    _arguments '--help[Show this message and exit]' \
-        '--display=[Display format for output]:select type:__versionah_list_displaytypes' \
+    _arguments '--help[Show this message and exit.]' \
+        '--display=[Display format for output.]:select type:__versionah_list_displaytypes' \
         '*:select file:_files'
     ;;
 (*)
     ;;
 esac
-### DGEN_TAG: Generated from versionah/__init__.py }}}
+### DGEN_TAG: Generated from versionah/cmdline.py }}}
