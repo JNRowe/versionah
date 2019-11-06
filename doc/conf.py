@@ -2,7 +2,7 @@
 """conf - Sphinx configuration information."""
 # Copyright © 2011-2018  James Rowe <jnrowe@gmail.com>
 #
-# SPDX-License-Identifier: GPL-3.0+
+# SPDX-License-Identifier: GPL-3.0-or-later
 #
 # This file is part of versionah.
 #

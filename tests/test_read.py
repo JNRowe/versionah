@@ -2,7 +2,7 @@
 """test_read - Reading tests"""
 # Copyright © 2012-2018  James Rowe <jnrowe@gmail.com>
 #
-# SPDX-License-Identifier: GPL-3.0+
+# SPDX-License-Identifier: GPL-3.0-or-later
 #
 # This file is part of versionah.
 #

@@ -7,7 +7,7 @@ for use in project management.
 # Copyright © 2011-2018  James Rowe <jnrowe@gmail.com>
 #                        TakesxiSximada <takeshi.shimada@ticketstar.jp>
 #
-# SPDX-License-Identifier: GPL-3.0+
+# SPDX-License-Identifier: GPL-3.0-or-later
 #
 # This file is part of versionah.
 #
