@@ -18,8 +18,7 @@
 # You should have received a copy of the GNU General Public License along with
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
-from configparser import ConfigParser
-from importlib.util import module_from_spec, spec_from_file_location
+from typing import List
 
 from setuptools import setup
 from setuptools.command.test import test
@@ -37,33 +36,9 @@ class PytestTest(test):
         exit(main(self.test_args))
 
 
-def import_file(package, fname):
-    """Import file directly.
-
-    This is a hack to import files from packages without importing
-    <package>/__init__.py, its purpose is to allow import without requiring
-    all the dependencies at this point.
-
-    Args:
-        package (str): Package to import from
-        fname (str): File to import
-    Returns:
-        types.ModuleType: Imported module
-    """
-    mod_name = fname.rstrip('.py')
-    spec = spec_from_file_location(mod_name, '{}/{}'.format(package, fname))
-    module = module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-def make_list(s):
-    return s.strip().splitlines()
-
-
-def parse_requires(file):
+def parse_requires(file: str) -> List[str]:
     deps = []
-    with open('extra/{}'.format(file)) as req_file:
+    with open(f'extra/{file}') as req_file:
         entries = [s.split('#')[0].strip() for s in req_file.readlines()]
     for dep in entries:
         if not dep or dep.startswith('#'):
@@ -75,38 +50,15 @@ def parse_requires(file):
     return deps
 
 
-conf = ConfigParser()
-conf.read('setup.cfg')
-metadata = dict(conf['metadata'])
-
+# Note: We can't use setuptool’s requirements support as it only a list value,
+# and doesn’t support pip’s inclusion mechanism
 install_requires = parse_requires('requirements.txt')
-
 tests_require = parse_requires('requirements-test.txt')
 
-metadata = dict(conf['metadata'])
-for k in ['classifiers', 'packages', 'py_modules']:
-    if k in metadata:
-        metadata[k] = make_list(metadata[k])
-
-for k in ['include_package_data', ]:
-    if k in metadata:
-        metadata[k] = conf.getboolean('metadata', k)
-
-for k in ['entry_points', 'package_data']:
-    if k in metadata:
-        metadata[k] = eval(metadata[k], {'__builtins__': {}})
-
-with open('README.rst') as readme:
-    metadata['long_description'] = readme.read()
-
-_version = import_file(metadata['name'], '_version.py')
 
 if __name__ == '__main__':
     setup(
-        version=_version.dotted,
         install_requires=install_requires,
         tests_require=tests_require,
         cmdclass={'test': PytestTest},
-        zip_safe=False,
-        **metadata,
     )
