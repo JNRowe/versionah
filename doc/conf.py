@@ -20,7 +20,6 @@
 
 import os
 import sys
-
 from contextlib import suppress
 from subprocess import PIPE, CalledProcessError, run
 
@@ -127,10 +126,10 @@ extlinks = {
 intersphinx_mapping = {
     k: (v, os.getenv('SPHINX_{}_OBJECTS'.format(k.upper())))
     for k, v in {
-        'click': 'http://click.pocoo.org/6/',
-        'jinja': 'http://jinja.pocoo.org/docs/',
-        'jnrbase': 'http://jnrbase.readthedocs.io/en/latest/',
-        'python': 'http://docs.python.org/3/',
+        'click': 'https://click.palletsprojects.com/en/7.x/',
+        'jinja2': 'http://jinja.pocoo.org/docs/2.10/',
+        'jnrbase': 'https://jnrbase.readthedocs.io/en/latest/',
+        'python': 'https://docs.python.org/3/',
     }.items()
 }
 # }}}

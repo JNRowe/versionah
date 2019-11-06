@@ -20,7 +20,6 @@
 
 import datetime
 import re
-
 from functools import total_ordering
 from http.cookiejar import MONTHS
 

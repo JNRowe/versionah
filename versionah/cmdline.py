@@ -19,14 +19,12 @@
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
 import datetime
-import errno
 import os
 import re
 
 import click
 import jinja2
-
-from jnrbase.colourise import pfail, psuccess
+from jnrbase.colourise import psuccess
 from jnrbase.iso_8601 import parse_datetime
 from jnrbase.template import FILTERS
 from jnrbase.xdg_basedir import get_data_dirs, user_data
