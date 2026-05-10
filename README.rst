@@ -1,7 +1,7 @@
 ``versionah`` - Simple version specification management
 =======================================================
 
-|status| |travis| |coveralls| |pypi| |pyvers| |readthedocs| |develop|
+|status| |coveralls| |pypi| |pyvers| |readthedocs| |develop|
 
 Introduction
 ------------
@@ -88,10 +88,6 @@ reproduce the problem, or even better a patch!
 .. _jnrbase: https://pypi.python.org/pypi/jnrbase/
 .. _mail: jnrowe@gmail.com
 .. _issue: https://github.com/JNRowe/versionah/issues/
-
-.. |travis| image:: https://secure.travis-ci.org/JNRowe/versionah.png?branch=master
-   :target: https://travis-ci.org/JNRowe/versionah
-   :alt: Test state on master
 
 .. |develop| image:: https://img.shields.io/github/commits-since/JNRowe/versionah/latest.png
    :target: https://github.com/JNRowe/versionah
