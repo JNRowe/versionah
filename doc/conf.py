@@ -47,12 +47,7 @@ extensions = (
             "viewcode",
         ]
     ]
-    + [
-        "sphinxcontrib.{}".format(ext)
-        for ext in [
-            "blockdiag",
-        ]
-    ]
+    + ["sphinxcontrib.{}".format(ext) for ext in []]
     + [
         "sphinx_click.ext",
     ]

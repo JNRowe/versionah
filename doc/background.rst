@@ -45,29 +45,9 @@ Versioning policy
 Beyond the simple rule above you’re free to do as you wish, but consider this a
 plea for a sane versioning policy.
 
-.. blockdiag::
 
-    diagram {
-        group A {
-            label = "Bug-fix releases";
-            "0.1.0" -> "0.1.1";
-            "0.1.1" -> "0.1.n" [style=dotted];
-        }
-        group B {
-            label = "Bug-fix releases";
-            "0.2.0" -> "0.2.n" [style=dotted];
-            "0.2.0" [label = "0.2.0\nNew features"]
-        }
-        group C {
-            label = "Bug-fix releases";
-            "1.0.0" [label = "1.0.0\nFirst stable", color = "green"];
-            "1.0.0" -> "1.0.n" [style=dotted];
-        }
-        "0.1.n" -> "0.2.0" [folded];
-        "0.2.n" -> "1.0.0" [folded];
-        "1.0.n" -> "2.0.0" [folded];
-        "2.0.0" [label = "2.0.0\nIncompatible"];
-    }
+.. image:: /.static/blockdiag-9f73de21e009109b5b53f49cb1ec348954791c3f.*
+    :alt: Figure of version number progression
 
 Major component
 '''''''''''''''
