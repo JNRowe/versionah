@@ -1,7 +1,7 @@
 ``versionah`` - Simple version specification management
 =======================================================
 
-|status| |coveralls| |pypi| |pyvers| |readthedocs| |develop|
+|status| |pypi| |pyvers| |readthedocs| |develop|
 
 Introduction
 ------------
@@ -98,10 +98,6 @@ reproduce the problem, or even better a patch!
 
 .. |status| image:: https://img.shields.io/pypi/status/versionah.png
    :alt: Development status
-
-.. |coveralls| image:: https://img.shields.io/coveralls/github/JNRowe/versionah/master.png
-   :target: https://coveralls.io/github/repos/JNRowe/versionah
-   :alt: Coverage state on master
 
 .. |pypi| image:: https://img.shields.io/pypi/v/jnrbase.png
    :target: https://pypi.python.org/pypi/jnrbase
