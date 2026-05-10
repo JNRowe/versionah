@@ -28,20 +28,28 @@ from versionah.models import Version
 TODAY = date.today()
 
 
-@mark.parametrize('v', [
-    ((0, 1, 0), 'unknown'),
-    ((0, 1, 0), 'unknown'),
-    ((0, 1, 0), 'unknown', date(2017, 11, 5)),
-])
+@mark.parametrize(
+    "v",
+    [
+        ((0, 1, 0), "unknown"),
+        ((0, 1, 0), "unknown"),
+        ((0, 1, 0), "unknown", date(2017, 11, 5)),
+    ],
+)
 def test_version_hash_equal(v):
     assert hash(Version(*v)) == hash(Version(*v))
 
 
-@mark.parametrize('v1, v2', [
-    (((0, 1, 0), 'unknown'), ((1, 0, 0), 'unknown')),
-    (((0, 1, 0), 'unknown'), ((0, 1, 0), 'different')),
-    (((0, 1, 0), 'unknown', date(2017, 11, 5)),
-     ((0, 1, 0), 'unknown', date(1980, 11, 5))),
-])
+@mark.parametrize(
+    "v1, v2",
+    [
+        (((0, 1, 0), "unknown"), ((1, 0, 0), "unknown")),
+        (((0, 1, 0), "unknown"), ((0, 1, 0), "different")),
+        (
+            ((0, 1, 0), "unknown", date(2017, 11, 5)),
+            ((0, 1, 0), "unknown", date(1980, 11, 5)),
+        ),
+    ],
+)
 def test_version_hash_unequal(v1, v2):
     assert hash(Version(*v1)) != hash(Version(*v2))

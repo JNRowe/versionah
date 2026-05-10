@@ -25,24 +25,24 @@ from http.cookiejar import MONTHS
 
 
 #: Regular expression to match a valid package name
-VALID_PACKAGE = r'[A-Za-z][A-Za-z0-9]+(?:[_\.-][A-Za-z0-9]+)*'
+VALID_PACKAGE = r"[A-Za-z][A-Za-z0-9]+(?:[_\.-][A-Za-z0-9]+)*"
 #: Regular expression to match a valid package version
-VALID_VERSION = r'\d+\.\d+(?:\.\d+){,2}'
+VALID_VERSION = r"\d+\.\d+(?:\.\d+){,2}"
 #: Regular expression to match a package date.  ISO-8601, and %d-%b-%Y
 #: formatting for shtool compatibility
-VALID_DATE = r'(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:%s)-\d{4})' % '|'.join(MONTHS)
+VALID_DATE = r"(?:\d{4}-\d{2}-\d{2}|\d{2}-(?:%s)-\d{4})" % "|".join(MONTHS)
 
 #: Supported version components
-VERSION_COMPS = ('major', 'minor', 'micro', 'patch')
+VERSION_COMPS = ("major", "minor", "micro", "patch")
 
 
 @total_ordering
 class Version:
-
     """Main version identifier representation."""
 
-    def __init__(self, components=(0, 1, 0), name='unknown',
-                 date=datetime.date.today()):
+    def __init__(
+        self, components=(0, 1, 0), name="unknown", date=datetime.date.today()
+    ):
         """Initialise a new `Version` object.
 
         Args:
@@ -54,10 +54,12 @@ class Version:
             components = split_version(components)
         if not 2 <= len(components) <= 4:
             raise ValueError(
-                'Invalid number of components in {!r}'.format(components))
+                "Invalid number of components in {!r}".format(components)
+            )
         if not all((isinstance(n, int) and n >= 0) for n in components):
             raise ValueError(
-                'Invalid component values in {!r}'.format(components))
+                "Invalid component values in {!r}".format(components)
+            )
 
         # Stub attributes set via Version.set method
         self.major = self.minor = self.micro = self.patch = 0
@@ -73,9 +75,9 @@ class Version:
         Returns:
             str: String representation of object
         """
-        return '{}({!r}, {!r}, {!r})'.format(self.__class__.__qualname__,
-                                             self.components, self.name,
-                                             self.date)
+        return "{}({!r}, {!r}, {!r})".format(
+            self.__class__.__qualname__, self.components, self.name, self.date
+        )
 
     def __str__(self):
         """Return default string representation.
@@ -85,7 +87,7 @@ class Version:
         Returns:
             str: Default strings representation of object
         """
-        return '{} v{}'.format(self.name, self.as_dotted())
+        return "{} v{}".format(self.name, self.as_dotted())
 
     @staticmethod
     def __prepare_cmp_object(other):
@@ -108,7 +110,8 @@ class Version:
             return (split_version(other) + (0, 0, 0))[:4]
         else:
             raise NotImplementedError(
-                'Unable to compare Version and {!r}'.format(type(other)))
+                "Unable to compare Version and {!r}".format(type(other))
+            )
 
     def __eq__(self, other):
         """Test `Version` objects for equality.
@@ -177,7 +180,7 @@ class Version:
         Returns:
             tuple[int]
         """
-        return self.components_full[:self._resolution]
+        return self.components_full[: self._resolution]
 
     def bump(self, bump_type):
         """Bump a version string.
@@ -187,41 +190,47 @@ class Version:
         Raises:
             ValueError: Invalid ``bump_type`` argument
         """
-        if bump_type == 'micro' and self._resolution < 3 \
-                or bump_type == 'patch' and self._resolution < 4:
-            raise ValueError('Invalid bump_type {!r} for version {!r}'.format(
-                bump_type, self.components)
+        if (
+            bump_type == "micro"
+            and self._resolution < 3
+            or bump_type == "patch"
+            and self._resolution < 4
+        ):
+            raise ValueError(
+                "Invalid bump_type {!r} for version {!r}".format(
+                    bump_type, self.components
+                )
             )
-        if bump_type == 'major':
+        if bump_type == "major":
             self.major += 1
             self.micro = self.minor = self.patch = 0
-        elif bump_type == 'minor':
+        elif bump_type == "minor":
             self.minor += 1
             self.micro = self.patch = 0
-        elif bump_type == 'micro':
+        elif bump_type == "micro":
             self.micro += 1
             self.patch = 0
-        elif bump_type == 'patch':
+        elif bump_type == "patch":
             self.patch += 1
         else:
-            raise ValueError('Unknown bump_type {!r}'.format(bump_type))
+            raise ValueError("Unknown bump_type {!r}".format(bump_type))
         self.date = datetime.date.today()
 
     def bump_major(self):
         """Bump major version component."""
-        self.bump('major')
+        self.bump("major")
 
     def bump_minor(self):
         """Bump minor version component."""
-        self.bump('minor')
+        self.bump("minor")
 
     def bump_micro(self):
         """Bump micro version component."""
-        self.bump('micro')
+        self.bump("micro")
 
     def bump_patch(self):
         """Bump patch version component."""
-        self.bump('patch')
+        self.bump("patch")
 
     def as_dict(self):
         """Generate a dictionary of version components.
@@ -237,7 +246,7 @@ class Version:
         Returns:
             str: Standard dotted version string
         """
-        return '.'.join(str(s) for s in self.components)
+        return ".".join(str(s) for s in self.components)
 
     def as_hex(self):
         """Generate a hex version string.
@@ -245,7 +254,7 @@ class Version:
         Returns:
             str: Version as hex string
         """
-        return '0x' + ''.join('%02x' % n for n in self.components)
+        return "0x" + "".join("%02x" % n for n in self.components)
 
     def as_libtool(self):
         """Generate a libtool version string.
@@ -253,7 +262,7 @@ class Version:
         Returns:
             str: Version as libtool string
         """
-        return '%i:%i' % (self.major * 10 + self.minor, 20 + self.micro)
+        return "%i:%i" % (self.major * 10 + self.minor, 20 + self.micro)
 
     def as_date(self):
         """Generate a ISO-8601 date string for release.
@@ -277,7 +286,7 @@ class Version:
         Returns:
             str: Version’s string in web UA-style
         """
-        return '{}/{}'.format(self.name, self.as_dotted())
+        return "{}/{}".format(self.name, self.as_dotted())
 
 
 def split_version(version):
@@ -291,6 +300,6 @@ def split_version(version):
         ValueError: Invalid version string
     """
     if not re.fullmatch(VALID_VERSION, version):
-        raise ValueError('Invalid version string {!r}'.format(version))
+        raise ValueError("Invalid version string {!r}".format(version))
 
-    return tuple(int(s) for s in version.split('.'))
+    return tuple(int(s) for s in version.split("."))

@@ -23,10 +23,13 @@ from pytest import mark
 from versionah.cmdline import guess_type
 
 
-@mark.parametrize('filename, expected', [
-    ('test.py', 'py'),
-    ('test.rb', 'rb'),
-    ('test', 'text'),
-])
+@mark.parametrize(
+    "filename, expected",
+    [
+        ("test.py", "py"),
+        ("test.rb", "rb"),
+        ("test", "text"),
+    ],
+)
 def test_guess_type_from_name(filename, expected):
     assert guess_type(filename) == expected

@@ -23,11 +23,14 @@ from pytest import mark, raises
 from versionah.models import Version
 
 
-@mark.parametrize('v', [
-    '1',
-    '1.2.3.4.5',
-    '1.2.-1.0',
-])
+@mark.parametrize(
+    "v",
+    [
+        "1",
+        "1.2.3.4.5",
+        "1.2.-1.0",
+    ],
+)
 def test_version_validation(v):
-    with raises(ValueError, match='Invalid version string {!r}'.format(v)):
+    with raises(ValueError, match="Invalid version string {!r}".format(v)):
         Version(v)

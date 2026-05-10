@@ -28,17 +28,35 @@ sys.path.insert(0, root_dir)
 
 import versionah  # NOQA: E402
 
-on_rtd = os.getenv('READTHEDOCS')
+on_rtd = os.getenv("READTHEDOCS")
 if not on_rtd:
     import sphinx_rtd_theme
 
 # General configuration {{{
-extensions = \
-    ['sphinx.ext.{}'.format(ext)
-     for ext in ['autodoc', 'coverage', 'doctest', 'extlinks', 'intersphinx',
-                 'napoleon', 'todo', 'viewcode']] \
-    + ['sphinxcontrib.{}'.format(ext) for ext in ['blockdiag', ]] \
-    + ['sphinx_click.ext', ]
+extensions = (
+    [
+        "sphinx.ext.{}".format(ext)
+        for ext in [
+            "autodoc",
+            "coverage",
+            "doctest",
+            "extlinks",
+            "intersphinx",
+            "napoleon",
+            "todo",
+            "viewcode",
+        ]
+    ]
+    + [
+        "sphinxcontrib.{}".format(ext)
+        for ext in [
+            "blockdiag",
+        ]
+    ]
+    + [
+        "sphinx_click.ext",
+    ]
+)
 
 if not on_rtd:
     # Only activate spelling if it is installed.  It is not required in the
@@ -49,31 +67,33 @@ if not on_rtd:
     except ImportError:
         pass
     else:
-        extensions.append('sphinxcontrib.spelling')
+        extensions.append("sphinxcontrib.spelling")
 
-master_doc = 'index'
+master_doc = "index"
 
 rst_epilog = """
 .. |PyPI| replace:: :abbr:`PyPI (Python Package Index)`
 .. |progref| replace:: :program:`versionah`
 """
 
-default_role = 'any'
+default_role = "any"
 
-needs_sphinx = '1.6'
+needs_sphinx = "1.6"
 
 nitpicky = True
 # }}}
 
 # Project information {{{
-project = 'versionah'
-author = 'James Rowe'
-copyright = '2014-2018  James Rowe'
+project = "versionah"
+author = "James Rowe"
+copyright = "2014-2018  James Rowe"
 
-version = '{major}.{minor}'.format_map(versionah._version.dict)
+version = "{major}.{minor}".format_map(versionah._version.dict)
 release = versionah._version.dotted
 
-modindex_common_prefix = ['versionah.', ]
+modindex_common_prefix = [
+    "versionah.",
+]
 
 trim_footnote_reference_space = True
 # }}}
@@ -82,19 +102,22 @@ trim_footnote_reference_space = True
 # readthedocs.org handles this setup for their builds, but it is nice to see
 # approximately correct builds on the local system too
 if not on_rtd:
-    html_theme = 'sphinx_rtd_theme'
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path(), ]
+    html_theme = "sphinx_rtd_theme"
+    html_theme_path = [
+        sphinx_rtd_theme.get_html_theme_path(),
+    ]
 
 with suppress(CalledProcessError):
-    proc = run(['git', 'log', "--pretty=format:'%ad [%h]'", '--date=short',
-                '-n1'],
-               stdout=PIPE)
+    proc = run(
+        ["git", "log", "--pretty=format:'%ad [%h]'", "--date=short", "-n1"],
+        stdout=PIPE,
+    )
     html_last_updated_fmt = proc.stdout.decode()
 
-html_baseurl = 'https://hubugs.readthedocs.io/'
+html_baseurl = "https://hubugs.readthedocs.io/"
 
 man_pages = [
-    ('versionah.1', 'versionah', 'versionah Documentation', ['James Rowe'], 1)
+    ("versionah.1", "versionah", "versionah Documentation", ["James Rowe"], 1)
 ]
 
 html_copy_source = False
@@ -103,9 +126,9 @@ html_experimental_html5_writer = True
 # }}}
 
 # autodoc extension settings {{{
-autoclass_content = 'both'
+autoclass_content = "both"
 autodoc_default_options = {
-    'members': None,
+    "members": None,
 }
 # }}}
 
@@ -114,22 +137,22 @@ coverage_write_headline = False
 # }}}
 
 # extlinks extension settings {{{
-github_base = 'https://github.com/JNRowe/{}/'.format(project)
+github_base = "https://github.com/JNRowe/{}/".format(project)
 extlinks = {
-    'issue': ('{}issues/%s'.format(github_base), 'issue #'),
-    'pr': ('{}pull/%s'.format(github_base), 'pull request #'),
-    'pypi': ('https://pypi.python.org/pypi/%s', ''),
+    "issue": ("{}issues/%s".format(github_base), "issue #"),
+    "pr": ("{}pull/%s".format(github_base), "pull request #"),
+    "pypi": ("https://pypi.python.org/pypi/%s", ""),
 }
 # }}}
 
 # intersphinx extension settings {{{
 intersphinx_mapping = {
-    k: (v, os.getenv('SPHINX_{}_OBJECTS'.format(k.upper())))
+    k: (v, os.getenv("SPHINX_{}_OBJECTS".format(k.upper())))
     for k, v in {
-        'click': 'https://click.palletsprojects.com/en/7.x/',
-        'jinja2': 'http://jinja.pocoo.org/docs/2.10/',
-        'jnrbase': 'https://jnrbase.readthedocs.io/en/latest/',
-        'python': 'https://docs.python.org/3/',
+        "click": "https://click.palletsprojects.com/en/7.x/",
+        "jinja2": "http://jinja.pocoo.org/docs/2.10/",
+        "jnrbase": "https://jnrbase.readthedocs.io/en/latest/",
+        "python": "https://docs.python.org/3/",
     }.items()
 }
 # }}}
@@ -139,8 +162,8 @@ napoleon_numpy_docstring = False
 # }}}
 
 # spelling extension settings {{{
-spelling_lang = 'en_GB'
-spelling_word_list_filename = 'wordlist.txt'
+spelling_lang = "en_GB"
+spelling_word_list_filename = "wordlist.txt"
 # }}}
 
 # todo extension settings {{{

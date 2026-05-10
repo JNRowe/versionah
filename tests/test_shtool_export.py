@@ -24,13 +24,16 @@ from versionah.cmdline import CliVersion
 
 
 @mark.requires_write
-@mark.parametrize('v, file', [
-    ('0.1.0', 'test_wr_a'),
-    ('1.0.0', 'test_wr_b'),
-    ('2.1.3', 'test_wr_c'),
-])
+@mark.parametrize(
+    "v, file",
+    [
+        ("0.1.0", "test_wr_a"),
+        ("1.0.0", "test_wr_b"),
+        ("2.1.3", "test_wr_c"),
+    ],
+)
 def test_read_shtool_files(v, file, tmpdir):
     file_loc = tmpdir.join(file).strpath
-    CliVersion(v).write(file_loc, 'text', shtool=True)
+    CliVersion(v).write(file_loc, "text", shtool=True)
     read = CliVersion.read(file_loc)
     assert read.as_dotted() == v

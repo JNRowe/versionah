@@ -27,23 +27,26 @@ from setuptools.command.test import test
 class PytestTest(test):
     def finalize_options(self):
         test.finalize_options(self)
-        self.test_args = ['tests/', ]
+        self.test_args = [
+            "tests/",
+        ]
         self.test_suite = True
 
     def run_tests(self):
         from sys import exit
         from pytest import main
+
         exit(main(self.test_args))
 
 
 def parse_requires(file: str) -> List[str]:
     deps = []
-    with open(f'extra/{file}') as req_file:
-        entries = [s.split('#')[0].strip() for s in req_file.readlines()]
+    with open(f"extra/{file}") as req_file:
+        entries = [s.split("#")[0].strip() for s in req_file.readlines()]
     for dep in entries:
-        if not dep or dep.startswith('#'):
+        if not dep or dep.startswith("#"):
             continue
-        elif dep.startswith('-r '):
+        elif dep.startswith("-r "):
             deps.extend(parse_requires(dep.split()[1]))
             continue
         deps.append(dep)
@@ -52,13 +55,13 @@ def parse_requires(file: str) -> List[str]:
 
 # Note: We can't use setuptool’s requirements support as it only a list value,
 # and doesn’t support pip’s inclusion mechanism
-install_requires = parse_requires('requirements.txt')
-tests_require = parse_requires('requirements-test.txt')
+install_requires = parse_requires("requirements.txt")
+tests_require = parse_requires("requirements-test.txt")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     setup(
         install_requires=install_requires,
         tests_require=tests_require,
-        cmdclass={'test': PytestTest},
+        cmdclass={"test": PytestTest},
     )

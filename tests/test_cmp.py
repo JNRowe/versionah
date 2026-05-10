@@ -36,24 +36,30 @@ def test_cmp_version_to_list():
 
 
 def test_cmp_version_to_str():
-    assert Version() == '0.1.0'
+    assert Version() == "0.1.0"
 
 
 def test_cmp_version_less_than():
     assert Version((0, 1, 0)) < Version((0, 2, 0))
 
 
-@mark.parametrize('v1, v2', [
-    ((0, 1, 0), (0, 2, 0)),
-    ((0, 2, 0), (0, 2, 0)),
-])
+@mark.parametrize(
+    "v1, v2",
+    [
+        ((0, 1, 0), (0, 2, 0)),
+        ((0, 2, 0), (0, 2, 0)),
+    ],
+)
 def test_cmp_version_less_than_equal(v1, v2):
     assert Version(v1) <= Version(v2)
 
 
-@mark.parametrize('v1, v2', [
-    ((0, 2, 0), (0, 1, 0)),
-    ((0, 2, 0), (0, 2, 0)),
-])
+@mark.parametrize(
+    "v1, v2",
+    [
+        ((0, 2, 0), (0, 1, 0)),
+        ((0, 2, 0), (0, 2, 0)),
+    ],
+)
 def test_cmp_version_greather_than_equal(v1, v2):
     assert Version(v1) >= Version(v2)

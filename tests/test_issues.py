@@ -23,5 +23,6 @@ from versionah.cmdline import NameParamType
 
 def test_8_python_namespace_packages():
     p = NameParamType()
-    assert p.convert('mypackage.subpackage', None, None) \
-        == 'mypackage.subpackage'
+    assert (
+        p.convert("mypackage.subpackage", None, None) == "mypackage.subpackage"
+    )

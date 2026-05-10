@@ -24,13 +24,16 @@ from versionah.cmdline import CliVersion
 
 
 @mark.requires_read
-@mark.parametrize('file, expected', [
-    ('shtool/test.c', '1.2.3'),
-    ('shtool/test.m4', '1.2.3'),
-    ('shtool/test.perl', '1.2.3'),
-    ('shtool/test.python', '1.2.3'),
-    ('shtool/test.txt', '1.2.3'),
-])
+@mark.parametrize(
+    "file, expected",
+    [
+        ("shtool/test.c", "1.2.3"),
+        ("shtool/test.m4", "1.2.3"),
+        ("shtool/test.perl", "1.2.3"),
+        ("shtool/test.python", "1.2.3"),
+        ("shtool/test.txt", "1.2.3"),
+    ],
+)
 def test_read_shtool_files(file, expected):
-    v = CliVersion.read('tests/data/{}'.format(file))
+    v = CliVersion.read("tests/data/{}".format(file))
     assert v.as_dotted() == expected

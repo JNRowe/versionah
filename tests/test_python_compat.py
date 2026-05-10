@@ -29,34 +29,39 @@ from versionah.cmdline import CliVersion
 
 @mark.requires_exec
 @mark.requires_write
-@mark.parametrize('interp', [
-    'python2.6',
-    'python2.7',
-    'python3.2',
-    'python3.3',
-])
+@mark.parametrize(
+    "interp",
+    [
+        "python2.6",
+        "python2.7",
+        "python3.2",
+        "python3.3",
+    ],
+)
 def test_python_compatibility(interp, tmpdir):
     if not which(interp):
-        skip('Interpreter {!r} unavailable'.format(interp))
-    file_loc = tmpdir.join('test_wr.py').strpath
-    CliVersion('1.0.1').write(file_loc, 'py')
-    retval = call([interp, '-W', 'all', file_loc], stdout=PIPE,
-                  stderr=PIPE)
+        skip("Interpreter {!r} unavailable".format(interp))
+    file_loc = tmpdir.join("test_wr.py").strpath
+    CliVersion("1.0.1").write(file_loc, "py")
+    retval = call([interp, "-W", "all", file_loc], stdout=PIPE, stderr=PIPE)
     assert retval == 0
 
 
 # Test interps not available on travis-ci.org, but available on all our test
 # machines
-@mark.skipif(getenv('TRAVIS_PYTHON_VERSION'), reason='Unavailable on travis')
+@mark.skipif(getenv("TRAVIS_PYTHON_VERSION"), reason="Unavailable on travis")
 @mark.requires_exec
 @mark.requires_write
-@mark.parametrize('interp', [
-    'python2.4',
-    'python2.5',
-    'python3.1',
-    'python3.4',
-])
+@mark.parametrize(
+    "interp",
+    [
+        "python2.4",
+        "python2.5",
+        "python3.1",
+        "python3.4",
+    ],
+)
 def test_python_compatibility_extra(interp):
     if not which(interp):
-        skip('Interpreter {!r} unavailable'.format(interp))
+        skip("Interpreter {!r} unavailable".format(interp))
     test_python_compatibility(interp)

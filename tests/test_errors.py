@@ -22,58 +22,74 @@
 from click import BadParameter
 from pytest import mark, raises
 
-from versionah.cmdline import (CliVersion, NameParamType, ReMatchParamType,
-                               VersionParamType)
+from versionah.cmdline import (
+    CliVersion,
+    NameParamType,
+    ReMatchParamType,
+    VersionParamType,
+)
 from versionah.models import Version
 
 
-@mark.parametrize('components', [
-    [1, ],
-    [1, 2, 3, 4, 5],
-])
+@mark.parametrize(
+    "components",
+    [
+        [
+            1,
+        ],
+        [1, 2, 3, 4, 5],
+    ],
+)
 def test_version_init_invalid_count(components):
-    with raises(ValueError, match='Invalid number of components'):
+    with raises(ValueError, match="Invalid number of components"):
         Version(components)
 
 
-@mark.parametrize('components', [
-    [1, 2, 'a'],
-    [1, 2, -4],
-])
+@mark.parametrize(
+    "components",
+    [
+        [1, 2, "a"],
+        [1, 2, -4],
+    ],
+)
 def test_version_init_invalid_component_type(components):
-    with raises(ValueError, match='Invalid component values'):
+    with raises(ValueError, match="Invalid component values"):
         Version(components)
 
 
 def test_version___eq___unknown_type():
-    with raises(NotImplementedError,
-                match="Unable to compare Version and <class 'bool'>"):
+    with raises(
+        NotImplementedError,
+        match="Unable to compare Version and <class 'bool'>",
+    ):
         Version() == True  # NOQA: E712
 
 
 def test_version_bump_invalid_type():
     v = Version()
     with raises(ValueError, match="Invalid bump_type 'patch'"):
-        v.bump('patch')
+        v.bump("patch")
 
 
 def test_version_bump_invalid_type_name():
     v = Version()
     with raises(ValueError, match="Unknown bump_type 'pico'"):
-        v.bump('pico')
+        v.bump("pico")
 
 
 def test_version_read_no_identifier():
-    with raises(ValueError,
-                match="No valid version identifier in 'setup.py'"):
-        CliVersion.read('setup.py')
+    with raises(ValueError, match="No valid version identifier in 'setup.py'"):
+        CliVersion.read("setup.py")
 
 
-@mark.parametrize('name', [
-    '__',
-    '3dom',  # initial digit
-    'mypackage.',  # trailing punctuation
-])
+@mark.parametrize(
+    "name",
+    [
+        "__",
+        "3dom",  # initial digit
+        "mypackage.",  # trailing punctuation
+    ],
+)
 def test_process_command_line_invalid_package_name(name):
     p = NameParamType()
     with raises(BadParameter, match="'{}'".format(name)):
@@ -83,10 +99,10 @@ def test_process_command_line_invalid_package_name(name):
 def test_ReMatchParamType_no_setup():
     p = ReMatchParamType()
     with raises(NotImplementedError, match="No matcher"):
-        p.convert('', None, None)
+        p.convert("", None, None)
 
 
 def test_process_command_line_invalid_package_version():
     p = VersionParamType()
     with raises(BadParameter, match="'__'"):
-        p.convert('__', None, None)
+        p.convert("__", None, None)

@@ -28,17 +28,27 @@ from versionah.cmdline import CliVersion, guess_type
 
 @mark.requires_exec
 @mark.requires_write
-@mark.parametrize('v, filename, linter', [
-    ('1.0.1', 'test_wr.c', 'splint'),
-    ('1.0.1', 'test_wr.m4', 'm4 -P -E -E'),
-    ('1.0.1', 'test_wr.py', 'python -W all'),
-    ('1.0.1', 'test_wr.rb', 'ruby -c'),
-])
+@mark.parametrize(
+    "v, filename, linter",
+    [
+        ("1.0.1", "test_wr.c", "splint"),
+        ("1.0.1", "test_wr.m4", "m4 -P -E -E"),
+        ("1.0.1", "test_wr.py", "python -W all"),
+        ("1.0.1", "test_wr.rb", "ruby -c"),
+    ],
+)
 def test_output_validatity(v, filename, linter, tmpdir):
     if not which(linter):
-        skip('Linter {!r} unavailable'.format(linter))
+        skip("Linter {!r} unavailable".format(linter))
     file_type = guess_type(filename)
     file_loc = tmpdir.join(filename).strpath
     CliVersion(v).write(file_loc, file_type)
-    retval = call(linter.split() + [file_loc, ], stdout=PIPE, stderr=PIPE)
+    retval = call(
+        linter.split()
+        + [
+            file_loc,
+        ],
+        stdout=PIPE,
+        stderr=PIPE,
+    )
     assert retval == 0
