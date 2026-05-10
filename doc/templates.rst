@@ -79,8 +79,8 @@ Each template is provided with the following variables for use in the output:
 | ``now``        | File creation timestamp in the :meth:`local timezone      |
 |                | <datetime.datetime.now>`                                  |
 +----------------+-----------------------------------------------------------+
-| ``utcnow``     | File creation timestamp in :meth:`UTC                     |
-|                | <datetime.datetime.utcnow>`                               |
+| ``utcnow``     | File creation timestamp in :const:`UTC                    |
+|                | <datetime.timezone.utc>`                                  |
 +----------------+-----------------------------------------------------------+
 | ``filename``   | Output file’s name                                        |
 +----------------+-----------------------------------------------------------+

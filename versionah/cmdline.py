@@ -160,7 +160,7 @@ class CliVersion(Version):
         data = vars(self)
         data.update({
             "now": datetime.datetime.now(),
-            "utcnow": datetime.datetime.utcnow(),
+            "utcnow": datetime.datetime.now(datetime.timezone.utc),
             "filename": filename,
             "dateobj": self.date,
             "resolution": self._resolution,
