@@ -105,7 +105,7 @@ def test_set_invalid_version(tmpdir):
         ],
     )
     assert result.exit_code == 2
-    assert 'Invalid value for "VERSION_STR"' in result.stdout
+    assert "Invalid value for 'VERSION_STR'" in result.stderr
 
 
 def test_set_with_name(tmpdir):
@@ -153,7 +153,7 @@ def test_command_non_matching_files_and_types(command, arg, tmpdir):
         ],
     )
     assert result.exit_code == 2
-    assert "--type options and filename args must match" in result.stdout
+    assert "--type options and filename args must match" in result.stderr
 
 
 @mark.parametrize(
