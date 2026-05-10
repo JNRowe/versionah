@@ -139,9 +139,9 @@ coverage_write_headline = False
 # extlinks extension settings {{{
 github_base = "https://github.com/JNRowe/{}/".format(project)
 extlinks = {
-    "issue": ("{}issues/%s".format(github_base), "issue #"),
-    "pr": ("{}pull/%s".format(github_base), "pull request #"),
-    "pypi": ("https://pypi.python.org/pypi/%s", ""),
+    "issue": ("{}issues/%s".format(github_base), "issue #%s"),
+    "pr": ("{}pull/%s".format(github_base), "pull request #%s"),
+    "pypi": ("https://pypi.python.org/pypi/%s", "%s"),
 }
 # }}}
 
