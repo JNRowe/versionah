@@ -1,5 +1,4 @@
 -r requirements.txt
 sphinx>=9.1.0
-sphinxcontrib-blockdiag>=3.0.0
 sphinx-click>=6.2.0
 sphinx_rtd_theme>=3.1.0
