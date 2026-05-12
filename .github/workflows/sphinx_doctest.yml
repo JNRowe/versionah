@@ -1,0 +1,33 @@
+name: Test with doctest blocks with Sphinx
+
+on:
+  push:
+    paths:
+      - .github/workflows/sphinx_doctest.yml
+      - doc/**
+      - versionah/*.py
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          activate-environment: true
+          enable-cache: true
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package and dependencies
+        run: |
+          uv pip install -r extra/requirements-doc.txt
+
+      - name: Run tests
+        run: |
+          sphinx-build --builder doctest --doctree-dir build/doctrees doc build/doctest

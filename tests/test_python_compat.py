@@ -18,7 +18,6 @@
 # You should have received a copy of the GNU General Public License along with
 # versionah.  If not, see <http://www.gnu.org/licenses/>.
 
-from os import getenv
 from shutil import which
 from subprocess import PIPE, call
 
@@ -47,23 +46,3 @@ def test_python_compatibility(interp, tmpdir):
     CliVersion("1.0.1").write(file_loc, "py")
     retval = call([interp, "-W", "all", file_loc], stdout=PIPE, stderr=PIPE)
     assert retval == 0
-
-
-# Test interps not available on travis-ci.org, but available on all our test
-# machines
-@mark.skipif(getenv("TRAVIS_PYTHON_VERSION"), reason="Unavailable on travis")
-@mark.requires_exec
-@mark.requires_write
-@mark.parametrize(
-    "interp",
-    [
-        "python2.4",
-        "python2.5",
-        "python3.1",
-        "python3.4",
-    ],
-)
-def test_python_compatibility_extra(interp):
-    if not which(interp):
-        skip("Interpreter {!r} unavailable".format(interp))
-    test_python_compatibility(interp)
