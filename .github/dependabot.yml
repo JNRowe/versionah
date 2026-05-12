@@ -5,3 +5,14 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
+- package-ecosystem: "github-actions"
+  cooldown:
+    default-days: 7
+  directory: "/"
+  schedule:
+    interval: "weekly"
+  target-branch: "main"
+  labels:
+    - "github-actions"
+  commit-message:
+    prefix: "ci"
