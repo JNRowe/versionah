@@ -32,10 +32,12 @@ from versionah.cmdline import CliVersion
 @mark.parametrize(
     "interp",
     [
-        "python2.6",
         "python2.7",
-        "python3.2",
-        "python3.3",
+        "python3.9",
+        "python3.10",
+        "python3.11",
+        "python3.12",
+        "python3.13",
     ],
 )
 def test_python_compatibility(interp, tmpdir):

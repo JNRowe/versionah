@@ -22,10 +22,10 @@ import datetime
 import os
 import re
 
+import ciso8601
 import click
 import jinja2
 from jnrbase.colourise import psuccess
-from jnrbase.iso_8601 import parse_datetime
 from jnrbase.template import FILTERS
 from jnrbase.xdg_basedir import get_data_dirs, user_data
 
@@ -142,7 +142,7 @@ class CliVersion(Version):
         name, version_str, date_str = match.groups()
         components = split_version(version_str)
         try:
-            parsed = parse_datetime(date_str)
+            parsed = ciso8601.parse_datetime(date_str)
         except ValueError:
             parsed = datetime.datetime.strptime(date_str, "%d-%b-%Y")
         return CliVersion(components, name, parsed.date())
@@ -160,7 +160,7 @@ class CliVersion(Version):
         data = vars(self)
         data.update({
             "now": datetime.datetime.now(),
-            "utcnow": datetime.datetime.utcnow(),
+            "utcnow": datetime.datetime.now(datetime.timezone.utc),
             "filename": filename,
             "dateobj": self.date,
             "resolution": self._resolution,
